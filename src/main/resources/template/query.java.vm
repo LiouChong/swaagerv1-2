@@ -1,0 +1,17 @@
+package ${package.Entity}.vo.query;
+
+import com.bysj.common.ObjectQuery;
+import java.util.Date;
+import io.swagger.annotations.ApiModelProperty;
+/**
+ * <p>
+ * ${entity} 查询条件
+ * </p>
+ *
+ * @author wh
+ * @since 2018-12-27
+ */
+
+public class ${entity}Query extends ObjectQuery {
+
+}

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${package.Mapper}.${table.mapperName}">
+
+    #if(${enableCache})
+        <!-- 开启二级缓存 -->
+        <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+#end
+#if(${baseResultMap})
+<!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="${package.Entity}.${entity}">
+#foreach($field in ${table.fields})
+#if(${field.keyFlag})##生成主键排在第一位
+        <id column="${field.name}" property="${field.propertyName}"/>
+#end
+#end
+#foreach($field in ${table.commonFields})##生成公共字段
+        <result column="${field.name}" property="${field.propertyName}"/>
+#end
+#foreach($field in ${table.fields})
+#if(!${field.keyFlag})##生成普通字段
+        <result column="${field.name}" property="${field.propertyName}"/>
+#end
+#end
+    </resultMap>
+#end
+#if(${baseColumnList})
+<!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+#foreach($field in ${table.commonFields})
+#if(${field.name} == 'id') #else
+#if(${field.name} == ${field.propertyName})${field.name}#else${field.name} AS ${field.propertyName}#end,
+#end
+#end
+        ${table.fieldNames}
+    </sql>
+#end
+
+    <sql id="Table_Name">
+        ${table.name}
+    </sql>
+
+
+    <sql id="IF_Base_Column_List">
+#foreach($field in ${table.fields})
+#if(${field.name} == 'id')
+#else
+        <if test=" ${field.propertyName} != null">
+            ${field.name},
+        </if>
+#end
+#end
+    </sql>
+
+    <sql id="IF_Value_Column_List">
+#foreach($field in ${table.fields})
+#if(${field.name} == 'id')
+#else
+        <if test=" ${field.propertyName} != null">
+            #{${field.propertyName} },
+        </if>
+#end
+#end
+    </sql>
+
+    <sql id="Set_Column_List">
+#foreach($field in ${table.fields})
+#if(${field.name} == 'id')
+#else
+        <if test=" ${field.propertyName} != null">
+            ${field.name} = #{${field.propertyName} },
+        </if>
+#end
+#end
+    </sql>
+
+    <sql id="Where_Column_List">
+#foreach($field in ${table.fields})
+#if(${field.name} == 'id')
+#else
+        <if test=" ${field.propertyName} != null">
+            and ${field.name} = #{${field.propertyName} }
+        </if>
+#end
+#end
+    </sql>
+
+    <insert id="insert" parameterType="${package.Entity}.${entity}">
+        insert into
+        <include refid="Table_Name"></include>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="IF_Base_Column_List"></include>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="IF_Value_Column_List"></include>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="${package.Entity}.${entity}">
+        update
+        <include refid="Table_Name"></include>
+        <trim prefix="SET" suffixOverrides=",">
+            <include refid="Set_Column_List"></include>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <!-- 根据主键查询 -->
+    <select id="getById" resultType="${package.Entity}.${entity}" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+        where id = #{id}
+    </select>
+
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from
+        <include refid="Table_Name"></include>
+        where id = #{id}
+    </delete>
+
+    <select id="getByWhere" resultType="${package.Entity}.${entity}" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+        <where>
+            <trim prefixOverrides="and">
+                <include refid="Where_Column_List"></include>
+            </trim>
+        </where>
+    </select>
+
+
+    <select id="getAll" resultType="${package.Entity}.${entity}">
+        select *
+        from
+        <include refid="Table_Name"></include>
+    </select>
+
+
+    <select id="findCount" resultType="int" parameterType="com.antiy.common.base.ObjectQuery">
+        select count(1)
+        from
+        <include refid="Table_Name"></include>
+        <where>
+            <trim prefixOverrides="and">
+                <include refid="Where_Column_List"></include>
+            </trim>
+        </where>
+    </select>
+
+    <select id="findQuery" resultType="${package.Entity}.${entity}" parameterType="com.antiy.common.base.ObjectQuery">
+        select * from
+        <include refid="Table_Name"></include>
+        <where>
+            <trim prefixOverrides="and">
+                <include refid="Where_Column_List"></include>
+            </trim>
+        </where>
+        <if test="pageSize !=-1">
+            LIMIT #{pageSize} offset #{pageOffset}
+        </if>
+    </select>
+</mapper>

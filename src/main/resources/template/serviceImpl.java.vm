@@ -1,0 +1,67 @@
+package ${package.ServiceImpl};
+
+import org.slf4j.Logger;
+import java.util.List;
+import java.util.ArrayList;
+import com.antiy.common.base.BaseServiceImpl;
+import com.antiy.common.utils.LogUtils;
+import com.bysj.common.PageResult;
+import com.antiy.common.base.BaseConverter;
+import org.springframework.stereotype.Service;
+
+import ${package.Entity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.dto.${entity};
+import ${package.Entity}.vo.request.${entity}Request;
+import ${package.Entity}.vo.response.${entity}Response;
+import ${package.Entity}.vo.query.${entity}Query;
+
+
+import javax.annotation.Resource;
+import java.util.List;
+/**
+ * <p>
+ * $!{table.comment} 服务实现类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+public class ${table.serviceImplName} extends BaseServiceImpl<${entity}> implements ${table.serviceName}{
+
+
+
+        @Resource
+        private ${table.mapperName} ${table.entityPath}Dao;
+        @Resource
+        private BaseConverter<${entity}Request, ${entity}>  requestConverter;
+        @Resource
+        private BaseConverter<${entity}, ${entity}Response> responseConverter;
+
+        @Override
+        public Integer save${entity}(${entity}Request request) throws Exception {
+            ${entity} ${table.entityPath} = requestConverter.convert(request, ${entity}.class);
+            return ${table.entityPath}Dao.insert(${table.entityPath});
+        }
+
+        @Override
+        public Integer update${entity}(${entity}Request request) throws Exception {
+            ${entity} ${table.entityPath} = requestConverter.convert(request, ${entity}.class);
+            return ${table.entityPath}Dao.update(${table.entityPath});
+        }
+
+        @Override
+        public List<${entity}Response> findList${entity}(${entity}Query query) throws Exception {
+            List<${entity}> ${table.entityPath}List = ${table.entityPath}Dao.findQuery(query);
+            //TODO
+            List<${entity}Response> ${table.entityPath}Response = responseConverter.convert(${table.entityPath}List,${entity}Response.class );
+            return ${table.entityPath}Response;
+        }
+
+        @Override
+        public PageResult<${entity}Response> findPage${entity}(${entity}Query query) throws Exception {
+            return new PageResult<>(query.getPageSize(), this.findCount(query),query.getCurrentPage(), this.findList${entity}(query));
+        }
+}

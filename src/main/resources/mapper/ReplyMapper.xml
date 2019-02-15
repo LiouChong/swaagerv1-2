@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bysj.dao.ReplyDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bysj.entity.Reply">
+        <id column="id" property="id"/>
+        <result column="reply_info" property="replyInfo"/>
+        <result column="reply_time" property="replyTime"/>
+        <result column="user_id" property="userId"/>
+        <result column="post_id" property="postId"/>
+        <result column="if_delete" property="ifDelete"/>
+        <result column="thumbup_count" property="thumbupCount"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_picture" property="userPicture"/>
+    </resultMap>
+<!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, reply_info AS replyInfo, reply_time AS replyTime, user_id AS userId, post_id AS postId, if_delete AS ifDelete, thumbup_count AS thumbupCount, user_name AS userName, user_picture AS userPicture
+    </sql>
+
+    <sql id="Table_Name">
+        reply
+    </sql>
+
+
+    <sql id="IF_Base_Column_List">
+        <if test=" replyInfo != null">
+            reply_info,
+        </if>
+        <if test=" replyTime != null">
+            reply_time,
+        </if>
+        <if test=" userId != null">
+            user_id,
+        </if>
+        <if test=" postId != null">
+            post_id,
+        </if>
+        <if test=" ifDelete != null">
+            if_delete,
+        </if>
+        <if test=" thumbupCount != null">
+            thumbup_count,
+        </if>
+        <if test=" userName != null">
+            user_name,
+        </if>
+        <if test=" userPicture != null">
+            user_picture,
+        </if>
+    </sql>
+
+    <sql id="IF_Value_Column_List">
+        <if test=" replyInfo != null">
+            #{replyInfo },
+        </if>
+        <if test=" replyTime != null">
+            #{replyTime },
+        </if>
+        <if test=" userId != null">
+            #{userId },
+        </if>
+        <if test=" postId != null">
+            #{postId },
+        </if>
+        <if test=" ifDelete != null">
+            #{ifDelete },
+        </if>
+        <if test=" thumbupCount != null">
+            #{thumbupCount },
+        </if>
+        <if test=" userName != null">
+            #{userName },
+        </if>
+        <if test=" userPicture != null">
+            #{userPicture },
+        </if>
+    </sql>
+
+    <sql id="Set_Column_List">
+        <if test=" replyInfo != null">
+            reply_info = #{replyInfo },
+        </if>
+        <if test=" replyTime != null">
+            reply_time = #{replyTime },
+        </if>
+        <if test=" userId != null">
+            user_id = #{userId },
+        </if>
+        <if test=" postId != null">
+            post_id = #{postId },
+        </if>
+        <if test=" ifDelete != null">
+            if_delete = #{ifDelete },
+        </if>
+        <if test=" thumbupCount != null">
+            thumbup_count = #{thumbupCount },
+        </if>
+        <if test=" userName != null">
+            user_name = #{userName },
+        </if>
+        <if test=" userPicture != null">
+            user_picture = #{userPicture },
+        </if>
+    </sql>
+
+    <sql id="Where_Column_List">
+        <if test=" replyInfo != null">
+            and reply_info = #{replyInfo }
+        </if>
+        <if test=" replyTime != null">
+            and reply_time = #{replyTime }
+        </if>
+        <if test=" userId != null">
+            and user_id = #{userId }
+        </if>
+        <if test=" postId != null">
+            and post_id = #{postId }
+        </if>
+        <if test=" ifDelete != null">
+            and if_delete = #{ifDelete }
+        </if>
+        <if test=" thumbupCount != null">
+            and thumbup_count = #{thumbupCount }
+        </if>
+        <if test=" userName != null">
+            and user_name = #{userName }
+        </if>
+        <if test=" userPicture != null">
+            and user_picture = #{userPicture }
+        </if>
+    </sql>
+
+    <insert id="insert" parameterType="com.bysj.entity.Reply">
+        insert into
+        <include refid="Table_Name"></include>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="IF_Base_Column_List"></include>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="IF_Value_Column_List"></include>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.bysj.entity.Reply">
+        update
+        <include refid="Table_Name"></include>
+        <trim prefix="SET" suffixOverrides=",">
+            <include refid="Set_Column_List"></include>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <!-- 根据主键查询 -->
+    <select id="getById" resultType="com.bysj.entity.Reply" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+        where id = #{id}
+    </select>
+
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from
+        <include refid="Table_Name"></include>
+        where id = #{id}
+    </delete>
+
+    <select id="getByWhere" resultType="com.bysj.entity.Reply" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+        <where>
+            <trim prefixOverrides="and">
+                <include refid="Where_Column_List"></include>
+            </trim>
+        </where>
+    </select>
+
+
+    <select id="getAll" resultType="com.bysj.entity.Reply">
+        select *
+        from
+        <include refid="Table_Name"></include>
+    </select>
+
+
+    <select id="findCount" resultType="int" parameterType="com.bysj.common.ObjectQuery">
+        select count(1)
+        from
+        <include refid="Table_Name"></include>
+        <where>
+            <trim prefixOverrides="and">
+                <include refid="Where_Column_List"></include>
+            </trim>
+        </where>
+    </select>
+
+    <select id="findQuery" resultType="com.bysj.entity.Reply" parameterType="com.bysj.common.ObjectQuery">
+        select * from
+        <include refid="Table_Name"></include>
+        <where>
+            <trim prefixOverrides="and">
+                <include refid="Where_Column_List"></include>
+            </trim>
+        </where>
+        <if test="pageSize !=-1">
+            LIMIT #{pageSize} offset #{pageOffset}
+        </if>
+    </select>
+</mapper>

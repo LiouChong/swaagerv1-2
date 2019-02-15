@@ -1,0 +1,17 @@
+package
+
+import com.bysj.common.BaseEntity;
+import ${package.Entity}.vo.response;
+
+/**
+ * <p>
+ * ${entity}Response 响应对象
+ * </p>
+ *
+ * @author wh
+ * @since 2018-12-27
+ */
+
+public class ${entity}Response extends BaseEntity {
+
+}

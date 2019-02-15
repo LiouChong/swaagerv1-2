@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bysj.dao.TlevelDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bysj.entity.Tlevel">
+        <id column="id" property="id"/>
+        <result column="role" property="role"/>
+    </resultMap>
+<!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, role
+    </sql>
+
+    <sql id="Table_Name">
+        tlevel
+    </sql>
+
+
+    <sql id="IF_Base_Column_List">
+        <if test=" role != null">
+            role,
+        </if>
+    </sql>
+
+    <sql id="IF_Value_Column_List">
+        <if test=" role != null">
+            #{role },
+        </if>
+    </sql>
+
+    <sql id="Set_Column_List">
+        <if test=" role != null">
+            role = #{role },
+        </if>
+    </sql>
+
+    <sql id="Where_Column_List">
+        <if test=" role != null">
+            and role = #{role }
+        </if>
+    </sql>
+
+    <insert id="insert" parameterType="com.bysj.entity.Tlevel">
+        insert into
+        <include refid="Table_Name"></include>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="IF_Base_Column_List"></include>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="IF_Value_Column_List"></include>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.bysj.entity.Tlevel">
+        update
+        <include refid="Table_Name"></include>
+        <trim prefix="SET" suffixOverrides=",">
+            <include refid="Set_Column_List"></include>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <!-- 根据主键查询 -->
+    <select id="getById" resultType="com.bysj.entity.Tlevel" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+        where id = #{id}
+    </select>
+
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from
+        <include refid="Table_Name"></include>
+        where id = #{id}
+    </delete>
+
+    <select id="getByWhere" resultType="com.bysj.entity.Tlevel" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+        <where>
+            <trim prefixOverrides="and">
+                <include refid="Where_Column_List"></include>
+            </trim>
+        </where>
+    </select>
+
+
+    <select id="getAll" resultType="com.bysj.entity.Tlevel">
+        select *
+        from
+        <include refid="Table_Name"></include>
+    </select>
+
+
+    <select id="findCount" resultType="int" parameterType="com.bysj.common.ObjectQuery">
+        select count(1)
+        from
+        <include refid="Table_Name"></include>
+        <where>
+            <trim prefixOverrides="and">
+                <include refid="Where_Column_List"></include>
+            </trim>
+        </where>
+    </select>
+
+    <select id="findQuery" resultType="com.bysj.entity.Tlevel" parameterType="com.bysj.common.ObjectQuery">
+        select * from
+        <include refid="Table_Name"></include>
+        <where>
+            <trim prefixOverrides="and">
+                <include refid="Where_Column_List"></include>
+            </trim>
+        </where>
+        <if test="pageSize !=-1">
+            LIMIT #{pageSize} offset #{pageOffset}
+        </if>
+    </select>
+</mapper>

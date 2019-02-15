@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bysj.dao.PrivateLetterDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bysj.entity.PrivateLetter">
+        <id column="id" property="id"/>
+        <result column="from_user_id" property="fromUserId"/>
+        <result column="content" property="content"/>
+        <result column="to_user_id" property="toUserId"/>
+        <result column="if_read" property="ifRead"/>
+        <result column="if_delete" property="ifDelete"/>
+    </resultMap>
+<!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, from_user_id AS fromUserId, content, to_user_id AS toUserId, if_read AS ifRead, if_delete AS ifDelete
+    </sql>
+
+    <sql id="Table_Name">
+        private_letter
+    </sql>
+
+
+    <sql id="IF_Base_Column_List">
+        <if test=" fromUserId != null">
+            from_user_id,
+        </if>
+        <if test=" content != null">
+            content,
+        </if>
+        <if test=" toUserId != null">
+            to_user_id,
+        </if>
+        <if test=" ifRead != null">
+            if_read,
+        </if>
+        <if test=" ifDelete != null">
+            if_delete,
+        </if>
+    </sql>
+
+    <sql id="IF_Value_Column_List">
+        <if test=" fromUserId != null">
+            #{fromUserId },
+        </if>
+        <if test=" content != null">
+            #{content },
+        </if>
+        <if test=" toUserId != null">
+            #{toUserId },
+        </if>
+        <if test=" ifRead != null">
+            #{ifRead },
+        </if>
+        <if test=" ifDelete != null">
+            #{ifDelete },
+        </if>
+    </sql>
+
+    <sql id="Set_Column_List">
+        <if test=" fromUserId != null">
+            from_user_id = #{fromUserId },
+        </if>
+        <if test=" content != null">
+            content = #{content },
+        </if>
+        <if test=" toUserId != null">
+            to_user_id = #{toUserId },
+        </if>
+        <if test=" ifRead != null">
+            if_read = #{ifRead },
+        </if>
+        <if test=" ifDelete != null">
+            if_delete = #{ifDelete },
+        </if>
+    </sql>
+
+    <sql id="Where_Column_List">
+        <if test=" fromUserId != null">
+            and from_user_id = #{fromUserId }
+        </if>
+        <if test=" content != null">
+            and content = #{content }
+        </if>
+        <if test=" toUserId != null">
+            and to_user_id = #{toUserId }
+        </if>
+        <if test=" ifRead != null">
+            and if_read = #{ifRead }
+        </if>
+        <if test=" ifDelete != null">
+            and if_delete = #{ifDelete }
+        </if>
+    </sql>
+
+    <insert id="insert" parameterType="com.bysj.entity.PrivateLetter">
+        insert into
+        <include refid="Table_Name"></include>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="IF_Base_Column_List"></include>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="IF_Value_Column_List"></include>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.bysj.entity.PrivateLetter">
+        update
+        <include refid="Table_Name"></include>
+        <trim prefix="SET" suffixOverrides=",">
+            <include refid="Set_Column_List"></include>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <!-- 根据主键查询 -->
+    <select id="getById" resultType="com.bysj.entity.PrivateLetter" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+        where id = #{id}
+    </select>
+
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from
+        <include refid="Table_Name"></include>
+        where id = #{id}
+    </delete>
+
+    <select id="getByWhere" resultType="com.bysj.entity.PrivateLetter" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+        <where>
+            <trim prefixOverrides="and">
+                <include refid="Where_Column_List"></include>
+            </trim>
+        </where>
+    </select>
+
+
+    <select id="getAll" resultType="com.bysj.entity.PrivateLetter">
+        select *
+        from
+        <include refid="Table_Name"></include>
+    </select>
+
+
+    <select id="findCount" resultType="int" parameterType="com.bysj.common.ObjectQuery">
+        select count(1)
+        from
+        <include refid="Table_Name"></include>
+        <where>
+            <trim prefixOverrides="and">
+                <include refid="Where_Column_List"></include>
+            </trim>
+        </where>
+    </select>
+
+    <select id="findQuery" resultType="com.bysj.entity.PrivateLetter" parameterType="com.bysj.common.ObjectQuery">
+        select * from
+        <include refid="Table_Name"></include>
+        <where>
+            <trim prefixOverrides="and">
+                <include refid="Where_Column_List"></include>
+            </trim>
+        </where>
+        <if test="pageSize !=-1">
+            LIMIT #{pageSize} offset #{pageOffset}
+        </if>
+    </select>
+</mapper>
