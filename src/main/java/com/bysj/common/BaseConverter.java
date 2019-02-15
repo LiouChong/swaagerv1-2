@@ -8,9 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @auther: zhangbing
- * @date: 2018/11/22 14:09
- * @description: 基础转换类
+ *
  */
 @Component
 public class BaseConverter<S, T> {
@@ -46,6 +44,7 @@ public class BaseConverter<S, T> {
 
     /**
      * 转换为PageResult
+     *
      * @param pageResult
      * @param clazz
      * @return

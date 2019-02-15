@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 
-
 /**
  *
  * @author lc
@@ -49,7 +48,7 @@ public class PlateController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "plate")PlateRequest plateRequest)throws Exception{
+    public ActionResponse updateSingle(@ApiParam(value = "plate") PlateRequest plateRequest)throws Exception{
         iPlateService.updatePlate(plateRequest);
         return ActionResponse.success();
     }

@@ -50,7 +50,7 @@ public class PlaterServiceImpl extends BaseServiceImpl<Plater> implements IPlate
         public List<PlaterResponse> findListPlater(PlaterQuery query) throws Exception {
             List<Plater> platerList = platerDao.findQuery(query);
             //TODO
-            List<PlaterResponse> platerResponse = responseConverter.convert(platerList,PlaterResponse.class );
+            List<PlaterResponse> platerResponse = responseConverter.convert(platerList, PlaterResponse.class );
             return platerResponse;
         }
 

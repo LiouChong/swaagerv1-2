@@ -1,14 +1,7 @@
 package com.bysj.common;
 
 /**
- * @description: 服务之间交互统一响应
  *
- *               <pre>
- *     返回划分为2部分，分别是头部和实体信息，头部返回状态为200,则从Body里面取数据，如果头部返回异常状态码，则从头部取出错误信息
- *               </pre>
- * 
- * @Author: zhangbing
- * @date: 2018/10/30 13:39
  */
 public class ActionResponse<T> {
 

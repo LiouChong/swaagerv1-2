@@ -1,6 +1,7 @@
 package com.bysj.entity.vo.request;
 
 import io.swagger.annotations.ApiModelProperty;
+
 /**
  * <p>
  * TeamRequest 请求对象

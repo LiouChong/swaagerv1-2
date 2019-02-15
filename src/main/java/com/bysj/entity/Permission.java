@@ -3,6 +3,7 @@ package com.bysj.entity;
 
 import com.bysj.common.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
+
 /**
  * <p>
  * 权限表

@@ -1,8 +1,6 @@
 package com.bysj.entity;
 
 
-import java.util.Date;
-
 import com.bysj.common.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 

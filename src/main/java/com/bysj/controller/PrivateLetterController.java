@@ -48,7 +48,7 @@ public class PrivateLetterController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "privateLetter")PrivateLetterRequest privateLetterRequest)throws Exception{
+    public ActionResponse updateSingle(@ApiParam(value = "privateLetter") PrivateLetterRequest privateLetterRequest)throws Exception{
         iPrivateLetterService.updatePrivateLetter(privateLetterRequest);
         return ActionResponse.success();
     }

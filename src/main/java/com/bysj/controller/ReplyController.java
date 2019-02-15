@@ -49,7 +49,7 @@ public class ReplyController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "reply")ReplyRequest replyRequest)throws Exception{
+    public ActionResponse updateSingle(@ApiParam(value = "reply") ReplyRequest replyRequest)throws Exception{
         iReplyService.updateReply(replyRequest);
         return ActionResponse.success();
     }

@@ -1,6 +1,7 @@
 package com.bysj.entity.vo.request;
 
 import io.swagger.annotations.ApiModelProperty;
+
 /**
  * <p>
  * PlateRequest 请求对象

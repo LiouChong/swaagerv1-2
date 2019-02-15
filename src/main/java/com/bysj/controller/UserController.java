@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 
-
 /**
  *
  * @author lc
@@ -50,7 +49,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "user")UserRequest userRequest)throws Exception{
+    public ActionResponse updateSingle(@ApiParam(value = "user") UserRequest userRequest)throws Exception{
         iUserService.updateUser(userRequest);
         return ActionResponse.success();
     }

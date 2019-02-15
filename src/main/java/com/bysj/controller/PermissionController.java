@@ -48,7 +48,7 @@ public class PermissionController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "permission")PermissionRequest permissionRequest)throws Exception{
+    public ActionResponse updateSingle(@ApiParam(value = "permission") PermissionRequest permissionRequest)throws Exception{
         iPermissionService.updatePermission(permissionRequest);
         return ActionResponse.success();
     }

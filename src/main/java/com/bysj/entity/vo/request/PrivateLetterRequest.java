@@ -1,6 +1,7 @@
 package com.bysj.entity.vo.request;
 
 import io.swagger.annotations.ApiModelProperty;
+
 /**
  * <p>
  * PrivateLetterRequest 请求对象
