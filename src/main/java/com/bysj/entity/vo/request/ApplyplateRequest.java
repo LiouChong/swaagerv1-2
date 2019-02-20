@@ -15,15 +15,15 @@ import java.util.Date;
 
 public class ApplyplateRequest {
 
-    @ApiModelProperty("")
+    @ApiModelProperty("申请用户Id")
     private Integer userId;
-    @ApiModelProperty("")
+    @ApiModelProperty("板块Id")
     private Integer plateId;
-    @ApiModelProperty("")
+    @ApiModelProperty("申请内容")
     private String content;
-    @ApiModelProperty("")
+    @ApiModelProperty("申请时间")
     private Date applyTime;
-    @ApiModelProperty("")
+    @ApiModelProperty("处理时间")
     private Date handTime;
 
 

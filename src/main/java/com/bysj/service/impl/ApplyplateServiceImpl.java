@@ -13,6 +13,7 @@ import com.bysj.service.IApplyplateService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,6 +37,7 @@ public class ApplyplateServiceImpl extends BaseServiceImpl<Applyplate> implement
     @Override
     public Integer saveApplyplate(ApplyplateRequest request) throws Exception {
         Applyplate applyplate = requestConverter.convert(request, Applyplate.class);
+        applyplate.setApplyTime(new Date());
         return applyplateDao.insert(applyplate);
     }
 

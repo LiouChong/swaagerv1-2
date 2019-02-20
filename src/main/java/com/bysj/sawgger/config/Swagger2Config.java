@@ -22,7 +22,7 @@ import java.util.Date;
 /**
  * Swagger2Config class
  *
- * @author liuyu
+ * @author liuchong
  * @date 2018/11/17
  */
 
