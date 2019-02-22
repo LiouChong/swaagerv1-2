@@ -123,11 +123,11 @@ public class AssetGenerator {
             }
         };
 
-        String templatePath = "/template/mapper.xml.vm";
-        String requestPath = "/template/request.java.vm";
-        String responsePath = "/template/response.java.vm";
-        String queryPath = "/template/query.java.vm";
-        String dto = "/template/dto.java.vm";
+        String templatePath = "/templates/mapper.xml.vm";
+        String requestPath = "/templates/request.java.vm";
+        String responsePath = "/templates/response.java.vm";
+        String queryPath = "/templates/query.java.vm";
+        String dto = "/templates/dto.java.vm";
         List<FileOutConfig> focList = new ArrayList<>();
 //         自定义配置会被优先输出
         focList.add(new FileOutConfig(templatePath) {
@@ -246,11 +246,11 @@ public class AssetGenerator {
 
     public void setTemplate(AutoGenerator mpg) {
         TemplateConfig tc = new TemplateConfig();
-        tc.setController("/template/controller.java.vm");
-        tc.setService("/template/service.java.vm");
-        tc.setServiceImpl("/template/serviceImpl.java.vm");
-        tc.setEntity("/template/entity.java.vm");
-        tc.setMapper("/template/mapper.java.vm");
+        tc.setController("/templates/controller.java.vm");
+        tc.setService("/templates/service.java.vm");
+        tc.setServiceImpl("/templates/serviceImpl.java.vm");
+        tc.setEntity("/templates/entity.java.vm");
+        tc.setMapper("/templates/mapper.java.vm");
         mpg.setTemplate(tc);
     }
 
