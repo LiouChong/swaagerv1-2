@@ -1,8 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-
     <head>
-
         <meta charset="utf-8">
         <title>Fullscreen Login</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -163,10 +161,10 @@
         <div class="page-container">
 
             <h1>BBS</h1>
-            <form action="/v1/bbs/login" method="post">
+            <form action="/login" method="POST">
                 <input id="username" type="text" name="email" class="username" placeholder="邮箱">
                 <input id="password" type="password" name="psw" class="password" placeholder="密码"> <br><br>
-                <span id = "login_info" th:text="#{info}"></span><br>
+                <th th:text="${info}"></th><br>
                 <div style="height: 20px;"><input class="null" type="checkbox" value="true" name="rememberMe"><span style="font-size: 18px">记住我</span></div>
                 <br><button type="submit" id="loginsubmit">登录</button>
             </form>
@@ -194,7 +192,6 @@
                 <a id="registerRe"> 登录</a>
             </div>
         </div>
-<img src="assets/img/backgrounds/1.jpg">
 
         <!-- Javascript -->
         <script src="../assets/js/jquery-1.8.2.min.js"></script>
