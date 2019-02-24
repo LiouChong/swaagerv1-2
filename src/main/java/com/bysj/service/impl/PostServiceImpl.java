@@ -1,8 +1,8 @@
 package com.bysj.service.impl;
 
-import com.bysj.common.BaseConverter;
-import com.bysj.common.BaseServiceImpl;
-import com.bysj.common.PageResult;
+import com.bysj.common.request.BaseConverter;
+import com.bysj.common.request.BaseServiceImpl;
+import com.bysj.common.request.PageResult;
 import com.bysj.dao.PostDao;
 import com.bysj.entity.Post;
 import com.bysj.entity.vo.query.PostQuery;

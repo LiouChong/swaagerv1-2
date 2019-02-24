@@ -1,7 +1,7 @@
 package com.bysj.controller;
 
 
-import com.bysj.common.ActionResponse;
+import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.vo.query.UserBanQuery;
 import com.bysj.entity.vo.request.UserBanRequest;
 import com.bysj.service.IUserBanService;

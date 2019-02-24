@@ -1,14 +1,22 @@
 package com.bysj.controller;
 
 
-import com.bysj.common.ActionResponse;
+import com.bysj.common.exception.BussinessException;
+import com.bysj.common.response.ActionResponse;
+import com.bysj.common.utils.MailUtil;
 import com.bysj.entity.vo.query.UserQuery;
 import com.bysj.entity.vo.request.UserRequest;
+import com.bysj.entity.vo.request.UserRequestForRegist;
 import com.bysj.service.IUserService;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.Random;
 
 
 /**
@@ -24,8 +32,29 @@ public class UserController {
     @Resource
     public IUserService iUserService;
 
+    @GetMapping(value = "/sendMail")
+    public String sendVerificationCode(@RequestParam("mail") String email, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        //生成随机码
+        int verificationCode  = new Random().nextInt(10000);
+        if (verificationCode < 1000)
+            verificationCode += 1000;
+
+        HttpSession session = request.getSession();
+        //将随机生成的验证码保存到session的verificationCode中，便于后面取出对比
+        session.setAttribute("verificationCode",verificationCode);
+        session.setAttribute("email",email);
+        try {
+            MailUtil.senMail(verificationCode,email);
+        } catch (Exception e) {
+            throw new BussinessException("500","服务器发送邮件发生故障！请稍后再试");
+        }
+
+        return "sucess";
+    }
+
+
     /**
-     * 保存
+     * 保存用户信息，用于用户注册界面
      * @param userRequest
      * @return actionResponse
      */
@@ -33,9 +62,10 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/save/single", method = RequestMethod.POST)
-    public ActionResponse saveSingle(@ApiParam(value = "user") @RequestBody UserRequest userRequest)throws Exception{
-        iUserService.saveUser(userRequest);
+    @RequestMapping(value = "/regist", method = RequestMethod.POST)
+    public ActionResponse saveSingle(@ApiParam(value = "user") @RequestBody UserRequestForRegist userRequest, HttpServletRequest request)throws Exception{
+        // @todo: 处理异常类
+        String registInfo = iUserService.saveUser(userRequest, request);
         return ActionResponse.success();
     }
 

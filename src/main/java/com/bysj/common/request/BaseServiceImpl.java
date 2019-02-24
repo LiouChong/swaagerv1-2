@@ -1,4 +1,4 @@
-package com.bysj.common;
+package com.bysj.common.request;
 
 import com.bysj.dao.IBaseDao;
 import org.springframework.beans.factory.annotation.Autowired;

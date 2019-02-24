@@ -1,6 +1,6 @@
 package com.bysj.controller;
 
-import com.bysj.common.ActionResponse;
+import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.vo.query.ApplyplateQuery;
 import com.bysj.entity.vo.request.ApplyplateRequest;
 import com.bysj.service.IApplyplateService;

@@ -1,6 +1,6 @@
 package com.bysj.controller;
 
-import com.bysj.common.ActionResponse;
+import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.vo.query.PermissionQuery;
 import com.bysj.entity.vo.request.PermissionRequest;
 import com.bysj.service.IPermissionService;

@@ -12,6 +12,8 @@
         <result column="email" property="email"/>
         <result column="picture" property="picture"/>
         <result column="level" property="level"/>
+        <result column="regist_time" property="registTime"/>
+        <result column="sex" property="sex"/>
     </resultMap>
 <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
@@ -175,7 +177,7 @@
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.bysj.common.ObjectQuery">
+    <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
         select count(1)
         from
         <include refid="Table_Name"></include>
@@ -186,7 +188,7 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.bysj.entity.User" parameterType="com.bysj.common.ObjectQuery">
+    <select id="findQuery" resultType="com.bysj.entity.User" parameterType="com.bysj.common.request.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>
@@ -197,5 +199,9 @@
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
+    </select>
+
+    <select id="selectByemail" parameterType="String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from user where email = "${email}"
     </select>
 </mapper>

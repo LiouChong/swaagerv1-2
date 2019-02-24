@@ -866,7 +866,6 @@ h1.search-title span {
 }
 
 textarea.error,
-input[type=text].error,
 .error {
   border-color: red;
 }

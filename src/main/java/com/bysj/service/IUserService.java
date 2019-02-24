@@ -1,13 +1,15 @@
 package com.bysj.service;
 
 
-import com.bysj.common.IBaseService;
-import com.bysj.common.PageResult;
+import com.bysj.common.request.IBaseService;
+import com.bysj.common.request.PageResult;
 import com.bysj.entity.User;
 import com.bysj.entity.vo.query.UserQuery;
 import com.bysj.entity.vo.request.UserRequest;
+import com.bysj.entity.vo.request.UserRequestForRegist;
 import com.bysj.entity.vo.response.UserResponse;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ public interface IUserService extends IBaseService<User> {
      * @param request
      * @return
      */
-    Integer saveUser(UserRequest request) throws Exception;
+    String saveUser(UserRequestForRegist saveRequest, HttpServletRequest request) throws Exception;
 
     /**
      * 修改

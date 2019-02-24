@@ -1,8 +1,8 @@
 package com.bysj.service;
 
 
-import com.bysj.common.IBaseService;
-import com.bysj.common.PageResult;
+import com.bysj.common.request.IBaseService;
+import com.bysj.common.request.PageResult;
 import com.bysj.entity.Post;
 import com.bysj.entity.vo.query.PostQuery;
 import com.bysj.entity.vo.request.PostRequest;

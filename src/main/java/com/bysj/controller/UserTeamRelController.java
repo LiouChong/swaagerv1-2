@@ -1,7 +1,7 @@
 package com.bysj.controller;
 
 
-import com.bysj.common.ActionResponse;
+import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.vo.query.UserTeamRelQuery;
 import com.bysj.entity.vo.request.UserTeamRelRequest;
 import com.bysj.service.IUserTeamRelService;

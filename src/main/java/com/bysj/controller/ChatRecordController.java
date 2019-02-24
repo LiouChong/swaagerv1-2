@@ -1,6 +1,6 @@
 package com.bysj.controller;
 
-import com.bysj.common.ActionResponse;
+import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.vo.query.ChatRecordQuery;
 import com.bysj.entity.vo.request.ChatRecordRequest;
 import com.bysj.service.IChatRecordService;

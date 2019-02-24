@@ -1,6 +1,6 @@
 package com.bysj.entity.vo.response;
 
-import com.bysj.common.BaseEntity;
+import com.bysj.common.request.BaseEntity;
 
 
 /**

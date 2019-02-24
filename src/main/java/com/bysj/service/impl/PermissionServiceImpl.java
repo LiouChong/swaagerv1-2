@@ -1,8 +1,8 @@
 package com.bysj.service.impl;
 
-import com.bysj.common.BaseConverter;
-import com.bysj.common.BaseServiceImpl;
-import com.bysj.common.PageResult;
+import com.bysj.common.request.BaseConverter;
+import com.bysj.common.request.BaseServiceImpl;
+import com.bysj.common.request.PageResult;
 import com.bysj.dao.PermissionDao;
 import com.bysj.entity.Permission;
 import com.bysj.entity.vo.query.PermissionQuery;

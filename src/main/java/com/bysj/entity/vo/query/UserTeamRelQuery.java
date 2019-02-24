@@ -1,6 +1,6 @@
 package com.bysj.entity.vo.query;
 
-import com.bysj.common.ObjectQuery;
+import com.bysj.common.request.ObjectQuery;
 
 /**
  * <p>

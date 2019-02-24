@@ -1,7 +1,7 @@
 package com.bysj.controller;
 
 
-import com.bysj.common.ActionResponse;
+import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.vo.query.PrivateLetterQuery;
 import com.bysj.entity.vo.request.PrivateLetterRequest;
 import com.bysj.service.IPrivateLetterService;

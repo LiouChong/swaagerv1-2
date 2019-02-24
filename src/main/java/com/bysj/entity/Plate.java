@@ -1,7 +1,7 @@
 package com.bysj.entity;
 
 
-import com.bysj.common.BaseEntity;
+import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 
 /**

@@ -1,7 +1,7 @@
 package com.bysj.controller;
 
 
-import com.bysj.common.ActionResponse;
+import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.vo.query.TotalStationInformationQuery;
 import com.bysj.entity.vo.request.TotalStationInformationRequest;
 import com.bysj.service.ITotalStationInformationService;

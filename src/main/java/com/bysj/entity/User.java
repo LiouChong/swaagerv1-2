@@ -1,8 +1,10 @@
 package com.bysj.entity;
 
 
-import com.bysj.common.BaseEntity;
+import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -18,24 +20,44 @@ public class User extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("")
+    @ApiModelProperty("用户昵称")
     private String nickname;
-    @ApiModelProperty("")
+    @ApiModelProperty("用户密码")
     private String psw;
-    @ApiModelProperty("")
+    @ApiModelProperty("用户积分数")
     private Integer money;
-    @ApiModelProperty("")
+    @ApiModelProperty("是否被封禁")
     private Integer ifBan;
-    @ApiModelProperty("")
+    @ApiModelProperty("用户邮箱")
     private String email;
-    @ApiModelProperty("")
+    @ApiModelProperty("用户头像")
     private String picture;
     /**
      * 用户权限
      */
     @ApiModelProperty("用户权限")
     private Integer level;
+    @ApiModelProperty("注册时间")
+    private Date registTime;
 
+    @ApiModelProperty("性别")
+    private Integer sex;
+
+    public Date getRegistTime() {
+        return registTime;
+    }
+
+    public void setRegistTime(Date registTime) {
+        this.registTime = registTime;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
 
     public String getNickname() {
         return nickname;
@@ -102,14 +124,26 @@ public class User extends BaseEntity {
 
     @Override
     public String toString() {
-        return "User{" +
-                ", nickname=" + nickname +
-                ", psw=" + psw +
-                ", money=" + money +
-                ", ifBan=" + ifBan +
-                ", email=" + email +
-                ", picture=" + picture +
-                ", level=" + level +
-                "}";
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"nickname\":\"")
+                .append(nickname).append('\"');
+        sb.append(",\"psw\":\"")
+                .append(psw).append('\"');
+        sb.append(",\"money\":")
+                .append(money);
+        sb.append(",\"ifBan\":")
+                .append(ifBan);
+        sb.append(",\"email\":\"")
+                .append(email).append('\"');
+        sb.append(",\"picture\":\"")
+                .append(picture).append('\"');
+        sb.append(",\"level\":")
+                .append(level);
+        sb.append(",\"registTime\":\"")
+                .append(registTime).append('\"');
+        sb.append(",\"sex\":")
+                .append(sex);
+        sb.append('}');
+        return sb.toString();
     }
 }

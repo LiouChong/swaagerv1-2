@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+        xmlns:th="http://www.thymeleaf.org" >
     <head>
         <meta charset="utf-8">
         <title>Fullscreen Login</title>
@@ -30,12 +30,12 @@
             }
             #tags {
                 position: absolute;
-                right:400px;
+                right:270px;
                 top:500px;
                 font-weight: 700;
                 font-size: 25px;
                 text-shadow: 0 1px 3px rgba(0,0,0,.2);
-                color: deepskyblue;
+                color: white;
                 text-decoration: none;
             }
             .null{
@@ -108,18 +108,17 @@
                         },900);
                         return;
                     }
-                    $("#sendidcode").attr("value","已发送");
+                    $("#sendidcode").attr("value","验证码正在发送");
                     $("#sendidcode").attr("disabled","true");
 
                     $.ajax({
-                        url:"/sendMail",
+                        url:"/v1/bbs/user/sendMail",
                         type:"GET",
                         //发送数据的第一种格式，字符串...
                         data:"mail="+$("#email").val(),
                         timeout:5000,
                         seccess:function(data){
                             // $("#sendidcode").attr("value","验证码已发送");
-                            // alert("以发送!")
                         },
                         error:function(){
 
@@ -132,13 +131,20 @@
                     if ($("#email").val() == "") {
                         alert("用户名不能为空！");
                     } else {
-                        $.post("/regist",{
-                            email:$("#email").val(),
-                            psw:$("#passwordRe").val(),
-                            code:$("#code").val()
-                        },function (data,stutas) {
-                            $(".error").show();
-                            $("#regis_info").text(data);
+                        $.ajax({
+                           type: "POST",
+                           url: "v1/bbs/user/regist",
+                           contentType: "application/json; charset=utf-8",
+                           data: JSON.stringify({
+                               email:$("#email").val(),
+                               psw:$("#passwordRe").val(),
+                               code:$("#code").val()
+                           }),
+                            dataType:"json",
+                            success: function (message) {
+                               $("#tags").show();
+                               $("#regist_info").text(message.head.result + "," + message.body)
+                            }
                         });
                     }
                 });
@@ -187,7 +193,7 @@
 
             <!--在这里如果将shiro中的/regis设置为有权限才可访问的花，他就直接向/login发送请求-->
             <button id="registerbut" value="注册">注册</button>
-                <div class="error"><span id="regis_info"> </span></div>
+                <div id="tags"><span id="regist_info"> </span></div>
             <div class="connectRe">
                 <a id="registerRe"> 登录</a>
             </div>

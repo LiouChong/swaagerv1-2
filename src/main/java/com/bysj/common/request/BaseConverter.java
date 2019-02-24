@@ -1,4 +1,4 @@
-package com.bysj.common;
+package com.bysj.common.request;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;

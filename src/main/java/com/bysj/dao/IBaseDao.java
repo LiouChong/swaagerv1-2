@@ -1,7 +1,7 @@
 package com.bysj.dao;
 
 
-import com.bysj.common.ObjectQuery;
+import com.bysj.common.request.ObjectQuery;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;

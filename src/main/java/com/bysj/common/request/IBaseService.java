@@ -1,4 +1,4 @@
-package com.bysj.common;
+package com.bysj.common.request;
 
 import java.io.Serializable;
 import java.util.HashMap;

@@ -97,7 +97,7 @@
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.bysj.common.ObjectQuery">
+    <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
         select count(1)
         from
         <include refid="Table_Name"></include>
@@ -108,7 +108,7 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.bysj.entity.Tlevel" parameterType="com.bysj.common.ObjectQuery">
+    <select id="findQuery" resultType="com.bysj.entity.Tlevel" parameterType="com.bysj.common.request.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>

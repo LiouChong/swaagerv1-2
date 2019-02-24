@@ -1,4 +1,4 @@
-package com.bysj.common;
+package com.bysj.common.response;
 
 /**
  * @description: 基本返回状态码, 系统需要自定义返回码继承此枚举即可
@@ -7,7 +7,7 @@ package com.bysj.common;
  *               枚举B开头为Basic简称为基础定义的状态码
  *               </pre>
  *
- * @Author: zhangbing
+ * @Author: Liuchong
  * @date: 2018/10/30 13:30
  */
 public enum RespBasicCode {
