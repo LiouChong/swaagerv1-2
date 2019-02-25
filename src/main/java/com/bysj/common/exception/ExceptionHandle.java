@@ -31,4 +31,17 @@ public class ExceptionHandle {
             return ActionResponse.fail(RespBasicCode.BUSSINESS_EXCETION, exception.getMessage());
         }
     }
+
+    @ExceptionHandler(RequestParamsException.class)
+    @ResponseBody
+    public ActionResponse RequestParamsExceptionHandler(RequestParamsException exception) {
+        System.out.println("--------------------------->>> 进入异常处理类！！！！！！");
+        // 如果该异常没有异常信息，则返回默认的业务异常
+        if (Objects.isNull(exception.getMessage())) {
+            return ActionResponse.fail(RespBasicCode.PARAMETER_ERROR);
+        } else {
+            // 如果有异常信息，则返回异常信息
+            return ActionResponse.fail(RespBasicCode.PARAMETER_ERROR, exception.getMessage());
+        }
+    }
 }

@@ -30,4 +30,5 @@ public interface UserDao extends IBaseDao<User> {
      * @return
      */
     List<String> selectUserPermissionBylevel(@Param("level") int level);
+
 }

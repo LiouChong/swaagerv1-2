@@ -6,6 +6,7 @@ import com.bysj.common.request.PageResult;
 import com.bysj.entity.User;
 import com.bysj.entity.vo.query.UserQuery;
 import com.bysj.entity.vo.request.UserRequest;
+import com.bysj.entity.vo.request.UserRequestForLogin;
 import com.bysj.entity.vo.request.UserRequestForRegist;
 import com.bysj.entity.vo.response.UserResponse;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,4 +64,19 @@ public interface IUserService extends IBaseService<User> {
      * @return
      */
     String sendVerificationCode(String email, HttpServletRequest request);
+
+    /**
+     * 检查是邮箱是否重复
+     * @param email
+     * @return
+     */
+    Boolean ifRepeatEmail(String email);
+
+    /**
+     * 用户登录验证
+     *
+     * @param request
+     * @return
+     */
+    String doLogin(UserRequestForLogin userRequestForLogin, HttpServletRequest request) throws Exception;
 }

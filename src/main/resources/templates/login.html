@@ -29,10 +29,10 @@
                 color: white;
             }
             #tags {
-                position: absolute;
-                right:270px;
-                top:500px;
-                font-weight: 700;
+                position: relative;
+                left:400px;
+                /*top:500px;*/
+                font-weight: 400;
                 font-size: 25px;
                 text-shadow: 0 1px 3px rgba(0,0,0,.2);
                 color: white;
@@ -68,14 +68,14 @@
 
                 });
 
+                //以下用于注册页面
                 $("#email").blur(function() {
                     if($("#email").val() == ''){
                         $("#message").text("邮箱不能为空");
-                    } else {
-                        $.get("/v1/bbs/user/checkName",{
+                    }  else {
+                        $.post("/v1/bbs/user/checkName",{
                             email:$("#email").val()
                         },function (data,status) {
-                            // alert(data);
                             $("#message").text(data);
                         });
                     }
@@ -126,7 +126,6 @@
                     });
                 });
 
-
                 $("#registerbut").click(function () {
                     if ($("#email").val() == "") {
                         alert("用户名不能为空！");
@@ -143,21 +142,38 @@
                             dataType:"json",
                             success: function (message) {
                                $("#tags").show();
-                               $("#regist_info").text(message.head.result + "," + message.body)
+                               if (message.body != null) {
+                                // $("#regist_info").text(message.head.result + "," + message.body)
+                                   alert(message.body)
+                               } else {
+                                   // $("#regist_info").text(message.head.result)
+                                   alert(message.head.result)
+                               }
                             }
                         });
                     }
                 });
 
-               /* $("#loginsubmit").click(function () {
-                    $.post("/userLogin",{
-                        email:$("#username").val(),
-                        psw:$("#password").val()
-                    },function (data,status) {
-                        $("#login_info").text(data);
-                    })
-                })*/
+                $("#loginsubmit").click(function () {
 
+                    $.ajax({
+                        type: "POST",
+                        url: "/v1/bbs/user/login",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({
+                            email:$("#username").val(),
+                            psw:$("#password").val()
+                        }),
+                        dataType:"json",
+                        success: function (message) {
+                            if (message.body != null) {
+                                alert(message.body)
+                            } else {
+                                alert(message.head.result)
+                            }
+                        }
+                    });
+                })
             });
 
         </script>
@@ -167,13 +183,12 @@
         <div class="page-container">
 
             <h1>BBS</h1>
-            <form action="/login" method="POST">
+            <!--<form action="/v1/bbs/user/login" method="POST">-->
                 <input id="username" type="text" name="email" class="username" placeholder="邮箱">
                 <input id="password" type="password" name="psw" class="password" placeholder="密码"> <br><br>
-                <th th:text="${info}"></th><br>
-                <div style="height: 20px;"><input class="null" type="checkbox" value="true" name="rememberMe"><span style="font-size: 18px">记住我</span></div>
+            <div style="height: 20px;"><input class="null" type="checkbox" value="true" name="rememberMe"><span style="font-size: 18px">记住我</span> &emsp;&emsp;<a href="/forgetPsw" style="font-size: 18px" >忘记密码</a> </div>
                 <br><button type="submit" id="loginsubmit">登录</button>
-            </form>
+            <!--</form>-->
             <div class="connect">
                 <a id="register"> 注册</a>
             </div>

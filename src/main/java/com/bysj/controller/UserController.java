@@ -6,6 +6,7 @@ import com.bysj.common.response.ActionResponse;
 import com.bysj.common.utils.MailUtil;
 import com.bysj.entity.vo.query.UserQuery;
 import com.bysj.entity.vo.request.UserRequest;
+import com.bysj.entity.vo.request.UserRequestForLogin;
 import com.bysj.entity.vo.request.UserRequestForRegist;
 import com.bysj.service.IUserService;
 import io.swagger.annotations.*;
@@ -48,10 +49,13 @@ public class UserController {
     /**
      * 检查邮箱是否重名
      */
-    @GetMapping(value = "/checkName")
-    public String checkIfRepeatName(@RequestParam("email") String email) {
-        //@todo: 检查用户名是否重复
-        return "a";
+    @PostMapping(value = "/checkName")
+    public String checkIfRepeatName(String email) {
+        if (iUserService.ifRepeatEmail(email)) {
+            return "邮箱已被注册！";
+        } else {
+            return "邮箱可以使用！";
+        }
     }
 
 
@@ -68,8 +72,24 @@ public class UserController {
     public ActionResponse saveSingle(@ApiParam(value = "user") @RequestBody UserRequestForRegist userRequest, HttpServletRequest request)throws Exception{
         // @todo: 处理异常类
         String registInfo = iUserService.saveUser(userRequest, request);
-        return ActionResponse.success();
+        return ActionResponse.success(registInfo);
     }
+
+    /**
+     * 用户登录操作
+     * @param userRequest
+     * @return actionResponse
+     */
+    @ApiOperation(value = "保存接口", notes = "传入实体对象信息")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
+    })
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ActionResponse doLogin(@ApiParam(value = "user") @RequestBody UserRequestForLogin userRequest, HttpServletRequest request)throws Exception{
+        String registInfo = iUserService.doLogin(userRequest, request);
+        return ActionResponse.success(registInfo);
+    }
+
 
     /**
      * 修改

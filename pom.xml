@@ -112,11 +112,11 @@
             <version>${mybatis.spring.boot.starter.version}</version>
         </dependency>
         <!-- alibaba的druid数据库连接池 -->
-        <dependency>
+       <!-- <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${druid.spring.boot.starter.version}</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>mysql</groupId>

@@ -2,6 +2,7 @@ package com.bysj.service.impl;
 
 
 import com.bysj.common.exception.BussinessException;
+import com.bysj.common.exception.RequestParamsException;
 import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
 import com.bysj.common.request.PageResult;
@@ -10,6 +11,7 @@ import com.bysj.dao.UserDao;
 import com.bysj.entity.User;
 import com.bysj.entity.vo.query.UserQuery;
 import com.bysj.entity.vo.request.UserRequest;
+import com.bysj.entity.vo.request.UserRequestForLogin;
 import com.bysj.entity.vo.request.UserRequestForRegist;
 import com.bysj.entity.vo.response.UserResponse;
 import com.bysj.service.IUserService;
@@ -19,6 +21,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -68,9 +71,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         }
     }
 
-    public Boolean ifRepeatEmail(String email) {
-        return !(userDao.selectByemail(email) == null);
-    }
 
     @Override
     public Integer updateUser(UserRequest request) throws Exception {
@@ -95,8 +95,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     public String sendVerificationCode(String email, HttpServletRequest request) {
         //生成随机码
         int verificationCode  = new Random().nextInt(10000);
-        if (verificationCode < 1000)
+        if (verificationCode < 1000) {
             verificationCode += 1000;
+        }
 
         HttpSession session = request.getSession();
         //将随机生成的验证码保存到session的verificationCode中，便于后面取出对比
@@ -108,5 +109,33 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
             throw new BussinessException("500","服务器发送邮件发生故障！请稍后再试");
         }
         return "sucess";
+    }
+
+    @Override
+    public Boolean ifRepeatEmail(String email) {
+        return userDao.selectByemail(email) != null ? true: false;
+    }
+
+    @Override
+    public String doLogin(UserRequestForLogin userRequestForLogin, HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        String email = userRequestForLogin.getEmail();
+        String psw = userRequestForLogin.getPsw();
+
+        if (email.equals("") || psw.equals("")) {
+            throw new RequestParamsException("用户名或密码为空！") ;
+        } else {
+            if (Objects.isNull(getByEmail(email))) {
+                throw new RequestParamsException("该用户名尚未被注册");
+            }
+            else if( !(getByEmail(email).getPsw().equals(psw))) {
+                throw new RequestParamsException("密码错误！");
+            }
+        }
+        return null;
+    }
+
+    public User getByEmail(String email) {
+        return userDao.selectByemail(email);
     }
 }
