@@ -72,7 +72,7 @@
                     if($("#email").val() == ''){
                         $("#message").text("邮箱不能为空");
                     } else {
-                        $.post("/checkName",{
+                        $.get("/v1/bbs/user/checkName",{
                             email:$("#email").val()
                         },function (data,status) {
                             // alert(data);

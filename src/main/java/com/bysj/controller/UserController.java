@@ -32,24 +32,26 @@ public class UserController {
     @Resource
     public IUserService iUserService;
 
+    /**
+     * 发送邮件
+     * @param email
+     * @param request
+     * @return
+     * @throws IOException
+     */
     @GetMapping(value = "/sendMail")
-    public String sendVerificationCode(@RequestParam("mail") String email, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        //生成随机码
-        int verificationCode  = new Random().nextInt(10000);
-        if (verificationCode < 1000)
-            verificationCode += 1000;
+    public String sendEmail(@RequestParam("mail") String email, HttpServletRequest request) throws IOException {
+        return iUserService.sendVerificationCode(email, request);
+    }
 
-        HttpSession session = request.getSession();
-        //将随机生成的验证码保存到session的verificationCode中，便于后面取出对比
-        session.setAttribute("verificationCode",verificationCode);
-        session.setAttribute("email",email);
-        try {
-            MailUtil.senMail(verificationCode,email);
-        } catch (Exception e) {
-            throw new BussinessException("500","服务器发送邮件发生故障！请稍后再试");
-        }
 
-        return "sucess";
+    /**
+     * 检查邮箱是否重名
+     */
+    @GetMapping(value = "/checkName")
+    public String checkIfRepeatName(@RequestParam("email") String email) {
+        //@todo: 检查用户名是否重复
+        return "a";
     }
 
 

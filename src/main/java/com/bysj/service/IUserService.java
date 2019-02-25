@@ -8,8 +8,10 @@ import com.bysj.entity.vo.query.UserQuery;
 import com.bysj.entity.vo.request.UserRequest;
 import com.bysj.entity.vo.request.UserRequestForRegist;
 import com.bysj.entity.vo.response.UserResponse;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -54,4 +56,11 @@ public interface IUserService extends IBaseService<User> {
      */
     PageResult<UserResponse> findPageUser(UserQuery query) throws Exception;
 
+    /**
+     * 发送邮件验证码
+     * @param email
+     * @param request
+     * @return
+     */
+    String sendVerificationCode(String email, HttpServletRequest request);
 }

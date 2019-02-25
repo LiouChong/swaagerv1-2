@@ -5,6 +5,7 @@ import com.bysj.common.exception.BussinessException;
 import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
 import com.bysj.common.request.PageResult;
+import com.bysj.common.utils.MailUtil;
 import com.bysj.dao.UserDao;
 import com.bysj.entity.User;
 import com.bysj.entity.vo.query.UserQuery;
@@ -18,6 +19,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Random;
 
 /**
  * <p>
@@ -87,5 +89,24 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     @Override
     public PageResult<UserResponse> findPageUser(UserQuery query) throws Exception {
         return new PageResult<>(query.getPageSize(), this.findCount(query), query.getCurrentPage(), this.findListUser(query));
+    }
+
+    @Override
+    public String sendVerificationCode(String email, HttpServletRequest request) {
+        //生成随机码
+        int verificationCode  = new Random().nextInt(10000);
+        if (verificationCode < 1000)
+            verificationCode += 1000;
+
+        HttpSession session = request.getSession();
+        //将随机生成的验证码保存到session的verificationCode中，便于后面取出对比
+        session.setAttribute("verificationCode",verificationCode);
+        session.setAttribute("email",email);
+        try {
+            MailUtil.senMail(verificationCode,email);
+        } catch (Exception e) {
+            throw new BussinessException("500","服务器发送邮件发生故障！请稍后再试");
+        }
+        return "sucess";
     }
 }
