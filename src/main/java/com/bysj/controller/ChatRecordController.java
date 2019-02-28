@@ -1,24 +1,31 @@
 package com.bysj.controller;
 
-import com.bysj.common.response.ActionResponse;
-import com.bysj.entity.vo.query.ChatRecordQuery;
-import com.bysj.entity.vo.request.ChatRecordRequest;
-import com.bysj.service.IChatRecordService;
-import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import io.swagger.annotations.*;
+import com.antiy.common.base.ActionResponse;
 import javax.annotation.Resource;
+import com.antiy.common.utils.LogUtils;
+import com.antiy.common.base.QueryCondition;
+import com.antiy.common.utils.ParamterExceptionUtils;
+
+import com.cuit.bbs.service.IChatRecordService;
+import com.cuit.bbs.entity.ChatRecord;
+import com.cuit.bbs.entity.vo.request.ChatRecordRequest;
+import com.cuit.bbs.entity.vo.response.ChatRecordResponse;
+import com.cuit.bbs.entity.vo.query.ChatRecordQuery;
 
 
 /**
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
-@Api(value = "ChatRecord", description = "聊天记录表")
+@Api(value = "ChatRecord", description = "讨论组聊天记录表")
 @RestController
 @RequestMapping("/v1/bbs/chatrecord")
 public class ChatRecordController {
+    private static final Logger logger = LogUtils.get();
 
     @Resource
     public IChatRecordService iChatRecordService;
@@ -78,6 +85,7 @@ public class ChatRecordController {
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "chatRecord") @PathVariable("id") Integer id)throws Exception{
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iChatRecordService.getById(id));
     }
 
@@ -92,6 +100,7 @@ public class ChatRecordController {
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iChatRecordService.deleteById(id));
     }
 }

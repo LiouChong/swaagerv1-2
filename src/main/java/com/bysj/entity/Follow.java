@@ -1,33 +1,38 @@
 package com.bysj.entity;
 
 
-import com.bysj.common.request.BaseEntity;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Date;
-
+import com.antiy.common.base.BaseEntity;
+import io.swagger.annotations.ApiModelProperty;
 /**
  * <p>
- * 关注人列表
+ * 关注人表
  * </p>
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 
 public class Follow extends BaseEntity {
 
 
-    private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("")
+        /**
+    *  粉丝id
+    */
+        @ApiModelProperty("粉丝id")
     private Integer fanId;
-    @ApiModelProperty("")
+        /**
+    *  被关注者id
+    */
+        @ApiModelProperty("被关注者id")
     private Integer starId;
-    @ApiModelProperty("")
-    private Date time;
-    @ApiModelProperty("")
-    private Boolean ifDelete;
+        /**
+    *  创建时间
+    */
+        @ApiModelProperty("创建时间")
+    private Date gmtCreate;
 
 
     public Integer getFanId() {
@@ -48,31 +53,21 @@ public class Follow extends BaseEntity {
     }
 
 
-    public Date getTime() {
-        return time;
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
-    }
-
-
-    public Boolean getIfDelete() {
-        return ifDelete;
-    }
-
-    public void setIfDelete(Boolean ifDelete) {
-        this.ifDelete = ifDelete;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 
 
-    @Override
+        @Override
     public String toString() {
-        return "Follow{" +
-                "fanId=" + fanId +
-                ", starId=" + starId +
-                ", time=" + time +
-                ", ifDelete=" + ifDelete +
-                "}";
+            return "Follow{" +
+                                                            "fanId=" + fanId +
+                                                                                        ", starId=" + starId +
+                                                                                        ", gmtCreate=" + gmtCreate +
+                                                "}";
     }
-}
+    }

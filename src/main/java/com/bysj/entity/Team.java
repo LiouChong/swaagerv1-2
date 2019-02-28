@@ -1,37 +1,64 @@
 package com.bysj.entity;
 
 
-import com.bysj.common.request.BaseEntity;
+import java.util.Date;
+import com.antiy.common.base.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
-
 /**
  * <p>
  * 讨论组表
  * </p>
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 
 public class Team extends BaseEntity {
 
 
-    private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("")
+        /**
+    *  小组名称
+    */
+        @ApiModelProperty("小组名称")
     private String teamName;
-    @ApiModelProperty("")
+        /**
+    *  成员个数
+    */
+        @ApiModelProperty("成员个数")
     private Integer memberCount;
-    @ApiModelProperty("")
+        /**
+    *  板块id
+    */
+        @ApiModelProperty("板块id")
     private Integer plateId;
-    @ApiModelProperty("")
-    private String plateName;
-    @ApiModelProperty("")
+        /**
+    *  组长id
+    */
+        @ApiModelProperty("组长id")
     private String leaderId;
-    @ApiModelProperty("")
-    private String leaderName;
-    @ApiModelProperty("")
-    private Boolean ifDelete;
+        /**
+    *  状态：1 有效 2无效
+    */
+        @ApiModelProperty("状态：1 有效 2无效")
+    private Integer state;
+        /**
+    *  创建时间
+    */
+        @ApiModelProperty("创建时间")
+    private Date gmtCreate;
+        /**
+    *  修改时间
+    */
+        @ApiModelProperty("修改时间")
+    private Date gmtModify;
+        /**
+    *  修改者id
+    */
+        @ApiModelProperty("修改者id")
+    private Integer userModify;
+
 
 
     public String getTeamName() {
@@ -61,15 +88,6 @@ public class Team extends BaseEntity {
     }
 
 
-    public String getPlateName() {
-        return plateName;
-    }
-
-    public void setPlateName(String plateName) {
-        this.plateName = plateName;
-    }
-
-
     public String getLeaderId() {
         return leaderId;
     }
@@ -79,34 +97,53 @@ public class Team extends BaseEntity {
     }
 
 
-    public String getLeaderName() {
-        return leaderName;
+    public Integer getState() {
+        return state;
     }
 
-    public void setLeaderName(String leaderName) {
-        this.leaderName = leaderName;
-    }
-
-
-    public Boolean getIfDelete() {
-        return ifDelete;
-    }
-
-    public void setIfDelete(Boolean ifDelete) {
-        this.ifDelete = ifDelete;
+    public void setState(Integer state) {
+        this.state = state;
     }
 
 
-    @Override
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+
+    public Date getGmtModify() {
+        return gmtModify;
+    }
+
+    public void setGmtModify(Date gmtModify) {
+        this.gmtModify = gmtModify;
+    }
+
+
+    public Integer getUserModify() {
+        return userModify;
+    }
+
+    public void setUserModify(Integer userModify) {
+        this.userModify = userModify;
+    }
+
+
+        @Override
     public String toString() {
-        return "Team{" +
-                ", teamName=" + teamName +
-                ", memberCount=" + memberCount +
-                ", plateId=" + plateId +
-                ", plateName=" + plateName +
-                ", leaderId=" + leaderId +
-                ", leaderName=" + leaderName +
-                ", ifDelete=" + ifDelete +
-                "}";
+            return "Team{" +
+                                                                                            ", teamName=" + teamName +
+                                                                                        ", memberCount=" + memberCount +
+                                                                                        ", plateId=" + plateId +
+                                                                                        ", leaderId=" + leaderId +
+                                                                                        ", state=" + state +
+                                                                                        ", gmtCreate=" + gmtCreate +
+                                                                                        ", gmtModify=" + gmtModify +
+                                                                                        ", userModify=" + userModify +
+                                                "}";
     }
-}
+    }

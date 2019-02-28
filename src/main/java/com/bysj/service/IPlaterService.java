@@ -1,22 +1,24 @@
 package com.bysj.service;
 
-
-import com.bysj.common.request.IBaseService;
-import com.bysj.common.request.PageResult;
-import com.bysj.entity.Plater;
-import com.bysj.entity.vo.query.PlaterQuery;
-import com.bysj.entity.vo.request.PlaterRequest;
-import com.bysj.entity.vo.response.PlaterResponse;
-
+import com.antiy.common.base.IBaseService;
+import com.antiy.common.base.PageResult;
+import java.io.Serializable;
 import java.util.List;
+
+import com.cuit.bbs.entity.dto.PlaterDTO;
+import com.cuit.bbs.entity.vo.query.PlaterQuery;
+import com.cuit.bbs.entity.vo.request.PlaterRequest;
+import com.cuit.bbs.entity.vo.response.PlaterResponse;
+import com.cuit.bbs.entity.Plater;
+
 
 /**
  * <p>
- * 版主信息表 服务类
+ * 板块表 服务类
  * </p>
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 public interface IPlaterService extends IBaseService<Plater> {
 

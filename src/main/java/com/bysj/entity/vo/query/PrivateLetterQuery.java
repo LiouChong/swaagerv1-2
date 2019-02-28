@@ -1,13 +1,14 @@
 package com.bysj.entity.vo.query;
 
-import com.bysj.common.request.ObjectQuery;
-
+import com.antiy.common.base.ObjectQuery;
+import java.util.Date;
+import io.swagger.annotations.ApiModelProperty;
 /**
  * <p>
  * PrivateLetter 查询条件
  * </p>
  *
- * @author wh
+ * @author zhangyajun
  * @since 2018-12-27
  */
 

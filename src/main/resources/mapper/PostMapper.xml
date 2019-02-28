@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bysj.dao.PostDao">
+<mapper namespace="com.cuit.bbs.dao.PostDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.bysj.entity.Post">
+    <resultMap id="BaseResultMap" type="com.cuit.bbs.entity.Post">
         <id column="id" property="id"/>
         <result column="title" property="title"/>
         <result column="info" property="info"/>
-        <result column="publish_time" property="publishTime"/>
         <result column="poster_id" property="posterId"/>
         <result column="if_good" property="ifGood"/>
-        <result column="if_delete" property="ifDelete"/>
         <result column="plate_id" property="plateId"/>
-        <result column="plate_name" property="plateName"/>
         <result column="reply_count" property="replyCount"/>
-        <result column="poster_name" property="posterName"/>
-        <result column="poster_picture" property="posterPicture"/>
         <result column="thumbup_count" property="thumbupCount"/>
-        <result column="last_modify_time" property="lastModifyTime"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modify" property="gmtModify"/>
+        <result column="create_user" property="createUser"/>
+        <result column="modify_user" property="modifyUser"/>
+        <result column="state" property="state"/>
+        <result column="read_count" property="readCount"/>
+        <result column="article_from" property="articleFrom"/>
+        <result column="article_type" property="articleType"/>
     </resultMap>
 <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, title, info, publish_time AS publishTime, poster_id AS posterId, if_good AS ifGood, if_delete AS ifDelete, plate_id AS plateId, plate_name AS plateName, reply_count AS replyCount, poster_name AS posterName, poster_picture AS posterPicture, thumbup_count AS thumbupCount, last_modify_time AS lastModifyTime
+        id, title, info, poster_id AS posterId, if_good AS ifGood, plate_id AS plateId, reply_count AS replyCount, thumbup_count AS thumbupCount, gmt_create AS gmtCreate, gmt_modify AS gmtModify, create_user AS createUser, modify_user AS modifyUser, state, read_count AS readCount, article_from AS articleFrom, article_type AS articleType
     </sql>
 
     <sql id="Table_Name">
@@ -36,38 +38,44 @@
         <if test=" info != null">
             info,
         </if>
-        <if test=" publishTime != null">
-            publish_time,
-        </if>
         <if test=" posterId != null">
             poster_id,
         </if>
         <if test=" ifGood != null">
             if_good,
         </if>
-        <if test=" ifDelete != null">
-            if_delete,
-        </if>
         <if test=" plateId != null">
             plate_id,
-        </if>
-        <if test=" plateName != null">
-            plate_name,
         </if>
         <if test=" replyCount != null">
             reply_count,
         </if>
-        <if test=" posterName != null">
-            poster_name,
-        </if>
-        <if test=" posterPicture != null">
-            poster_picture,
-        </if>
         <if test=" thumbupCount != null">
             thumbup_count,
         </if>
-        <if test=" lastModifyTime != null">
-            last_modify_time,
+        <if test=" gmtCreate != null">
+            gmt_create,
+        </if>
+        <if test=" gmtModify != null">
+            gmt_modify,
+        </if>
+        <if test=" createUser != null">
+            create_user,
+        </if>
+        <if test=" modifyUser != null">
+            modify_user,
+        </if>
+        <if test=" state != null">
+            state,
+        </if>
+        <if test=" readCount != null">
+            read_count,
+        </if>
+        <if test=" articleFrom != null">
+            article_from,
+        </if>
+        <if test=" articleType != null">
+            article_type,
         </if>
     </sql>
 
@@ -78,38 +86,44 @@
         <if test=" info != null">
             #{info },
         </if>
-        <if test=" publishTime != null">
-            #{publishTime },
-        </if>
         <if test=" posterId != null">
             #{posterId },
         </if>
         <if test=" ifGood != null">
             #{ifGood },
         </if>
-        <if test=" ifDelete != null">
-            #{ifDelete },
-        </if>
         <if test=" plateId != null">
             #{plateId },
-        </if>
-        <if test=" plateName != null">
-            #{plateName },
         </if>
         <if test=" replyCount != null">
             #{replyCount },
         </if>
-        <if test=" posterName != null">
-            #{posterName },
-        </if>
-        <if test=" posterPicture != null">
-            #{posterPicture },
-        </if>
         <if test=" thumbupCount != null">
             #{thumbupCount },
         </if>
-        <if test=" lastModifyTime != null">
-            #{lastModifyTime },
+        <if test=" gmtCreate != null">
+            #{gmtCreate },
+        </if>
+        <if test=" gmtModify != null">
+            #{gmtModify },
+        </if>
+        <if test=" createUser != null">
+            #{createUser },
+        </if>
+        <if test=" modifyUser != null">
+            #{modifyUser },
+        </if>
+        <if test=" state != null">
+            #{state },
+        </if>
+        <if test=" readCount != null">
+            #{readCount },
+        </if>
+        <if test=" articleFrom != null">
+            #{articleFrom },
+        </if>
+        <if test=" articleType != null">
+            #{articleType },
         </if>
     </sql>
 
@@ -120,38 +134,44 @@
         <if test=" info != null">
             info = #{info },
         </if>
-        <if test=" publishTime != null">
-            publish_time = #{publishTime },
-        </if>
         <if test=" posterId != null">
             poster_id = #{posterId },
         </if>
         <if test=" ifGood != null">
             if_good = #{ifGood },
         </if>
-        <if test=" ifDelete != null">
-            if_delete = #{ifDelete },
-        </if>
         <if test=" plateId != null">
             plate_id = #{plateId },
-        </if>
-        <if test=" plateName != null">
-            plate_name = #{plateName },
         </if>
         <if test=" replyCount != null">
             reply_count = #{replyCount },
         </if>
-        <if test=" posterName != null">
-            poster_name = #{posterName },
-        </if>
-        <if test=" posterPicture != null">
-            poster_picture = #{posterPicture },
-        </if>
         <if test=" thumbupCount != null">
             thumbup_count = #{thumbupCount },
         </if>
-        <if test=" lastModifyTime != null">
-            last_modify_time = #{lastModifyTime },
+        <if test=" gmtCreate != null">
+            gmt_create = #{gmtCreate },
+        </if>
+        <if test=" gmtModify != null">
+            gmt_modify = #{gmtModify },
+        </if>
+        <if test=" createUser != null">
+            create_user = #{createUser },
+        </if>
+        <if test=" modifyUser != null">
+            modify_user = #{modifyUser },
+        </if>
+        <if test=" state != null">
+            state = #{state },
+        </if>
+        <if test=" readCount != null">
+            read_count = #{readCount },
+        </if>
+        <if test=" articleFrom != null">
+            article_from = #{articleFrom },
+        </if>
+        <if test=" articleType != null">
+            article_type = #{articleType },
         </if>
     </sql>
 
@@ -162,42 +182,48 @@
         <if test=" info != null">
             and info = #{info }
         </if>
-        <if test=" publishTime != null">
-            and publish_time = #{publishTime }
-        </if>
         <if test=" posterId != null">
             and poster_id = #{posterId }
         </if>
         <if test=" ifGood != null">
             and if_good = #{ifGood }
         </if>
-        <if test=" ifDelete != null">
-            and if_delete = #{ifDelete }
-        </if>
         <if test=" plateId != null">
             and plate_id = #{plateId }
-        </if>
-        <if test=" plateName != null">
-            and plate_name = #{plateName }
         </if>
         <if test=" replyCount != null">
             and reply_count = #{replyCount }
         </if>
-        <if test=" posterName != null">
-            and poster_name = #{posterName }
-        </if>
-        <if test=" posterPicture != null">
-            and poster_picture = #{posterPicture }
-        </if>
         <if test=" thumbupCount != null">
             and thumbup_count = #{thumbupCount }
         </if>
-        <if test=" lastModifyTime != null">
-            and last_modify_time = #{lastModifyTime }
+        <if test=" gmtCreate != null">
+            and gmt_create = #{gmtCreate }
+        </if>
+        <if test=" gmtModify != null">
+            and gmt_modify = #{gmtModify }
+        </if>
+        <if test=" createUser != null">
+            and create_user = #{createUser }
+        </if>
+        <if test=" modifyUser != null">
+            and modify_user = #{modifyUser }
+        </if>
+        <if test=" state != null">
+            and state = #{state }
+        </if>
+        <if test=" readCount != null">
+            and read_count = #{readCount }
+        </if>
+        <if test=" articleFrom != null">
+            and article_from = #{articleFrom }
+        </if>
+        <if test=" articleType != null">
+            and article_type = #{articleType }
         </if>
     </sql>
 
-    <insert id="insert" parameterType="com.bysj.entity.Post">
+    <insert id="insert" parameterType="com.cuit.bbs.entity.Post">
         insert into
         <include refid="Table_Name"></include>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -208,7 +234,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.bysj.entity.Post">
+    <update id="update" parameterType="com.cuit.bbs.entity.Post">
         update
         <include refid="Table_Name"></include>
         <trim prefix="SET" suffixOverrides=",">
@@ -218,7 +244,7 @@
     </update>
 
     <!-- 根据主键查询 -->
-    <select id="getById" resultType="com.bysj.entity.Post" parameterType="java.lang.Integer">
+    <select id="getById" resultType="com.cuit.bbs.entity.Post" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from
@@ -233,7 +259,7 @@
         where id = #{id}
     </delete>
 
-    <select id="getByWhere" resultType="com.bysj.entity.Post" parameterType="java.util.Map">
+    <select id="getByWhere" resultType="com.cuit.bbs.entity.Post" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
@@ -246,14 +272,14 @@
     </select>
 
 
-    <select id="getAll" resultType="com.bysj.entity.Post">
+    <select id="getAll" resultType="com.cuit.bbs.entity.Post">
         select *
         from
         <include refid="Table_Name"></include>
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findCount" resultType="int" parameterType="com.antiy.common.base.ObjectQuery">
         select count(1)
         from
         <include refid="Table_Name"></include>
@@ -264,7 +290,7 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.bysj.entity.Post" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findQuery" resultType="com.cuit.bbs.entity.Post" parameterType="com.antiy.common.base.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>

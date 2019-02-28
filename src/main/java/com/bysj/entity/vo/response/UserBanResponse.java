@@ -1,14 +1,14 @@
 package com.bysj.entity.vo.response;
 
-import com.bysj.common.request.BaseEntity;
-
+import com.antiy.common.base.BaseEntity;
+import com.cuit.bbs.entity.vo.response;
 
 /**
  * <p>
  * UserBanResponse 响应对象
  * </p>
  *
- * @author wh
+ * @author zhangyajun
  * @since 2018-12-27
  */
 

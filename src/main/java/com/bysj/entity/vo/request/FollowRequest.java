@@ -1,28 +1,35 @@
 package com.bysj.entity.vo.request;
 
+import com.antiy.common.base.BasicRequest;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.util.Date;
-
+import com.antiy.common.validation.ObjectValidator;
+import com.antiy.common.exception.RequestParamValidateException;
 /**
  * <p>
  * FollowRequest 请求对象
  * </p>
  *
- * @author wh
+ * @author zhangyajun
  * @since 2018-12-27
  */
 
-public class FollowRequest   {
+public class FollowRequest extends BasicRequest implements ObjectValidator{
 
-    @ApiModelProperty("")
+    /**
+     *  粉丝id
+     */
+    @ApiModelProperty("粉丝id")
     private Integer fanId;
-    @ApiModelProperty("")
+    /**
+     *  被关注者id
+     */
+    @ApiModelProperty("被关注者id")
     private Integer starId;
-    @ApiModelProperty("")
-    private Date time;
-    @ApiModelProperty("")
-    private Boolean ifDelete;
+    /**
+     *  创建时间
+     */
+    @ApiModelProperty("创建时间")
+    private Date gmtCreate;
 
 
     public Integer getFanId() {
@@ -43,23 +50,18 @@ public class FollowRequest   {
         }
 
 
-    public Date getTime() {
-    return time;
+    public Date getGmtCreate() {
+    return gmtCreate;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
         }
 
 
-    public Boolean getIfDelete() {
-    return ifDelete;
+    @Override
+    public void validate() throws RequestParamValidateException {
+
     }
-
-    public void setIfDelete(Boolean ifDelete) {
-        this.ifDelete = ifDelete;
-        }
-
-
 
 }

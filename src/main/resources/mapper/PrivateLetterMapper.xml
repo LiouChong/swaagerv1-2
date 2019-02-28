@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bysj.dao.PrivateLetterDao">
+<mapper namespace="com.cuit.bbs.dao.PrivateLetterDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.bysj.entity.PrivateLetter">
+    <resultMap id="BaseResultMap" type="com.cuit.bbs.entity.PrivateLetter">
         <id column="id" property="id"/>
-        <result column="from_user_id" property="fromUserId"/>
+        <result column="user_send_send" property="userSendSend"/>
+        <result column="user_send_rev" property="userSendRev"/>
         <result column="content" property="content"/>
-        <result column="to_user_id" property="toUserId"/>
         <result column="if_read" property="ifRead"/>
-        <result column="if_delete" property="ifDelete"/>
+        <result column="state" property="state"/>
+        <result column="user_modify" property="userModify"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modify" property="gmtModify"/>
+        <result column="letter_type" property="letterType"/>
+        <result column="user_rev_send" property="userRevSend"/>
     </resultMap>
 <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, from_user_id AS fromUserId, content, to_user_id AS toUserId, if_read AS ifRead, if_delete AS ifDelete
+        id, user_send_send AS userSendSend, user_send_rev AS userSendRev, content, if_read AS ifRead, state, user_modify AS userModify, gmt_create AS gmtCreate, gmt_modify AS gmtModify, letter_type AS letterType, user_rev_send AS userRevSend
     </sql>
 
     <sql id="Table_Name">
@@ -22,78 +27,138 @@
 
 
     <sql id="IF_Base_Column_List">
-        <if test=" fromUserId != null">
-            from_user_id,
+        <if test=" userSendSend != null">
+            user_send_send,
+        </if>
+        <if test=" userSendRev != null">
+            user_send_rev,
         </if>
         <if test=" content != null">
             content,
         </if>
-        <if test=" toUserId != null">
-            to_user_id,
-        </if>
         <if test=" ifRead != null">
             if_read,
         </if>
-        <if test=" ifDelete != null">
-            if_delete,
+        <if test=" state != null">
+            state,
+        </if>
+        <if test=" userModify != null">
+            user_modify,
+        </if>
+        <if test=" gmtCreate != null">
+            gmt_create,
+        </if>
+        <if test=" gmtModify != null">
+            gmt_modify,
+        </if>
+        <if test=" letterType != null">
+            letter_type,
+        </if>
+        <if test=" userRevSend != null">
+            user_rev_send,
         </if>
     </sql>
 
     <sql id="IF_Value_Column_List">
-        <if test=" fromUserId != null">
-            #{fromUserId },
+        <if test=" userSendSend != null">
+            #{userSendSend },
+        </if>
+        <if test=" userSendRev != null">
+            #{userSendRev },
         </if>
         <if test=" content != null">
             #{content },
         </if>
-        <if test=" toUserId != null">
-            #{toUserId },
-        </if>
         <if test=" ifRead != null">
             #{ifRead },
         </if>
-        <if test=" ifDelete != null">
-            #{ifDelete },
+        <if test=" state != null">
+            #{state },
+        </if>
+        <if test=" userModify != null">
+            #{userModify },
+        </if>
+        <if test=" gmtCreate != null">
+            #{gmtCreate },
+        </if>
+        <if test=" gmtModify != null">
+            #{gmtModify },
+        </if>
+        <if test=" letterType != null">
+            #{letterType },
+        </if>
+        <if test=" userRevSend != null">
+            #{userRevSend },
         </if>
     </sql>
 
     <sql id="Set_Column_List">
-        <if test=" fromUserId != null">
-            from_user_id = #{fromUserId },
+        <if test=" userSendSend != null">
+            user_send_send = #{userSendSend },
+        </if>
+        <if test=" userSendRev != null">
+            user_send_rev = #{userSendRev },
         </if>
         <if test=" content != null">
             content = #{content },
         </if>
-        <if test=" toUserId != null">
-            to_user_id = #{toUserId },
-        </if>
         <if test=" ifRead != null">
             if_read = #{ifRead },
         </if>
-        <if test=" ifDelete != null">
-            if_delete = #{ifDelete },
+        <if test=" state != null">
+            state = #{state },
+        </if>
+        <if test=" userModify != null">
+            user_modify = #{userModify },
+        </if>
+        <if test=" gmtCreate != null">
+            gmt_create = #{gmtCreate },
+        </if>
+        <if test=" gmtModify != null">
+            gmt_modify = #{gmtModify },
+        </if>
+        <if test=" letterType != null">
+            letter_type = #{letterType },
+        </if>
+        <if test=" userRevSend != null">
+            user_rev_send = #{userRevSend },
         </if>
     </sql>
 
     <sql id="Where_Column_List">
-        <if test=" fromUserId != null">
-            and from_user_id = #{fromUserId }
+        <if test=" userSendSend != null">
+            and user_send_send = #{userSendSend }
+        </if>
+        <if test=" userSendRev != null">
+            and user_send_rev = #{userSendRev }
         </if>
         <if test=" content != null">
             and content = #{content }
         </if>
-        <if test=" toUserId != null">
-            and to_user_id = #{toUserId }
-        </if>
         <if test=" ifRead != null">
             and if_read = #{ifRead }
         </if>
-        <if test=" ifDelete != null">
-            and if_delete = #{ifDelete }
+        <if test=" state != null">
+            and state = #{state }
+        </if>
+        <if test=" userModify != null">
+            and user_modify = #{userModify }
+        </if>
+        <if test=" gmtCreate != null">
+            and gmt_create = #{gmtCreate }
+        </if>
+        <if test=" gmtModify != null">
+            and gmt_modify = #{gmtModify }
+        </if>
+        <if test=" letterType != null">
+            and letter_type = #{letterType }
+        </if>
+        <if test=" userRevSend != null">
+            and user_rev_send = #{userRevSend }
         </if>
     </sql>
 
-    <insert id="insert" parameterType="com.bysj.entity.PrivateLetter">
+    <insert id="insert" parameterType="com.cuit.bbs.entity.PrivateLetter">
         insert into
         <include refid="Table_Name"></include>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -104,7 +169,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.bysj.entity.PrivateLetter">
+    <update id="update" parameterType="com.cuit.bbs.entity.PrivateLetter">
         update
         <include refid="Table_Name"></include>
         <trim prefix="SET" suffixOverrides=",">
@@ -114,7 +179,7 @@
     </update>
 
     <!-- 根据主键查询 -->
-    <select id="getById" resultType="com.bysj.entity.PrivateLetter" parameterType="java.lang.Integer">
+    <select id="getById" resultType="com.cuit.bbs.entity.PrivateLetter" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from
@@ -129,7 +194,7 @@
         where id = #{id}
     </delete>
 
-    <select id="getByWhere" resultType="com.bysj.entity.PrivateLetter" parameterType="java.util.Map">
+    <select id="getByWhere" resultType="com.cuit.bbs.entity.PrivateLetter" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
@@ -142,14 +207,14 @@
     </select>
 
 
-    <select id="getAll" resultType="com.bysj.entity.PrivateLetter">
+    <select id="getAll" resultType="com.cuit.bbs.entity.PrivateLetter">
         select *
         from
         <include refid="Table_Name"></include>
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findCount" resultType="int" parameterType="com.antiy.common.base.ObjectQuery">
         select count(1)
         from
         <include refid="Table_Name"></include>
@@ -160,7 +225,7 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.bysj.entity.PrivateLetter" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findQuery" resultType="com.cuit.bbs.entity.PrivateLetter" parameterType="com.antiy.common.base.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>

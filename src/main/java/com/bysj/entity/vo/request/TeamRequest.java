@@ -1,32 +1,60 @@
 package com.bysj.entity.vo.request;
 
+import com.antiy.common.base.BasicRequest;
 import io.swagger.annotations.ApiModelProperty;
-
+import com.antiy.common.validation.ObjectValidator;
+import com.antiy.common.exception.RequestParamValidateException;
 /**
  * <p>
  * TeamRequest 请求对象
  * </p>
  *
- * @author wh
+ * @author zhangyajun
  * @since 2018-12-27
  */
 
-public class TeamRequest   {
+public class TeamRequest extends BasicRequest implements ObjectValidator{
 
-    @ApiModelProperty("")
+    /**
+     *  小组名称
+     */
+    @ApiModelProperty("小组名称")
     private String teamName;
-    @ApiModelProperty("")
+    /**
+     *  成员个数
+     */
+    @ApiModelProperty("成员个数")
     private Integer memberCount;
-    @ApiModelProperty("")
+    /**
+     *  板块id
+     */
+    @ApiModelProperty("板块id")
     private Integer plateId;
-    @ApiModelProperty("")
-    private String plateName;
-    @ApiModelProperty("")
+    /**
+     *  组长id
+     */
+    @ApiModelProperty("组长id")
     private String leaderId;
-    @ApiModelProperty("")
-    private String leaderName;
-    @ApiModelProperty("")
-    private Boolean ifDelete;
+    /**
+     *  状态：1 有效 2无效
+     */
+    @ApiModelProperty("状态：1 有效 2无效")
+    private Integer state;
+    /**
+     *  创建时间
+     */
+    @ApiModelProperty("创建时间")
+    private Date gmtCreate;
+    /**
+     *  修改时间
+     */
+    @ApiModelProperty("修改时间")
+    private Date gmtModify;
+    /**
+     *  修改者id
+     */
+    @ApiModelProperty("修改者id")
+    private Integer userModify;
 
 
 
@@ -57,15 +85,6 @@ public class TeamRequest   {
         }
 
 
-    public String getPlateName() {
-    return plateName;
-    }
-
-    public void setPlateName(String plateName) {
-        this.plateName = plateName;
-        }
-
-
     public String getLeaderId() {
     return leaderId;
     }
@@ -75,21 +94,45 @@ public class TeamRequest   {
         }
 
 
-    public String getLeaderName() {
-    return leaderName;
+    public Integer getState() {
+    return state;
     }
 
-    public void setLeaderName(String leaderName) {
-        this.leaderName = leaderName;
+    public void setState(Integer state) {
+        this.state = state;
         }
 
 
-    public Boolean getIfDelete() {
-    return ifDelete;
+    public Date getGmtCreate() {
+    return gmtCreate;
     }
 
-    public void setIfDelete(Boolean ifDelete) {
-        this.ifDelete = ifDelete;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
         }
+
+
+    public Date getGmtModify() {
+    return gmtModify;
+    }
+
+    public void setGmtModify(Date gmtModify) {
+        this.gmtModify = gmtModify;
+        }
+
+
+    public Integer getUserModify() {
+    return userModify;
+    }
+
+    public void setUserModify(Integer userModify) {
+        this.userModify = userModify;
+        }
+
+
+    @Override
+    public void validate() throws RequestParamValidateException {
+
+    }
 
 }

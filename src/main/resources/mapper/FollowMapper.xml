@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bysj.dao.FollowDao">
+<mapper namespace="com.cuit.bbs.dao.FollowDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.bysj.entity.Follow">
+    <resultMap id="BaseResultMap" type="com.cuit.bbs.entity.Follow">
         <result column="fan_id" property="fanId"/>
         <result column="star_id" property="starId"/>
-        <result column="time" property="time"/>
-        <result column="if_delete" property="ifDelete"/>
+        <result column="gmt_create" property="gmtCreate"/>
     </resultMap>
 <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        fan_id AS fanId, star_id AS starId, time, if_delete AS ifDelete
+        fan_id AS fanId, star_id AS starId, gmt_create AS gmtCreate
     </sql>
 
     <sql id="Table_Name">
@@ -26,11 +25,8 @@
         <if test=" starId != null">
             star_id,
         </if>
-        <if test=" time != null">
-            time,
-        </if>
-        <if test=" ifDelete != null">
-            if_delete,
+        <if test=" gmtCreate != null">
+            gmt_create,
         </if>
     </sql>
 
@@ -41,11 +37,8 @@
         <if test=" starId != null">
             #{starId },
         </if>
-        <if test=" time != null">
-            #{time },
-        </if>
-        <if test=" ifDelete != null">
-            #{ifDelete },
+        <if test=" gmtCreate != null">
+            #{gmtCreate },
         </if>
     </sql>
 
@@ -56,11 +49,8 @@
         <if test=" starId != null">
             star_id = #{starId },
         </if>
-        <if test=" time != null">
-            time = #{time },
-        </if>
-        <if test=" ifDelete != null">
-            if_delete = #{ifDelete },
+        <if test=" gmtCreate != null">
+            gmt_create = #{gmtCreate },
         </if>
     </sql>
 
@@ -71,15 +61,12 @@
         <if test=" starId != null">
             and star_id = #{starId }
         </if>
-        <if test=" time != null">
-            and time = #{time }
-        </if>
-        <if test=" ifDelete != null">
-            and if_delete = #{ifDelete }
+        <if test=" gmtCreate != null">
+            and gmt_create = #{gmtCreate }
         </if>
     </sql>
 
-    <insert id="insert" parameterType="com.bysj.entity.Follow">
+    <insert id="insert" parameterType="com.cuit.bbs.entity.Follow">
         insert into
         <include refid="Table_Name"></include>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -90,7 +77,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.bysj.entity.Follow">
+    <update id="update" parameterType="com.cuit.bbs.entity.Follow">
         update
         <include refid="Table_Name"></include>
         <trim prefix="SET" suffixOverrides=",">
@@ -100,7 +87,7 @@
     </update>
 
     <!-- 根据主键查询 -->
-    <select id="getById" resultType="com.bysj.entity.Follow" parameterType="java.lang.Integer">
+    <select id="getById" resultType="com.cuit.bbs.entity.Follow" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from
@@ -115,7 +102,7 @@
         where id = #{id}
     </delete>
 
-    <select id="getByWhere" resultType="com.bysj.entity.Follow" parameterType="java.util.Map">
+    <select id="getByWhere" resultType="com.cuit.bbs.entity.Follow" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
@@ -128,14 +115,14 @@
     </select>
 
 
-    <select id="getAll" resultType="com.bysj.entity.Follow">
+    <select id="getAll" resultType="com.cuit.bbs.entity.Follow">
         select *
         from
         <include refid="Table_Name"></include>
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findCount" resultType="int" parameterType="com.antiy.common.base.ObjectQuery">
         select count(1)
         from
         <include refid="Table_Name"></include>
@@ -146,7 +133,7 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.bysj.entity.Follow" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findQuery" resultType="com.cuit.bbs.entity.Follow" parameterType="com.antiy.common.base.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>

@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bysj.dao.FavoritesArticleDao">
+<mapper namespace="com.cuit.bbs.dao.FavoritesArticleDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.bysj.entity.FavoritesArticle">
-        <result column="user_id" property="userId"/>
+    <resultMap id="BaseResultMap" type="com.cuit.bbs.entity.FavoritesArticle">
+        <id column="user_id" property="userId"/>
         <result column="post_id" property="postId"/>
-        <result column="time" property="time"/>
-        <result column="if_delete" property="ifDelete"/>
+        <result column="state" property="state"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modify" property="gmtModify"/>
+        <result column="user_create" property="userCreate"/>
+        <result column="user_modify" property="userModify"/>
     </resultMap>
 <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        user_id AS userId, post_id AS postId, time, if_delete AS ifDelete
+        user_id AS userId, post_id AS postId, state, gmt_create AS gmtCreate, gmt_modify AS gmtModify, user_create AS userCreate, user_modify AS userModify
     </sql>
 
     <sql id="Table_Name">
@@ -26,11 +29,20 @@
         <if test=" postId != null">
             post_id,
         </if>
-        <if test=" time != null">
-            time,
+        <if test=" state != null">
+            state,
         </if>
-        <if test=" ifDelete != null">
-            if_delete,
+        <if test=" gmtCreate != null">
+            gmt_create,
+        </if>
+        <if test=" gmtModify != null">
+            gmt_modify,
+        </if>
+        <if test=" userCreate != null">
+            user_create,
+        </if>
+        <if test=" userModify != null">
+            user_modify,
         </if>
     </sql>
 
@@ -41,11 +53,20 @@
         <if test=" postId != null">
             #{postId },
         </if>
-        <if test=" time != null">
-            #{time },
+        <if test=" state != null">
+            #{state },
         </if>
-        <if test=" ifDelete != null">
-            #{ifDelete },
+        <if test=" gmtCreate != null">
+            #{gmtCreate },
+        </if>
+        <if test=" gmtModify != null">
+            #{gmtModify },
+        </if>
+        <if test=" userCreate != null">
+            #{userCreate },
+        </if>
+        <if test=" userModify != null">
+            #{userModify },
         </if>
     </sql>
 
@@ -56,11 +77,20 @@
         <if test=" postId != null">
             post_id = #{postId },
         </if>
-        <if test=" time != null">
-            time = #{time },
+        <if test=" state != null">
+            state = #{state },
         </if>
-        <if test=" ifDelete != null">
-            if_delete = #{ifDelete },
+        <if test=" gmtCreate != null">
+            gmt_create = #{gmtCreate },
+        </if>
+        <if test=" gmtModify != null">
+            gmt_modify = #{gmtModify },
+        </if>
+        <if test=" userCreate != null">
+            user_create = #{userCreate },
+        </if>
+        <if test=" userModify != null">
+            user_modify = #{userModify },
         </if>
     </sql>
 
@@ -71,15 +101,24 @@
         <if test=" postId != null">
             and post_id = #{postId }
         </if>
-        <if test=" time != null">
-            and time = #{time }
+        <if test=" state != null">
+            and state = #{state }
         </if>
-        <if test=" ifDelete != null">
-            and if_delete = #{ifDelete }
+        <if test=" gmtCreate != null">
+            and gmt_create = #{gmtCreate }
+        </if>
+        <if test=" gmtModify != null">
+            and gmt_modify = #{gmtModify }
+        </if>
+        <if test=" userCreate != null">
+            and user_create = #{userCreate }
+        </if>
+        <if test=" userModify != null">
+            and user_modify = #{userModify }
         </if>
     </sql>
 
-    <insert id="insert" parameterType="com.bysj.entity.FavoritesArticle">
+    <insert id="insert" parameterType="com.cuit.bbs.entity.FavoritesArticle">
         insert into
         <include refid="Table_Name"></include>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -90,7 +129,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.bysj.entity.FavoritesArticle">
+    <update id="update" parameterType="com.cuit.bbs.entity.FavoritesArticle">
         update
         <include refid="Table_Name"></include>
         <trim prefix="SET" suffixOverrides=",">
@@ -100,7 +139,7 @@
     </update>
 
     <!-- 根据主键查询 -->
-    <select id="getById" resultType="com.bysj.entity.FavoritesArticle" parameterType="java.lang.Integer">
+    <select id="getById" resultType="com.cuit.bbs.entity.FavoritesArticle" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from
@@ -115,7 +154,7 @@
         where id = #{id}
     </delete>
 
-    <select id="getByWhere" resultType="com.bysj.entity.FavoritesArticle" parameterType="java.util.Map">
+    <select id="getByWhere" resultType="com.cuit.bbs.entity.FavoritesArticle" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
@@ -128,14 +167,14 @@
     </select>
 
 
-    <select id="getAll" resultType="com.bysj.entity.FavoritesArticle">
+    <select id="getAll" resultType="com.cuit.bbs.entity.FavoritesArticle">
         select *
         from
         <include refid="Table_Name"></include>
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findCount" resultType="int" parameterType="com.antiy.common.base.ObjectQuery">
         select count(1)
         from
         <include refid="Table_Name"></include>
@@ -146,7 +185,7 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.bysj.entity.FavoritesArticle" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findQuery" resultType="com.cuit.bbs.entity.FavoritesArticle" parameterType="com.antiy.common.base.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>

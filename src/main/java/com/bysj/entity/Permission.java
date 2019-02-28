@@ -1,16 +1,16 @@
 package com.bysj.entity;
 
 
-import com.bysj.common.request.BaseEntity;
+import java.util.Date;
+import com.antiy.common.base.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
-
 /**
  * <p>
  * 权限表
  * </p>
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 
 public class Permission extends BaseEntity {

@@ -1,33 +1,58 @@
 package com.bysj.entity;
 
 
-import com.bysj.common.request.BaseEntity;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Date;
-
+import com.antiy.common.base.BaseEntity;
+import io.swagger.annotations.ApiModelProperty;
 /**
  * <p>
  * 喜欢的文章表
  * </p>
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 
 public class FavoritesArticle extends BaseEntity {
 
 
-    private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("")
+        /**
+    *  用户id
+    */
+        @ApiModelProperty("用户id")
     private Integer userId;
-    @ApiModelProperty("")
+        /**
+    *  帖子id
+    */
+        @ApiModelProperty("帖子id")
     private Integer postId;
-    @ApiModelProperty("")
-    private Date time;
-    @ApiModelProperty("")
-    private Boolean ifDelete;
+        /**
+    *  状态： 1 有效 2 无效
+    */
+        @ApiModelProperty("状态： 1 有效 2 无效")
+    private Boolean state;
+        /**
+    *  创建时间
+    */
+        @ApiModelProperty("创建时间")
+    private Date gmtCreate;
+        /**
+    *  修改时间
+    */
+        @ApiModelProperty("修改时间")
+    private Date gmtModify;
+        /**
+    *  创建者id
+    */
+        @ApiModelProperty("创建者id")
+    private Integer userCreate;
+        /**
+    *  修改着id
+    */
+        @ApiModelProperty("修改着id")
+    private Integer userModify;
 
 
     public Integer getUserId() {
@@ -48,31 +73,61 @@ public class FavoritesArticle extends BaseEntity {
     }
 
 
-    public Date getTime() {
-        return time;
+    public Boolean getState() {
+        return state;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
-    }
-
-
-    public Boolean getIfDelete() {
-        return ifDelete;
-    }
-
-    public void setIfDelete(Boolean ifDelete) {
-        this.ifDelete = ifDelete;
+    public void setState(Boolean state) {
+        this.state = state;
     }
 
 
-    @Override
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+
+    public Date getGmtModify() {
+        return gmtModify;
+    }
+
+    public void setGmtModify(Date gmtModify) {
+        this.gmtModify = gmtModify;
+    }
+
+
+    public Integer getUserCreate() {
+        return userCreate;
+    }
+
+    public void setUserCreate(Integer userCreate) {
+        this.userCreate = userCreate;
+    }
+
+
+    public Integer getUserModify() {
+        return userModify;
+    }
+
+    public void setUserModify(Integer userModify) {
+        this.userModify = userModify;
+    }
+
+
+        @Override
     public String toString() {
-        return "FavoritesArticle{" +
-                "userId=" + userId +
-                ", postId=" + postId +
-                ", time=" + time +
-                ", ifDelete=" + ifDelete +
-                "}";
+            return "FavoritesArticle{" +
+                                                            "userId=" + userId +
+                                                                                        ", postId=" + postId +
+                                                                                        ", state=" + state +
+                                                                                        ", gmtCreate=" + gmtCreate +
+                                                                                        ", gmtModify=" + gmtModify +
+                                                                                        ", userCreate=" + userCreate +
+                                                                                        ", userModify=" + userModify +
+                                                "}";
     }
-}
+    }

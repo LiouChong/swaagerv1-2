@@ -7,8 +7,6 @@ import com.bysj.common.request.PageResult;
 import com.bysj.dao.PlateDao;
 import com.bysj.entity.Plate;
 import com.bysj.entity.vo.query.PlateQuery;
-import com.bysj.entity.vo.request.PlateRequest;
-import com.bysj.entity.vo.response.PlateResponse;
 import com.bysj.service.IPlateService;
 import org.springframework.stereotype.Service;
 

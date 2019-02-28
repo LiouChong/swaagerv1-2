@@ -1,24 +1,31 @@
 package com.bysj.controller;
 
-import com.bysj.common.response.ActionResponse;
-import com.bysj.entity.vo.query.FavoritesArticleQuery;
-import com.bysj.entity.vo.request.FavoritesArticleRequest;
-import com.bysj.service.IFavoritesArticleService;
-import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import io.swagger.annotations.*;
+import com.antiy.common.base.ActionResponse;
 import javax.annotation.Resource;
+import com.antiy.common.utils.LogUtils;
+import com.antiy.common.base.QueryCondition;
+import com.antiy.common.utils.ParamterExceptionUtils;
+
+import com.cuit.bbs.service.IFavoritesArticleService;
+import com.cuit.bbs.entity.FavoritesArticle;
+import com.cuit.bbs.entity.vo.request.FavoritesArticleRequest;
+import com.cuit.bbs.entity.vo.response.FavoritesArticleResponse;
+import com.cuit.bbs.entity.vo.query.FavoritesArticleQuery;
 
 
 /**
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 @Api(value = "FavoritesArticle", description = "喜欢的文章表")
 @RestController
 @RequestMapping("/v1/bbs/favoritesarticle")
 public class FavoritesArticleController {
+    private static final Logger logger = LogUtils.get();
 
     @Resource
     public IFavoritesArticleService iFavoritesArticleService;
@@ -48,7 +55,7 @@ public class FavoritesArticleController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "favoritesArticle") FavoritesArticleRequest favoritesArticleRequest)throws Exception{
+    public ActionResponse updateSingle(@ApiParam(value = "favoritesArticle")FavoritesArticleRequest favoritesArticleRequest)throws Exception{
         iFavoritesArticleService.updateFavoritesArticle(favoritesArticleRequest);
         return ActionResponse.success();
     }
@@ -78,6 +85,7 @@ public class FavoritesArticleController {
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "favoritesArticle") @PathVariable("id") Integer id)throws Exception{
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iFavoritesArticleService.getById(id));
     }
 
@@ -92,6 +100,7 @@ public class FavoritesArticleController {
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iFavoritesArticleService.deleteById(id));
     }
 }

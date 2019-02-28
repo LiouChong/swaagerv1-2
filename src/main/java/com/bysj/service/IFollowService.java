@@ -1,24 +1,27 @@
 package com.bysj.service;
 
-
-import com.bysj.common.request.IBaseService;
-import com.bysj.common.request.PageResult;
-import com.bysj.entity.Follow;
-import com.bysj.entity.vo.query.FollowQuery;
-import com.bysj.entity.vo.request.FollowRequest;
-import com.bysj.entity.vo.response.FollowResponse;
-
+import com.antiy.common.base.IBaseService;
+import com.antiy.common.base.PageResult;
+import java.io.Serializable;
 import java.util.List;
+
+import com.cuit.bbs.entity.dto.FollowDTO;
+import com.cuit.bbs.entity.vo.query.FollowQuery;
+import com.cuit.bbs.entity.vo.request.FollowRequest;
+import com.cuit.bbs.entity.vo.response.FollowResponse;
+import com.cuit.bbs.entity.Follow;
+
 
 /**
  * <p>
- * 关注人列表 服务类
+ * 关注人表 服务类
  * </p>
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 public interface IFollowService extends IBaseService<Follow> {
+
         /**
          * 保存
          * @param request

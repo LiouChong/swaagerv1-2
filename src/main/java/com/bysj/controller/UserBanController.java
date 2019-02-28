@@ -1,25 +1,31 @@
 package com.bysj.controller;
 
-
-import com.bysj.common.response.ActionResponse;
-import com.bysj.entity.vo.query.UserBanQuery;
-import com.bysj.entity.vo.request.UserBanRequest;
-import com.bysj.service.IUserBanService;
-import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import io.swagger.annotations.*;
+import com.antiy.common.base.ActionResponse;
 import javax.annotation.Resource;
+import com.antiy.common.utils.LogUtils;
+import com.antiy.common.base.QueryCondition;
+import com.antiy.common.utils.ParamterExceptionUtils;
+
+import com.cuit.bbs.service.IUserBanService;
+import com.cuit.bbs.entity.UserBan;
+import com.cuit.bbs.entity.vo.request.UserBanRequest;
+import com.cuit.bbs.entity.vo.response.UserBanResponse;
+import com.cuit.bbs.entity.vo.query.UserBanQuery;
 
 
 /**
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 @Api(value = "UserBan", description = "用户封禁表")
 @RestController
 @RequestMapping("/v1/bbs/userban")
 public class UserBanController {
+    private static final Logger logger = LogUtils.get();
 
     @Resource
     public IUserBanService iUserBanService;
@@ -79,7 +85,7 @@ public class UserBanController {
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "userBan") @PathVariable("id") Integer id)throws Exception{
-
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iUserBanService.getById(id));
     }
 
@@ -94,7 +100,7 @@ public class UserBanController {
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
-
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iUserBanService.deleteById(id));
     }
 }

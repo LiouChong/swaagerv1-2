@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bysj.dao.TotalStationInformationDao">
+<mapper namespace="com.cuit.bbs.dao.TotalStationInformationDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.bysj.entity.TotalStationInformation">
+    <resultMap id="BaseResultMap" type="com.cuit.bbs.entity.TotalStationInformation">
         <id column="id" property="id"/>
         <result column="content" property="content"/>
         <result column="time" property="time"/>
-        <result column="from_user_id" property="fromUserId"/>
+        <result column="user_name" property="userName"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modify" property="gmtModify"/>
+        <result column="user_create" property="userCreate"/>
+        <result column="user_modify" property="userModify"/>
+        <result column="state" property="state"/>
     </resultMap>
 <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, content, time, from_user_id AS fromUserId
+        id, content, time, user_name AS userName, gmt_create AS gmtCreate, gmt_modify AS gmtModify, user_create AS userCreate, user_modify AS userModify, state
     </sql>
 
     <sql id="Table_Name">
@@ -26,8 +31,23 @@
         <if test=" time != null">
             time,
         </if>
-        <if test=" fromUserId != null">
-            from_user_id,
+        <if test=" userName != null">
+            user_name,
+        </if>
+        <if test=" gmtCreate != null">
+            gmt_create,
+        </if>
+        <if test=" gmtModify != null">
+            gmt_modify,
+        </if>
+        <if test=" userCreate != null">
+            user_create,
+        </if>
+        <if test=" userModify != null">
+            user_modify,
+        </if>
+        <if test=" state != null">
+            state,
         </if>
     </sql>
 
@@ -38,8 +58,23 @@
         <if test=" time != null">
             #{time },
         </if>
-        <if test=" fromUserId != null">
-            #{fromUserId },
+        <if test=" userName != null">
+            #{userName },
+        </if>
+        <if test=" gmtCreate != null">
+            #{gmtCreate },
+        </if>
+        <if test=" gmtModify != null">
+            #{gmtModify },
+        </if>
+        <if test=" userCreate != null">
+            #{userCreate },
+        </if>
+        <if test=" userModify != null">
+            #{userModify },
+        </if>
+        <if test=" state != null">
+            #{state },
         </if>
     </sql>
 
@@ -50,8 +85,23 @@
         <if test=" time != null">
             time = #{time },
         </if>
-        <if test=" fromUserId != null">
-            from_user_id = #{fromUserId },
+        <if test=" userName != null">
+            user_name = #{userName },
+        </if>
+        <if test=" gmtCreate != null">
+            gmt_create = #{gmtCreate },
+        </if>
+        <if test=" gmtModify != null">
+            gmt_modify = #{gmtModify },
+        </if>
+        <if test=" userCreate != null">
+            user_create = #{userCreate },
+        </if>
+        <if test=" userModify != null">
+            user_modify = #{userModify },
+        </if>
+        <if test=" state != null">
+            state = #{state },
         </if>
     </sql>
 
@@ -62,12 +112,27 @@
         <if test=" time != null">
             and time = #{time }
         </if>
-        <if test=" fromUserId != null">
-            and from_user_id = #{fromUserId }
+        <if test=" userName != null">
+            and user_name = #{userName }
+        </if>
+        <if test=" gmtCreate != null">
+            and gmt_create = #{gmtCreate }
+        </if>
+        <if test=" gmtModify != null">
+            and gmt_modify = #{gmtModify }
+        </if>
+        <if test=" userCreate != null">
+            and user_create = #{userCreate }
+        </if>
+        <if test=" userModify != null">
+            and user_modify = #{userModify }
+        </if>
+        <if test=" state != null">
+            and state = #{state }
         </if>
     </sql>
 
-    <insert id="insert" parameterType="com.bysj.entity.TotalStationInformation">
+    <insert id="insert" parameterType="com.cuit.bbs.entity.TotalStationInformation">
         insert into
         <include refid="Table_Name"></include>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -78,7 +143,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.bysj.entity.TotalStationInformation">
+    <update id="update" parameterType="com.cuit.bbs.entity.TotalStationInformation">
         update
         <include refid="Table_Name"></include>
         <trim prefix="SET" suffixOverrides=",">
@@ -88,7 +153,7 @@
     </update>
 
     <!-- 根据主键查询 -->
-    <select id="getById" resultType="com.bysj.entity.TotalStationInformation" parameterType="java.lang.Integer">
+    <select id="getById" resultType="com.cuit.bbs.entity.TotalStationInformation" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from
@@ -103,7 +168,7 @@
         where id = #{id}
     </delete>
 
-    <select id="getByWhere" resultType="com.bysj.entity.TotalStationInformation" parameterType="java.util.Map">
+    <select id="getByWhere" resultType="com.cuit.bbs.entity.TotalStationInformation" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
@@ -116,14 +181,14 @@
     </select>
 
 
-    <select id="getAll" resultType="com.bysj.entity.TotalStationInformation">
+    <select id="getAll" resultType="com.cuit.bbs.entity.TotalStationInformation">
         select *
         from
         <include refid="Table_Name"></include>
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findCount" resultType="int" parameterType="com.antiy.common.base.ObjectQuery">
         select count(1)
         from
         <include refid="Table_Name"></include>
@@ -134,7 +199,7 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.bysj.entity.TotalStationInformation" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findQuery" resultType="com.cuit.bbs.entity.TotalStationInformation" parameterType="com.antiy.common.base.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>

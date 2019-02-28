@@ -1,25 +1,31 @@
 package com.bysj.controller;
 
-
-import com.bysj.common.response.ActionResponse;
-import com.bysj.entity.vo.query.ReplyQuery;
-import com.bysj.entity.vo.request.ReplyRequest;
-import com.bysj.service.IReplyService;
-import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import io.swagger.annotations.*;
+import com.antiy.common.base.ActionResponse;
 import javax.annotation.Resource;
+import com.antiy.common.utils.LogUtils;
+import com.antiy.common.base.QueryCondition;
+import com.antiy.common.utils.ParamterExceptionUtils;
+
+import com.cuit.bbs.service.IReplyService;
+import com.cuit.bbs.entity.Reply;
+import com.cuit.bbs.entity.vo.request.ReplyRequest;
+import com.cuit.bbs.entity.vo.response.ReplyResponse;
+import com.cuit.bbs.entity.vo.query.ReplyQuery;
 
 
 /**
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 @Api(value = "Reply", description = "回复表")
 @RestController
 @RequestMapping("/v1/bbs/reply")
 public class ReplyController {
+    private static final Logger logger = LogUtils.get();
 
     @Resource
     public IReplyService iReplyService;
@@ -49,7 +55,7 @@ public class ReplyController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "reply") ReplyRequest replyRequest)throws Exception{
+    public ActionResponse updateSingle(@ApiParam(value = "reply")ReplyRequest replyRequest)throws Exception{
         iReplyService.updateReply(replyRequest);
         return ActionResponse.success();
     }
@@ -79,6 +85,7 @@ public class ReplyController {
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "reply") @PathVariable("id") Integer id)throws Exception{
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iReplyService.getById(id));
     }
 
@@ -93,6 +100,7 @@ public class ReplyController {
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iReplyService.deleteById(id));
     }
 }

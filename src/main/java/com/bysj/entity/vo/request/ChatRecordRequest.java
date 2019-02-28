@@ -1,30 +1,55 @@
 package com.bysj.entity.vo.request;
 
+import com.antiy.common.base.BasicRequest;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.util.Date;
-
+import com.antiy.common.validation.ObjectValidator;
+import com.antiy.common.exception.RequestParamValidateException;
 /**
  * <p>
  * ChatRecordRequest 请求对象
  * </p>
  *
- * @author wh
+ * @author zhangyajun
  * @since 2018-12-27
  */
 
-public class ChatRecordRequest   {
+public class ChatRecordRequest extends BasicRequest implements ObjectValidator{
 
-    @ApiModelProperty("")
+    /**
+     *  聊天内容
+     */
+    @ApiModelProperty("聊天内容")
     private String content;
-    @ApiModelProperty("")
+    /**
+     *  讨论组小组id
+     */
+    @ApiModelProperty("讨论组小组id")
     private Integer teamId;
-    @ApiModelProperty("")
-    private Integer fromUserId;
-    @ApiModelProperty("")
-    private String fromUserName;
-    @ApiModelProperty("")
-    private Date sendTime;
+    /**
+     *  创建时间
+     */
+    @ApiModelProperty("创建时间")
+    private Date gmtCreate;
+    /**
+     *  修改时间
+     */
+    @ApiModelProperty("修改时间")
+    private Date gmtModify;
+    /**
+     *  创建者id
+     */
+    @ApiModelProperty("创建者id")
+    private Integer userCreate;
+    /**
+     *  修改着id
+     */
+    @ApiModelProperty("修改着id")
+    private Integer userModify;
+    /**
+     *  状态： 1 有效 0 无效
+     */
+    @ApiModelProperty("状态： 1 有效 0 无效")
+    private Integer state;
 
 
 
@@ -46,30 +71,54 @@ public class ChatRecordRequest   {
         }
 
 
-    public Integer getFromUserId() {
-    return fromUserId;
+    public Date getGmtCreate() {
+    return gmtCreate;
     }
 
-    public void setFromUserId(Integer fromUserId) {
-        this.fromUserId = fromUserId;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
         }
 
 
-    public String getFromUserName() {
-    return fromUserName;
+    public Date getGmtModify() {
+    return gmtModify;
     }
 
-    public void setFromUserName(String fromUserName) {
-        this.fromUserName = fromUserName;
+    public void setGmtModify(Date gmtModify) {
+        this.gmtModify = gmtModify;
         }
 
 
-    public Date getSendTime() {
-    return sendTime;
+    public Integer getUserCreate() {
+    return userCreate;
     }
 
-    public void setSendTime(Date sendTime) {
-        this.sendTime = sendTime;
+    public void setUserCreate(Integer userCreate) {
+        this.userCreate = userCreate;
         }
+
+
+    public Integer getUserModify() {
+    return userModify;
+    }
+
+    public void setUserModify(Integer userModify) {
+        this.userModify = userModify;
+        }
+
+
+    public Integer getState() {
+    return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+        }
+
+
+    @Override
+    public void validate() throws RequestParamValidateException {
+
+    }
 
 }

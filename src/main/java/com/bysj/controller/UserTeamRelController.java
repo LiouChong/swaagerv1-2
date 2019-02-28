@@ -1,25 +1,31 @@
 package com.bysj.controller;
 
-
-import com.bysj.common.response.ActionResponse;
-import com.bysj.entity.vo.query.UserTeamRelQuery;
-import com.bysj.entity.vo.request.UserTeamRelRequest;
-import com.bysj.service.IUserTeamRelService;
-import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import io.swagger.annotations.*;
+import com.antiy.common.base.ActionResponse;
 import javax.annotation.Resource;
+import com.antiy.common.utils.LogUtils;
+import com.antiy.common.base.QueryCondition;
+import com.antiy.common.utils.ParamterExceptionUtils;
+
+import com.cuit.bbs.service.IUserTeamRelService;
+import com.cuit.bbs.entity.UserTeamRel;
+import com.cuit.bbs.entity.vo.request.UserTeamRelRequest;
+import com.cuit.bbs.entity.vo.response.UserTeamRelResponse;
+import com.cuit.bbs.entity.vo.query.UserTeamRelQuery;
 
 
 /**
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 @Api(value = "UserTeamRel", description = "用户小组关联表")
 @RestController
 @RequestMapping("/v1/bbs/userteamrel")
 public class UserTeamRelController {
+    private static final Logger logger = LogUtils.get();
 
     @Resource
     public IUserTeamRelService iUserTeamRelService;
@@ -79,7 +85,7 @@ public class UserTeamRelController {
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "userTeamRel") @PathVariable("id") Integer id)throws Exception{
-
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iUserTeamRelService.getById(id));
     }
 
@@ -94,7 +100,7 @@ public class UserTeamRelController {
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
-
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iUserTeamRelService.deleteById(id));
     }
 }

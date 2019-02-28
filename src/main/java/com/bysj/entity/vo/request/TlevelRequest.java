@@ -1,17 +1,19 @@
 package com.bysj.entity.vo.request;
 
+import com.antiy.common.base.BasicRequest;
 import io.swagger.annotations.ApiModelProperty;
-
+import com.antiy.common.validation.ObjectValidator;
+import com.antiy.common.exception.RequestParamValidateException;
 /**
  * <p>
  * TlevelRequest 请求对象
  * </p>
  *
- * @author wh
+ * @author zhangyajun
  * @since 2018-12-27
  */
 
-public class TlevelRequest   {
+public class TlevelRequest extends BasicRequest implements ObjectValidator{
 
     @ApiModelProperty("")
     private String role;
@@ -27,5 +29,9 @@ public class TlevelRequest   {
         }
 
 
+    @Override
+    public void validate() throws RequestParamValidateException {
+
+    }
 
 }

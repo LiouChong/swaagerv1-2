@@ -1,31 +1,38 @@
-package com.bysj.controller;
+package com.cuit.bbs.controller;
 
-import com.bysj.common.response.ActionResponse;
-import com.bysj.entity.vo.query.ApplyplateQuery;
-import com.bysj.entity.vo.request.ApplyplateRequest;
-import com.bysj.service.IApplyplateService;
-import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import io.swagger.annotations.*;
+import com.antiy.common.base.ActionResponse;
 import javax.annotation.Resource;
+import com.antiy.common.utils.LogUtils;
+import com.antiy.common.base.QueryCondition;
+import com.antiy.common.utils.ParamterExceptionUtils;
+
+import com.cuit.bbs.service.IResourceService;
+import com.cuit.bbs.entity.Resource;
+import com.cuit.bbs.entity.vo.request.ResourceRequest;
+import com.cuit.bbs.entity.vo.response.ResourceResponse;
+import com.cuit.bbs.entity.vo.query.ResourceQuery;
 
 
 /**
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
-@Api(value = "Applyplate", description = "用户申请版主表")
+@Api(value = "Resource", description = "上传的资源表")
 @RestController
-@RequestMapping("/v1/bbs/applyplate")
-public class ApplyplateController {
+@RequestMapping("/v1/bbs/resource")
+public class ResourceController {
+    private static final Logger logger = LogUtils.get();
 
     @Resource
-    public IApplyplateService iApplyplateService;
+    public IResourceService iResourceService;
 
     /**
      * 保存
-     * @param applyplateRequest
+     * @param resourceRequest
      * @return actionResponse
      */
     @ApiOperation(value = "保存接口", notes = "传入实体对象信息")
@@ -33,14 +40,14 @@ public class ApplyplateController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/save/single", method = RequestMethod.POST)
-    public ActionResponse saveSingle(@ApiParam(value = "applyplate") @RequestBody ApplyplateRequest applyplateRequest)throws Exception{
-        iApplyplateService.saveApplyplate(applyplateRequest);
+    public ActionResponse saveSingle(@ApiParam(value = "resource") @RequestBody ResourceRequest resourceRequest)throws Exception{
+        iResourceService.saveResource(resourceRequest);
         return ActionResponse.success();
     }
 
     /**
      * 修改
-     * @param applyplateRequest
+     * @param resourceRequest
      * @return actionResponse
      */
     @ApiOperation(value = "修改接口", notes = "传入实体对象信息")
@@ -48,14 +55,14 @@ public class ApplyplateController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "applyplate")ApplyplateRequest applyplateRequest)throws Exception{
-        iApplyplateService.updateApplyplate(applyplateRequest);
+    public ActionResponse updateSingle(@ApiParam(value = "resource")ResourceRequest resourceRequest)throws Exception{
+        iResourceService.updateResource(resourceRequest);
         return ActionResponse.success();
     }
 
     /**
      * 批量查询
-     * @param applyplateQuery
+     * @param resourceQuery
      * @return actionResponse
      */
     @ApiOperation(value = "批量查询接口", notes = "传入查询条件")
@@ -63,8 +70,8 @@ public class ApplyplateController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/query/list", method = RequestMethod.GET)
-    public ActionResponse queryList(@ApiParam(value = "applyplate") ApplyplateQuery applyplateQuery)throws Exception{
-        return ActionResponse.success(iApplyplateService.findPageApplyplate(applyplateQuery));
+    public ActionResponse queryList(@ApiParam(value = "resource") ResourceQuery resourceQuery)throws Exception{
+        return ActionResponse.success(iResourceService.findPageResource(resourceQuery));
     }
 
     /**
@@ -77,8 +84,9 @@ public class ApplyplateController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
-    public ActionResponse queryById(@ApiParam(value = "applyplate") @PathVariable("id") Integer id)throws Exception{
-        return ActionResponse.success(iApplyplateService.getById(id));
+    public ActionResponse queryById(@ApiParam(value = "resource") @PathVariable("id") Integer id)throws Exception{
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
+        return ActionResponse.success(iResourceService.getById(id));
     }
 
     /**
@@ -92,7 +100,8 @@ public class ApplyplateController {
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
-        return ActionResponse.success(iApplyplateService.deleteById(id));
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
+        return ActionResponse.success(iResourceService.deleteById(id));
     }
 }
 

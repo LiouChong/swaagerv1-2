@@ -1,22 +1,24 @@
 package com.bysj.service;
 
-
-import com.bysj.common.request.IBaseService;
-import com.bysj.common.request.PageResult;
-import com.bysj.entity.ChatRecord;
-import com.bysj.entity.vo.query.ChatRecordQuery;
-import com.bysj.entity.vo.request.ChatRecordRequest;
-import com.bysj.entity.vo.response.ChatRecordResponse;
-
+import com.antiy.common.base.IBaseService;
+import com.antiy.common.base.PageResult;
+import java.io.Serializable;
 import java.util.List;
+
+import com.cuit.bbs.entity.dto.ChatRecordDTO;
+import com.cuit.bbs.entity.vo.query.ChatRecordQuery;
+import com.cuit.bbs.entity.vo.request.ChatRecordRequest;
+import com.cuit.bbs.entity.vo.response.ChatRecordResponse;
+import com.cuit.bbs.entity.ChatRecord;
+
 
 /**
  * <p>
- * 聊天记录表 服务类
+ * 讨论组聊天记录表 服务类
  * </p>
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 public interface IChatRecordService extends IBaseService<ChatRecord> {
 

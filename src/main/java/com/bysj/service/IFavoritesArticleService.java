@@ -1,14 +1,16 @@
 package com.bysj.service;
 
-
-import com.bysj.common.request.IBaseService;
-import com.bysj.common.request.PageResult;
-import com.bysj.entity.FavoritesArticle;
-import com.bysj.entity.vo.query.FavoritesArticleQuery;
-import com.bysj.entity.vo.request.FavoritesArticleRequest;
-import com.bysj.entity.vo.response.FavoritesArticleResponse;
-
+import com.antiy.common.base.IBaseService;
+import com.antiy.common.base.PageResult;
+import java.io.Serializable;
 import java.util.List;
+
+import com.cuit.bbs.entity.dto.FavoritesArticleDTO;
+import com.cuit.bbs.entity.vo.query.FavoritesArticleQuery;
+import com.cuit.bbs.entity.vo.request.FavoritesArticleRequest;
+import com.cuit.bbs.entity.vo.response.FavoritesArticleResponse;
+import com.cuit.bbs.entity.FavoritesArticle;
+
 
 /**
  * <p>
@@ -16,7 +18,7 @@ import java.util.List;
  * </p>
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 public interface IFavoritesArticleService extends IBaseService<FavoritesArticle> {
 

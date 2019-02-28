@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bysj.dao.ChatRecordDao">
+<mapper namespace="com.cuit.bbs.dao.ChatRecordDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.bysj.entity.ChatRecord">
+    <resultMap id="BaseResultMap" type="com.cuit.bbs.entity.ChatRecord">
         <id column="id" property="id"/>
         <result column="content" property="content"/>
         <result column="team_id" property="teamId"/>
-        <result column="from_user_id" property="fromUserId"/>
-        <result column="from_user_name" property="fromUserName"/>
-        <result column="send_time" property="sendTime"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modify" property="gmtModify"/>
+        <result column="user_create" property="userCreate"/>
+        <result column="user_modify" property="userModify"/>
+        <result column="state" property="state"/>
     </resultMap>
 <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, content, team_id AS teamId, from_user_id AS fromUserId, from_user_name AS fromUserName, send_time AS sendTime
+        id, content, team_id AS teamId, gmt_create AS gmtCreate, gmt_modify AS gmtModify, user_create AS userCreate, user_modify AS userModify, state
     </sql>
 
     <sql id="Table_Name">
@@ -28,14 +30,20 @@
         <if test=" teamId != null">
             team_id,
         </if>
-        <if test=" fromUserId != null">
-            from_user_id,
+        <if test=" gmtCreate != null">
+            gmt_create,
         </if>
-        <if test=" fromUserName != null">
-            from_user_name,
+        <if test=" gmtModify != null">
+            gmt_modify,
         </if>
-        <if test=" sendTime != null">
-            send_time,
+        <if test=" userCreate != null">
+            user_create,
+        </if>
+        <if test=" userModify != null">
+            user_modify,
+        </if>
+        <if test=" state != null">
+            state,
         </if>
     </sql>
 
@@ -46,14 +54,20 @@
         <if test=" teamId != null">
             #{teamId },
         </if>
-        <if test=" fromUserId != null">
-            #{fromUserId },
+        <if test=" gmtCreate != null">
+            #{gmtCreate },
         </if>
-        <if test=" fromUserName != null">
-            #{fromUserName },
+        <if test=" gmtModify != null">
+            #{gmtModify },
         </if>
-        <if test=" sendTime != null">
-            #{sendTime },
+        <if test=" userCreate != null">
+            #{userCreate },
+        </if>
+        <if test=" userModify != null">
+            #{userModify },
+        </if>
+        <if test=" state != null">
+            #{state },
         </if>
     </sql>
 
@@ -64,14 +78,20 @@
         <if test=" teamId != null">
             team_id = #{teamId },
         </if>
-        <if test=" fromUserId != null">
-            from_user_id = #{fromUserId },
+        <if test=" gmtCreate != null">
+            gmt_create = #{gmtCreate },
         </if>
-        <if test=" fromUserName != null">
-            from_user_name = #{fromUserName },
+        <if test=" gmtModify != null">
+            gmt_modify = #{gmtModify },
         </if>
-        <if test=" sendTime != null">
-            send_time = #{sendTime },
+        <if test=" userCreate != null">
+            user_create = #{userCreate },
+        </if>
+        <if test=" userModify != null">
+            user_modify = #{userModify },
+        </if>
+        <if test=" state != null">
+            state = #{state },
         </if>
     </sql>
 
@@ -82,18 +102,24 @@
         <if test=" teamId != null">
             and team_id = #{teamId }
         </if>
-        <if test=" fromUserId != null">
-            and from_user_id = #{fromUserId }
+        <if test=" gmtCreate != null">
+            and gmt_create = #{gmtCreate }
         </if>
-        <if test=" fromUserName != null">
-            and from_user_name = #{fromUserName }
+        <if test=" gmtModify != null">
+            and gmt_modify = #{gmtModify }
         </if>
-        <if test=" sendTime != null">
-            and send_time = #{sendTime }
+        <if test=" userCreate != null">
+            and user_create = #{userCreate }
+        </if>
+        <if test=" userModify != null">
+            and user_modify = #{userModify }
+        </if>
+        <if test=" state != null">
+            and state = #{state }
         </if>
     </sql>
 
-    <insert id="insert" parameterType="com.bysj.entity.ChatRecord">
+    <insert id="insert" parameterType="com.cuit.bbs.entity.ChatRecord">
         insert into
         <include refid="Table_Name"></include>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -104,7 +130,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.bysj.entity.ChatRecord">
+    <update id="update" parameterType="com.cuit.bbs.entity.ChatRecord">
         update
         <include refid="Table_Name"></include>
         <trim prefix="SET" suffixOverrides=",">
@@ -114,7 +140,7 @@
     </update>
 
     <!-- 根据主键查询 -->
-    <select id="getById" resultType="com.bysj.entity.ChatRecord" parameterType="java.lang.Integer">
+    <select id="getById" resultType="com.cuit.bbs.entity.ChatRecord" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from
@@ -129,7 +155,7 @@
         where id = #{id}
     </delete>
 
-    <select id="getByWhere" resultType="com.bysj.entity.ChatRecord" parameterType="java.util.Map">
+    <select id="getByWhere" resultType="com.cuit.bbs.entity.ChatRecord" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
@@ -142,14 +168,14 @@
     </select>
 
 
-    <select id="getAll" resultType="com.bysj.entity.ChatRecord">
+    <select id="getAll" resultType="com.cuit.bbs.entity.ChatRecord">
         select *
         from
         <include refid="Table_Name"></include>
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findCount" resultType="int" parameterType="com.antiy.common.base.ObjectQuery">
         select count(1)
         from
         <include refid="Table_Name"></include>
@@ -160,7 +186,7 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.bysj.entity.ChatRecord" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findQuery" resultType="com.cuit.bbs.entity.ChatRecord" parameterType="com.antiy.common.base.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>

@@ -1,42 +1,91 @@
 package com.bysj.entity;
 
 
-
-import com.bysj.common.request.BaseEntity;
+import java.util.Date;
+import com.antiy.common.base.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
-
 /**
  * <p>
  * 私信表
  * </p>
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 
 public class PrivateLetter extends BaseEntity {
 
 
-    private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("")
-    private Integer fromUserId;
-    @ApiModelProperty("")
+        /**
+    *  发送者id（用于创建者）
+    */
+        @ApiModelProperty("发送者id（用于创建者）")
+    private Integer userSendSend;
+        /**
+    *  接收者id
+    */
+        @ApiModelProperty("接收者id")
+    private Integer userSendRev;
+        /**
+    *  内容
+    */
+        @ApiModelProperty("内容")
     private String content;
-    @ApiModelProperty("")
-    private Integer toUserId;
-    @ApiModelProperty("")
+        /**
+    *  是否已读: 1已读 0 未读
+    */
+        @ApiModelProperty("是否已读: 1已读 0 未读")
     private Boolean ifRead;
-    @ApiModelProperty("")
-    private Boolean ifDelete;
+        /**
+    *  状态： 1有效 0无效
+    */
+        @ApiModelProperty("状态： 1有效 0无效")
+    private Integer state;
+        /**
+    *  修改着id
+    */
+        @ApiModelProperty("修改着id")
+    private Integer userModify;
+        /**
+    *  创建时间
+    */
+        @ApiModelProperty("创建时间")
+    private Date gmtCreate;
+        /**
+    *  修改时间
+    */
+        @ApiModelProperty("修改时间")
+    private Date gmtModify;
+        /**
+    *  私信类型： 1 用户私信 2 系统私信
+    */
+        @ApiModelProperty("私信类型： 1 用户私信 2 系统私信")
+    private Integer letterType;
+        /**
+    *  发送者id（用于接收者）
+    */
+        @ApiModelProperty("发送者id（用于接收者）")
+    private Integer userRevSend;
 
 
-    public Integer getFromUserId() {
-        return fromUserId;
+
+    public Integer getUserSendSend() {
+        return userSendSend;
     }
 
-    public void setFromUserId(Integer fromUserId) {
-        this.fromUserId = fromUserId;
+    public void setUserSendSend(Integer userSendSend) {
+        this.userSendSend = userSendSend;
+    }
+
+
+    public Integer getUserSendRev() {
+        return userSendRev;
+    }
+
+    public void setUserSendRev(Integer userSendRev) {
+        this.userSendRev = userSendRev;
     }
 
 
@@ -49,15 +98,6 @@ public class PrivateLetter extends BaseEntity {
     }
 
 
-    public Integer getToUserId() {
-        return toUserId;
-    }
-
-    public void setToUserId(Integer toUserId) {
-        this.toUserId = toUserId;
-    }
-
-
     public Boolean getIfRead() {
         return ifRead;
     }
@@ -67,23 +107,73 @@ public class PrivateLetter extends BaseEntity {
     }
 
 
-    public Boolean getIfDelete() {
-        return ifDelete;
+    public Integer getState() {
+        return state;
     }
 
-    public void setIfDelete(Boolean ifDelete) {
-        this.ifDelete = ifDelete;
+    public void setState(Integer state) {
+        this.state = state;
     }
 
 
-    @Override
+    public Integer getUserModify() {
+        return userModify;
+    }
+
+    public void setUserModify(Integer userModify) {
+        this.userModify = userModify;
+    }
+
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+
+    public Date getGmtModify() {
+        return gmtModify;
+    }
+
+    public void setGmtModify(Date gmtModify) {
+        this.gmtModify = gmtModify;
+    }
+
+
+    public Integer getLetterType() {
+        return letterType;
+    }
+
+    public void setLetterType(Integer letterType) {
+        this.letterType = letterType;
+    }
+
+
+    public Integer getUserRevSend() {
+        return userRevSend;
+    }
+
+    public void setUserRevSend(Integer userRevSend) {
+        this.userRevSend = userRevSend;
+    }
+
+
+        @Override
     public String toString() {
-        return "PrivateLetter{" +
-                ", fromUserId=" + fromUserId +
-                ", content=" + content +
-                ", toUserId=" + toUserId +
-                ", ifRead=" + ifRead +
-                ", ifDelete=" + ifDelete +
-                "}";
+            return "PrivateLetter{" +
+                                                                                            ", userSendSend=" + userSendSend +
+                                                                                        ", userSendRev=" + userSendRev +
+                                                                                        ", content=" + content +
+                                                                                        ", ifRead=" + ifRead +
+                                                                                        ", state=" + state +
+                                                                                        ", userModify=" + userModify +
+                                                                                        ", gmtCreate=" + gmtCreate +
+                                                                                        ", gmtModify=" + gmtModify +
+                                                                                        ", letterType=" + letterType +
+                                                                                        ", userRevSend=" + userRevSend +
+                                                "}";
     }
-}
+    }

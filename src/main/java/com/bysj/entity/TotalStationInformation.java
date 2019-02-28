@@ -1,31 +1,64 @@
 package com.bysj.entity;
 
 
-import com.bysj.common.request.BaseEntity;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Date;
-
+import com.antiy.common.base.BaseEntity;
+import io.swagger.annotations.ApiModelProperty;
 /**
  * <p>
  * 全站信息表
  * </p>
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 
 public class TotalStationInformation extends BaseEntity {
 
 
-    private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("")
+        /**
+    *  通知内容
+    */
+        @ApiModelProperty("通知内容")
     private String content;
-    @ApiModelProperty("")
+        /**
+    *  通知时间
+    */
+        @ApiModelProperty("通知时间")
     private Date time;
-    @ApiModelProperty("")
-    private Integer fromUserId;
+        /**
+    *  发出消息者名称
+    */
+        @ApiModelProperty("发出消息者名称")
+    private String userName;
+        /**
+    *  创建时间
+    */
+        @ApiModelProperty("创建时间")
+    private Date gmtCreate;
+        /**
+    *  修改时间
+    */
+        @ApiModelProperty("修改时间")
+    private Date gmtModify;
+        /**
+    *  创建用户id
+    */
+        @ApiModelProperty("创建用户id")
+    private Integer userCreate;
+        /**
+    *  修改用户id
+    */
+        @ApiModelProperty("修改用户id")
+    private Integer userModify;
+        /**
+    *  状态，1 有效 2 无效
+    */
+        @ApiModelProperty("状态，1 有效 2 无效")
+    private Integer state;
+
 
 
     public String getContent() {
@@ -46,21 +79,71 @@ public class TotalStationInformation extends BaseEntity {
     }
 
 
-    public Integer getFromUserId() {
-        return fromUserId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setFromUserId(Integer fromUserId) {
-        this.fromUserId = fromUserId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
 
-    @Override
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+
+    public Date getGmtModify() {
+        return gmtModify;
+    }
+
+    public void setGmtModify(Date gmtModify) {
+        this.gmtModify = gmtModify;
+    }
+
+
+    public Integer getUserCreate() {
+        return userCreate;
+    }
+
+    public void setUserCreate(Integer userCreate) {
+        this.userCreate = userCreate;
+    }
+
+
+    public Integer getUserModify() {
+        return userModify;
+    }
+
+    public void setUserModify(Integer userModify) {
+        this.userModify = userModify;
+    }
+
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+
+        @Override
     public String toString() {
-        return "TotalStationInformation{" +
-                ", content=" + content +
-                ", time=" + time +
-                ", fromUserId=" + fromUserId +
-                "}";
+            return "TotalStationInformation{" +
+                                                                                            ", content=" + content +
+                                                                                        ", time=" + time +
+                                                                                        ", userName=" + userName +
+                                                                                        ", gmtCreate=" + gmtCreate +
+                                                                                        ", gmtModify=" + gmtModify +
+                                                                                        ", userCreate=" + userCreate +
+                                                                                        ", userModify=" + userModify +
+                                                                                        ", state=" + state +
+                                                "}";
     }
-}
+    }

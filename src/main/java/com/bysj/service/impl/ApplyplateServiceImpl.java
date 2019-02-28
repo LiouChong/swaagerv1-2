@@ -7,8 +7,6 @@ import com.bysj.common.request.PageResult;
 import com.bysj.dao.ApplyplateDao;
 import com.bysj.entity.Applyplate;
 import com.bysj.entity.vo.query.ApplyplateQuery;
-import com.bysj.entity.vo.request.ApplyplateRequest;
-import com.bysj.entity.vo.response.ApplyplateResponse;
 import com.bysj.service.IApplyplateService;
 import org.springframework.stereotype.Service;
 

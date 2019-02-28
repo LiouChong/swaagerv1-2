@@ -1,36 +1,55 @@
 package com.bysj.entity.vo.request;
 
+import com.antiy.common.base.BasicRequest;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.util.Date;
-
+import com.antiy.common.validation.ObjectValidator;
+import com.antiy.common.exception.RequestParamValidateException;
 /**
  * <p>
  * ReplyRequest 请求对象
  * </p>
  *
- * @author wh
+ * @author zhangyajun
  * @since 2018-12-27
  */
 
-public class ReplyRequest   {
+public class ReplyRequest extends BasicRequest implements ObjectValidator{
 
-    @ApiModelProperty("")
+    /**
+     *  回复信息
+     */
+    @ApiModelProperty("回复信息")
     private String replyInfo;
-    @ApiModelProperty("")
-    private Date replyTime;
-    @ApiModelProperty("")
-    private Integer userId;
-    @ApiModelProperty("")
+    /**
+     *  帖子id
+     */
+    @ApiModelProperty("帖子id")
     private Integer postId;
-    @ApiModelProperty("")
-    private Boolean ifDelete;
-    @ApiModelProperty("")
+    /**
+     *  点赞数
+     */
+    @ApiModelProperty("点赞数")
     private Integer thumbupCount;
-    @ApiModelProperty("")
-    private String userName;
-    @ApiModelProperty("")
-    private String userPicture;
+    /**
+     *  创建时间
+     */
+    @ApiModelProperty("创建时间")
+    private Date gmtCreate;
+    /**
+     *  修改时间
+     */
+    @ApiModelProperty("修改时间")
+    private Date gmtModify;
+    /**
+     *  创建者id
+     */
+    @ApiModelProperty("创建者id")
+    private String userCreate;
+    /**
+     *  修改者id
+     */
+    @ApiModelProperty("修改者id")
+    private String userModify;
 
 
 
@@ -43,39 +62,12 @@ public class ReplyRequest   {
         }
 
 
-    public Date getReplyTime() {
-    return replyTime;
-    }
-
-    public void setReplyTime(Date replyTime) {
-        this.replyTime = replyTime;
-        }
-
-
-    public Integer getUserId() {
-    return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-        }
-
-
     public Integer getPostId() {
     return postId;
     }
 
     public void setPostId(Integer postId) {
         this.postId = postId;
-        }
-
-
-    public Boolean getIfDelete() {
-    return ifDelete;
-    }
-
-    public void setIfDelete(Boolean ifDelete) {
-        this.ifDelete = ifDelete;
         }
 
 
@@ -88,22 +80,45 @@ public class ReplyRequest   {
         }
 
 
-    public String getUserName() {
-    return userName;
+    public Date getGmtCreate() {
+    return gmtCreate;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
         }
 
 
-    public String getUserPicture() {
-    return userPicture;
+    public Date getGmtModify() {
+    return gmtModify;
     }
 
-    public void setUserPicture(String userPicture) {
-        this.userPicture = userPicture;
+    public void setGmtModify(Date gmtModify) {
+        this.gmtModify = gmtModify;
         }
 
+
+    public String getUserCreate() {
+    return userCreate;
+    }
+
+    public void setUserCreate(String userCreate) {
+        this.userCreate = userCreate;
+        }
+
+
+    public String getUserModify() {
+    return userModify;
+    }
+
+    public void setUserModify(String userModify) {
+        this.userModify = userModify;
+        }
+
+
+    @Override
+    public void validate() throws RequestParamValidateException {
+
+    }
 
 }

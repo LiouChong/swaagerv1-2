@@ -1,19 +1,16 @@
 package com.bysj.service;
 
-
-import com.bysj.common.request.IBaseService;
-import com.bysj.common.request.PageResult;
-import com.bysj.entity.User;
-import com.bysj.entity.vo.query.UserQuery;
-import com.bysj.entity.vo.request.UserRequest;
-import com.bysj.entity.vo.request.UserRequestForLogin;
-import com.bysj.entity.vo.request.UserRequestForRegist;
-import com.bysj.entity.vo.response.UserResponse;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.antiy.common.base.IBaseService;
+import com.antiy.common.base.PageResult;
+import java.io.Serializable;
 import java.util.List;
+
+import com.cuit.bbs.entity.dto.UserDTO;
+import com.cuit.bbs.entity.vo.query.UserQuery;
+import com.cuit.bbs.entity.vo.request.UserRequest;
+import com.cuit.bbs.entity.vo.response.UserResponse;
+import com.cuit.bbs.entity.User;
+
 
 /**
  * <p>
@@ -21,62 +18,36 @@ import java.util.List;
  * </p>
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 public interface IUserService extends IBaseService<User> {
 
-    /**
-     * 保存
-     *
-     * @param request
-     * @return
-     */
-    String saveUser(UserRequestForRegist saveRequest, HttpServletRequest request) throws Exception;
+        /**
+         * 保存
+         * @param request
+         * @return
+         */
+        Integer saveUser(UserRequest request) throws Exception;
 
-    /**
-     * 修改
-     *
-     * @param request
-     * @return
-     */
-    Integer updateUser(UserRequest request) throws Exception;
+        /**
+         * 修改
+         * @param request
+         * @return
+         */
+        Integer updateUser(UserRequest request) throws Exception;
 
-    /**
-     * 查询对象集合
-     *
-     * @param query
-     * @return
-     */
-    List<UserResponse> findListUser(UserQuery query) throws Exception;
+        /**
+         * 查询对象集合
+         * @param query
+         * @return
+         */
+        List<UserResponse> findListUser(UserQuery query) throws Exception;
 
-    /**
-     * 批量查询
-     *
-     * @param query
-     * @return
-     */
-    PageResult<UserResponse> findPageUser(UserQuery query) throws Exception;
+        /**
+         * 批量查询
+         * @param query
+         * @return
+         */
+        PageResult<UserResponse> findPageUser(UserQuery query) throws Exception;
 
-    /**
-     * 发送邮件验证码
-     * @param email
-     * @param request
-     * @return
-     */
-    String sendVerificationCode(String email, HttpServletRequest request);
-
-    /**
-     * 检查是邮箱是否重复
-     * @param email
-     * @return
-     */
-    Boolean ifRepeatEmail(String email);
-
-    /**
-     * 用户登录验证
-     *
-     * @param request
-     * @return
-     */
-    String doLogin(UserRequestForLogin userRequestForLogin, HttpServletRequest request) throws Exception;
 }

@@ -1,24 +1,31 @@
 package com.bysj.controller;
 
-import com.bysj.common.response.ActionResponse;
-import com.bysj.entity.vo.query.FollowQuery;
-import com.bysj.entity.vo.request.FollowRequest;
-import com.bysj.service.IFollowService;
-import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import io.swagger.annotations.*;
+import com.antiy.common.base.ActionResponse;
 import javax.annotation.Resource;
+import com.antiy.common.utils.LogUtils;
+import com.antiy.common.base.QueryCondition;
+import com.antiy.common.utils.ParamterExceptionUtils;
+
+import com.cuit.bbs.service.IFollowService;
+import com.cuit.bbs.entity.Follow;
+import com.cuit.bbs.entity.vo.request.FollowRequest;
+import com.cuit.bbs.entity.vo.response.FollowResponse;
+import com.cuit.bbs.entity.vo.query.FollowQuery;
 
 
 /**
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
-@Api(value = "Follow", description = "关注人列表")
+@Api(value = "Follow", description = "关注人表")
 @RestController
 @RequestMapping("/v1/bbs/follow")
 public class FollowController {
+    private static final Logger logger = LogUtils.get();
 
     @Resource
     public IFollowService iFollowService;
@@ -78,6 +85,7 @@ public class FollowController {
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "follow") @PathVariable("id") Integer id)throws Exception{
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iFollowService.getById(id));
     }
 
@@ -92,6 +100,7 @@ public class FollowController {
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iFollowService.deleteById(id));
     }
 }

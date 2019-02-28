@@ -1,24 +1,31 @@
 package com.bysj.controller;
 
-import com.bysj.common.response.ActionResponse;
-import com.bysj.entity.vo.query.PermissionQuery;
-import com.bysj.entity.vo.request.PermissionRequest;
-import com.bysj.service.IPermissionService;
-import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import io.swagger.annotations.*;
+import com.antiy.common.base.ActionResponse;
 import javax.annotation.Resource;
+import com.antiy.common.utils.LogUtils;
+import com.antiy.common.base.QueryCondition;
+import com.antiy.common.utils.ParamterExceptionUtils;
+
+import com.cuit.bbs.service.IPermissionService;
+import com.cuit.bbs.entity.Permission;
+import com.cuit.bbs.entity.vo.request.PermissionRequest;
+import com.cuit.bbs.entity.vo.response.PermissionResponse;
+import com.cuit.bbs.entity.vo.query.PermissionQuery;
 
 
 /**
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 @Api(value = "Permission", description = "权限表")
 @RestController
 @RequestMapping("/v1/bbs/permission")
 public class PermissionController {
+    private static final Logger logger = LogUtils.get();
 
     @Resource
     public IPermissionService iPermissionService;
@@ -48,7 +55,7 @@ public class PermissionController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "permission") PermissionRequest permissionRequest)throws Exception{
+    public ActionResponse updateSingle(@ApiParam(value = "permission")PermissionRequest permissionRequest)throws Exception{
         iPermissionService.updatePermission(permissionRequest);
         return ActionResponse.success();
     }
@@ -78,6 +85,7 @@ public class PermissionController {
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "permission") @PathVariable("id") Integer id)throws Exception{
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iPermissionService.getById(id));
     }
 
@@ -92,6 +100,7 @@ public class PermissionController {
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iPermissionService.deleteById(id));
     }
 }

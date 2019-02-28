@@ -1,64 +1,67 @@
 package com.bysj.entity.vo.request;
 
+import com.antiy.common.base.BasicRequest;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.util.Date;
-
+import com.antiy.common.validation.ObjectValidator;
+import com.antiy.common.exception.RequestParamValidateException;
 /**
  * <p>
  * UserRequest 请求对象
  * </p>
  *
- * @author wh
+ * @author zhangyajun
  * @since 2018-12-27
  */
 
-public class UserRequest   {
-    @ApiModelProperty("用户昵称")
+public class UserRequest extends BasicRequest implements ObjectValidator{
+
+    /**
+     *  昵称
+     */
+    @ApiModelProperty("昵称")
     private String nickname;
-
-    @ApiModelProperty("用户密码")
+    /**
+     *  密码
+     */
+    @ApiModelProperty("密码")
     private String psw;
-
-    @ApiModelProperty("用户积分数")
+    /**
+     *  积分
+     */
+    @ApiModelProperty("积分")
     private Integer money;
-
-    @ApiModelProperty("是否被封禁")
-    private Integer ifBan;
-
-    @ApiModelProperty("用户邮箱")
+    /**
+     *  邮箱
+     */
+    @ApiModelProperty("邮箱")
     private String email;
-
-    @ApiModelProperty("用户头像")
+    /**
+     *  头像
+     */
+    @ApiModelProperty("头像")
     private String picture;
-
     /**
      *  用户权限
      */
     @ApiModelProperty("用户权限")
     private Integer level;
+    /**
+     *  个性签名
+     */
+    @ApiModelProperty("个性签名")
+    private String signaTure;
+    /**
+     *  性别： 1 男 2 女
+     */
+    @ApiModelProperty("性别： 1 男 2 女")
+    private Boolean sex;
+    /**
+     *  年龄
+     */
+    @ApiModelProperty("年龄")
+    private Integer age;
 
-    @ApiModelProperty("注册时间")
-    private Date registTime;
 
-    @ApiModelProperty("性别")
-    private Integer sex;
-
-    public Date getRegistTime() {
-        return registTime;
-    }
-
-    public void setRegistTime(Date registTime) {
-        this.registTime = registTime;
-    }
-
-    public Integer getSex() {
-        return sex;
-    }
-
-    public void setSex(Integer sex) {
-        this.sex = sex;
-    }
 
     public String getNickname() {
     return nickname;
@@ -84,15 +87,6 @@ public class UserRequest   {
 
     public void setMoney(Integer money) {
         this.money = money;
-        }
-
-
-    public Integer getIfBan() {
-    return ifBan;
-    }
-
-    public void setIfBan(Integer ifBan) {
-        this.ifBan = ifBan;
         }
 
 
@@ -122,28 +116,37 @@ public class UserRequest   {
         this.level = level;
         }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("{");
-        sb.append("\"nickname\":\"")
-                .append(nickname).append('\"');
-        sb.append(",\"psw\":\"")
-                .append(psw).append('\"');
-        sb.append(",\"money\":")
-                .append(money);
-        sb.append(",\"ifBan\":")
-                .append(ifBan);
-        sb.append(",\"email\":\"")
-                .append(email).append('\"');
-        sb.append(",\"picture\":\"")
-                .append(picture).append('\"');
-        sb.append(",\"level\":")
-                .append(level);
-        sb.append(",\"registTime\":\"")
-                .append(registTime).append('\"');
-        sb.append(",\"sex\":")
-                .append(sex);
-        sb.append('}');
-        return sb.toString();
+
+    public String getSignaTure() {
+    return signaTure;
     }
+
+    public void setSignaTure(String signaTure) {
+        this.signaTure = signaTure;
+        }
+
+
+    public Boolean getSex() {
+    return sex;
+    }
+
+    public void setSex(Boolean sex) {
+        this.sex = sex;
+        }
+
+
+    public Integer getAge() {
+    return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+        }
+
+
+    @Override
+    public void validate() throws RequestParamValidateException {
+
+    }
+
 }

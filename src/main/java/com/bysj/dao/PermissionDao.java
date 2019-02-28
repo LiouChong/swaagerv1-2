@@ -1,8 +1,10 @@
 package com.bysj.dao;
 
-
-import com.bysj.entity.Permission;
-import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
+import com.antiy.common.base.IBaseDao;
+import com.cuit.bbs.entity.Permission;
+import com.cuit.bbs.entity.dto.Permission;
+import com.cuit.bbs.entity.vo.query.PermissionQuery;
 
 /**
  * <p>
@@ -10,9 +12,8 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
-@Mapper
 public interface PermissionDao extends IBaseDao<Permission> {
 
 }

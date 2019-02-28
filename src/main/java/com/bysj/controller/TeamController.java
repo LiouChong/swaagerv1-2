@@ -1,25 +1,31 @@
 package com.bysj.controller;
 
-
-import com.bysj.common.response.ActionResponse;
-import com.bysj.entity.vo.query.TeamQuery;
-import com.bysj.entity.vo.request.TeamRequest;
-import com.bysj.service.ITeamService;
-import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import io.swagger.annotations.*;
+import com.antiy.common.base.ActionResponse;
 import javax.annotation.Resource;
+import com.antiy.common.utils.LogUtils;
+import com.antiy.common.base.QueryCondition;
+import com.antiy.common.utils.ParamterExceptionUtils;
+
+import com.cuit.bbs.service.ITeamService;
+import com.cuit.bbs.entity.Team;
+import com.cuit.bbs.entity.vo.request.TeamRequest;
+import com.cuit.bbs.entity.vo.response.TeamResponse;
+import com.cuit.bbs.entity.vo.query.TeamQuery;
 
 
 /**
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 @Api(value = "Team", description = "讨论组表")
 @RestController
 @RequestMapping("/v1/bbs/team")
 public class TeamController {
+    private static final Logger logger = LogUtils.get();
 
     @Resource
     public ITeamService iTeamService;
@@ -79,7 +85,7 @@ public class TeamController {
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "team") @PathVariable("id") Integer id)throws Exception{
-
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iTeamService.getById(id));
     }
 
@@ -94,7 +100,7 @@ public class TeamController {
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
-
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iTeamService.deleteById(id));
     }
 }

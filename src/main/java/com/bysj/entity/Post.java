@@ -1,51 +1,99 @@
 package com.bysj.entity;
 
 
-import com.bysj.common.request.BaseEntity;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Date;
-
+import com.antiy.common.base.BaseEntity;
+import io.swagger.annotations.ApiModelProperty;
 /**
  * <p>
  * 讨论帖子表
  * </p>
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 
 public class Post extends BaseEntity {
 
 
-    private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("")
+        /**
+    *  帖子标题
+    */
+        @ApiModelProperty("帖子标题")
     private String title;
-    @ApiModelProperty("")
+        /**
+    *  帖子内容
+    */
+        @ApiModelProperty("帖子内容")
     private String info;
-    @ApiModelProperty("")
-    private Date publishTime;
-    @ApiModelProperty("")
+        /**
+    *  作者id
+    */
+        @ApiModelProperty("作者id")
     private Integer posterId;
-    @ApiModelProperty("")
+        /**
+    *  是否被推荐，1被推荐 0 未被推荐
+    */
+        @ApiModelProperty("是否被推荐，1被推荐 0 未被推荐")
     private Integer ifGood;
-    @ApiModelProperty("")
-    private Integer ifDelete;
-    @ApiModelProperty("")
+        /**
+    *  板块id
+    */
+        @ApiModelProperty("板块id")
     private Integer plateId;
-    @ApiModelProperty("")
-    private String plateName;
-    @ApiModelProperty("")
+        /**
+    *  回复数
+    */
+        @ApiModelProperty("回复数")
     private Integer replyCount;
-    @ApiModelProperty("")
-    private String posterName;
-    @ApiModelProperty("")
-    private String posterPicture;
-    @ApiModelProperty("")
+        /**
+    *  点赞数
+    */
+        @ApiModelProperty("点赞数")
     private Integer thumbupCount;
-    @ApiModelProperty("")
-    private Date lastModifyTime;
+        /**
+    *  创建时间
+    */
+        @ApiModelProperty("创建时间")
+    private Date gmtCreate;
+        /**
+    *  修改时间
+    */
+        @ApiModelProperty("修改时间")
+    private Date gmtModify;
+        /**
+    *  创建用户
+    */
+        @ApiModelProperty("创建用户")
+    private Integer createUser;
+        /**
+    *  修改用户
+    */
+        @ApiModelProperty("修改用户")
+    private Integer modifyUser;
+        /**
+    *  状态 1 未删除 0 已删除
+    */
+        @ApiModelProperty("状态 1 未删除 0 已删除")
+    private Integer state;
+        /**
+    *  阅读数
+    */
+        @ApiModelProperty("阅读数")
+    private Integer readCount;
+        /**
+    *  文章的来源：1 原创 2 转载
+    */
+        @ApiModelProperty("文章的来源：1 原创 2 转载")
+    private Integer articleFrom;
+        /**
+    *  文章的类型：1讨论帖 ，2资源贴，3求问贴
+    */
+        @ApiModelProperty("文章的类型：1讨论帖 ，2资源贴，3求问贴")
+    private Integer articleType;
+
 
 
     public String getTitle() {
@@ -63,15 +111,6 @@ public class Post extends BaseEntity {
 
     public void setInfo(String info) {
         this.info = info;
-    }
-
-
-    public Date getPublishTime() {
-        return publishTime;
-    }
-
-    public void setPublishTime(Date publishTime) {
-        this.publishTime = publishTime;
     }
 
 
@@ -93,30 +132,12 @@ public class Post extends BaseEntity {
     }
 
 
-    public Integer getIfDelete() {
-        return ifDelete;
-    }
-
-    public void setIfDelete(Integer ifDelete) {
-        this.ifDelete = ifDelete;
-    }
-
-
     public Integer getPlateId() {
         return plateId;
     }
 
     public void setPlateId(Integer plateId) {
         this.plateId = plateId;
-    }
-
-
-    public String getPlateName() {
-        return plateName;
-    }
-
-    public void setPlateName(String plateName) {
-        this.plateName = plateName;
     }
 
 
@@ -129,24 +150,6 @@ public class Post extends BaseEntity {
     }
 
 
-    public String getPosterName() {
-        return posterName;
-    }
-
-    public void setPosterName(String posterName) {
-        this.posterName = posterName;
-    }
-
-
-    public String getPosterPicture() {
-        return posterPicture;
-    }
-
-    public void setPosterPicture(String posterPicture) {
-        this.posterPicture = posterPicture;
-    }
-
-
     public Integer getThumbupCount() {
         return thumbupCount;
     }
@@ -156,31 +159,96 @@ public class Post extends BaseEntity {
     }
 
 
-    public Date getLastModifyTime() {
-        return lastModifyTime;
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setLastModifyTime(Date lastModifyTime) {
-        this.lastModifyTime = lastModifyTime;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 
 
-    @Override
+    public Date getGmtModify() {
+        return gmtModify;
+    }
+
+    public void setGmtModify(Date gmtModify) {
+        this.gmtModify = gmtModify;
+    }
+
+
+    public Integer getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(Integer createUser) {
+        this.createUser = createUser;
+    }
+
+
+    public Integer getModifyUser() {
+        return modifyUser;
+    }
+
+    public void setModifyUser(Integer modifyUser) {
+        this.modifyUser = modifyUser;
+    }
+
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+
+    public Integer getReadCount() {
+        return readCount;
+    }
+
+    public void setReadCount(Integer readCount) {
+        this.readCount = readCount;
+    }
+
+
+    public Integer getArticleFrom() {
+        return articleFrom;
+    }
+
+    public void setArticleFrom(Integer articleFrom) {
+        this.articleFrom = articleFrom;
+    }
+
+
+    public Integer getArticleType() {
+        return articleType;
+    }
+
+    public void setArticleType(Integer articleType) {
+        this.articleType = articleType;
+    }
+
+
+        @Override
     public String toString() {
-        return "Post{" +
-                ", title=" + title +
-                ", info=" + info +
-                ", publishTime=" + publishTime +
-                ", posterId=" + posterId +
-                ", ifGood=" + ifGood +
-                ", ifDelete=" + ifDelete +
-                ", plateId=" + plateId +
-                ", plateName=" + plateName +
-                ", replyCount=" + replyCount +
-                ", posterName=" + posterName +
-                ", posterPicture=" + posterPicture +
-                ", thumbupCount=" + thumbupCount +
-                ", lastModifyTime=" + lastModifyTime +
-                "}";
+            return "Post{" +
+                                                                                            ", title=" + title +
+                                                                                        ", info=" + info +
+                                                                                        ", posterId=" + posterId +
+                                                                                        ", ifGood=" + ifGood +
+                                                                                        ", plateId=" + plateId +
+                                                                                        ", replyCount=" + replyCount +
+                                                                                        ", thumbupCount=" + thumbupCount +
+                                                                                        ", gmtCreate=" + gmtCreate +
+                                                                                        ", gmtModify=" + gmtModify +
+                                                                                        ", createUser=" + createUser +
+                                                                                        ", modifyUser=" + modifyUser +
+                                                                                        ", state=" + state +
+                                                                                        ", readCount=" + readCount +
+                                                                                        ", articleFrom=" + articleFrom +
+                                                                                        ", articleType=" + articleType +
+                                                "}";
     }
-}
+    }

@@ -1,36 +1,42 @@
 package com.bysj.service.impl;
 
-import com.bysj.common.request.BaseConverter;
-import com.bysj.common.request.BaseServiceImpl;
-import com.bysj.common.request.PageResult;
-import com.bysj.dao.PermissionDao;
-import com.bysj.entity.Permission;
-import com.bysj.entity.vo.query.PermissionQuery;
-import com.bysj.entity.vo.request.PermissionRequest;
-import com.bysj.entity.vo.response.PermissionResponse;
-import com.bysj.service.IPermissionService;
+import org.slf4j.Logger;
+import java.util.List;
+import java.util.ArrayList;
+import com.antiy.common.base.BaseServiceImpl;
+import com.antiy.common.utils.LogUtils;
+import com.antiy.common.base.PageResult;
+import com.antiy.common.base.BaseConverter;
 import org.springframework.stereotype.Service;
+
+import com.cuit.bbs.entity.Permission;
+import com.cuit.bbs.dao.PermissionDao;
+import com.cuit.bbs.service.IPermissionService;
+import com.cuit.bbs.entity.dto.Permission;
+import com.cuit.bbs.entity.vo.request.PermissionRequest;
+import com.cuit.bbs.entity.vo.response.PermissionResponse;
+import com.cuit.bbs.entity.vo.query.PermissionQuery;
+
 
 import javax.annotation.Resource;
 import java.util.List;
-
 /**
  * <p>
  * 权限表 服务实现类
  * </p>
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 @Service
-public class PermissionServiceImpl extends BaseServiceImpl<Permission> implements IPermissionService {
+public class PermissionServiceImpl extends BaseServiceImpl<Permission> implements IPermissionService{
 
-
+        private static final Logger logger = LogUtils.get();
 
         @Resource
         private PermissionDao permissionDao;
         @Resource
-        private BaseConverter<PermissionRequest, Permission> requestConverter;
+        private BaseConverter<PermissionRequest, Permission>  requestConverter;
         @Resource
         private BaseConverter<Permission, PermissionResponse> responseConverter;
 

@@ -1,41 +1,59 @@
 package com.bysj.entity;
 
 
-import com.bysj.common.request.BaseEntity;
-import io.swagger.annotations.ApiModelProperty;
-
 import java.util.Date;
-
+import com.antiy.common.base.BaseEntity;
+import io.swagger.annotations.ApiModelProperty;
 /**
  * <p>
  * 回复表
  * </p>
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 
 public class Reply extends BaseEntity {
 
 
-    private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("")
+        /**
+    *  回复信息
+    */
+        @ApiModelProperty("回复信息")
     private String replyInfo;
-    @ApiModelProperty("")
-    private Date replyTime;
-    @ApiModelProperty("")
-    private Integer userId;
-    @ApiModelProperty("")
+        /**
+    *  帖子id
+    */
+        @ApiModelProperty("帖子id")
     private Integer postId;
-    @ApiModelProperty("")
-    private Boolean ifDelete;
-    @ApiModelProperty("")
+        /**
+    *  点赞数
+    */
+        @ApiModelProperty("点赞数")
     private Integer thumbupCount;
-    @ApiModelProperty("")
-    private String userName;
-    @ApiModelProperty("")
-    private String userPicture;
+        /**
+    *  创建时间
+    */
+        @ApiModelProperty("创建时间")
+    private Date gmtCreate;
+        /**
+    *  修改时间
+    */
+        @ApiModelProperty("修改时间")
+    private Date gmtModify;
+        /**
+    *  创建者id
+    */
+        @ApiModelProperty("创建者id")
+    private String userCreate;
+        /**
+    *  修改者id
+    */
+        @ApiModelProperty("修改者id")
+    private String userModify;
+
 
 
     public String getReplyInfo() {
@@ -44,24 +62,6 @@ public class Reply extends BaseEntity {
 
     public void setReplyInfo(String replyInfo) {
         this.replyInfo = replyInfo;
-    }
-
-
-    public Date getReplyTime() {
-        return replyTime;
-    }
-
-    public void setReplyTime(Date replyTime) {
-        this.replyTime = replyTime;
-    }
-
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
 
@@ -74,15 +74,6 @@ public class Reply extends BaseEntity {
     }
 
 
-    public Boolean getIfDelete() {
-        return ifDelete;
-    }
-
-    public void setIfDelete(Boolean ifDelete) {
-        this.ifDelete = ifDelete;
-    }
-
-
     public Integer getThumbupCount() {
         return thumbupCount;
     }
@@ -92,35 +83,52 @@ public class Reply extends BaseEntity {
     }
 
 
-    public String getUserName() {
-        return userName;
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-
-    public String getUserPicture() {
-        return userPicture;
-    }
-
-    public void setUserPicture(String userPicture) {
-        this.userPicture = userPicture;
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
     }
 
 
-    @Override
+    public Date getGmtModify() {
+        return gmtModify;
+    }
+
+    public void setGmtModify(Date gmtModify) {
+        this.gmtModify = gmtModify;
+    }
+
+
+    public String getUserCreate() {
+        return userCreate;
+    }
+
+    public void setUserCreate(String userCreate) {
+        this.userCreate = userCreate;
+    }
+
+
+    public String getUserModify() {
+        return userModify;
+    }
+
+    public void setUserModify(String userModify) {
+        this.userModify = userModify;
+    }
+
+
+        @Override
     public String toString() {
-        return "Reply{" +
-                ", replyInfo=" + replyInfo +
-                ", replyTime=" + replyTime +
-                ", userId=" + userId +
-                ", postId=" + postId +
-                ", ifDelete=" + ifDelete +
-                ", thumbupCount=" + thumbupCount +
-                ", userName=" + userName +
-                ", userPicture=" + userPicture +
-                "}";
+            return "Reply{" +
+                                                                                            ", replyInfo=" + replyInfo +
+                                                                                        ", postId=" + postId +
+                                                                                        ", thumbupCount=" + thumbupCount +
+                                                                                        ", gmtCreate=" + gmtCreate +
+                                                                                        ", gmtModify=" + gmtModify +
+                                                                                        ", userCreate=" + userCreate +
+                                                                                        ", userModify=" + userModify +
+                                                "}";
     }
-}
+    }

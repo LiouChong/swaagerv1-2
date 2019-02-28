@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bysj.dao.UserDao">
+<mapper namespace="com.cuit.bbs.dao.UserDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.bysj.entity.User">
+    <resultMap id="BaseResultMap" type="com.cuit.bbs.entity.User">
         <id column="id" property="id"/>
         <result column="nickname" property="nickname"/>
         <result column="psw" property="psw"/>
         <result column="money" property="money"/>
-        <result column="if_ban" property="ifBan"/>
         <result column="email" property="email"/>
         <result column="picture" property="picture"/>
         <result column="level" property="level"/>
-        <result column="regist_time" property="registTime"/>
+        <result column="signa_ture" property="signaTure"/>
         <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
     </resultMap>
 <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, nickname, psw, money, if_ban AS ifBan, email, picture, level
+        id, nickname, psw, money, email, picture, level, signa_ture AS signaTure, sex, age
     </sql>
 
     <sql id="Table_Name">
@@ -35,9 +35,6 @@
         <if test=" money != null">
             money,
         </if>
-        <if test=" ifBan != null">
-            if_ban,
-        </if>
         <if test=" email != null">
             email,
         </if>
@@ -46,6 +43,15 @@
         </if>
         <if test=" level != null">
             level,
+        </if>
+        <if test=" signaTure != null">
+            signa_ture,
+        </if>
+        <if test=" sex != null">
+            sex,
+        </if>
+        <if test=" age != null">
+            age,
         </if>
     </sql>
 
@@ -59,9 +65,6 @@
         <if test=" money != null">
             #{money },
         </if>
-        <if test=" ifBan != null">
-            #{ifBan },
-        </if>
         <if test=" email != null">
             #{email },
         </if>
@@ -70,6 +73,15 @@
         </if>
         <if test=" level != null">
             #{level },
+        </if>
+        <if test=" signaTure != null">
+            #{signaTure },
+        </if>
+        <if test=" sex != null">
+            #{sex },
+        </if>
+        <if test=" age != null">
+            #{age },
         </if>
     </sql>
 
@@ -83,9 +95,6 @@
         <if test=" money != null">
             money = #{money },
         </if>
-        <if test=" ifBan != null">
-            if_ban = #{ifBan },
-        </if>
         <if test=" email != null">
             email = #{email },
         </if>
@@ -94,6 +103,15 @@
         </if>
         <if test=" level != null">
             level = #{level },
+        </if>
+        <if test=" signaTure != null">
+            signa_ture = #{signaTure },
+        </if>
+        <if test=" sex != null">
+            sex = #{sex },
+        </if>
+        <if test=" age != null">
+            age = #{age },
         </if>
     </sql>
 
@@ -107,9 +125,6 @@
         <if test=" money != null">
             and money = #{money }
         </if>
-        <if test=" ifBan != null">
-            and if_ban = #{ifBan }
-        </if>
         <if test=" email != null">
             and email = #{email }
         </if>
@@ -119,9 +134,18 @@
         <if test=" level != null">
             and level = #{level }
         </if>
+        <if test=" signaTure != null">
+            and signa_ture = #{signaTure }
+        </if>
+        <if test=" sex != null">
+            and sex = #{sex }
+        </if>
+        <if test=" age != null">
+            and age = #{age }
+        </if>
     </sql>
 
-    <insert id="insert" parameterType="com.bysj.entity.User">
+    <insert id="insert" parameterType="com.cuit.bbs.entity.User">
         insert into
         <include refid="Table_Name"></include>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -132,7 +156,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.bysj.entity.User">
+    <update id="update" parameterType="com.cuit.bbs.entity.User">
         update
         <include refid="Table_Name"></include>
         <trim prefix="SET" suffixOverrides=",">
@@ -142,7 +166,7 @@
     </update>
 
     <!-- 根据主键查询 -->
-    <select id="getById" resultType="com.bysj.entity.User" parameterType="java.lang.Integer">
+    <select id="getById" resultType="com.cuit.bbs.entity.User" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from
@@ -157,7 +181,7 @@
         where id = #{id}
     </delete>
 
-    <select id="getByWhere" resultType="com.bysj.entity.User" parameterType="java.util.Map">
+    <select id="getByWhere" resultType="com.cuit.bbs.entity.User" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
@@ -170,14 +194,14 @@
     </select>
 
 
-    <select id="getAll" resultType="com.bysj.entity.User">
+    <select id="getAll" resultType="com.cuit.bbs.entity.User">
         select *
         from
         <include refid="Table_Name"></include>
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findCount" resultType="int" parameterType="com.antiy.common.base.ObjectQuery">
         select count(1)
         from
         <include refid="Table_Name"></include>
@@ -188,7 +212,7 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.bysj.entity.User" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findQuery" resultType="com.cuit.bbs.entity.User" parameterType="com.antiy.common.base.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>
@@ -199,9 +223,5 @@
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
-    </select>
-
-    <select id="selectByemail" parameterType="String" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List"/> from user where email = "${email}"
     </select>
 </mapper>

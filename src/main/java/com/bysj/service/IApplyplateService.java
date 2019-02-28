@@ -5,8 +5,6 @@ import com.bysj.common.request.IBaseService;
 import com.bysj.common.request.PageResult;
 import com.bysj.entity.Applyplate;
 import com.bysj.entity.vo.query.ApplyplateQuery;
-import com.bysj.entity.vo.request.ApplyplateRequest;
-import com.bysj.entity.vo.response.ApplyplateResponse;
 
 import java.util.List;
 

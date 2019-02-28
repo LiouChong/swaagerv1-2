@@ -1,25 +1,31 @@
 package com.bysj.controller;
 
-
-import com.bysj.common.response.ActionResponse;
-import com.bysj.entity.vo.query.TotalStationInformationQuery;
-import com.bysj.entity.vo.request.TotalStationInformationRequest;
-import com.bysj.service.ITotalStationInformationService;
-import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import io.swagger.annotations.*;
+import com.antiy.common.base.ActionResponse;
 import javax.annotation.Resource;
+import com.antiy.common.utils.LogUtils;
+import com.antiy.common.base.QueryCondition;
+import com.antiy.common.utils.ParamterExceptionUtils;
+
+import com.cuit.bbs.service.ITotalStationInformationService;
+import com.cuit.bbs.entity.TotalStationInformation;
+import com.cuit.bbs.entity.vo.request.TotalStationInformationRequest;
+import com.cuit.bbs.entity.vo.response.TotalStationInformationResponse;
+import com.cuit.bbs.entity.vo.query.TotalStationInformationQuery;
 
 
 /**
  *
  * @author lc
- * @since 2019-01-10
+ * @since 2019-02-28
  */
 @Api(value = "TotalStationInformation", description = "全站信息表")
 @RestController
 @RequestMapping("/v1/bbs/totalstationinformation")
 public class TotalStationInformationController {
+    private static final Logger logger = LogUtils.get();
 
     @Resource
     public ITotalStationInformationService iTotalStationInformationService;
@@ -49,7 +55,7 @@ public class TotalStationInformationController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "totalStationInformation") TotalStationInformationRequest totalStationInformationRequest)throws Exception{
+    public ActionResponse updateSingle(@ApiParam(value = "totalStationInformation")TotalStationInformationRequest totalStationInformationRequest)throws Exception{
         iTotalStationInformationService.updateTotalStationInformation(totalStationInformationRequest);
         return ActionResponse.success();
     }
@@ -79,7 +85,7 @@ public class TotalStationInformationController {
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "totalStationInformation") @PathVariable("id") Integer id)throws Exception{
-
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iTotalStationInformationService.getById(id));
     }
 
@@ -94,7 +100,7 @@ public class TotalStationInformationController {
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
-
+        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iTotalStationInformationService.deleteById(id));
     }
 }
