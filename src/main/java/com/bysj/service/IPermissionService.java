@@ -1,16 +1,14 @@
 package com.bysj.service;
 
-import com.antiy.common.base.IBaseService;
-import com.antiy.common.base.PageResult;
-import java.io.Serializable;
+
+import com.bysj.common.request.IBaseService;
+import com.bysj.common.request.PageResult;
+import com.bysj.entity.Permission;
+import com.bysj.entity.vo.query.PermissionQuery;
+import com.bysj.entity.vo.request.PermissionRequest;
+import com.bysj.entity.vo.response.PermissionResponse;
+
 import java.util.List;
-
-import com.cuit.bbs.entity.dto.PermissionDTO;
-import com.cuit.bbs.entity.vo.query.PermissionQuery;
-import com.cuit.bbs.entity.vo.request.PermissionRequest;
-import com.cuit.bbs.entity.vo.response.PermissionResponse;
-import com.cuit.bbs.entity.Permission;
-
 
 /**
  * <p>

@@ -1,25 +1,19 @@
 package com.bysj.service.impl;
 
-import org.slf4j.Logger;
-import java.util.List;
-import java.util.ArrayList;
-import com.antiy.common.base.BaseServiceImpl;
-import com.antiy.common.utils.LogUtils;
-import com.antiy.common.base.PageResult;
-import com.antiy.common.base.BaseConverter;
+import com.bysj.common.request.BaseConverter;
+import com.bysj.common.request.BaseServiceImpl;
+import com.bysj.common.request.PageResult;
+import com.bysj.dao.PrivateLetterDao;
+import com.bysj.entity.PrivateLetter;
+import com.bysj.entity.vo.query.PrivateLetterQuery;
+import com.bysj.entity.vo.request.PrivateLetterRequest;
+import com.bysj.entity.vo.response.PrivateLetterResponse;
+import com.bysj.service.IPrivateLetterService;
 import org.springframework.stereotype.Service;
-
-import com.cuit.bbs.entity.PrivateLetter;
-import com.cuit.bbs.dao.PrivateLetterDao;
-import com.cuit.bbs.service.IPrivateLetterService;
-import com.cuit.bbs.entity.dto.PrivateLetter;
-import com.cuit.bbs.entity.vo.request.PrivateLetterRequest;
-import com.cuit.bbs.entity.vo.response.PrivateLetterResponse;
-import com.cuit.bbs.entity.vo.query.PrivateLetterQuery;
-
 
 import javax.annotation.Resource;
 import java.util.List;
+
 /**
  * <p>
  * 私信表 服务实现类
@@ -29,14 +23,14 @@ import java.util.List;
  * @since 2019-02-28
  */
 @Service
-public class PrivateLetterServiceImpl extends BaseServiceImpl<PrivateLetter> implements IPrivateLetterService{
+public class PrivateLetterServiceImpl extends BaseServiceImpl<PrivateLetter> implements IPrivateLetterService {
 
-        private static final Logger logger = LogUtils.get();
+
 
         @Resource
         private PrivateLetterDao privateLetterDao;
         @Resource
-        private BaseConverter<PrivateLetterRequest, PrivateLetter>  requestConverter;
+        private BaseConverter<PrivateLetterRequest, PrivateLetter> requestConverter;
         @Resource
         private BaseConverter<PrivateLetter, PrivateLetterResponse> responseConverter;
 

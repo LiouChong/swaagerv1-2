@@ -1,10 +1,8 @@
 package com.bysj.dao;
 
-import java.util.List;
-import com.antiy.common.base.IBaseDao;
-import com.cuit.bbs.entity.Follow;
-import com.cuit.bbs.entity.dto.Follow;
-import com.cuit.bbs.entity.vo.query.FollowQuery;
+
+import com.bysj.common.response.IBaseDao;
+import com.bysj.entity.Follow;
 
 /**
  * <p>

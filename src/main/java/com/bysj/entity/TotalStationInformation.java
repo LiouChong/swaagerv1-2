@@ -1,9 +1,11 @@
 package com.bysj.entity;
 
 
-import java.util.Date;
-import com.antiy.common.base.BaseEntity;
+import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Date;
+
 /**
  * <p>
  * 全站信息表
@@ -16,49 +18,48 @@ import io.swagger.annotations.ApiModelProperty;
 public class TotalStationInformation extends BaseEntity {
 
 
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-        /**
-    *  通知内容
-    */
-        @ApiModelProperty("通知内容")
+    /**
+     * 通知内容
+     */
+    @ApiModelProperty("通知内容")
     private String content;
-        /**
-    *  通知时间
-    */
-        @ApiModelProperty("通知时间")
+    /**
+     * 通知时间
+     */
+    @ApiModelProperty("通知时间")
     private Date time;
-        /**
-    *  发出消息者名称
-    */
-        @ApiModelProperty("发出消息者名称")
+    /**
+     * 发出消息者名称
+     */
+    @ApiModelProperty("发出消息者名称")
     private String userName;
-        /**
-    *  创建时间
-    */
-        @ApiModelProperty("创建时间")
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("创建时间")
     private Date gmtCreate;
-        /**
-    *  修改时间
-    */
-        @ApiModelProperty("修改时间")
+    /**
+     * 修改时间
+     */
+    @ApiModelProperty("修改时间")
     private Date gmtModify;
-        /**
-    *  创建用户id
-    */
-        @ApiModelProperty("创建用户id")
+    /**
+     * 创建用户id
+     */
+    @ApiModelProperty("创建用户id")
     private Integer userCreate;
-        /**
-    *  修改用户id
-    */
-        @ApiModelProperty("修改用户id")
+    /**
+     * 修改用户id
+     */
+    @ApiModelProperty("修改用户id")
     private Integer userModify;
-        /**
-    *  状态，1 有效 2 无效
-    */
-        @ApiModelProperty("状态，1 有效 2 无效")
+    /**
+     * 状态，1 有效 2 无效
+     */
+    @ApiModelProperty("状态，1 有效 2 无效")
     private Integer state;
-
 
 
     public String getContent() {
@@ -133,17 +134,17 @@ private static final long serialVersionUID = 1L;
     }
 
 
-        @Override
+    @Override
     public String toString() {
-            return "TotalStationInformation{" +
-                                                                                            ", content=" + content +
-                                                                                        ", time=" + time +
-                                                                                        ", userName=" + userName +
-                                                                                        ", gmtCreate=" + gmtCreate +
-                                                                                        ", gmtModify=" + gmtModify +
-                                                                                        ", userCreate=" + userCreate +
-                                                                                        ", userModify=" + userModify +
-                                                                                        ", state=" + state +
-                                                "}";
+        return "TotalStationInformation{" +
+                ", content=" + content +
+                ", time=" + time +
+                ", userName=" + userName +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModify=" + gmtModify +
+                ", userCreate=" + userCreate +
+                ", userModify=" + userModify +
+                ", state=" + state +
+                "}";
     }
-    }
+}

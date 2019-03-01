@@ -1,16 +1,14 @@
 package com.bysj.service;
 
-import com.antiy.common.base.IBaseService;
-import com.antiy.common.base.PageResult;
-import java.io.Serializable;
+
+import com.bysj.common.request.IBaseService;
+import com.bysj.common.request.PageResult;
+import com.bysj.entity.Tlevel;
+import com.bysj.entity.vo.query.TlevelQuery;
+import com.bysj.entity.vo.request.TlevelRequest;
+import com.bysj.entity.vo.response.TlevelResponse;
+
 import java.util.List;
-
-import com.cuit.bbs.entity.dto.TlevelDTO;
-import com.cuit.bbs.entity.vo.query.TlevelQuery;
-import com.cuit.bbs.entity.vo.request.TlevelRequest;
-import com.cuit.bbs.entity.vo.response.TlevelResponse;
-import com.cuit.bbs.entity.Tlevel;
-
 
 /**
  * <p>

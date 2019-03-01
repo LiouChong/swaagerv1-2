@@ -1,25 +1,19 @@
 package com.bysj.service.impl;
 
-import org.slf4j.Logger;
-import java.util.List;
-import java.util.ArrayList;
-import com.antiy.common.base.BaseServiceImpl;
-import com.antiy.common.utils.LogUtils;
-import com.antiy.common.base.PageResult;
-import com.antiy.common.base.BaseConverter;
+import com.bysj.common.request.BaseConverter;
+import com.bysj.common.request.BaseServiceImpl;
+import com.bysj.common.request.PageResult;
+import com.bysj.dao.PostDao;
+import com.bysj.entity.Post;
+import com.bysj.entity.vo.query.PostQuery;
+import com.bysj.entity.vo.request.PostRequest;
+import com.bysj.entity.vo.response.PostResponse;
+import com.bysj.service.IPostService;
 import org.springframework.stereotype.Service;
-
-import com.cuit.bbs.entity.Post;
-import com.cuit.bbs.dao.PostDao;
-import com.cuit.bbs.service.IPostService;
-import com.cuit.bbs.entity.dto.Post;
-import com.cuit.bbs.entity.vo.request.PostRequest;
-import com.cuit.bbs.entity.vo.response.PostResponse;
-import com.cuit.bbs.entity.vo.query.PostQuery;
-
 
 import javax.annotation.Resource;
 import java.util.List;
+
 /**
  * <p>
  * 讨论帖子表 服务实现类
@@ -29,14 +23,14 @@ import java.util.List;
  * @since 2019-02-28
  */
 @Service
-public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostService{
+public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostService {
 
-        private static final Logger logger = LogUtils.get();
+
 
         @Resource
         private PostDao postDao;
         @Resource
-        private BaseConverter<PostRequest, Post>  requestConverter;
+        private BaseConverter<PostRequest, Post> requestConverter;
         @Resource
         private BaseConverter<Post, PostResponse> responseConverter;
 

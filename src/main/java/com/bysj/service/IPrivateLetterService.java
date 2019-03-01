@@ -1,15 +1,13 @@
 package com.bysj.service;
 
-import com.antiy.common.base.IBaseService;
-import com.antiy.common.base.PageResult;
-import java.io.Serializable;
+import com.bysj.common.request.IBaseService;
+import com.bysj.common.request.PageResult;
 import java.util.List;
 
-import com.cuit.bbs.entity.dto.PrivateLetterDTO;
-import com.cuit.bbs.entity.vo.query.PrivateLetterQuery;
-import com.cuit.bbs.entity.vo.request.PrivateLetterRequest;
-import com.cuit.bbs.entity.vo.response.PrivateLetterResponse;
-import com.cuit.bbs.entity.PrivateLetter;
+import com.bysj.entity.PrivateLetter;
+import com.bysj.entity.vo.query.PrivateLetterQuery;
+import com.bysj.entity.vo.request.PrivateLetterRequest;
+import com.bysj.entity.vo.response.PrivateLetterResponse;
 
 
 /**

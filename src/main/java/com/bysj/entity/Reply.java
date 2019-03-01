@@ -1,9 +1,11 @@
 package com.bysj.entity;
 
 
-import java.util.Date;
-import com.antiy.common.base.BaseEntity;
+import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Date;
+
 /**
  * <p>
  * 回复表
@@ -16,44 +18,43 @@ import io.swagger.annotations.ApiModelProperty;
 public class Reply extends BaseEntity {
 
 
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-        /**
-    *  回复信息
-    */
-        @ApiModelProperty("回复信息")
+    /**
+     * 回复信息
+     */
+    @ApiModelProperty("回复信息")
     private String replyInfo;
-        /**
-    *  帖子id
-    */
-        @ApiModelProperty("帖子id")
+    /**
+     * 帖子id
+     */
+    @ApiModelProperty("帖子id")
     private Integer postId;
-        /**
-    *  点赞数
-    */
-        @ApiModelProperty("点赞数")
+    /**
+     * 点赞数
+     */
+    @ApiModelProperty("点赞数")
     private Integer thumbupCount;
-        /**
-    *  创建时间
-    */
-        @ApiModelProperty("创建时间")
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("创建时间")
     private Date gmtCreate;
-        /**
-    *  修改时间
-    */
-        @ApiModelProperty("修改时间")
+    /**
+     * 修改时间
+     */
+    @ApiModelProperty("修改时间")
     private Date gmtModify;
-        /**
-    *  创建者id
-    */
-        @ApiModelProperty("创建者id")
+    /**
+     * 创建者id
+     */
+    @ApiModelProperty("创建者id")
     private String userCreate;
-        /**
-    *  修改者id
-    */
-        @ApiModelProperty("修改者id")
+    /**
+     * 修改者id
+     */
+    @ApiModelProperty("修改者id")
     private String userModify;
-
 
 
     public String getReplyInfo() {
@@ -119,16 +120,16 @@ private static final long serialVersionUID = 1L;
     }
 
 
-        @Override
+    @Override
     public String toString() {
-            return "Reply{" +
-                                                                                            ", replyInfo=" + replyInfo +
-                                                                                        ", postId=" + postId +
-                                                                                        ", thumbupCount=" + thumbupCount +
-                                                                                        ", gmtCreate=" + gmtCreate +
-                                                                                        ", gmtModify=" + gmtModify +
-                                                                                        ", userCreate=" + userCreate +
-                                                                                        ", userModify=" + userModify +
-                                                "}";
+        return "Reply{" +
+                ", replyInfo=" + replyInfo +
+                ", postId=" + postId +
+                ", thumbupCount=" + thumbupCount +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModify=" + gmtModify +
+                ", userCreate=" + userCreate +
+                ", userModify=" + userModify +
+                "}";
     }
-    }
+}

@@ -1,9 +1,8 @@
 package com.bysj.entity;
 
-
-import java.util.Date;
-import com.antiy.common.base.BaseEntity;
+import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
+
 /**
  * <p>
  * 用户表
@@ -16,54 +15,53 @@ import io.swagger.annotations.ApiModelProperty;
 public class User extends BaseEntity {
 
 
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-        /**
-    *  昵称
-    */
-        @ApiModelProperty("昵称")
+    /**
+     * 昵称
+     */
+    @ApiModelProperty("昵称")
     private String nickname;
-        /**
-    *  密码
-    */
-        @ApiModelProperty("密码")
+    /**
+     * 密码
+     */
+    @ApiModelProperty("密码")
     private String psw;
-        /**
-    *  积分
-    */
-        @ApiModelProperty("积分")
+    /**
+     * 积分
+     */
+    @ApiModelProperty("积分")
     private Integer money;
-        /**
-    *  邮箱
-    */
-        @ApiModelProperty("邮箱")
+    /**
+     * 邮箱
+     */
+    @ApiModelProperty("邮箱")
     private String email;
-        /**
-    *  头像
-    */
-        @ApiModelProperty("头像")
+    /**
+     * 头像
+     */
+    @ApiModelProperty("头像")
     private String picture;
-        /**
-    *  用户权限
-    */
-        @ApiModelProperty("用户权限")
+    /**
+     * 用户权限
+     */
+    @ApiModelProperty("用户权限")
     private Integer level;
-        /**
-    *  个性签名
-    */
-        @ApiModelProperty("个性签名")
+    /**
+     * 个性签名
+     */
+    @ApiModelProperty("个性签名")
     private String signaTure;
-        /**
-    *  性别： 1 男 2 女
-    */
-        @ApiModelProperty("性别： 1 男 2 女")
+    /**
+     * 性别： 1 男 2 女
+     */
+    @ApiModelProperty("性别： 1 男 2 女")
     private Boolean sex;
-        /**
-    *  年龄
-    */
-        @ApiModelProperty("年龄")
+    /**
+     * 年龄
+     */
+    @ApiModelProperty("年龄")
     private Integer age;
-
 
 
     public String getNickname() {
@@ -147,18 +145,18 @@ private static final long serialVersionUID = 1L;
     }
 
 
-        @Override
+    @Override
     public String toString() {
-            return "User{" +
-                                                                                            ", nickname=" + nickname +
-                                                                                        ", psw=" + psw +
-                                                                                        ", money=" + money +
-                                                                                        ", email=" + email +
-                                                                                        ", picture=" + picture +
-                                                                                        ", level=" + level +
-                                                                                        ", signaTure=" + signaTure +
-                                                                                        ", sex=" + sex +
-                                                                                        ", age=" + age +
-                                                "}";
+        return "User{" +
+                ", nickname=" + nickname +
+                ", psw=" + psw +
+                ", money=" + money +
+                ", email=" + email +
+                ", picture=" + picture +
+                ", level=" + level +
+                ", signaTure=" + signaTure +
+                ", sex=" + sex +
+                ", age=" + age +
+                "}";
     }
-    }
+}

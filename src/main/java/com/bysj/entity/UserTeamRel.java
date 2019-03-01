@@ -1,9 +1,9 @@
 package com.bysj.entity;
 
 
-import java.util.Date;
-import com.antiy.common.base.BaseEntity;
+import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
+
 /**
  * <p>
  * 用户小组关联表
@@ -16,17 +16,17 @@ import io.swagger.annotations.ApiModelProperty;
 public class UserTeamRel extends BaseEntity {
 
 
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-        /**
-    *  用户id
-    */
-        @ApiModelProperty("用户id")
+    /**
+     * 用户id
+     */
+    @ApiModelProperty("用户id")
     private Integer userId;
-        /**
-    *  讨论组id
-    */
-        @ApiModelProperty("讨论组id")
+    /**
+     * 讨论组id
+     */
+    @ApiModelProperty("讨论组id")
     private Integer teamId;
 
 
@@ -48,11 +48,11 @@ private static final long serialVersionUID = 1L;
     }
 
 
-        @Override
+    @Override
     public String toString() {
-            return "UserTeamRel{" +
-                                                            "userId=" + userId +
-                                                                                        ", teamId=" + teamId +
-                                                "}";
+        return "UserTeamRel{" +
+                "userId=" + userId +
+                ", teamId=" + teamId +
+                "}";
     }
-    }
+}

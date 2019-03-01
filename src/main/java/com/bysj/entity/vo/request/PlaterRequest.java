@@ -1,9 +1,7 @@
 package com.bysj.entity.vo.request;
 
-import com.antiy.common.base.BasicRequest;
 import io.swagger.annotations.ApiModelProperty;
-import com.antiy.common.validation.ObjectValidator;
-import com.antiy.common.exception.RequestParamValidateException;
+
 /**
  * <p>
  * PlaterRequest 请求对象
@@ -13,7 +11,7 @@ import com.antiy.common.exception.RequestParamValidateException;
  * @since 2018-12-27
  */
 
-public class PlaterRequest extends BasicRequest implements ObjectValidator{
+public class PlaterRequest  {
 
     /**
      *  板块名称
@@ -116,9 +114,6 @@ public class PlaterRequest extends BasicRequest implements ObjectValidator{
         }
 
 
-    @Override
-    public void validate() throws RequestParamValidateException {
 
-    }
 
 }

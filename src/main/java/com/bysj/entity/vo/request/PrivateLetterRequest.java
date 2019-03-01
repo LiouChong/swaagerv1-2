@@ -1,9 +1,9 @@
 package com.bysj.entity.vo.request;
 
-import com.antiy.common.base.BasicRequest;
 import io.swagger.annotations.ApiModelProperty;
-import com.antiy.common.validation.ObjectValidator;
-import com.antiy.common.exception.RequestParamValidateException;
+
+import java.util.Date;
+
 /**
  * <p>
  * PrivateLetterRequest 请求对象
@@ -13,7 +13,7 @@ import com.antiy.common.exception.RequestParamValidateException;
  * @since 2018-12-27
  */
 
-public class PrivateLetterRequest extends BasicRequest implements ObjectValidator{
+public class PrivateLetterRequest  {
 
     /**
      *  发送者id（用于创建者）
@@ -158,9 +158,6 @@ public class PrivateLetterRequest extends BasicRequest implements ObjectValidato
         }
 
 
-    @Override
-    public void validate() throws RequestParamValidateException {
 
-    }
 
 }

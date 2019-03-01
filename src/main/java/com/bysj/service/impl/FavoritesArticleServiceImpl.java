@@ -1,25 +1,19 @@
 package com.bysj.service.impl;
 
-import org.slf4j.Logger;
-import java.util.List;
-import java.util.ArrayList;
-import com.antiy.common.base.BaseServiceImpl;
-import com.antiy.common.utils.LogUtils;
-import com.antiy.common.base.PageResult;
-import com.antiy.common.base.BaseConverter;
+import com.bysj.common.request.BaseConverter;
+import com.bysj.common.request.BaseServiceImpl;
+import com.bysj.common.request.PageResult;
+import com.bysj.dao.FavoritesArticleDao;
+import com.bysj.entity.FavoritesArticle;
+import com.bysj.entity.vo.query.FavoritesArticleQuery;
+import com.bysj.entity.vo.request.FavoritesArticleRequest;
+import com.bysj.entity.vo.response.FavoritesArticleResponse;
+import com.bysj.service.IFavoritesArticleService;
 import org.springframework.stereotype.Service;
-
-import com.cuit.bbs.entity.FavoritesArticle;
-import com.cuit.bbs.dao.FavoritesArticleDao;
-import com.cuit.bbs.service.IFavoritesArticleService;
-import com.cuit.bbs.entity.dto.FavoritesArticle;
-import com.cuit.bbs.entity.vo.request.FavoritesArticleRequest;
-import com.cuit.bbs.entity.vo.response.FavoritesArticleResponse;
-import com.cuit.bbs.entity.vo.query.FavoritesArticleQuery;
-
 
 import javax.annotation.Resource;
 import java.util.List;
+
 /**
  * <p>
  * 喜欢的文章表 服务实现类
@@ -29,14 +23,14 @@ import java.util.List;
  * @since 2019-02-28
  */
 @Service
-public class FavoritesArticleServiceImpl extends BaseServiceImpl<FavoritesArticle> implements IFavoritesArticleService{
+public class FavoritesArticleServiceImpl extends BaseServiceImpl<FavoritesArticle> implements IFavoritesArticleService {
 
-        private static final Logger logger = LogUtils.get();
+
 
         @Resource
         private FavoritesArticleDao favoritesArticleDao;
         @Resource
-        private BaseConverter<FavoritesArticleRequest, FavoritesArticle>  requestConverter;
+        private BaseConverter<FavoritesArticleRequest, FavoritesArticle> requestConverter;
         @Resource
         private BaseConverter<FavoritesArticle, FavoritesArticleResponse> responseConverter;
 

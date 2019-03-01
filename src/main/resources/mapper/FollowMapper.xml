@@ -3,7 +3,7 @@
 <mapper namespace="com.cuit.bbs.dao.FollowDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.cuit.bbs.entity.Follow">
+    <resultMap id="BaseResultMap" type="com.cuit. bysj.Follow">
         <result column="fan_id" property="fanId"/>
         <result column="star_id" property="starId"/>
         <result column="gmt_create" property="gmtCreate"/>
@@ -66,7 +66,7 @@
         </if>
     </sql>
 
-    <insert id="insert" parameterType="com.cuit.bbs.entity.Follow">
+    <insert id="insert" parameterType="com.cuit. bysj.Follow">
         insert into
         <include refid="Table_Name"></include>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -77,7 +77,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.cuit.bbs.entity.Follow">
+    <update id="update" parameterType="com.cuit. bysj.Follow">
         update
         <include refid="Table_Name"></include>
         <trim prefix="SET" suffixOverrides=",">
@@ -87,7 +87,7 @@
     </update>
 
     <!-- 根据主键查询 -->
-    <select id="getById" resultType="com.cuit.bbs.entity.Follow" parameterType="java.lang.Integer">
+    <select id="getById" resultType="com.cuit. bysj.Follow" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from
@@ -102,7 +102,7 @@
         where id = #{id}
     </delete>
 
-    <select id="getByWhere" resultType="com.cuit.bbs.entity.Follow" parameterType="java.util.Map">
+    <select id="getByWhere" resultType="com.cuit. bysj.Follow" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
@@ -115,14 +115,14 @@
     </select>
 
 
-    <select id="getAll" resultType="com.cuit.bbs.entity.Follow">
+    <select id="getAll" resultType="com.cuit. bysj.Follow">
         select *
         from
         <include refid="Table_Name"></include>
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.antiy.common.base.ObjectQuery">
+    <select id="findCount" resultType="int" parameterType="com.bysj.common.base.ObjectQuery">
         select count(1)
         from
         <include refid="Table_Name"></include>
@@ -133,7 +133,7 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.cuit.bbs.entity.Follow" parameterType="com.antiy.common.base.ObjectQuery">
+    <select id="findQuery" resultType="com.cuit. bysj.Follow" parameterType="com.bysj.common.base.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>

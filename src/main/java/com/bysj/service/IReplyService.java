@@ -1,16 +1,14 @@
 package com.bysj.service;
 
-import com.antiy.common.base.IBaseService;
-import com.antiy.common.base.PageResult;
-import java.io.Serializable;
+
+import com.bysj.common.request.IBaseService;
+import com.bysj.common.request.PageResult;
+import com.bysj.entity.Reply;
+import com.bysj.entity.vo.query.ReplyQuery;
+import com.bysj.entity.vo.request.ReplyRequest;
+import com.bysj.entity.vo.response.ReplyResponse;
+
 import java.util.List;
-
-import com.cuit.bbs.entity.dto.ReplyDTO;
-import com.cuit.bbs.entity.vo.query.ReplyQuery;
-import com.cuit.bbs.entity.vo.request.ReplyRequest;
-import com.cuit.bbs.entity.vo.response.ReplyResponse;
-import com.cuit.bbs.entity.Reply;
-
 
 /**
  * <p>

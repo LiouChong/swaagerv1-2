@@ -1,25 +1,19 @@
 package com.bysj.service.impl;
 
-import org.slf4j.Logger;
-import java.util.List;
-import java.util.ArrayList;
-import com.antiy.common.base.BaseServiceImpl;
-import com.antiy.common.utils.LogUtils;
-import com.antiy.common.base.PageResult;
-import com.antiy.common.base.BaseConverter;
+import com.bysj.common.request.BaseConverter;
+import com.bysj.common.request.BaseServiceImpl;
+import com.bysj.common.request.PageResult;
+import com.bysj.dao.UserDao;
+import com.bysj.entity.User;
+import com.bysj.entity.vo.query.UserQuery;
+import com.bysj.entity.vo.request.UserRequest;
+import com.bysj.entity.vo.response.UserResponse;
+import com.bysj.service.IUserService;
 import org.springframework.stereotype.Service;
-
-import com.cuit.bbs.entity.User;
-import com.cuit.bbs.dao.UserDao;
-import com.cuit.bbs.service.IUserService;
-import com.cuit.bbs.entity.dto.User;
-import com.cuit.bbs.entity.vo.request.UserRequest;
-import com.cuit.bbs.entity.vo.response.UserResponse;
-import com.cuit.bbs.entity.vo.query.UserQuery;
-
 
 import javax.annotation.Resource;
 import java.util.List;
+
 /**
  * <p>
  * 用户表 服务实现类
@@ -29,14 +23,14 @@ import java.util.List;
  * @since 2019-02-28
  */
 @Service
-public class UserServiceImpl extends BaseServiceImpl<User> implements IUserService{
+public class UserServiceImpl extends BaseServiceImpl<User> implements IUserService {
 
-        private static final Logger logger = LogUtils.get();
+
 
         @Resource
         private UserDao userDao;
         @Resource
-        private BaseConverter<UserRequest, User>  requestConverter;
+        private BaseConverter<UserRequest, User> requestConverter;
         @Resource
         private BaseConverter<User, UserResponse> responseConverter;
 

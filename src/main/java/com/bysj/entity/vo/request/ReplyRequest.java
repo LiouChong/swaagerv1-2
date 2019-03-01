@@ -1,9 +1,9 @@
 package com.bysj.entity.vo.request;
 
-import com.antiy.common.base.BasicRequest;
 import io.swagger.annotations.ApiModelProperty;
-import com.antiy.common.validation.ObjectValidator;
-import com.antiy.common.exception.RequestParamValidateException;
+
+import java.util.Date;
+
 /**
  * <p>
  * ReplyRequest 请求对象
@@ -13,7 +13,7 @@ import com.antiy.common.exception.RequestParamValidateException;
  * @since 2018-12-27
  */
 
-public class ReplyRequest extends BasicRequest implements ObjectValidator{
+public class ReplyRequest {
 
     /**
      *  回复信息
@@ -115,10 +115,5 @@ public class ReplyRequest extends BasicRequest implements ObjectValidator{
         this.userModify = userModify;
         }
 
-
-    @Override
-    public void validate() throws RequestParamValidateException {
-
-    }
 
 }

@@ -3,7 +3,7 @@
 <mapper namespace="com.cuit.bbs.dao.UserDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.cuit.bbs.entity.User">
+    <resultMap id="BaseResultMap" type="com.cuit. bysj.User">
         <id column="id" property="id"/>
         <result column="nickname" property="nickname"/>
         <result column="psw" property="psw"/>
@@ -145,7 +145,7 @@
         </if>
     </sql>
 
-    <insert id="insert" parameterType="com.cuit.bbs.entity.User">
+    <insert id="insert" parameterType="com.cuit. bysj.User">
         insert into
         <include refid="Table_Name"></include>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -156,7 +156,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.cuit.bbs.entity.User">
+    <update id="update" parameterType="com.cuit. bysj.User">
         update
         <include refid="Table_Name"></include>
         <trim prefix="SET" suffixOverrides=",">
@@ -166,7 +166,7 @@
     </update>
 
     <!-- 根据主键查询 -->
-    <select id="getById" resultType="com.cuit.bbs.entity.User" parameterType="java.lang.Integer">
+    <select id="getById" resultType="com.cuit. bysj.User" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from
@@ -181,7 +181,7 @@
         where id = #{id}
     </delete>
 
-    <select id="getByWhere" resultType="com.cuit.bbs.entity.User" parameterType="java.util.Map">
+    <select id="getByWhere" resultType="com.cuit. bysj.User" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
@@ -194,14 +194,14 @@
     </select>
 
 
-    <select id="getAll" resultType="com.cuit.bbs.entity.User">
+    <select id="getAll" resultType="com.cuit. bysj.User">
         select *
         from
         <include refid="Table_Name"></include>
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.antiy.common.base.ObjectQuery">
+    <select id="findCount" resultType="int" parameterType="com.bysj.common.base.ObjectQuery">
         select count(1)
         from
         <include refid="Table_Name"></include>
@@ -212,7 +212,7 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.cuit.bbs.entity.User" parameterType="com.antiy.common.base.ObjectQuery">
+    <select id="findQuery" resultType="com.cuit. bysj.User" parameterType="com.bysj.common.base.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>

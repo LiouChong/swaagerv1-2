@@ -1,25 +1,19 @@
 package com.bysj.service.impl;
 
-import org.slf4j.Logger;
-import java.util.List;
-import java.util.ArrayList;
-import com.antiy.common.base.BaseServiceImpl;
-import com.antiy.common.utils.LogUtils;
-import com.antiy.common.base.PageResult;
-import com.antiy.common.base.BaseConverter;
+import com.bysj.common.request.BaseConverter;
+import com.bysj.common.request.BaseServiceImpl;
+import com.bysj.common.request.PageResult;
+import com.bysj.dao.AskhelpDao;
+import com.bysj.entity.Askhelp;
+import com.bysj.entity.vo.query.AskhelpQuery;
+import com.bysj.entity.vo.request.AskhelpRequest;
+import com.bysj.entity.vo.response.AskhelpResponse;
+import com.bysj.service.IAskhelpService;
 import org.springframework.stereotype.Service;
-
-import com.cuit.bbs.entity.Askhelp;
-import com.cuit.bbs.dao.AskhelpDao;
-import com.cuit.bbs.service.IAskhelpService;
-import com.cuit.bbs.entity.dto.Askhelp;
-import com.cuit.bbs.entity.vo.request.AskhelpRequest;
-import com.cuit.bbs.entity.vo.response.AskhelpResponse;
-import com.cuit.bbs.entity.vo.query.AskhelpQuery;
-
 
 import javax.annotation.Resource;
 import java.util.List;
+
 /**
  * <p>
  * 求问表 服务实现类
@@ -29,14 +23,12 @@ import java.util.List;
  * @since 2019-02-28
  */
 @Service
-public class AskhelpServiceImpl extends BaseServiceImpl<Askhelp> implements IAskhelpService{
-
-        private static final Logger logger = LogUtils.get();
+public class AskhelpServiceImpl extends BaseServiceImpl<Askhelp> implements IAskhelpService {
 
         @Resource
         private AskhelpDao askhelpDao;
         @Resource
-        private BaseConverter<AskhelpRequest, Askhelp>  requestConverter;
+        private BaseConverter<AskhelpRequest, Askhelp> requestConverter;
         @Resource
         private BaseConverter<Askhelp, AskhelpResponse> responseConverter;
 

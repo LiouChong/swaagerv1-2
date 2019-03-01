@@ -1,20 +1,14 @@
 package com.bysj.controller;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.bysj.common.response.ActionResponse;
+import com.bysj.entity.vo.query.FavoritesArticleQuery;
+import com.bysj.entity.vo.request.FavoritesArticleRequest;
+import com.bysj.service.IFavoritesArticleService;
 import io.swagger.annotations.*;
-import com.antiy.common.base.ActionResponse;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
-import com.antiy.common.utils.LogUtils;
-import com.antiy.common.base.QueryCondition;
-import com.antiy.common.utils.ParamterExceptionUtils;
-
-import com.cuit.bbs.service.IFavoritesArticleService;
-import com.cuit.bbs.entity.FavoritesArticle;
-import com.cuit.bbs.entity.vo.request.FavoritesArticleRequest;
-import com.cuit.bbs.entity.vo.response.FavoritesArticleResponse;
-import com.cuit.bbs.entity.vo.query.FavoritesArticleQuery;
-
 
 /**
  *
@@ -25,7 +19,7 @@ import com.cuit.bbs.entity.vo.query.FavoritesArticleQuery;
 @RestController
 @RequestMapping("/v1/bbs/favoritesarticle")
 public class FavoritesArticleController {
-    private static final Logger logger = LogUtils.get();
+
 
     @Resource
     public IFavoritesArticleService iFavoritesArticleService;
@@ -85,7 +79,7 @@ public class FavoritesArticleController {
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "favoritesArticle") @PathVariable("id") Integer id)throws Exception{
-        ParamterExceptionUtils.isNull(id, "ID不能为空");
+
         return ActionResponse.success(iFavoritesArticleService.getById(id));
     }
 
@@ -100,7 +94,7 @@ public class FavoritesArticleController {
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
-        ParamterExceptionUtils.isNull(id, "ID不能为空");
+
         return ActionResponse.success(iFavoritesArticleService.deleteById(id));
     }
 }

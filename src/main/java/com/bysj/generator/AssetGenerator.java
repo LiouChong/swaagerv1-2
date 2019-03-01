@@ -23,7 +23,7 @@ public class AssetGenerator {
     /**
      * 代码输出路径
      */
-    private String outPutDir = "C:\\Users\\Antiy\\Desktop\\bbs-plus";
+    private String outPutDir = "C:\\Users\\bysj\\Desktop\\bbs-plus";
 
     /**
      * 代码作者

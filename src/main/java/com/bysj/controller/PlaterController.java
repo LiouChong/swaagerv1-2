@@ -3,11 +3,11 @@ package com.bysj.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMethod;
 import io.swagger.annotations.*;
-import com.antiy.common.base.ActionResponse;
+import com.bysj.common.base.ActionResponse;
 import javax.annotation.Resource;
-import com.antiy.common.utils.LogUtils;
-import com.antiy.common.base.QueryCondition;
-import com.antiy.common.utils.ParamterExceptionUtils;
+import com.bysj.common.utils.LogUtils;
+import com.bysj.common.base.QueryCondition;
+import com.bysj.common.utils.ParamterExceptionUtils;
 
 import com.cuit.bbs.service.IPlaterService;
 import com.cuit.bbs.entity.Plater;
@@ -25,7 +25,7 @@ import com.cuit.bbs.entity.vo.query.PlaterQuery;
 @RestController
 @RequestMapping("/v1/bbs/plater")
 public class PlaterController {
-    private static final Logger logger = LogUtils.get();
+
 
     @Resource
     public IPlaterService iPlaterService;
@@ -85,7 +85,7 @@ public class PlaterController {
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "plater") @PathVariable("id") Integer id)throws Exception{
-        ParamterExceptionUtils.isNull(id, "ID不能为空");
+
         return ActionResponse.success(iPlaterService.getById(id));
     }
 
@@ -100,7 +100,7 @@ public class PlaterController {
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
-        ParamterExceptionUtils.isNull(id, "ID不能为空");
+
         return ActionResponse.success(iPlaterService.deleteById(id));
     }
 }

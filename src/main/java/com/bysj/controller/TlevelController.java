@@ -3,10 +3,10 @@ package com.bysj.controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMethod;
 import io.swagger.annotations.*;
-import com.antiy.common.base.ActionResponse;
+import com.bysj.common.request.ActionResponse;
 import javax.annotation.Resource;
 import com.antiy.common.utils.LogUtils;
-import com.antiy.common.base.QueryCondition;
+import com.bysj.common.request.QueryCondition;
 import com.antiy.common.utils.ParamterExceptionUtils;
 
 import com.cuit.bbs.service.ITlevelService;
@@ -25,7 +25,7 @@ import com.cuit.bbs.entity.vo.query.TlevelQuery;
 @RestController
 @RequestMapping("/v1/bbs/tlevel")
 public class TlevelController {
-    private static final Logger logger = LogUtils.get();
+
 
     @Resource
     public ITlevelService iTlevelService;
@@ -85,7 +85,7 @@ public class TlevelController {
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "tlevel") @PathVariable("id") Integer id)throws Exception{
-        ParamterExceptionUtils.isNull(id, "ID不能为空");
+
         return ActionResponse.success(iTlevelService.getById(id));
     }
 
@@ -100,7 +100,7 @@ public class TlevelController {
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
-        ParamterExceptionUtils.isNull(id, "ID不能为空");
+
         return ActionResponse.success(iTlevelService.deleteById(id));
     }
 }

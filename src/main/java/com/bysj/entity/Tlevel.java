@@ -1,9 +1,9 @@
 package com.bysj.entity;
 
 
-import java.util.Date;
-import com.antiy.common.base.BaseEntity;
+import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
+
 /**
  * <p>
  * 角色表
@@ -16,11 +16,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class Tlevel extends BaseEntity {
 
 
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-        @ApiModelProperty("")
+    @ApiModelProperty("")
     private String role;
-
 
 
     public String getRole() {
@@ -32,10 +31,10 @@ private static final long serialVersionUID = 1L;
     }
 
 
-        @Override
+    @Override
     public String toString() {
-            return "Tlevel{" +
-                                                                                            ", role=" + role +
-                                                "}";
+        return "Tlevel{" +
+                ", role=" + role +
+                "}";
     }
-    }
+}

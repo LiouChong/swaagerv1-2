@@ -1,9 +1,9 @@
 package com.bysj.entity.vo.request;
 
-import com.antiy.common.base.BasicRequest;
 import io.swagger.annotations.ApiModelProperty;
-import com.antiy.common.validation.ObjectValidator;
-import com.antiy.common.exception.RequestParamValidateException;
+
+import java.util.Date;
+
 /**
  * <p>
  * FollowRequest 请求对象
@@ -13,7 +13,7 @@ import com.antiy.common.exception.RequestParamValidateException;
  * @since 2018-12-27
  */
 
-public class FollowRequest extends BasicRequest implements ObjectValidator{
+public class FollowRequest  {
 
     /**
      *  粉丝id
@@ -59,9 +59,6 @@ public class FollowRequest extends BasicRequest implements ObjectValidator{
         }
 
 
-    @Override
-    public void validate() throws RequestParamValidateException {
 
-    }
 
 }

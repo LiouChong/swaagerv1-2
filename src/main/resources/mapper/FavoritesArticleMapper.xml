@@ -3,7 +3,7 @@
 <mapper namespace="com.cuit.bbs.dao.FavoritesArticleDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.cuit.bbs.entity.FavoritesArticle">
+    <resultMap id="BaseResultMap" type="com.cuit. bysj.FavoritesArticle">
         <id column="user_id" property="userId"/>
         <result column="post_id" property="postId"/>
         <result column="state" property="state"/>
@@ -118,7 +118,7 @@
         </if>
     </sql>
 
-    <insert id="insert" parameterType="com.cuit.bbs.entity.FavoritesArticle">
+    <insert id="insert" parameterType="com.cuit. bysj.FavoritesArticle">
         insert into
         <include refid="Table_Name"></include>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -129,7 +129,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.cuit.bbs.entity.FavoritesArticle">
+    <update id="update" parameterType="com.cuit. bysj.FavoritesArticle">
         update
         <include refid="Table_Name"></include>
         <trim prefix="SET" suffixOverrides=",">
@@ -139,7 +139,7 @@
     </update>
 
     <!-- 根据主键查询 -->
-    <select id="getById" resultType="com.cuit.bbs.entity.FavoritesArticle" parameterType="java.lang.Integer">
+    <select id="getById" resultType="com.cuit. bysj.FavoritesArticle" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from
@@ -154,7 +154,7 @@
         where id = #{id}
     </delete>
 
-    <select id="getByWhere" resultType="com.cuit.bbs.entity.FavoritesArticle" parameterType="java.util.Map">
+    <select id="getByWhere" resultType="com.cuit. bysj.FavoritesArticle" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
@@ -167,14 +167,14 @@
     </select>
 
 
-    <select id="getAll" resultType="com.cuit.bbs.entity.FavoritesArticle">
+    <select id="getAll" resultType="com.cuit. bysj.FavoritesArticle">
         select *
         from
         <include refid="Table_Name"></include>
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.antiy.common.base.ObjectQuery">
+    <select id="findCount" resultType="int" parameterType="com.bysj.common.base.ObjectQuery">
         select count(1)
         from
         <include refid="Table_Name"></include>
@@ -185,7 +185,7 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.cuit.bbs.entity.FavoritesArticle" parameterType="com.antiy.common.base.ObjectQuery">
+    <select id="findQuery" resultType="com.cuit. bysj.FavoritesArticle" parameterType="com.bysj.common.base.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>

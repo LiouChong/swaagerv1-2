@@ -1,4 +1,4 @@
-package com.bysj.dao;
+package com.bysj.common.response;
 
 
 import com.bysj.common.request.ObjectQuery;

@@ -1,9 +1,9 @@
 package com.bysj.entity.vo.request;
 
-import com.antiy.common.base.BasicRequest;
 import io.swagger.annotations.ApiModelProperty;
-import com.antiy.common.validation.ObjectValidator;
-import com.antiy.common.exception.RequestParamValidateException;
+
+import java.util.Date;
+
 /**
  * <p>
  * ChatRecordRequest 请求对象
@@ -13,7 +13,7 @@ import com.antiy.common.exception.RequestParamValidateException;
  * @since 2018-12-27
  */
 
-public class ChatRecordRequest extends BasicRequest implements ObjectValidator{
+public class ChatRecordRequest  {
 
     /**
      *  聊天内容
@@ -114,11 +114,5 @@ public class ChatRecordRequest extends BasicRequest implements ObjectValidator{
     public void setState(Integer state) {
         this.state = state;
         }
-
-
-    @Override
-    public void validate() throws RequestParamValidateException {
-
-    }
 
 }

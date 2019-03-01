@@ -1,8 +1,6 @@
 package com.bysj.controller;
 
 import com.bysj.common.response.ActionResponse;
-import com.bysj.entity.vo.query.PlateQuery;
-import com.bysj.service.IPlateService;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 

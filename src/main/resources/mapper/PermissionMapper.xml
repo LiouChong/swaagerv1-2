@@ -3,7 +3,7 @@
 <mapper namespace="com.cuit.bbs.dao.PermissionDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.cuit.bbs.entity.Permission">
+    <resultMap id="BaseResultMap" type="com.cuit. bysj.Permission">
         <id column="id" property="id"/>
         <result column="role_id" property="roleId"/>
         <result column="permission" property="permission"/>
@@ -54,7 +54,7 @@
         </if>
     </sql>
 
-    <insert id="insert" parameterType="com.cuit.bbs.entity.Permission">
+    <insert id="insert" parameterType="com.cuit. bysj.Permission">
         insert into
         <include refid="Table_Name"></include>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -65,7 +65,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.cuit.bbs.entity.Permission">
+    <update id="update" parameterType="com.cuit. bysj.Permission">
         update
         <include refid="Table_Name"></include>
         <trim prefix="SET" suffixOverrides=",">
@@ -75,7 +75,7 @@
     </update>
 
     <!-- 根据主键查询 -->
-    <select id="getById" resultType="com.cuit.bbs.entity.Permission" parameterType="java.lang.Integer">
+    <select id="getById" resultType="com.cuit. bysj.Permission" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from
@@ -90,7 +90,7 @@
         where id = #{id}
     </delete>
 
-    <select id="getByWhere" resultType="com.cuit.bbs.entity.Permission" parameterType="java.util.Map">
+    <select id="getByWhere" resultType="com.cuit. bysj.Permission" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
@@ -103,14 +103,14 @@
     </select>
 
 
-    <select id="getAll" resultType="com.cuit.bbs.entity.Permission">
+    <select id="getAll" resultType="com.cuit. bysj.Permission">
         select *
         from
         <include refid="Table_Name"></include>
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.antiy.common.base.ObjectQuery">
+    <select id="findCount" resultType="int" parameterType="com.bysj.common.base.ObjectQuery">
         select count(1)
         from
         <include refid="Table_Name"></include>
@@ -121,7 +121,7 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.cuit.bbs.entity.Permission" parameterType="com.antiy.common.base.ObjectQuery">
+    <select id="findQuery" resultType="com.cuit. bysj.Permission" parameterType="com.bysj.common.base.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>

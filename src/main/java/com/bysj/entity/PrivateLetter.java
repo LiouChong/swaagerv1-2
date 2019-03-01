@@ -1,9 +1,11 @@
 package com.bysj.entity;
 
 
-import java.util.Date;
-import com.antiy.common.base.BaseEntity;
+import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Date;
+
 /**
  * <p>
  * 私信表
@@ -16,59 +18,58 @@ import io.swagger.annotations.ApiModelProperty;
 public class PrivateLetter extends BaseEntity {
 
 
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-        /**
-    *  发送者id（用于创建者）
-    */
-        @ApiModelProperty("发送者id（用于创建者）")
+    /**
+     * 发送者id（用于创建者）
+     */
+    @ApiModelProperty("发送者id（用于创建者）")
     private Integer userSendSend;
-        /**
-    *  接收者id
-    */
-        @ApiModelProperty("接收者id")
+    /**
+     * 接收者id
+     */
+    @ApiModelProperty("接收者id")
     private Integer userSendRev;
-        /**
-    *  内容
-    */
-        @ApiModelProperty("内容")
+    /**
+     * 内容
+     */
+    @ApiModelProperty("内容")
     private String content;
-        /**
-    *  是否已读: 1已读 0 未读
-    */
-        @ApiModelProperty("是否已读: 1已读 0 未读")
+    /**
+     * 是否已读: 1已读 0 未读
+     */
+    @ApiModelProperty("是否已读: 1已读 0 未读")
     private Boolean ifRead;
-        /**
-    *  状态： 1有效 0无效
-    */
-        @ApiModelProperty("状态： 1有效 0无效")
+    /**
+     * 状态： 1有效 0无效
+     */
+    @ApiModelProperty("状态： 1有效 0无效")
     private Integer state;
-        /**
-    *  修改着id
-    */
-        @ApiModelProperty("修改着id")
+    /**
+     * 修改着id
+     */
+    @ApiModelProperty("修改着id")
     private Integer userModify;
-        /**
-    *  创建时间
-    */
-        @ApiModelProperty("创建时间")
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("创建时间")
     private Date gmtCreate;
-        /**
-    *  修改时间
-    */
-        @ApiModelProperty("修改时间")
+    /**
+     * 修改时间
+     */
+    @ApiModelProperty("修改时间")
     private Date gmtModify;
-        /**
-    *  私信类型： 1 用户私信 2 系统私信
-    */
-        @ApiModelProperty("私信类型： 1 用户私信 2 系统私信")
+    /**
+     * 私信类型： 1 用户私信 2 系统私信
+     */
+    @ApiModelProperty("私信类型： 1 用户私信 2 系统私信")
     private Integer letterType;
-        /**
-    *  发送者id（用于接收者）
-    */
-        @ApiModelProperty("发送者id（用于接收者）")
+    /**
+     * 发送者id（用于接收者）
+     */
+    @ApiModelProperty("发送者id（用于接收者）")
     private Integer userRevSend;
-
 
 
     public Integer getUserSendSend() {
@@ -161,19 +162,19 @@ private static final long serialVersionUID = 1L;
     }
 
 
-        @Override
+    @Override
     public String toString() {
-            return "PrivateLetter{" +
-                                                                                            ", userSendSend=" + userSendSend +
-                                                                                        ", userSendRev=" + userSendRev +
-                                                                                        ", content=" + content +
-                                                                                        ", ifRead=" + ifRead +
-                                                                                        ", state=" + state +
-                                                                                        ", userModify=" + userModify +
-                                                                                        ", gmtCreate=" + gmtCreate +
-                                                                                        ", gmtModify=" + gmtModify +
-                                                                                        ", letterType=" + letterType +
-                                                                                        ", userRevSend=" + userRevSend +
-                                                "}";
+        return "PrivateLetter{" +
+                ", userSendSend=" + userSendSend +
+                ", userSendRev=" + userSendRev +
+                ", content=" + content +
+                ", ifRead=" + ifRead +
+                ", state=" + state +
+                ", userModify=" + userModify +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModify=" + gmtModify +
+                ", letterType=" + letterType +
+                ", userRevSend=" + userRevSend +
+                "}";
     }
-    }
+}

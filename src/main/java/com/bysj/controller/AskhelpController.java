@@ -1,19 +1,13 @@
-package com.cuit.bbs.controller;
+package com.bysj.controller;
 
+import com.bysj.common.response.ActionResponse;
+import com.bysj.entity.vo.query.AskhelpQuery;
+import com.bysj.entity.vo.request.AskhelpRequest;
+import com.bysj.service.IAskhelpService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMethod;
 import io.swagger.annotations.*;
-import com.antiy.common.base.ActionResponse;
 import javax.annotation.Resource;
-import com.antiy.common.utils.LogUtils;
-import com.antiy.common.base.QueryCondition;
-import com.antiy.common.utils.ParamterExceptionUtils;
-
-import com.cuit.bbs.service.IAskhelpService;
-import com.cuit.bbs.entity.Askhelp;
-import com.cuit.bbs.entity.vo.request.AskhelpRequest;
-import com.cuit.bbs.entity.vo.response.AskhelpResponse;
-import com.cuit.bbs.entity.vo.query.AskhelpQuery;
 
 
 /**
@@ -25,7 +19,6 @@ import com.cuit.bbs.entity.vo.query.AskhelpQuery;
 @RestController
 @RequestMapping("/v1/bbs/askhelp")
 public class AskhelpController {
-    private static final Logger logger = LogUtils.get();
 
     @Resource
     public IAskhelpService iAskhelpService;
@@ -85,7 +78,6 @@ public class AskhelpController {
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "askhelp") @PathVariable("id") Integer id)throws Exception{
-        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iAskhelpService.getById(id));
     }
 
@@ -100,7 +92,6 @@ public class AskhelpController {
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
-        ParamterExceptionUtils.isNull(id, "ID不能为空");
         return ActionResponse.success(iAskhelpService.deleteById(id));
     }
 }

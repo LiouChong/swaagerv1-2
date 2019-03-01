@@ -1,9 +1,9 @@
 package com.bysj.entity.vo.request;
 
-import com.antiy.common.base.BasicRequest;
 import io.swagger.annotations.ApiModelProperty;
-import com.antiy.common.validation.ObjectValidator;
-import com.antiy.common.exception.RequestParamValidateException;
+
+import java.util.Date;
+
 /**
  * <p>
  * UserBanRequest 请求对象
@@ -13,7 +13,7 @@ import com.antiy.common.exception.RequestParamValidateException;
  * @since 2018-12-27
  */
 
-public class UserBanRequest extends BasicRequest implements ObjectValidator{
+public class UserBanRequest  {
 
     /**
      *  被封禁用户id
@@ -102,9 +102,6 @@ public class UserBanRequest extends BasicRequest implements ObjectValidator{
         }
 
 
-    @Override
-    public void validate() throws RequestParamValidateException {
 
-    }
 
 }

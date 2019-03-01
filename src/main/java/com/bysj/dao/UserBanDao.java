@@ -1,10 +1,8 @@
 package com.bysj.dao;
 
-import java.util.List;
-import com.antiy.common.base.IBaseDao;
-import com.cuit.bbs.entity.UserBan;
-import com.cuit.bbs.entity.dto.UserBan;
-import com.cuit.bbs.entity.vo.query.UserBanQuery;
+
+import com.bysj.common.response.IBaseDao;
+import com.bysj.entity.UserBan;
 
 /**
  * <p>

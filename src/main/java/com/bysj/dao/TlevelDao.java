@@ -1,10 +1,8 @@
 package com.bysj.dao;
 
-import java.util.List;
-import com.antiy.common.base.IBaseDao;
-import com.cuit.bbs.entity.Tlevel;
-import com.cuit.bbs.entity.dto.Tlevel;
-import com.cuit.bbs.entity.vo.query.TlevelQuery;
+
+import com.bysj.common.response.IBaseDao;
+import com.bysj.entity.Tlevel;
 
 /**
  * <p>

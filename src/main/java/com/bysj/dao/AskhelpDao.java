@@ -1,6 +1,9 @@
 package com.bysj.dao;
 
 
+import com.bysj.common.response.IBaseDao;
+import com.bysj.entity.Askhelp;
+
 /**
  * <p>
  * 求问表 Mapper 接口

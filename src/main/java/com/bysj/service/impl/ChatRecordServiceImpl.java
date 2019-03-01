@@ -1,25 +1,19 @@
 package com.bysj.service.impl;
 
-import org.slf4j.Logger;
-import java.util.List;
-import java.util.ArrayList;
-import com.antiy.common.base.BaseServiceImpl;
-import com.antiy.common.utils.LogUtils;
-import com.antiy.common.base.PageResult;
-import com.antiy.common.base.BaseConverter;
+import com.bysj.common.request.BaseConverter;
+import com.bysj.common.request.BaseServiceImpl;
+import com.bysj.common.request.PageResult;
+import com.bysj.dao.ChatRecordDao;
+import com.bysj.entity.ChatRecord;
+import com.bysj.entity.vo.query.ChatRecordQuery;
+import com.bysj.entity.vo.request.ChatRecordRequest;
+import com.bysj.entity.vo.response.ChatRecordResponse;
+import com.bysj.service.IChatRecordService;
 import org.springframework.stereotype.Service;
-
-import com.cuit.bbs.entity.ChatRecord;
-import com.cuit.bbs.dao.ChatRecordDao;
-import com.cuit.bbs.service.IChatRecordService;
-import com.cuit.bbs.entity.dto.ChatRecord;
-import com.cuit.bbs.entity.vo.request.ChatRecordRequest;
-import com.cuit.bbs.entity.vo.response.ChatRecordResponse;
-import com.cuit.bbs.entity.vo.query.ChatRecordQuery;
-
 
 import javax.annotation.Resource;
 import java.util.List;
+
 /**
  * <p>
  * 讨论组聊天记录表 服务实现类
@@ -29,14 +23,13 @@ import java.util.List;
  * @since 2019-02-28
  */
 @Service
-public class ChatRecordServiceImpl extends BaseServiceImpl<ChatRecord> implements IChatRecordService{
+public class ChatRecordServiceImpl extends BaseServiceImpl<ChatRecord> implements IChatRecordService {
 
-        private static final Logger logger = LogUtils.get();
 
         @Resource
         private ChatRecordDao chatRecordDao;
         @Resource
-        private BaseConverter<ChatRecordRequest, ChatRecord>  requestConverter;
+        private BaseConverter<ChatRecordRequest, ChatRecord> requestConverter;
         @Resource
         private BaseConverter<ChatRecord, ChatRecordResponse> responseConverter;
 

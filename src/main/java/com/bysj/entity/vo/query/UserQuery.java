@@ -1,8 +1,8 @@
 package com.bysj.entity.vo.query;
 
-import com.antiy.common.base.ObjectQuery;
-import java.util.Date;
-import io.swagger.annotations.ApiModelProperty;
+
+import com.bysj.common.request.ObjectQuery;
+
 /**
  * <p>
  * User 查询条件

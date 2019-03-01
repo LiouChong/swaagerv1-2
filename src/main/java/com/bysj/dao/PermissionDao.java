@@ -1,10 +1,8 @@
 package com.bysj.dao;
 
-import java.util.List;
-import com.antiy.common.base.IBaseDao;
-import com.cuit.bbs.entity.Permission;
-import com.cuit.bbs.entity.dto.Permission;
-import com.cuit.bbs.entity.vo.query.PermissionQuery;
+
+import com.bysj.common.response.IBaseDao;
+import com.bysj.entity.Permission;
 
 /**
  * <p>

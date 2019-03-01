@@ -1,10 +1,8 @@
 package com.bysj.dao;
 
-import java.util.List;
-import com.antiy.common.base.IBaseDao;
-import com.cuit.bbs.entity.ChatRecord;
-import com.cuit.bbs.entity.dto.ChatRecord;
-import com.cuit.bbs.entity.vo.query.ChatRecordQuery;
+
+import com.bysj.common.response.IBaseDao;
+import com.bysj.entity.ChatRecord;
 
 /**
  * <p>

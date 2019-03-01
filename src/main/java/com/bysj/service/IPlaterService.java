@@ -1,16 +1,14 @@
 package com.bysj.service;
 
-import com.antiy.common.base.IBaseService;
-import com.antiy.common.base.PageResult;
-import java.io.Serializable;
+
+import com.bysj.common.request.IBaseService;
+import com.bysj.common.request.PageResult;
+import com.bysj.entity.Plater;
+import com.bysj.entity.vo.query.PlaterQuery;
+import com.bysj.entity.vo.request.PlaterRequest;
+import com.bysj.entity.vo.response.PlaterResponse;
+
 import java.util.List;
-
-import com.cuit.bbs.entity.dto.PlaterDTO;
-import com.cuit.bbs.entity.vo.query.PlaterQuery;
-import com.cuit.bbs.entity.vo.request.PlaterRequest;
-import com.cuit.bbs.entity.vo.response.PlaterResponse;
-import com.cuit.bbs.entity.Plater;
-
 
 /**
  * <p>

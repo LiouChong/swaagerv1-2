@@ -1,16 +1,14 @@
 package com.bysj.service;
 
-import com.antiy.common.base.IBaseService;
-import com.antiy.common.base.PageResult;
-import java.io.Serializable;
+
+import com.bysj.common.request.IBaseService;
+import com.bysj.common.request.PageResult;
+import com.bysj.entity.ChatRecord;
+import com.bysj.entity.vo.query.ChatRecordQuery;
+import com.bysj.entity.vo.request.ChatRecordRequest;
+import com.bysj.entity.vo.response.ChatRecordResponse;
+
 import java.util.List;
-
-import com.cuit.bbs.entity.dto.ChatRecordDTO;
-import com.cuit.bbs.entity.vo.query.ChatRecordQuery;
-import com.cuit.bbs.entity.vo.request.ChatRecordRequest;
-import com.cuit.bbs.entity.vo.response.ChatRecordResponse;
-import com.cuit.bbs.entity.ChatRecord;
-
 
 /**
  * <p>

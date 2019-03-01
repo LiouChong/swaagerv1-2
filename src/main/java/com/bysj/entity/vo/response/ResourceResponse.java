@@ -1,4 +1,4 @@
-package com.bysj.entity;
+package com.bysj.entity.vo.response;
 
 
 import com.bysj.common.request.BaseEntity;
@@ -15,7 +15,7 @@ import java.util.Date;
  * @since 2019-02-28
  */
 
-public class Resource extends BaseEntity {
+public class ResourceResponse extends BaseEntity {
 
 
     private static final long serialVersionUID = 1L;

@@ -2,8 +2,10 @@ package com.bysj.entity;
 
 
 import java.util.Date;
-import com.antiy.common.base.BaseEntity;
+
+import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
+
 /**
  * <p>
  * 用户封禁表
@@ -16,39 +18,38 @@ import io.swagger.annotations.ApiModelProperty;
 public class UserBan extends BaseEntity {
 
 
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-        /**
-    *  被封禁用户id
-    */
-        @ApiModelProperty("被封禁用户id")
+    /**
+     * 被封禁用户id
+     */
+    @ApiModelProperty("被封禁用户id")
     private Integer banUserId;
-        /**
-    *  操作人id
-    */
-        @ApiModelProperty("操作人id")
+    /**
+     * 操作人id
+     */
+    @ApiModelProperty("操作人id")
     private Integer handUserId;
-        /**
-    *  结束时间
-    */
-        @ApiModelProperty("结束时间")
+    /**
+     * 结束时间
+     */
+    @ApiModelProperty("结束时间")
     private Date endTime;
-        /**
-    *  创建时间
-    */
-        @ApiModelProperty("创建时间")
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("创建时间")
     private Date gmtCreate;
-        /**
-    *  修改时间
-    */
-        @ApiModelProperty("修改时间")
+    /**
+     * 修改时间
+     */
+    @ApiModelProperty("修改时间")
     private Date gmtModify;
-        /**
-    *  修改者id
-    */
-        @ApiModelProperty("修改者id")
+    /**
+     * 修改者id
+     */
+    @ApiModelProperty("修改者id")
     private Integer userModify;
-
 
 
     public Integer getBanUserId() {
@@ -105,15 +106,15 @@ private static final long serialVersionUID = 1L;
     }
 
 
-        @Override
+    @Override
     public String toString() {
-            return "UserBan{" +
-                                                                                            ", banUserId=" + banUserId +
-                                                                                        ", handUserId=" + handUserId +
-                                                                                        ", endTime=" + endTime +
-                                                                                        ", gmtCreate=" + gmtCreate +
-                                                                                        ", gmtModify=" + gmtModify +
-                                                                                        ", userModify=" + userModify +
-                                                "}";
+        return "UserBan{" +
+                ", banUserId=" + banUserId +
+                ", handUserId=" + handUserId +
+                ", endTime=" + endTime +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModify=" + gmtModify +
+                ", userModify=" + userModify +
+                "}";
     }
-    }
+}

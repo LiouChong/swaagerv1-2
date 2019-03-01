@@ -1,25 +1,19 @@
 package com.bysj.service.impl;
 
-import org.slf4j.Logger;
-import java.util.List;
-import java.util.ArrayList;
-import com.antiy.common.base.BaseServiceImpl;
-import com.antiy.common.utils.LogUtils;
-import com.antiy.common.base.PageResult;
-import com.antiy.common.base.BaseConverter;
+import com.bysj.common.request.BaseConverter;
+import com.bysj.common.request.BaseServiceImpl;
+import com.bysj.common.request.PageResult;
+import com.bysj.dao.UserBanDao;
+import com.bysj.entity.UserBan;
+import com.bysj.entity.vo.query.UserBanQuery;
+import com.bysj.entity.vo.request.UserBanRequest;
+import com.bysj.entity.vo.response.UserBanResponse;
+import com.bysj.service.IUserBanService;
 import org.springframework.stereotype.Service;
-
-import com.cuit.bbs.entity.UserBan;
-import com.cuit.bbs.dao.UserBanDao;
-import com.cuit.bbs.service.IUserBanService;
-import com.cuit.bbs.entity.dto.UserBan;
-import com.cuit.bbs.entity.vo.request.UserBanRequest;
-import com.cuit.bbs.entity.vo.response.UserBanResponse;
-import com.cuit.bbs.entity.vo.query.UserBanQuery;
-
 
 import javax.annotation.Resource;
 import java.util.List;
+
 /**
  * <p>
  * 用户封禁表 服务实现类
@@ -29,14 +23,14 @@ import java.util.List;
  * @since 2019-02-28
  */
 @Service
-public class UserBanServiceImpl extends BaseServiceImpl<UserBan> implements IUserBanService{
+public class UserBanServiceImpl extends BaseServiceImpl<UserBan> implements IUserBanService {
 
-        private static final Logger logger = LogUtils.get();
+
 
         @Resource
         private UserBanDao userBanDao;
         @Resource
-        private BaseConverter<UserBanRequest, UserBan>  requestConverter;
+        private BaseConverter<UserBanRequest, UserBan> requestConverter;
         @Resource
         private BaseConverter<UserBan, UserBanResponse> responseConverter;
 

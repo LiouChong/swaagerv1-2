@@ -1,25 +1,19 @@
 package com.bysj.service.impl;
 
-import org.slf4j.Logger;
-import java.util.List;
-import java.util.ArrayList;
-import com.antiy.common.base.BaseServiceImpl;
-import com.antiy.common.utils.LogUtils;
-import com.antiy.common.base.PageResult;
-import com.antiy.common.base.BaseConverter;
+import com.bysj.common.request.BaseConverter;
+import com.bysj.common.request.BaseServiceImpl;
+import com.bysj.common.request.PageResult;
+import com.bysj.dao.ResourceDao;
+import com.bysj.entity.vo.query.ResourceQuery;
+import com.bysj.entity.vo.response.ResourceResponse;
+import com.bysj.service.IResourceService;
+import jdk.management.resource.ResourceRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cuit.bbs.entity.Resource;
-import com.cuit.bbs.dao.ResourceDao;
-import com.cuit.bbs.service.IResourceService;
-import com.cuit.bbs.entity.dto.Resource;
-import com.cuit.bbs.entity.vo.request.ResourceRequest;
-import com.cuit.bbs.entity.vo.response.ResourceResponse;
-import com.cuit.bbs.entity.vo.query.ResourceQuery;
-
-
-import javax.annotation.Resource;
+import com.bysj.entity.Resource ;
 import java.util.List;
+
 /**
  * <p>
  * 上传的资源表 服务实现类
@@ -29,15 +23,13 @@ import java.util.List;
  * @since 2019-02-28
  */
 @Service
-public class ResourceServiceImpl extends BaseServiceImpl<Resource> implements IResourceService{
+public class ResourceServiceImpl extends BaseServiceImpl<Resource> implements IResourceService {
 
-        private static final Logger logger = LogUtils.get();
-
-        @Resource
+        @Autowired
         private ResourceDao resourceDao;
-        @Resource
-        private BaseConverter<ResourceRequest, Resource>  requestConverter;
-        @Resource
+        @Autowired
+        private BaseConverter<ResourceRequest, Resource> requestConverter;
+        @Autowired
         private BaseConverter<Resource, ResourceResponse> responseConverter;
 
         @Override
