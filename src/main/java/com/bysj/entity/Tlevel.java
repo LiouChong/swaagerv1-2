@@ -18,7 +18,7 @@ public class Tlevel extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("")
+    @ApiModelProperty("角色")
     private String role;
 
 

@@ -77,6 +77,7 @@
         <start-security.version>1.2.5.RELEASE</start-security.version>
         <jstl-impl.version>1.2</jstl-impl.version>
         <el-api.version>2.2</el-api.version>
+        <shiro-spring.version>1.4.0</shiro-spring.version>
 
         <csos.asset.vo.version>1.0-SNAPSHOT</csos.asset.vo.version>
 
@@ -155,7 +156,7 @@
         <dependency>
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-spring</artifactId>
-            <version>1.4.0</version>
+            <version>${shiro-spring.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.el</groupId>
@@ -166,6 +167,11 @@
             <groupId>org.glassfish.web</groupId>
             <artifactId>jstl-impl</artifactId>
             <version>${jstl-impl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 

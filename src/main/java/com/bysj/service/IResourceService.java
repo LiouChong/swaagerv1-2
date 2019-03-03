@@ -2,7 +2,7 @@ package com.bysj.service;
 
 
 import com.bysj.common.request.IBaseService;
-import com.bysj.common.request.PageResult;
+import com.bysj.common.response.PageResult;
 import com.bysj.entity.Resource;
 import com.bysj.entity.vo.query.ResourceQuery;
 import com.bysj.entity.vo.request.ResourceRequest;

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cuit.bbs.dao.TlevelDao">
+<mapper namespace="com.bysj.dao.TlevelDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.cuit. bysj.Tlevel">
+    <resultMap id="BaseResultMap" type="com.bysj.entity.Tlevel">
         <id column="id" property="id"/>
         <result column="role" property="role"/>
     </resultMap>
@@ -41,7 +41,7 @@
         </if>
     </sql>
 
-    <insert id="insert" parameterType="com.cuit. bysj.Tlevel">
+    <insert id="insert" parameterType="com.bysj.entity.Tlevel">
         insert into
         <include refid="Table_Name"></include>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -52,7 +52,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.cuit. bysj.Tlevel">
+    <update id="update" parameterType="com.bysj.entity.Tlevel">
         update
         <include refid="Table_Name"></include>
         <trim prefix="SET" suffixOverrides=",">
@@ -62,7 +62,7 @@
     </update>
 
     <!-- 根据主键查询 -->
-    <select id="getById" resultType="com.cuit. bysj.Tlevel" parameterType="java.lang.Integer">
+    <select id="getById" resultType="com.bysj.entity.Tlevel" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from
@@ -77,7 +77,7 @@
         where id = #{id}
     </delete>
 
-    <select id="getByWhere" resultType="com.cuit. bysj.Tlevel" parameterType="java.util.Map">
+    <select id="getByWhere" resultType="com.bysj.entity.Tlevel" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
@@ -90,14 +90,14 @@
     </select>
 
 
-    <select id="getAll" resultType="com.cuit. bysj.Tlevel">
+    <select id="getAll" resultType="com.bysj.entity.Tlevel">
         select *
         from
         <include refid="Table_Name"></include>
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.bysj.common.base.ObjectQuery">
+    <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
         select count(1)
         from
         <include refid="Table_Name"></include>
@@ -108,7 +108,7 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.cuit. bysj.Tlevel" parameterType="com.bysj.common.base.ObjectQuery">
+    <select id="findQuery" resultType="com.bysj.entity.Tlevel" parameterType="com.bysj.common.request.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>

@@ -2,12 +2,14 @@ package com.bysj.entity.vo.request;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Date;
+
 /**
  * <p>
  * PlaterRequest 请求对象
  * </p>
  *
- * @author zhangyajun
+ * @author 刘冲
  * @since 2018-12-27
  */
 
@@ -24,20 +26,20 @@ public class PlaterRequest  {
     @ApiModelProperty("版主id")
     private Integer ownerId;
     /**
-     *  状态： 1 有效，2 无效
+     *  状态:1 有效,2 无效
      */
-    @ApiModelProperty("状态： 1 有效，2 无效")
+    @ApiModelProperty("状态:1 有效,2 无效")
     private Integer state;
     /**
      *  创建时间
      */
     @ApiModelProperty("创建时间")
-    private String gmtCreate;
+    private Date gmtCreate;
     /**
      *  修改时间
      */
     @ApiModelProperty("修改时间")
-    private String gmtModify;
+    private Date gmtModify;
     /**
      *  创建者id
      */
@@ -78,23 +80,21 @@ public class PlaterRequest  {
         }
 
 
-    public String getGmtCreate() {
-    return gmtCreate;
+    public Date getGmtCreate() {
+        return gmtCreate;
     }
 
-    public void setGmtCreate(String gmtCreate) {
+    public void setGmtCreate(Date gmtCreate) {
         this.gmtCreate = gmtCreate;
-        }
-
-
-    public String getGmtModify() {
-    return gmtModify;
     }
 
-    public void setGmtModify(String gmtModify) {
-        this.gmtModify = gmtModify;
-        }
+    public Date getGmtModify() {
+        return gmtModify;
+    }
 
+    public void setGmtModify(Date gmtModify) {
+        this.gmtModify = gmtModify;
+    }
 
     public Integer getUserCreate() {
     return userCreate;

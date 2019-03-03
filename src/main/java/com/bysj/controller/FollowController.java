@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "Follow", description = "关注人表")
 @RestController
-@RequestMapping("/v1/bbs/follow")
+@RequestMapping("follow")
 public class FollowController {
 
 

@@ -1,10 +1,11 @@
 package com.bysj.entity;
 
 
-import java.util.Date;
-
 import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Date;
+
 /**
  * <p>
  * 求问表
@@ -17,39 +18,38 @@ import io.swagger.annotations.ApiModelProperty;
 public class Askhelp extends BaseEntity {
 
 
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-        /**
-    *  帖子id
-    */
-        @ApiModelProperty("帖子id")
+    /**
+     * 帖子id
+     */
+    @ApiModelProperty("帖子id")
     private Integer postId;
-        /**
-    *  被求问用户id
-    */
-        @ApiModelProperty("被求问用户id")
+    /**
+     * 被求问用户id
+     */
+    @ApiModelProperty("被求问用户id")
     private Integer revQuestionUserId;
-        /**
-    *  发问用户id
-    */
-        @ApiModelProperty("发问用户id")
+    /**
+     * 发问用户id
+     */
+    @ApiModelProperty("发问用户id")
     private Integer sendQuestionUserId;
-        /**
-    *  求问信息
-    */
-        @ApiModelProperty("求问信息")
+    /**
+     * 求问信息
+     */
+    @ApiModelProperty("求问信息")
     private String message;
-        /**
-    *  创建时间
-    */
-        @ApiModelProperty("创建时间")
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("创建时间")
     private Date gmtCreate;
-        /**
-    *  状态：1 有效 2无效
-    */
-        @ApiModelProperty("状态：1 有效 2无效")
+    /**
+     * 状态:1 有效 0无效
+     */
+    @ApiModelProperty("状态:1 有效,0 无效")
     private Integer state;
-
 
 
     public Integer getPostId() {
@@ -106,15 +106,15 @@ private static final long serialVersionUID = 1L;
     }
 
 
-        @Override
+    @Override
     public String toString() {
-            return "Askhelp{" +
-                                                                                            ", postId=" + postId +
-                                                                                        ", revQuestionUserId=" + revQuestionUserId +
-                                                                                        ", sendQuestionUserId=" + sendQuestionUserId +
-                                                                                        ", message=" + message +
-                                                                                        ", gmtCreate=" + gmtCreate +
-                                                                                        ", state=" + state +
-                                                "}";
+        return "Askhelp{" +
+                ", postId=" + postId +
+                ", revQuestionUserId=" + revQuestionUserId +
+                ", sendQuestionUserId=" + sendQuestionUserId +
+                ", message=" + message +
+                ", gmtCreate=" + gmtCreate +
+                ", state=" + state +
+                "}";
     }
-    }
+}

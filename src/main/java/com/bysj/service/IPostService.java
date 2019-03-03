@@ -2,9 +2,9 @@ package com.bysj.service;
 
 
 import com.bysj.common.request.IBaseService;
-import com.bysj.common.request.PageResult;
 import com.bysj.entity.Post;
-import com.bysj.entity.vo.query.PostQuery;
+import com.bysj.entity.vo.query.PostQueryForList;
+import com.bysj.entity.vo.query.PostSimpleQueryList;
 import com.bysj.entity.vo.request.PostRequest;
 import com.bysj.entity.vo.response.PostResponse;
 
@@ -39,13 +39,19 @@ public interface IPostService extends IBaseService<Post> {
          * @param query
          * @return
          */
-        List<PostResponse> findListPost(PostQuery query) throws Exception;
+        List<PostResponse> findListPost(PostQueryForList query) throws Exception;
 
         /**
          * 批量查询
          * @param query
          * @return
          */
-        PageResult<PostResponse> findPagePost(PostQuery query) throws Exception;
+        List<PostResponse> findPagePost(PostQueryForList query) throws Exception;
 
+        /**
+         * 通过标题和内容简单查询
+         * @param queryList
+         * @return
+         */
+        List<PostResponse> findPageSimplePost(PostSimpleQueryList queryList);
 }

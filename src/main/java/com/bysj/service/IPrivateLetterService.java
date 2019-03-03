@@ -1,7 +1,7 @@
 package com.bysj.service;
 
 import com.bysj.common.request.IBaseService;
-import com.bysj.common.request.PageResult;
+import com.bysj.common.response.PageResult;
 import java.util.List;
 
 import com.bysj.entity.PrivateLetter;

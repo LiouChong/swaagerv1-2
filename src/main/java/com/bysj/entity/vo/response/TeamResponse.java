@@ -8,7 +8,7 @@ import com.bysj.common.request.BaseEntity;
  * TeamResponse 响应对象
  * </p>
  *
- * @author zhangyajun
+ * @author 刘冲
  * @since 2018-12-27
  */
 

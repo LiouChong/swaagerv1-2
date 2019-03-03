@@ -1,10 +1,11 @@
 package com.bysj.entity;
 
 
-import java.util.Date;
-
 import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Date;
+
 /**
  * <p>
  * 讨论组表
@@ -17,49 +18,48 @@ import io.swagger.annotations.ApiModelProperty;
 public class Team extends BaseEntity {
 
 
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-        /**
-    *  小组名称
-    */
-        @ApiModelProperty("小组名称")
+    /**
+     * 小组名称
+     */
+    @ApiModelProperty("小组名称")
     private String teamName;
-        /**
-    *  成员个数
-    */
-        @ApiModelProperty("成员个数")
+    /**
+     * 成员个数
+     */
+    @ApiModelProperty("成员个数")
     private Integer memberCount;
-        /**
-    *  板块id
-    */
-        @ApiModelProperty("板块id")
+    /**
+     * 板块id
+     */
+    @ApiModelProperty("板块id")
     private Integer plateId;
-        /**
-    *  组长id
-    */
-        @ApiModelProperty("组长id")
+    /**
+     * 组长id
+     */
+    @ApiModelProperty("组长id")
     private String leaderId;
-        /**
-    *  状态：1 有效 2无效
-    */
-        @ApiModelProperty("状态：1 有效 2无效")
+    /**
+     * 状态:1 有效 2无效
+     */
+    @ApiModelProperty("状态:1 有效,0 无效")
     private Integer state;
-        /**
-    *  创建时间
-    */
-        @ApiModelProperty("创建时间")
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("创建时间")
     private Date gmtCreate;
-        /**
-    *  修改时间
-    */
-        @ApiModelProperty("修改时间")
+    /**
+     * 修改时间
+     */
+    @ApiModelProperty("修改时间")
     private Date gmtModify;
-        /**
-    *  修改者id
-    */
-        @ApiModelProperty("修改者id")
+    /**
+     * 修改者id
+     */
+    @ApiModelProperty("修改者id")
     private Integer userModify;
-
 
 
     public String getTeamName() {
@@ -134,17 +134,17 @@ private static final long serialVersionUID = 1L;
     }
 
 
-        @Override
+    @Override
     public String toString() {
-            return "Team{" +
-                                                                                            ", teamName=" + teamName +
-                                                                                        ", memberCount=" + memberCount +
-                                                                                        ", plateId=" + plateId +
-                                                                                        ", leaderId=" + leaderId +
-                                                                                        ", state=" + state +
-                                                                                        ", gmtCreate=" + gmtCreate +
-                                                                                        ", gmtModify=" + gmtModify +
-                                                                                        ", userModify=" + userModify +
-                                                "}";
+        return "Team{" +
+                ", teamName=" + teamName +
+                ", memberCount=" + memberCount +
+                ", plateId=" + plateId +
+                ", leaderId=" + leaderId +
+                ", state=" + state +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModify=" + gmtModify +
+                ", userModify=" + userModify +
+                "}";
     }
-    }
+}

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.cuit.bbs.dao.UserDao">
+<mapper namespace="com.bysj.dao.UserDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.cuit. bysj.User">
+    <resultMap id="BaseResultMap" type="com.bysj.entity.User">
         <id column="id" property="id"/>
         <result column="nickname" property="nickname"/>
         <result column="psw" property="psw"/>
@@ -14,10 +14,15 @@
         <result column="signa_ture" property="signaTure"/>
         <result column="sex" property="sex"/>
         <result column="age" property="age"/>
+        <result column="state" property="state"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modify" property="gmtModify"/>
+        <result column="user_create" property="userCreate"/>
+        <result column="user_modify" property="userModify"/>
     </resultMap>
 <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, nickname, psw, money, email, picture, level, signa_ture AS signaTure, sex, age
+        id, nickname, psw, money, email, picture, level, signa_ture AS signaTure, sex, age,state,gmt_create,gmt_modify,user_create,user_modify
     </sql>
 
     <sql id="Table_Name">
@@ -53,6 +58,12 @@
         <if test=" age != null">
             age,
         </if>
+        <if test="gmtCreate != null">
+            gmt_create,
+        </if>
+        <if test="gmtModify != null">
+            gmt_modify,
+        </if>
     </sql>
 
     <sql id="IF_Value_Column_List">
@@ -83,6 +94,12 @@
         <if test=" age != null">
             #{age },
         </if>
+        <if test=" gmtCreate != null">
+            #{gmtCreate },
+        </if>
+        <if test=" gmtModify != null">
+            #{gmtModify },
+        </if>
     </sql>
 
     <sql id="Set_Column_List">
@@ -112,6 +129,18 @@
         </if>
         <if test=" age != null">
             age = #{age },
+        </if>
+        <if test=" gmtCreate != null">
+            gmt_create = #{gmtCreate },
+        </if>
+        <if test=" gmtModify != null">
+            gmt_modify = #{gmtModify },
+        </if>
+        <if test=" userCreate != null">
+            user_create = #{userCreate  },
+        </if>
+        <if test=" userModify != null">
+            user_modify = #{userModify },
         </if>
     </sql>
 
@@ -145,7 +174,7 @@
         </if>
     </sql>
 
-    <insert id="insert" parameterType="com.cuit. bysj.User">
+    <insert id="insert" parameterType="com.bysj.entity.User">
         insert into
         <include refid="Table_Name"></include>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -156,7 +185,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.cuit. bysj.User">
+    <update id="update" parameterType="com.bysj.entity.User">
         update
         <include refid="Table_Name"></include>
         <trim prefix="SET" suffixOverrides=",">
@@ -166,7 +195,7 @@
     </update>
 
     <!-- 根据主键查询 -->
-    <select id="getById" resultType="com.cuit. bysj.User" parameterType="java.lang.Integer">
+    <select id="getById" resultType="com.bysj.entity.User" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from
@@ -181,7 +210,7 @@
         where id = #{id}
     </delete>
 
-    <select id="getByWhere" resultType="com.cuit. bysj.User" parameterType="java.util.Map">
+    <select id="getByWhere" resultType="com.bysj.entity.User" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
@@ -194,14 +223,14 @@
     </select>
 
 
-    <select id="getAll" resultType="com.cuit. bysj.User">
+    <select id="getAll" resultType="com.bysj.entity.User">
         select *
         from
         <include refid="Table_Name"></include>
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.bysj.common.base.ObjectQuery">
+    <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
         select count(1)
         from
         <include refid="Table_Name"></include>
@@ -212,7 +241,7 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.cuit. bysj.User" parameterType="com.bysj.common.base.ObjectQuery">
+    <select id="findQuery" resultType="com.bysj.entity.User" parameterType="com.bysj.common.request.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>
@@ -223,5 +252,13 @@
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
+    </select>
+
+    <select id="selectByemail" parameterType="String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from user where email = "${email}"
+    </select>
+
+    <select id="selectUserPermissionBylevel" parameterType="Integer" resultType="String">
+        SELECT permission from permission p where p.role_id = #{level}
     </select>
 </mapper>

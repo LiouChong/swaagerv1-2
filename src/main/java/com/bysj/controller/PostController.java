@@ -1,19 +1,18 @@
 package com.bysj.controller;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMethod;
+import com.bysj.common.response.ActionResponse;
+import com.bysj.common.utils.PageUtil;
+import com.bysj.entity.vo.query.PostQueryForList;
+import com.bysj.entity.vo.query.PostSimpleQueryList;
+import com.bysj.entity.vo.request.PostRequest;
+import com.bysj.entity.vo.response.PostResponse;
+import com.bysj.service.IPostService;
 import io.swagger.annotations.*;
-import com.bysj.common.base.ActionResponse;
-import javax.annotation.Resource;
-import com.bysj.common.utils.LogUtils;
-import com.bysj.common.base.QueryCondition;
-import com.bysj.common.utils.ParamterExceptionUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.cuit.bbs.service.IPostService;
-import com.cuit.bbs.entity.Post;
-import com.cuit.bbs.entity.vo.request.PostRequest;
-import com.cuit.bbs.entity.vo.response.PostResponse;
-import com.cuit.bbs.entity.vo.query.PostQuery;
+import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -23,7 +22,7 @@ import com.cuit.bbs.entity.vo.query.PostQuery;
  */
 @Api(value = "Post", description = "讨论帖子表")
 @RestController
-@RequestMapping("/v1/bbs/post")
+@RequestMapping("post")
 public class PostController {
 
 
@@ -61,17 +60,67 @@ public class PostController {
     }
 
     /**
-     * 批量查询
+     * 分页获取推荐的帖子
      * @param postQuery
      * @return actionResponse
      */
-    @ApiOperation(value = "批量查询接口", notes = "传入查询条件")
+    @ApiOperation(value = "分页获取帖子", notes = "传入查询条件")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/query/list", method = RequestMethod.GET)
-    public ActionResponse queryList(@ApiParam(value = "post") PostQuery postQuery)throws Exception{
-        return ActionResponse.success(iPostService.findPagePost(postQuery));
+    @RequestMapping(value = "/query/recommended", method = RequestMethod.GET)
+    public ModelAndView queryGoodList(@ApiParam(value = "post") PostQueryForList postQuery, ModelAndView mav)throws Exception{
+        //首页查看被推荐文章，因此在这里设置查询条件为被推荐文章
+        postQuery.setIfGood(1);
+
+        // 获取帖子列表与总记录数
+        List<PostResponse> postList = iPostService.findPagePost(postQuery);
+        Integer totalRecords = iPostService.findCount(postQuery);
+
+        // 获取总页数
+        int totalPage = PageUtil.getTotalPage(totalRecords, postQuery.getPageSize());
+        mav.addObject("pageSize", postQuery.getPageSize());
+        mav.addObject("totalRecords", totalRecords);
+        mav.addObject("totalPage", totalPage);
+        mav.addObject("currentPage", postQuery.getCurrentPage());
+        mav.addObject("postList", postList);
+
+        // 设置跳转的页面
+        mav.setViewName("index-2");
+        return mav;
+    }
+
+
+
+
+    /**
+     * 查询帖子
+     *  TODO 这里暂时只通过 标题和内容查询，后期可以拓展为详细查询。
+     * @param postQuery
+     * @return actionResponse
+     */
+    @ApiOperation(value = "分页获取帖子", notes = "传入查询条件")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
+    })
+    @RequestMapping(value = "/query/simple", method = RequestMethod.GET)
+//    @RequiresPermissions("post:test")
+    public ModelAndView queryList(@ApiParam(value = "post") PostSimpleQueryList postQuery, ModelAndView mav)throws Exception{
+        // 获取帖子列表与总记录数
+        List<PostResponse> postList = iPostService.findPageSimplePost(postQuery);
+        Integer totalRecords = iPostService.findCount(postQuery);
+
+        // 获取总页数
+        int totalPage = PageUtil.getTotalPage(totalRecords, postQuery.getPageSize());
+        mav.addObject("pageSize", postQuery.getPageSize());
+        mav.addObject("totalRecords", totalRecords);
+        mav.addObject("totalPage", totalPage);
+        mav.addObject("currentPage", postQuery.getCurrentPage());
+        mav.addObject("postList", postList);
+
+        // 设置跳转的页面
+        mav.setViewName("search_result");
+        return mav;
     }
 
     /**

@@ -4,6 +4,8 @@ package com.bysj.entity;
 import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Date;
+
 /**
  * <p>
  * 用户小组关联表
@@ -29,6 +31,25 @@ public class UserTeamRel extends BaseEntity {
     @ApiModelProperty("讨论组id")
     private Integer teamId;
 
+    private Integer state;
+
+    private Date gmtCreate;
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -47,12 +68,18 @@ public class UserTeamRel extends BaseEntity {
         this.teamId = teamId;
     }
 
-
     @Override
     public String toString() {
-        return "UserTeamRel{" +
-                "userId=" + userId +
-                ", teamId=" + teamId +
-                "}";
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"userId\":")
+                .append(userId);
+        sb.append(",\"teamId\":")
+                .append(teamId);
+        sb.append(",\"state\":")
+                .append(state);
+        sb.append(",\"gmtCreate\":\"")
+                .append(gmtCreate).append('\"');
+        sb.append('}');
+        return sb.toString();
     }
 }

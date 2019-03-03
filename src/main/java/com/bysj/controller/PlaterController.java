@@ -1,20 +1,14 @@
 package com.bysj.controller;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.bysj.common.response.ActionResponse;
+import com.bysj.entity.vo.query.PlaterQuery;
+import com.bysj.entity.vo.request.PlaterRequest;
+import com.bysj.service.IPlaterService;
 import io.swagger.annotations.*;
-import com.bysj.common.base.ActionResponse;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
-import com.bysj.common.utils.LogUtils;
-import com.bysj.common.base.QueryCondition;
-import com.bysj.common.utils.ParamterExceptionUtils;
-
-import com.cuit.bbs.service.IPlaterService;
-import com.cuit.bbs.entity.Plater;
-import com.cuit.bbs.entity.vo.request.PlaterRequest;
-import com.cuit.bbs.entity.vo.response.PlaterResponse;
-import com.cuit.bbs.entity.vo.query.PlaterQuery;
-
 
 /**
  *
@@ -23,7 +17,7 @@ import com.cuit.bbs.entity.vo.query.PlaterQuery;
  */
 @Api(value = "Plater", description = "板块表")
 @RestController
-@RequestMapping("/v1/bbs/plater")
+@RequestMapping("plater")
 public class PlaterController {
 
 

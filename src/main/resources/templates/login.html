@@ -73,7 +73,7 @@
                     if($("#email").val() == ''){
                         $("#message").text("邮箱不能为空");
                     }  else {
-                        $.post("/v1/bbs/user/checkName",{
+                        $.post("/user/checkName",{
                             email:$("#email").val()
                         },function (data,status) {
                             $("#message").text(data);
@@ -110,18 +110,22 @@
                     }
                     $("#sendidcode").attr("value","验证码正在发送");
                     $("#sendidcode").attr("disabled","true");
-
                     $.ajax({
-                        url:"/v1/bbs/user/sendMail",
-                        type:"GET",
-                        //发送数据的第一种格式，字符串...
-                        data:"mail="+$("#email").val(),
-                        timeout:5000,
+                        url:"/user/sendMail",
+                        type: "POST",
+                      /*  xhrFields:{
+                            withCredentials:true
+                        },*/
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({
+                            email:$("#email").val(),
+                        }),
+                        dataType:"json",
                         seccess:function(data){
-                            // $("#sendidcode").attr("value","验证码已发送");
+                            $("#sendidcode").attr("value","验证码已发送");
                         },
                         error:function(){
-
+                            $("#sendidcode").attr(data.body)
                         }
                     });
                 });
@@ -132,7 +136,10 @@
                     } else {
                         $.ajax({
                            type: "POST",
-                           url: "v1/bbs/user/regist",
+                           url: "/user/regist",
+                            /*xhrFields:{
+                                withCredentials:true
+                            },*/
                            contentType: "application/json; charset=utf-8",
                            data: JSON.stringify({
                                email:$("#email").val(),
@@ -158,7 +165,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "/v1/bbs/user/login",
+                        url: "/user/login",
                         contentType: "application/json; charset=utf-8",
                         data: JSON.stringify({
                             email:$("#username").val(),
@@ -183,7 +190,7 @@
         <div class="page-container">
 
             <h1>BBS</h1>
-            <!--<form action="/v1/bbs/user/login" method="POST">-->
+            <!--<form action="/user/login" method="POST">-->
                 <input id="username" type="text" name="email" class="username" placeholder="邮箱">
                 <input id="password" type="password" name="psw" class="password" placeholder="密码"> <br><br>
             <div style="height: 20px;"><input class="null" type="checkbox" value="true" name="rememberMe"><span style="font-size: 18px">记住我</span> &emsp;&emsp;<a href="/forgetPsw" style="font-size: 18px" >忘记密码</a> </div>

@@ -9,7 +9,7 @@ import java.util.Date;
  * ChatRecordRequest 请求对象
  * </p>
  *
- * @author zhangyajun
+ * @author 刘冲
  * @since 2018-12-27
  */
 
@@ -46,9 +46,9 @@ public class ChatRecordRequest  {
     @ApiModelProperty("修改着id")
     private Integer userModify;
     /**
-     *  状态： 1 有效 0 无效
+     *  状态:1 有效,0 无效
      */
-    @ApiModelProperty("状态： 1 有效 0 无效")
+    @ApiModelProperty("状态:1 有效,0 无效")
     private Integer state;
 
 

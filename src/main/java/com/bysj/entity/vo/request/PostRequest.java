@@ -9,7 +9,7 @@ import java.util.Date;
  * PostRequest 请求对象
  * </p>
  *
- * @author zhangyajun
+ * @author 刘冲
  * @since 2018-12-27
  */
 
@@ -31,9 +31,9 @@ public class PostRequest  {
     @ApiModelProperty("作者id")
     private Integer posterId;
     /**
-     *  是否被推荐，1被推荐 0 未被推荐
+     *  是否被推荐:1 被推荐,0 未被推荐
      */
-    @ApiModelProperty("是否被推荐，1被推荐 0 未被推荐")
+    @ApiModelProperty("是否被推荐:1 被推荐,0 未被推荐")
     private Integer ifGood;
     /**
      *  板块id
@@ -71,9 +71,9 @@ public class PostRequest  {
     @ApiModelProperty("修改用户")
     private Integer modifyUser;
     /**
-     *  状态 1 未删除 0 已删除
+     *  状态:1 未删除,0 已删除
      */
-    @ApiModelProperty("状态 1 未删除 0 已删除")
+    @ApiModelProperty("状态:1 未删除,0 已删除")
     private Integer state;
     /**
      *  阅读数
@@ -81,14 +81,14 @@ public class PostRequest  {
     @ApiModelProperty("阅读数")
     private Integer readCount;
     /**
-     *  文章的来源：1 原创 2 转载
+     *  文章的来源:1 原创,2 转载
      */
-    @ApiModelProperty("文章的来源：1 原创 2 转载")
+    @ApiModelProperty("文章的来源:1 原创,2 转载")
     private Integer articleFrom;
     /**
-     *  文章的类型：1讨论帖 ，2资源贴，3求问贴
+     *  文章的类型:1讨论帖,2 资源贴,3 求问贴
      */
-    @ApiModelProperty("文章的类型：1讨论帖 ，2资源贴，3求问贴")
+    @ApiModelProperty("文章的类型:1讨论帖,2 资源贴,3 求问贴")
     private Integer articleType;
 
 

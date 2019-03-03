@@ -2,7 +2,7 @@ package com.bysj.service.impl;
 
 import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
-import com.bysj.common.request.PageResult;
+import com.bysj.common.response.PageResult;
 import com.bysj.dao.PrivateLetterDao;
 import com.bysj.entity.PrivateLetter;
 import com.bysj.entity.vo.query.PrivateLetterQuery;

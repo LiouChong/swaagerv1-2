@@ -1,19 +1,14 @@
 package com.bysj.controller;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMethod;
+import com.bysj.common.response.ActionResponse;
+import com.bysj.entity.vo.query.TotalStationInformationQuery;
+import com.bysj.entity.vo.request.TotalStationInformationRequest;
+import com.bysj.service.ITotalStationInformationService;
 import io.swagger.annotations.*;
-import com.bysj.common.request.ActionResponse;
-import javax.annotation.Resource;
-import com.antiy.common.utils.LogUtils;
-import com.bysj.common.request.QueryCondition;
-import com.antiy.common.utils.ParamterExceptionUtils;
+import org.springframework.web.bind.annotation.*;
 
-import com.cuit.bbs.service.ITotalStationInformationService;
-import com.cuit.bbs.entity.TotalStationInformation;
-import com.cuit.bbs.entity.vo.request.TotalStationInformationRequest;
-import com.cuit.bbs.entity.vo.response.TotalStationInformationResponse;
-import com.cuit.bbs.entity.vo.query.TotalStationInformationQuery;
+import javax.annotation.Resource;
+
 
 
 /**
@@ -23,7 +18,7 @@ import com.cuit.bbs.entity.vo.query.TotalStationInformationQuery;
  */
 @Api(value = "TotalStationInformation", description = "全站信息表")
 @RestController
-@RequestMapping("/v1/bbs/totalstationinformation")
+@RequestMapping("totalstationinformation")
 public class TotalStationInformationController {
 
 

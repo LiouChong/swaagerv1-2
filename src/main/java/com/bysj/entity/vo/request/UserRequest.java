@@ -7,7 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
  * UserRequest 请求对象
  * </p>
  *
- * @author zhangyajun
+ * @author 刘冲
  * @since 2018-12-27
  */
 
@@ -49,9 +49,9 @@ public class UserRequest  {
     @ApiModelProperty("个性签名")
     private String signaTure;
     /**
-     *  性别： 1 男 2 女
+     *  性别:1 男,2 女
      */
-    @ApiModelProperty("性别： 1 男 2 女")
+    @ApiModelProperty("性别:1 男,2 女")
     private Boolean sex;
     /**
      *  年龄

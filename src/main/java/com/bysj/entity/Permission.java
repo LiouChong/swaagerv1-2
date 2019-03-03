@@ -1,9 +1,9 @@
 package com.bysj.entity;
 
 
-import java.util.Date;
-import com.bysj.common.base.BaseEntity;
+import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
+
 /**
  * <p>
  * 权限表
@@ -16,13 +16,12 @@ import io.swagger.annotations.ApiModelProperty;
 public class Permission extends BaseEntity {
 
 
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-        @ApiModelProperty("")
+    @ApiModelProperty("角色id")
     private Integer roleId;
-        @ApiModelProperty("")
+    @ApiModelProperty("权限")
     private String permission;
-
 
 
     public Integer getRoleId() {
@@ -43,11 +42,11 @@ private static final long serialVersionUID = 1L;
     }
 
 
-        @Override
+    @Override
     public String toString() {
-            return "Permission{" +
-                                                                                            ", roleId=" + roleId +
-                                                                                        ", permission=" + permission +
-                                                "}";
+        return "Permission{" +
+                ", roleId=" + roleId +
+                ", permission=" + permission +
+                "}";
     }
-    }
+}

@@ -1,4 +1,4 @@
-package com.bysj.common.request;
+package com.bysj.common.response;
 
 import java.io.Serializable;
 import java.util.List;
@@ -83,4 +83,6 @@ public class PageResult<T> implements Serializable, Cloneable {
         this.hasPrevious = this.currentPage != 1;
         return this.hasPrevious;
     }
+
+
 }

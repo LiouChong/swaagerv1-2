@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
  * PermissionRequest 请求对象
  * </p>
  *
- * @author zhangyajun
+ * @author 刘冲
  * @since 2018-12-27
  */
 

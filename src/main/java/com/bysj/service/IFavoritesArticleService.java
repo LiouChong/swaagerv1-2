@@ -2,7 +2,7 @@ package com.bysj.service;
 
 
 import com.bysj.common.request.IBaseService;
-import com.bysj.common.request.PageResult;
+import com.bysj.common.response.PageResult;
 import com.bysj.entity.FavoritesArticle;
 import com.bysj.entity.vo.query.FavoritesArticleQuery;
 import com.bysj.entity.vo.request.FavoritesArticleRequest;

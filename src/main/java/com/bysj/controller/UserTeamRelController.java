@@ -1,20 +1,14 @@
 package com.bysj.controller;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.bysj.common.response.ActionResponse;
+import com.bysj.entity.vo.query.UserTeamRelQuery;
+import com.bysj.entity.vo.request.UserTeamRelRequest;
+import com.bysj.service.IUserTeamRelService;
 import io.swagger.annotations.*;
-import com.bysj.common.request.ActionResponse;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
-import com.antiy.common.utils.LogUtils;
-import com.bysj.common.request.QueryCondition;
-import com.antiy.common.utils.ParamterExceptionUtils;
-
-import com.cuit.bbs.service.IUserTeamRelService;
-import com.cuit.bbs.entity.UserTeamRel;
-import com.cuit.bbs.entity.vo.request.UserTeamRelRequest;
-import com.cuit.bbs.entity.vo.response.UserTeamRelResponse;
-import com.cuit.bbs.entity.vo.query.UserTeamRelQuery;
-
 
 /**
  *
@@ -23,7 +17,7 @@ import com.cuit.bbs.entity.vo.query.UserTeamRelQuery;
  */
 @Api(value = "UserTeamRel", description = "用户小组关联表")
 @RestController
-@RequestMapping("/v1/bbs/userteamrel")
+@RequestMapping("userteamrel")
 public class UserTeamRelController {
 
 

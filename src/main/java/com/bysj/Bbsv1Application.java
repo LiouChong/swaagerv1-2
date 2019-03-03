@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableTransactionManagement
-@MapperScan(basePackages = "com.bysj.dao")
+@MapperScan(basePackages = "com.bysj.dao.**")
 @ComponentScan(basePackages = "com.bysj.**")
 public class Bbsv1Application {
 

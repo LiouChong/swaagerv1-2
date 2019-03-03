@@ -8,7 +8,7 @@ import com.bysj.common.request.ObjectQuery;
  * TotalStationInformation 查询条件
  * </p>
  *
- * @author zhangyajun
+ * @author 刘冲
  * @since 2018-12-27
  */
 

@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "Permission", description = "权限表")
 @RestController
-@RequestMapping("/v1/bbs/permission")
+@RequestMapping("permission")
 public class PermissionController {
 
 

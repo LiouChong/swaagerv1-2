@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "ChatRecord", description = "讨论组聊天记录表")
 @RestController
-@RequestMapping("/v1/bbs/chatrecord")
+@RequestMapping("chatrecord")
 public class ChatRecordController {
 
     @Resource

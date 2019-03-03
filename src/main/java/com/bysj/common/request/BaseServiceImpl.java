@@ -1,6 +1,7 @@
 package com.bysj.common.request;
 
 import com.bysj.common.response.IBaseDao;
+import com.bysj.common.response.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;

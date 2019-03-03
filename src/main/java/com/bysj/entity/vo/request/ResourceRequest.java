@@ -66,9 +66,9 @@ public class ResourceRequest extends BaseEntity {
     @ApiModelProperty("修改者id")
     private Integer userModify;
     /**
-     * 状态：1有效 0 无效
+     * 状态:1 有效,0 无效
      */
-    @ApiModelProperty("状态：1有效 0 无效")
+    @ApiModelProperty("状态:1 有效,0 无效")
     private Integer state;
 
 

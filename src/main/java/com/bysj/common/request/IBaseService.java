@@ -1,5 +1,7 @@
 package com.bysj.common.request;
 
+import com.bysj.common.response.PageResult;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;

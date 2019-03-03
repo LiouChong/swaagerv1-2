@@ -2,7 +2,7 @@ package com.bysj.service.impl;
 
 import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
-import com.bysj.common.request.PageResult;
+import com.bysj.common.response.PageResult;
 import com.bysj.dao.PlaterDao;
 import com.bysj.entity.Plater;
 import com.bysj.entity.vo.query.PlaterQuery;

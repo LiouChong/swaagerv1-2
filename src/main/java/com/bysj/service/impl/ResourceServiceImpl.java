@@ -2,16 +2,16 @@ package com.bysj.service.impl;
 
 import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
-import com.bysj.common.request.PageResult;
+import com.bysj.common.response.PageResult;
 import com.bysj.dao.ResourceDao;
+import com.bysj.entity.Resource;
 import com.bysj.entity.vo.query.ResourceQuery;
+import com.bysj.entity.vo.request.ResourceRequest;
 import com.bysj.entity.vo.response.ResourceResponse;
 import com.bysj.service.IResourceService;
-import jdk.management.resource.ResourceRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bysj.entity.Resource ;
 import java.util.List;
 
 /**

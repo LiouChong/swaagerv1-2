@@ -32,7 +32,7 @@ public class MailUtil {
         // 通过session得到transport对象
         Transport ts = session.getTransport();
         // 连接邮件服务器：邮箱类型，帐号，授权码代替密码（更安全）
-        ts.connect("smtp.qq.com", "970009721", "fwdhuiwiiqfnbefd");
+        ts.connect("smtp.qq.com", "970009721", "nguepqahitmnbfca");
         // 创建邮件
         Message message = createSimpleMail(session, verificationCode, email);
         // 发送邮件

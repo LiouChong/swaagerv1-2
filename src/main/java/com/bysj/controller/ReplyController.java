@@ -1,20 +1,14 @@
 package com.bysj.controller;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.bysj.common.response.ActionResponse;
+import com.bysj.entity.vo.query.ReplyQuery;
+import com.bysj.entity.vo.request.ReplyRequest;
+import com.bysj.service.IReplyService;
 import io.swagger.annotations.*;
-import com.bysj.common.base.ActionResponse;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
-import com.bysj.common.utils.LogUtils;
-import com.bysj.common.base.QueryCondition;
-import com.bysj.common.utils.ParamterExceptionUtils;
-
-import com.cuit.bbs.service.IReplyService;
-import com.cuit.bbs.entity.Reply;
-import com.cuit.bbs.entity.vo.request.ReplyRequest;
-import com.cuit.bbs.entity.vo.response.ReplyResponse;
-import com.cuit.bbs.entity.vo.query.ReplyQuery;
-
 
 /**
  *
@@ -23,7 +17,7 @@ import com.cuit.bbs.entity.vo.query.ReplyQuery;
  */
 @Api(value = "Reply", description = "回复表")
 @RestController
-@RequestMapping("/v1/bbs/reply")
+@RequestMapping("reply")
 public class ReplyController {
 
 

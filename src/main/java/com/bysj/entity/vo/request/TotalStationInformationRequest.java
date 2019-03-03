@@ -9,7 +9,7 @@ import java.util.Date;
  * TotalStationInformationRequest 请求对象
  * </p>
  *
- * @author zhangyajun
+ * @author 刘冲
  * @since 2018-12-27
  */
 
@@ -51,9 +51,9 @@ public class TotalStationInformationRequest  {
     @ApiModelProperty("修改用户id")
     private Integer userModify;
     /**
-     *  状态，1 有效 2 无效
+     *  状态:1 有效,2 无效
      */
-    @ApiModelProperty("状态，1 有效 2 无效")
+    @ApiModelProperty("状态:1 有效,2 无效")
     private Integer state;
 
 

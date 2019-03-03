@@ -9,7 +9,7 @@ import java.util.Date;
  * PrivateLetterRequest 请求对象
  * </p>
  *
- * @author zhangyajun
+ * @author 刘冲
  * @since 2018-12-27
  */
 
@@ -31,14 +31,14 @@ public class PrivateLetterRequest  {
     @ApiModelProperty("内容")
     private String content;
     /**
-     *  是否已读: 1已读 0 未读
+     *  是否已读:1 已读,0 未读
      */
-    @ApiModelProperty("是否已读: 1已读 0 未读")
+    @ApiModelProperty("是否已读:1 已读,0 未读")
     private Boolean ifRead;
     /**
-     *  状态： 1有效 0无效
+     *  状态:1 有效,0 无效
      */
-    @ApiModelProperty("状态： 1有效 0无效")
+    @ApiModelProperty("状态:1 有效,0 无效")
     private Integer state;
     /**
      *  修改着id
@@ -56,9 +56,9 @@ public class PrivateLetterRequest  {
     @ApiModelProperty("修改时间")
     private Date gmtModify;
     /**
-     *  私信类型： 1 用户私信 2 系统私信
+     *  私信类型:1 用户私信,2 系统私信
      */
-    @ApiModelProperty("私信类型： 1 用户私信 2 系统私信")
+    @ApiModelProperty("私信类型:1 用户私信,2 系统私信")
     private Integer letterType;
     /**
      *  发送者id（用于接收者）

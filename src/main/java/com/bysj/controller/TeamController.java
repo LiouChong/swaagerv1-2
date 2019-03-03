@@ -1,20 +1,14 @@
 package com.bysj.controller;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.bysj.common.response.ActionResponse;
+import com.bysj.entity.vo.query.TeamQuery;
+import com.bysj.entity.vo.request.TeamRequest;
+import com.bysj.service.ITeamService;
 import io.swagger.annotations.*;
-import com.bysj.common.request.ActionResponse;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
-import com.antiy.common.utils.LogUtils;
-import com.bysj.common.request.QueryCondition;
-import com.antiy.common.utils.ParamterExceptionUtils;
-
-import com.cuit.bbs.service.ITeamService;
-import com.cuit.bbs.entity.Team;
-import com.cuit.bbs.entity.vo.request.TeamRequest;
-import com.cuit.bbs.entity.vo.response.TeamResponse;
-import com.cuit.bbs.entity.vo.query.TeamQuery;
-
 
 /**
  *
@@ -23,7 +17,7 @@ import com.cuit.bbs.entity.vo.query.TeamQuery;
  */
 @Api(value = "Team", description = "讨论组表")
 @RestController
-@RequestMapping("/v1/bbs/team")
+@RequestMapping("team")
 public class TeamController {
 
 

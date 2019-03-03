@@ -26,16 +26,6 @@ public class TotalStationInformation extends BaseEntity {
     @ApiModelProperty("通知内容")
     private String content;
     /**
-     * 通知时间
-     */
-    @ApiModelProperty("通知时间")
-    private Date time;
-    /**
-     * 发出消息者名称
-     */
-    @ApiModelProperty("发出消息者名称")
-    private String userName;
-    /**
      * 创建时间
      */
     @ApiModelProperty("创建时间")
@@ -56,9 +46,9 @@ public class TotalStationInformation extends BaseEntity {
     @ApiModelProperty("修改用户id")
     private Integer userModify;
     /**
-     * 状态，1 有效 2 无效
+     * 状态:1 有效,2 无效
      */
-    @ApiModelProperty("状态，1 有效 2 无效")
+    @ApiModelProperty("状态:1 有效,2 无效")
     private Integer state;
 
 
@@ -69,25 +59,6 @@ public class TotalStationInformation extends BaseEntity {
     public void setContent(String content) {
         this.content = content;
     }
-
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
-
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
 
     public Date getGmtCreate() {
         return gmtCreate;
@@ -133,18 +104,4 @@ public class TotalStationInformation extends BaseEntity {
         this.state = state;
     }
 
-
-    @Override
-    public String toString() {
-        return "TotalStationInformation{" +
-                ", content=" + content +
-                ", time=" + time +
-                ", userName=" + userName +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModify=" + gmtModify +
-                ", userCreate=" + userCreate +
-                ", userModify=" + userModify +
-                ", state=" + state +
-                "}";
-    }
 }

@@ -22,7 +22,7 @@ public class ExceptionHandle {
     @ExceptionHandler(BussinessException.class)
     @ResponseBody
     public ActionResponse BussinessExceptionHandler(BussinessException exception) {
-        System.out.println("--------------------------->>> 进入异常处理类！！！！！！");
+        System.out.println("--------------------------->>> 进入异常处理类  -------> " + exception.getMessage());
         // 如果该异常没有异常信息，则返回默认的业务异常
         if (Objects.isNull(exception.getMessage())) {
             return ActionResponse.fail(RespBasicCode.BUSSINESS_EXCETION);
@@ -35,7 +35,7 @@ public class ExceptionHandle {
     @ExceptionHandler(RequestParamsException.class)
     @ResponseBody
     public ActionResponse RequestParamsExceptionHandler(RequestParamsException exception) {
-        System.out.println("--------------------------->>> 进入异常处理类！！！！！！");
+        System.out.println("--------------------------->>> 进入异常处理类 -------> " + exception.getMessage());
         // 如果该异常没有异常信息，则返回默认的业务异常
         if (Objects.isNull(exception.getMessage())) {
             return ActionResponse.fail(RespBasicCode.PARAMETER_ERROR);

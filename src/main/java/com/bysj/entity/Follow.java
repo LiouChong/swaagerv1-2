@@ -1,9 +1,11 @@
 package com.bysj.entity;
 
 
-import java.util.Date;
-import com.bysj.common.base.BaseEntity;
+import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Date;
+
 /**
  * <p>
  * 关注人表
@@ -16,22 +18,22 @@ import io.swagger.annotations.ApiModelProperty;
 public class Follow extends BaseEntity {
 
 
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-        /**
-    *  粉丝id
-    */
-        @ApiModelProperty("粉丝id")
+    /**
+     * 粉丝id
+     */
+    @ApiModelProperty("粉丝id")
     private Integer fanId;
-        /**
-    *  被关注者id
-    */
-        @ApiModelProperty("被关注者id")
+    /**
+     * 被关注者id
+     */
+    @ApiModelProperty("被关注者id")
     private Integer starId;
-        /**
-    *  创建时间
-    */
-        @ApiModelProperty("创建时间")
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("创建时间")
     private Date gmtCreate;
 
 
@@ -62,12 +64,12 @@ private static final long serialVersionUID = 1L;
     }
 
 
-        @Override
+    @Override
     public String toString() {
-            return "Follow{" +
-                                                            "fanId=" + fanId +
-                                                                                        ", starId=" + starId +
-                                                                                        ", gmtCreate=" + gmtCreate +
-                                                "}";
+        return "Follow{" +
+                "fanId=" + fanId +
+                ", starId=" + starId +
+                ", gmtCreate=" + gmtCreate +
+                "}";
     }
-    }
+}

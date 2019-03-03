@@ -31,9 +31,9 @@ public class FavoritesArticle extends BaseEntity {
     @ApiModelProperty("帖子id")
     private Integer postId;
     /**
-     * 状态： 1 有效 2 无效
+     * 状态:1 有效,0 无效
      */
-    @ApiModelProperty("状态： 1 有效 2 无效")
+    @ApiModelProperty("状态:1 有效,0 无效")
     private Boolean state;
     /**
      * 创建时间

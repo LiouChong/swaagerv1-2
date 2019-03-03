@@ -2,13 +2,18 @@ package com.bysj.service;
 
 
 import com.bysj.common.request.IBaseService;
-import com.bysj.common.request.PageResult;
+import com.bysj.common.response.PageResult;
+import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.User;
 import com.bysj.entity.vo.query.UserQuery;
+import com.bysj.entity.vo.query.UserRequestForLogin;
+import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequest;
 import com.bysj.entity.vo.response.UserResponse;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -22,13 +27,15 @@ public interface IUserService extends IBaseService<User> {
 
         /**
          * 保存
+         *
          * @param request
          * @return
          */
-        Integer saveUser(UserRequest request) throws Exception;
+        ActionResponse saveUser(UserRequestForRegist saveRequest, HttpServletRequest request) throws Exception;
 
         /**
          * 修改
+         *
          * @param request
          * @return
          */
@@ -36,6 +43,7 @@ public interface IUserService extends IBaseService<User> {
 
         /**
          * 查询对象集合
+         *
          * @param query
          * @return
          */
@@ -43,9 +51,32 @@ public interface IUserService extends IBaseService<User> {
 
         /**
          * 批量查询
+         *
          * @param query
          * @return
          */
         PageResult<UserResponse> findPageUser(UserQuery query) throws Exception;
 
+        /**
+         * 发送邮件验证码
+         * @param emailJson
+         * @param request
+         * @return
+         */
+        String sendVerificationCode(Map map,  HttpServletRequest request);
+
+        /**
+         * 检查是邮箱是否重复
+         * @param email
+         * @return
+         */
+        Boolean ifRepeatEmail(String email);
+
+        /**
+         * 用户登录验证
+         *
+         * @param request
+         * @return
+         */
+        ActionResponse doLogin(UserRequestForLogin userRequestForLogin, HttpServletRequest request) throws Exception;
 }

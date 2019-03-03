@@ -1,20 +1,14 @@
 package com.bysj.controller;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.bysj.common.response.ActionResponse;
+import com.bysj.entity.vo.query.TlevelQuery;
+import com.bysj.entity.vo.request.TlevelRequest;
+import com.bysj.service.ITlevelService;
 import io.swagger.annotations.*;
-import com.bysj.common.request.ActionResponse;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
-import com.antiy.common.utils.LogUtils;
-import com.bysj.common.request.QueryCondition;
-import com.antiy.common.utils.ParamterExceptionUtils;
-
-import com.cuit.bbs.service.ITlevelService;
-import com.cuit.bbs.entity.Tlevel;
-import com.cuit.bbs.entity.vo.request.TlevelRequest;
-import com.cuit.bbs.entity.vo.response.TlevelResponse;
-import com.cuit.bbs.entity.vo.query.TlevelQuery;
-
 
 /**
  *
@@ -23,7 +17,7 @@ import com.cuit.bbs.entity.vo.query.TlevelQuery;
  */
 @Api(value = "Tlevel", description = "角色表")
 @RestController
-@RequestMapping("/v1/bbs/tlevel")
+@RequestMapping("tlevel")
 public class TlevelController {
 
 

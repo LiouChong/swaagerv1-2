@@ -1,19 +1,13 @@
 package com.bysj.controller;
 
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMethod;
+import com.bysj.common.response.ActionResponse;
+import com.bysj.entity.vo.query.UserBanQuery;
+import com.bysj.entity.vo.request.UserBanRequest;
+import com.bysj.service.IUserBanService;
 import io.swagger.annotations.*;
-import com.bysj.common.request.ActionResponse;
-import javax.annotation.Resource;
-import com.antiy.common.utils.LogUtils;
-import com.bysj.common.request.QueryCondition;
-import com.antiy.common.utils.ParamterExceptionUtils;
+import org.springframework.web.bind.annotation.*;
 
-import com.cuit.bbs.service.IUserBanService;
-import com.cuit.bbs.entity.UserBan;
-import com.cuit.bbs.entity.vo.request.UserBanRequest;
-import com.cuit.bbs.entity.vo.response.UserBanResponse;
-import com.cuit.bbs.entity.vo.query.UserBanQuery;
+import javax.annotation.Resource;
 
 
 /**
@@ -23,7 +17,7 @@ import com.cuit.bbs.entity.vo.query.UserBanQuery;
  */
 @Api(value = "UserBan", description = "用户封禁表")
 @RestController
-@RequestMapping("/v1/bbs/userban")
+@RequestMapping("userban")
 public class UserBanController {
 
 
