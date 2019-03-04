@@ -8,7 +8,6 @@ import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequest;
 import com.bysj.service.IUserService;
 import io.swagger.annotations.*;
-import io.swagger.models.Model;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +24,6 @@ import java.util.Map;
  */
 @Api(value = "User", description = "用户表")
 @RestController
-@RequestMapping("/user")
 public class UserController {
 
 
@@ -40,7 +38,7 @@ public class UserController {
      * @return
      * @throws IOException
      */
-    @PostMapping(value = "/sendMail")
+    @PostMapping(value = "/user/sendMail")
     public String sendEmail(@RequestBody Map map, HttpServletRequest request) throws IOException {
         return iUserService.sendVerificationCode(map, request);
     }
@@ -49,7 +47,7 @@ public class UserController {
     /**
      * 检查邮箱是否重名
      */
-    @PostMapping(value = "/checkName")
+    @PostMapping(value = "/user/checkName")
     public String checkIfRepeatName(String email) {
         if (iUserService.ifRepeatEmail(email)) {
             return "邮箱已被注册！";
@@ -69,7 +67,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/regist", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/regist", method = RequestMethod.POST)
     public ActionResponse saveSingle(@ApiParam(value = "user") @RequestBody UserRequestForRegist userRequest, HttpServletRequest request) throws Exception {
         // @todo: 处理异常类
         return iUserService.saveUser(userRequest, request);
@@ -125,7 +123,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/update/single", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/update/single", method = RequestMethod.POST)
     public ActionResponse updateSingle(@ApiParam(value = "user") UserRequest userRequest) throws Exception {
         iUserService.updateUser(userRequest);
         return ActionResponse.success();
@@ -141,7 +139,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/query/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/query/list", method = RequestMethod.GET)
     public ActionResponse queryList(@ApiParam(value = "user") UserQuery userQuery) throws Exception {
         return ActionResponse.success(iUserService.findPageUser(userQuery));
     }
@@ -156,7 +154,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/query/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "user") @PathVariable("id") Integer id) throws Exception {
 
         return ActionResponse.success(iUserService.getById(id));
@@ -172,7 +170,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id) throws Exception {
 
         return ActionResponse.success(iUserService.deleteById(id));
