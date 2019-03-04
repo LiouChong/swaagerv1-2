@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "TotalStationInformation", description = "全站信息表")
 @RestController
-@RequestMapping("totalstationinformation")
+@RequestMapping("/totalstationinformation")
 public class TotalStationInformationController {
 
 

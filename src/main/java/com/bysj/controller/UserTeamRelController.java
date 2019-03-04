@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "UserTeamRel", description = "用户小组关联表")
 @RestController
-@RequestMapping("userteamrel")
+@RequestMapping("/userteamrel")
 public class UserTeamRelController {
 
 

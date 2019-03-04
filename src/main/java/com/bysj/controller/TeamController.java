@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "Team", description = "讨论组表")
 @RestController
-@RequestMapping("team")
+@RequestMapping("/team")
 public class TeamController {
 
 

@@ -3,10 +3,7 @@ package com.bysj.config.shiro;
 import com.bysj.common.exception.RequestParamsException;
 import com.bysj.dao.UserDao;
 import com.bysj.entity.User;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -48,9 +45,8 @@ public class UserRealm extends AuthorizingRealm {
         //从token中获取到登录的用户名，查询数据库，返回用户信息
         String username = (String) authenticationToken.getPrincipal();
         User user = userDao.selectByemail(username);
-        System.out.println("进入自定义验证！！！！！！");
         if (user == null) {
-            throw new RequestParamsException("账号未注册，请先注册！");
+            throw new UnknownAccountException();
         }
         return new SimpleAuthenticationInfo(user, user.getPsw(), ByteSource.Util.bytes(user.getEmail()), getName());
     }

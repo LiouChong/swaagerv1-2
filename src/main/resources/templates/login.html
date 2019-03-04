@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <!-- CSS -->
-        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>
+        <!--<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>-->
         <link rel="stylesheet" href="/assets/css/reset.css">
         <link rel="stylesheet" href="/assets/css/supersized.css">
         <link rel="stylesheet" href="/assets/css/style.css">
@@ -161,7 +161,7 @@
                     }
                 });
 
-                $("#loginsubmit").click(function () {
+               /* $("#loginsubmit").click(function () {
 
                     $.ajax({
                         type: "POST",
@@ -172,15 +172,12 @@
                             psw:$("#password").val()
                         }),
                         dataType:"json",
-                        success: function (message) {
-                            if (message.body != null) {
-                                alert(message.body)
-                            } else {
-                                alert(message.head.result)
-                            }
+                        success: function (data) {
+
+                            window.location(data.body)
                         }
                     });
-                })
+                })*/
             });
 
         </script>
@@ -190,17 +187,17 @@
         <div class="page-container">
 
             <h1>BBS</h1>
-            <!--<form action="/user/login" method="POST">-->
+            <form action="/user/login" method="POST" >
                 <input id="username" type="text" name="email" class="username" placeholder="邮箱">
                 <input id="password" type="password" name="psw" class="password" placeholder="密码"> <br><br>
             <div style="height: 20px;"><input class="null" type="checkbox" value="true" name="rememberMe"><span style="font-size: 18px">记住我</span> &emsp;&emsp;<a href="/forgetPsw" style="font-size: 18px" >忘记密码</a> </div>
                 <br><button type="submit" id="loginsubmit">登录</button>
-            <!--</form>-->
+            </form>
             <div class="connect">
                 <a id="register"> 注册</a>
             </div>
         </div>
-
+        <div ><span th:text="${login_info}"> </span></div>
         <div class="page-containerRe">
             <h1>注册</h1>
                 <input id="email" type="text" name="usernameRe" class="username" placeholder="验证邮箱"><br>

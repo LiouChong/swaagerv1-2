@@ -6,6 +6,7 @@ import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.response.PageResult;
+import com.bysj.common.response.RespBasicCode;
 import com.bysj.common.utils.MailUtil;
 import com.bysj.dao.UserDao;
 import com.bysj.entity.User;
@@ -17,12 +18,17 @@ import com.bysj.entity.vo.response.UserResponse;
 import com.bysj.service.IUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
+import org.apache.shiro.web.util.SavedRequest;
+import org.apache.shiro.web.util.WebUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -177,15 +183,15 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     /**
      * 用户登录
      * @param userRequestForLogin
-     * @param request
      * @return
      * @throws Exception
      */
     @Override
-    public ActionResponse doLogin(UserRequestForLogin userRequestForLogin, HttpServletRequest request) {
-
+    public ActionResponse doLogin(UserRequestForLogin userRequestForLogin, HttpServletRequest request) throws Exception {
+        //获取到邮箱和密码
         String email = userRequestForLogin.getEmail();
         String psw = userRequestForLogin.getPsw();
+        //判断是否为空值
         if ("".equals(email) || "".equals(psw)) {
             throw new RequestParamsException("用户名或密码为空！") ;
         }
@@ -193,32 +199,17 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(
                 userRequestForLogin.getEmail(), userRequestForLogin.getPsw());
         try {
+            //对用户进行登录操作
             subject.login(usernamePasswordToken);
-        } catch (RequestParamsException e) {
-            throw new RequestParamsException("账号未注册，请先注册！");
-        } catch (AuthenticationException e) {
-            throw new RequestParamsException("账号未注册，请先注册！");
+        } catch (IncorrectCredentialsException e) {
+            return ActionResponse.fail(RespBasicCode.PARAMETER_ERROR,"密码错误！请重新输入！");
+        } catch (UnknownAccountException e) {
+            return ActionResponse.fail(RespBasicCode.PARAMETER_ERROR,"账号不存在！请先注册！");
         } catch (Exception e) {
-            throw new RequestParamsException("密码错误！请重新输入！");
+            return ActionResponse.fail(RespBasicCode.ERROR,"服务器异常请稍后再试");
         }
 
         return ActionResponse.success("登陆成功");
-        //此方法不处理登陆成功，shiro认证成功会跳转到上一个请求路径。
-        // TODO shiro进行权限控制则处理方式不同
-        /*String email = userRequestForLogin.getEmail();
-        String psw = userRequestForLogin.getPsw();
-
-        if (email.equals("") || psw.equals("")) {
-            throw new RequestParamsException("用户名或密码为空！") ;
-        } else {
-            if (Objects.isNull(getByEmail(email))) {
-                throw new RequestParamsException("该用户名尚未被注册");
-            }
-            else if( !(getByEmail(email).getPsw().equals(psw))) {
-                throw new RequestParamsException("密码错误！");
-            }
-        }
-        return null;*/
     }
 
     public User getByEmail(String email) {

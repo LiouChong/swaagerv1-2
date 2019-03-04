@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Api(value = "Post", description = "讨论帖子表")
 @RestController
-@RequestMapping("post")
+@RequestMapping("/post")
 public class PostController {
 
 

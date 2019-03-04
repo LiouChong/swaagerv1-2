@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "Reply", description = "回复表")
 @RestController
-@RequestMapping("reply")
+@RequestMapping("/reply")
 public class ReplyController {
 
 

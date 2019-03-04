@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "Resource", description = "上传的资源表")
 @RestController
-@RequestMapping("resource")
+@RequestMapping("/resource")
 public class ResourceController {
 
 

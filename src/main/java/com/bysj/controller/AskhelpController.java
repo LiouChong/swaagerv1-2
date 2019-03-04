@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "Askhelp", description = "求问表")
 @RestController
-@RequestMapping("askhelp")
+@RequestMapping("/askhelp")
 public class AskhelpController {
 
     @Resource

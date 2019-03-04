@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "FavoritesArticle", description = "喜欢的文章表")
 @RestController
-@RequestMapping("favoritesarticle")
+@RequestMapping("/favoritesarticle")
 public class FavoritesArticleController {
 
 

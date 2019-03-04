@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "Plater", description = "板块表")
 @RestController
-@RequestMapping("plater")
+@RequestMapping("/plater")
 public class PlaterController {
 
 

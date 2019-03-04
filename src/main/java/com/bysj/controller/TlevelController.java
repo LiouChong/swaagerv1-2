@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "Tlevel", description = "角色表")
 @RestController
-@RequestMapping("tlevel")
+@RequestMapping("/tlevel")
 public class TlevelController {
 
 

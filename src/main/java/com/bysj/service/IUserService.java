@@ -10,6 +10,7 @@ import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequest;
 import com.bysj.entity.vo.response.UserResponse;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -75,7 +76,7 @@ public interface IUserService extends IBaseService<User> {
         /**
          * 用户登录验证
          *
-         * @param request
+         * @param modelAndView
          * @return
          */
         ActionResponse doLogin(UserRequestForLogin userRequestForLogin, HttpServletRequest request) throws Exception;

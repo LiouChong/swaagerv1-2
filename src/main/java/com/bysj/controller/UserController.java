@@ -8,7 +8,11 @@ import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequest;
 import com.bysj.service.IUserService;
 import io.swagger.annotations.*;
+import io.swagger.models.Model;
+import org.apache.shiro.web.util.SavedRequest;
+import org.apache.shiro.web.util.WebUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +20,6 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- *
  * @author lc
  * @since 2019-02-28
  */
@@ -31,6 +34,7 @@ public class UserController {
 
     /**
      * 发送邮件
+     *
      * @param map
      * @param request
      * @return
@@ -57,6 +61,7 @@ public class UserController {
 
     /**
      * 保存用户信息，用于用户注册界面
+     *
      * @param userRequest
      * @return actionResponse
      */
@@ -65,13 +70,14 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/regist", method = RequestMethod.POST)
-    public ActionResponse saveSingle(@ApiParam(value = "user") @RequestBody UserRequestForRegist userRequest, HttpServletRequest request)throws Exception{
+    public ActionResponse saveSingle(@ApiParam(value = "user") @RequestBody UserRequestForRegist userRequest, HttpServletRequest request) throws Exception {
         // @todo: 处理异常类
         return iUserService.saveUser(userRequest, request);
     }
 
     /**
      * 用户登录操作
+     *
      * @param userRequest
      * @return actionResponse
      */
@@ -80,13 +86,38 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ActionResponse doLogin(@ApiParam(value = "user") @RequestBody UserRequestForLogin userRequest, HttpServletRequest request)throws Exception{
-        return iUserService.doLogin(userRequest, request);
+    public ModelAndView doLogin(UserRequestForLogin userRequest,ModelAndView modelAndView, HttpServletRequest request) throws Exception {
+        ActionResponse actionResponse = iUserService.doLogin(userRequest, request);
+
+        String successUrl = null;
+        if ("登陆成功".equals(actionResponse.getBody())) {
+            SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(request);
+            // 如果shiro保存的有上次请求，则返回上次请求页面
+            if (savedRequest != null && savedRequest.getMethod().equalsIgnoreCase("GET")) {
+                successUrl = savedRequest.getRequestUrl();
+                System.out.println("url======>> " + successUrl);
+            }
+
+            if (successUrl == null) {
+                successUrl = "/post/query/recommended";
+                return new ModelAndView("redirect:" + successUrl);
+            }
+
+        } else {
+            if (actionResponse.getBody() != null) {
+                modelAndView.addObject("login_info", actionResponse.getBody().toString());
+            } else if (actionResponse.getHead() != null){
+                modelAndView.addObject("login_info",String.valueOf(actionResponse.getHead()));
+            }
+        }
+        modelAndView.setViewName("/login");
+        return modelAndView;
     }
 
 
     /**
      * 修改
+     *
      * @param userRequest
      * @return actionResponse
      */
@@ -95,13 +126,14 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "user")UserRequest userRequest)throws Exception{
+    public ActionResponse updateSingle(@ApiParam(value = "user") UserRequest userRequest) throws Exception {
         iUserService.updateUser(userRequest);
         return ActionResponse.success();
     }
 
     /**
      * 批量查询
+     *
      * @param userQuery
      * @return actionResponse
      */
@@ -110,12 +142,13 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/query/list", method = RequestMethod.GET)
-    public ActionResponse queryList(@ApiParam(value = "user") UserQuery userQuery)throws Exception{
+    public ActionResponse queryList(@ApiParam(value = "user") UserQuery userQuery) throws Exception {
         return ActionResponse.success(iUserService.findPageUser(userQuery));
     }
 
     /**
      * 通过ID查询
+     *
      * @param id
      * @return actionResponse
      */
@@ -124,13 +157,14 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
-    public ActionResponse queryById(@ApiParam(value = "user") @PathVariable("id") Integer id)throws Exception{
+    public ActionResponse queryById(@ApiParam(value = "user") @PathVariable("id") Integer id) throws Exception {
 
         return ActionResponse.success(iUserService.getById(id));
     }
 
     /**
      * 通过ID删除
+     *
      * @param id
      * @return actionResponse
      */
@@ -139,7 +173,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
+    public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id) throws Exception {
 
         return ActionResponse.success(iUserService.deleteById(id));
     }

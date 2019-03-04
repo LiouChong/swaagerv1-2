@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "PrivateLetter", description = "私信表")
 @RestController
-@RequestMapping("privateletter")
+@RequestMapping("/privateletter")
 public class PrivateLetterController {
 
 

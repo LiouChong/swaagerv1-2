@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "UserBan", description = "用户封禁表")
 @RestController
-@RequestMapping("userban")
+@RequestMapping("/userban")
 public class UserBanController {
 
 
