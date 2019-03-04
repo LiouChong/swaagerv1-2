@@ -1,6 +1,7 @@
 package com.bysj.service.impl;
 
 import com.bysj.common.exception.BussinessException;
+import com.bysj.common.exception.RequestParamsException;
 import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
 import com.bysj.common.response.ActionResponse;
@@ -15,10 +16,12 @@ import com.bysj.entity.vo.request.UserRequest;
 import com.bysj.entity.vo.response.UserResponse;
 import com.bysj.service.IUserService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
-import org.json.JSONException;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -51,6 +54,13 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     @Resource
     private BaseConverter<User, UserResponse> responseConverter;
 
+    /**
+     * 保存用户，用户用户注册
+     * @param saveRequest
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @Override
     public ActionResponse saveUser(UserRequestForRegist saveRequest, HttpServletRequest request) throws Exception {
         User user = requestSaveConverter.convert(saveRequest, User.class);
@@ -74,6 +84,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
 
             //利用shiro的MD5加密对密码进行加密（加上盐值）
             String psw = new Md5Hash(user.getPsw(),user.getEmail()).toString();
+
             user.setPsw(psw);
 
             user.setNickname(user.getEmail());
@@ -86,12 +97,24 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     }
 
 
+    /**
+     * 更新用户
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @Override
     public Integer updateUser(UserRequest request) throws Exception {
         User user = requestConverter.convert(request, User.class);
         return userDao.update(user);
     }
 
+    /**
+     * 根据条件分页查询，被下面的方法调用
+     * @param query
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<UserResponse> findListUser(UserQuery query) throws Exception {
         List<User> userList = userDao.findQuery(query);
@@ -100,11 +123,23 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         return userResponse;
     }
 
+    /**
+     * 分页查询详情
+     * @param query
+     * @return
+     * @throws Exception
+     */
     @Override
     public PageResult<UserResponse> findPageUser(UserQuery query) throws Exception {
         return new PageResult<>(query.getPageSize(), this.findCount(query), query.getCurrentPage(), this.findListUser(query));
     }
 
+    /**
+     * 发送邮箱
+     * @param map
+     * @param request
+     * @return
+     */
     @Override
     public String sendVerificationCode(Map map, HttpServletRequest request) {
         //生成随机码
@@ -116,16 +151,12 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         try {
             email = (String) map.get("email");
 
+            // TODO 这里有session不一致的BUG，因为sendMail还未执行完，session虽然已经写入，但别的地方比如提交注册那里获取的session不一致。导致提交注册那里以为邮箱还未发送。
             HttpSession session = request.getSession();
             //将随机生成的验证码保存到session的verificationCode中，便于后面取出对比
             session.setAttribute("verificationCode",verificationCode);
             session.setAttribute("email",email);
-            System.out.println("======================================");
-            System.out.println("写入到session!!!!!!  -------->> " + session.getId());
-            System.out.println("==========================================");
             MailUtil.senMail(verificationCode,email);
-        } catch (JSONException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             throw new BussinessException("500","服务器发送邮件发生故障！请稍后再试");
         }
@@ -133,17 +164,43 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         return "sucess";
     }
 
+    /**
+     * 查询是否重名
+     * @param email
+     * @return
+     */
     @Override
     public Boolean ifRepeatEmail(String email) {
         return userDao.selectByemail(email) != null ? true: false;
     }
 
+    /**
+     * 用户登录
+     * @param userRequestForLogin
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @Override
-    public ActionResponse doLogin(UserRequestForLogin userRequestForLogin, HttpServletRequest request) throws Exception {
+    public ActionResponse doLogin(UserRequestForLogin userRequestForLogin, HttpServletRequest request) {
+
+        String email = userRequestForLogin.getEmail();
+        String psw = userRequestForLogin.getPsw();
+        if ("".equals(email) || "".equals(psw)) {
+            throw new RequestParamsException("用户名或密码为空！") ;
+        }
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(
                 userRequestForLogin.getEmail(), userRequestForLogin.getPsw());
-        subject.login(usernamePasswordToken);
+        try {
+            subject.login(usernamePasswordToken);
+        } catch (RequestParamsException e) {
+            throw new RequestParamsException("账号未注册，请先注册！");
+        } catch (AuthenticationException e) {
+            throw new RequestParamsException("账号未注册，请先注册！");
+        } catch (Exception e) {
+            throw new RequestParamsException("密码错误！请重新输入！");
+        }
 
         return ActionResponse.success("登陆成功");
         //此方法不处理登陆成功，shiro认证成功会跳转到上一个请求路径。

@@ -17,12 +17,11 @@
         <result column="state" property="state"/>
         <result column="gmt_create" property="gmtCreate"/>
         <result column="gmt_modify" property="gmtModify"/>
-        <result column="user_create" property="userCreate"/>
         <result column="user_modify" property="userModify"/>
     </resultMap>
 <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, nickname, psw, money, email, picture, level, signa_ture AS signaTure, sex, age,state,gmt_create,gmt_modify,user_create,user_modify
+        id, nickname, psw, money, email, picture, level, signa_ture AS signaTure, sex, age,state,gmt_create,gmt_modify,user_modify
     </sql>
 
     <sql id="Table_Name">
@@ -135,9 +134,6 @@
         </if>
         <if test=" gmtModify != null">
             gmt_modify = #{gmtModify },
-        </if>
-        <if test=" userCreate != null">
-            user_create = #{userCreate  },
         </if>
         <if test=" userModify != null">
             user_modify = #{userModify },

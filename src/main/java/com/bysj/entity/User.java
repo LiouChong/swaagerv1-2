@@ -82,11 +82,6 @@ public class User extends BaseEntity {
      */
     @ApiModelProperty("修改时间")
     private Date gmtModify;
-    /**
-     * 创建者id
-     */
-    @ApiModelProperty("创建者id")
-    private Integer userCreate;
 
     /**
      * 修改者id
@@ -116,14 +111,6 @@ public class User extends BaseEntity {
 
     public void setGmtModify(Date gmtModify) {
         this.gmtModify = gmtModify;
-    }
-
-    public Integer getUserCreate() {
-        return userCreate;
-    }
-
-    public void setUserCreate(Integer userCreate) {
-        this.userCreate = userCreate;
     }
 
     public Integer getUserModify() {
@@ -241,8 +228,6 @@ public class User extends BaseEntity {
                 .append(gmtCreate).append('\"');
         sb.append(",\"gmtModify\":\"")
                 .append(gmtModify).append('\"');
-        sb.append(",\"userCreate\":")
-                .append(userCreate);
         sb.append(",\"userModify\":")
                 .append(userModify);
         sb.append('}');

@@ -21,15 +21,6 @@ public class UserRealm extends AuthorizingRealm {
     @Resource
     private UserDao userDao;
 
-
-   /* @Autowired
-    public  UserRealm(UserDao userDao) {
-        this.userDao = userDao;
-    }
-
-    public UserRealm() {
-    }*/
-
     @Override
     public String getName() {
         return "UserRealm";
@@ -58,8 +49,6 @@ public class UserRealm extends AuthorizingRealm {
         String username = (String) authenticationToken.getPrincipal();
         User user = userDao.selectByemail(username);
         System.out.println("进入自定义验证！！！！！！");
-
-        System.out.println("userInfo" + user);
         if (user == null) {
             throw new RequestParamsException("账号未注册，请先注册！");
         }

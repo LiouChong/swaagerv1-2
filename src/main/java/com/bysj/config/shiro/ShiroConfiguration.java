@@ -27,6 +27,7 @@ public class ShiroConfiguration {
     @Bean
     public UserRealm userRealm() {
         UserRealm userRealm = new UserRealm();
+        userRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         return userRealm;
     }
 
@@ -102,10 +103,15 @@ public class ShiroConfiguration {
         return authorizationAttributeSourceAdvisor;
     }
 
+    /**
+     * 对密码加密
+     * @return
+     */
     @Bean
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
-        hashedCredentialsMatcher.setHashAlgorithmName("md5");
+        hashedCredentialsMatcher.setHashAlgorithmName("MD5");
+        hashedCredentialsMatcher.setHashIterations(1);
         return hashedCredentialsMatcher;
     }
 

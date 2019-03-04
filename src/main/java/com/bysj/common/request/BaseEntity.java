@@ -1,7 +1,7 @@
 package com.bysj.common.request;
 
 /**
- * @auther: zhangbing
+ * @auther: LiuChong
  * @date: 2018/11/21 15:42
  * @description: 基础实体
  */

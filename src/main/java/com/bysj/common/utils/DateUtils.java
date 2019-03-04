@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * @description: 时间处理类
- * @Author: zhangbing
+ * @Author: LiuChong
  * @date: 2018/10/30 14:49
  */
 public class DateUtils {
