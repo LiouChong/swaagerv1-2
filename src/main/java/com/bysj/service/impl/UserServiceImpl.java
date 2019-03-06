@@ -16,6 +16,7 @@ import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequest;
 import com.bysj.entity.vo.response.UserResponse;
 import com.bysj.service.IUserService;
+import io.swagger.models.Model;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -28,11 +29,15 @@ import org.apache.shiro.util.ByteSource;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -212,8 +217,35 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         return ActionResponse.success("登陆成功");
     }
 
+    @Override
+    public ModelAndView addPicture(MultipartFile profilePicture, ModelAndView model, HttpServletRequest request) {
+        //Part写入文件,或者用MultipartFile
+//        profilePicture.transferTo(new File("路径")); 但是要传入MultiPartFile
+        if (profilePicture.getSize() > 2097152) {
+            model.addObject("info","超出图片大小限制！");
+        }
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        String fileName = user.getEmail() + System.currentTimeMillis();
+        try {
+            profilePicture.transferTo(new File(fileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        model.addObject("info","头像修改成功！");
+        model.setViewName("/myInfo");
+        return model;
+    }
+
     public User getByEmail(String email) {
         return userDao.selectByemail(email);
     }
 
+    @Override
+    public ModelAndView getInfoById(ModelAndView modelAndView) throws Exception {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        user = userDao.getById(user.getId());
+        modelAndView.addObject("user",user);
+        modelAndView.setViewName("myInfo");
+        return modelAndView;
+    }
 }

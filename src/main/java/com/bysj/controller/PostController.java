@@ -68,7 +68,7 @@ public class PostController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/query/recommended", method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView queryGoodList(@ApiParam(value = "post") PostQueryForList postQuery, ModelAndView mav)throws Exception{
         //首页查看被推荐文章，因此在这里设置查询条件为被推荐文章
         postQuery.setIfGood(1);

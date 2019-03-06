@@ -5,9 +5,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Knowledge Base Theme</title>
+    <title>BBS</title>
 
-    <link rel="shortcut icon" href="/images/favicon.png" />
+    <link rel="shortcut icon" href="/images/beijing.jpg" />
 
     <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
     <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
@@ -76,8 +76,8 @@
 
             <div class="logo-container">
                 <!-- Website Logo -->
-                <a href="/index-2" title="Knowledge Base Theme">
-                    <img src="images/logo.png" alt="Knowledge Base Theme">
+                <a href="/index-2" title="BBS">
+                    <img src="/images/logo.png" alt="BBS">
                 </a>
                 <span class="tag-line">Premium WordPress Theme</span>
             </div>
@@ -87,7 +87,7 @@
             <nav class="main-nav">
                 <div class="menu-top-menu-container">
                     <ul id="menu-top-menu" class="clearfix">
-                        <li ><a href="/index-2">首页</a></li>
+                        <li ><a href="/post/index">首页</a></li>
                         <li><a href="/home-categories-description">推荐</a></li>
                         <!--<li><a href="/home-categories-articles">categories-articles</a></li>-->
                         <li class="current-menu-item"><a href="/articles-list">最新</a></li>
@@ -127,7 +127,7 @@
 
             <!-- start of page content -->
             <div class="span8 main-listing">
-                <h2 style="color: red">${errorInfo}</h2>
+                <!--<h2 style="color: red">${errorInfo}</h2>-->
                 <!--<c:forEach items="${postAndPlates}" var="postAndPlate">-->
                     <article class="format-standard type-post hentry clearfix" th:each="post,postStat:${postList}">
                         <header class="clearfix">

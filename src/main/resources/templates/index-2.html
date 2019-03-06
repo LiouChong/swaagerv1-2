@@ -79,7 +79,7 @@
                                                                 <li><a href="/faq">常见问题</a></li>
                                                                 <li><a href="/contact">联系我们</a></li>
                                                                 <shiro:guest><li><a href="/login">登录  注册</a> </li></shiro:guest>
-                                                                <shiro:user><li>欢迎您：<a href="/myInfo"><shiro:principal property="email"></shiro:principal> </a>&emsp;</li> <a href="/logout" style="color: white">注销</a> </shiro:user>
+                                                                <shiro:user><li>欢迎您：<a href="/user/detail"><shiro:principal property="email"></shiro:principal> </a>&emsp;</li> <a href="/logout" style="color: white">注销</a> </shiro:user>
                                                         </ul>
                                                 </div>
                                         </nav>
@@ -108,7 +108,7 @@
                 <!-- Start of Page Container -->
                 <div class="page-container">
                         <div class="container">
-                                <span style="float: right; font-size: 20px;color: red">${msg}</span>
+                                <!--<span style="float: right; font-size: 20px;color: red">${msg}</span>-->
                                 <div class="row">
 
                                         <!-- start of page content -->

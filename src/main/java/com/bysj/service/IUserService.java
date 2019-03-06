@@ -10,6 +10,9 @@ import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequest;
 import com.bysj.entity.vo.response.UserResponse;
+import org.springframework.http.codec.multipart.Part;
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +63,7 @@ public interface IUserService extends IBaseService<User> {
 
         /**
          * 发送邮件验证码
-         * @param emailJson
+         * @param map
          * @param request
          * @return
          */
@@ -75,9 +78,21 @@ public interface IUserService extends IBaseService<User> {
 
         /**
          * 用户登录验证
-         *
-         * @param modelAndView
+         * @param userRequestForLogin
+         * @param request
          * @return
+         * @throws Exception
          */
         ActionResponse doLogin(UserRequestForLogin userRequestForLogin, HttpServletRequest request) throws Exception;
+
+        /**
+         * 上传图片
+         * @param profilePicture
+         * @param model
+         * @param request
+         * @return
+         */
+        ModelAndView addPicture(MultipartFile profilePicture, ModelAndView model, HttpServletRequest request);
+
+        ModelAndView getInfoById(ModelAndView modelAndView) throws Exception;
 }

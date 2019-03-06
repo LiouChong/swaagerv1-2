@@ -13,7 +13,7 @@ public class MyFormAuthticationFilter extends FormAuthenticationFilter {
     @Override
     protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        httpServletResponse.sendRedirect("/post/query/recommended");
+        httpServletResponse.sendRedirect("/post/index");
         return true;
     }
 }

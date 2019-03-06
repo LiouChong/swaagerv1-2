@@ -1,0 +1,366 @@
+<html   xmlns:th="http://www.thymeleaf.org"
+        xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class="lt-ie9 lt-ie8" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="lt-ie9" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><! <html lang="en-US"> <![endif]-->
+<head>
+    <!-- META TAGS -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BBS technology sharing site</title>
+
+    <link rel="shortcut icon" href="/images/beijing.jpg" />
+
+    <!-- Style Sheet-->
+    <%--<link rel="stylesheet" href="style.css"/>--%>
+    <link rel='stylesheet' id='bootstrap-css-css'  href='/css/bootstrap5152.css?ver=1.0' type='text/css' media='all' />
+    <link rel='stylesheet' id='responsive-css-css'  href='/css/responsive5152.css?ver=1.0' type='text/css' media='all' />
+    <link rel='stylesheet' id='pretty-photo-css-css'  href='/js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all' />
+    <link rel='stylesheet' id='main-css-css'  href='/css/main5152.css?ver=1.0' type='text/css' media='all' />
+    <link rel='stylesheet' id='custom-css-css'  href='/css/custom5152.html?ver=1.0' type='text/css' media='all' />
+
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="js/html5.js"></script></script>
+    <![endif]-->
+    <style type="text/css">
+        div {
+            /*border:1px solid black;*/
+        }
+        .changeinfo{
+            float: right;
+            width: 100%;
+            display: none;
+            font-size:28px ;
+        }
+        .butclass {
+            background-color: #0d90d1;
+            display: inline-block;
+            outline: none;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font: 14px/100% Arial, Helvetica, sans-serif;
+            padding: .5em 2em .55em;
+            text-shadow: 0 1px 1px rgba(0,0,0,.3);
+            -webkit-border-radius: .5em;
+            -moz-border-radius: .5em;
+            border-radius: .5em;
+            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+            box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        }
+        .butclass:hover {
+            text-decoration: none;
+        }
+        .butclass:active {
+            position: relative;
+            top: 1px;
+        }
+        table.dataintable {
+            float:right;
+            margin-top:15px;
+            border-collapse:collapse;
+            border:1px solid #aaa;
+            width:70%;
+        }
+        table.dataintable th {
+            vertical-align:baseline;
+            padding:5px 15px 5px 6px;
+            background-color:#3F3F3F;
+            border:1px solid #3F3F3F;
+            text-align:left;
+            color:#fff;
+        }
+
+        table.dataintable td {
+            vertical-align:text-top;
+            padding:6px 15px 6px 6px;
+            border:1px solid #aaa;
+        }
+        table.dataintable tr:nth-child(odd) {
+            background-color:#F5F5F5;
+            height: 50px
+        }
+        table.dataintable tr:nth-child(even) {
+            background-color:#fff;
+            height: 50px;
+        }
+
+        #info {
+            height: 600px;
+        }
+
+        .vintage{
+            font-size:28px;
+        }
+
+        #left_box{
+            float: left;
+            width: 27%;
+            border: 1px solid black;
+            height:300px;
+        }
+    </style>
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(document).click(function () {
+            $("#showChanTable").click(function () {
+                // $().slideToggle();
+                $(".changeinfo").stop(true, false).slideToggle(300);
+            });
+
+        });
+    </script>
+
+</head>
+
+<body>
+
+<!-- Start of Header -->
+<div class="header-wrapper">
+    <header>
+        <div class="container">
+
+
+            <div class="logo-container">
+                <!-- Website Logo -->
+                <a href="/index-2"  title="BBS技术分享网站">
+                    <img src="images/logo.png" alt="BBS technology sharing site">
+                </a>
+                <span class="tag-line">思想的宽度从分享开始</span>
+            </div>
+
+
+            <!-- Start of Main Navigation -->
+            <nav class="main-nav">
+                <div class="menu-top-menu-container">
+                    <ul id="menu-top-menu" class="clearfix">
+                        <li class="current-menu-item"><a href="/index-2">首页</a></li>
+                        <li><a href="/home-categories-description">关注</a></li>
+                        <%--<li><a href="/home-categories-articles">categories-articles</a></li>--%>
+                        <li><a href="/articles-list">最新</a></li>
+                        <li><a href="/faq">常见问题</a></li>
+                        <li><a href="/contact">联系我们</a></li>
+                        <shiro:guest><li><a href="/login">登录  注册</a> </li></shiro:guest>
+                        <shiro:user><li>欢迎您：<a href="#"><shiro:principal property="email"></shiro:principal> </a>&emsp;</li> <a href="/logout" style="color: white">注销</a> </shiro:user>
+                    </ul>
+                </div>
+            </nav>
+            <!-- End of Main Navigation -->
+
+        </div>
+    </header>
+</div>
+<!-- End of Header -->
+
+
+<!-- Start of Page Container -->
+<div class="page-container">
+    <div class="container">
+        <in id="info">
+            <div >
+                <th:if test="${user.ifBan==1}">
+                    <h1 style="color: gray;text-align: center"> 以被封禁 </h1>
+                </th:if>
+                <th:if test="${user.ifBan ==0}">
+                    <h1 style="text-align: center">个人信息</h1>
+                </th:if>
+
+
+                <div id="left_box">
+                    <th:if test="${user.picture==null}">
+                        <h2>暂无头像！</h2>
+                    </th:if>
+                    <th:if test="${user.picture!=null}">
+                        <img src="/user/${user.picture}" style="width: 100%;height: 300px"/>
+                    </th:if>
+                </div>
+
+
+            <table class="dataintable">
+                <tr>
+                    <td><i> <span class="vintage"> 邮箱:</span> <br></i></td>
+                    <td><span style="font-size: 25px">${user.email} </span> </td>
+                </tr>
+                <tr>
+                    <td><i> <span class="vintage"> 密码:</span> <br></i></td>
+                    <td><span style="font-size: 25px">${user.psw} </span> </td>
+                </tr>
+                <tr>
+                    <td><i><span class="vintage"> 经验值：</span><br></i></td>
+                    <td><span style="font-size: 25px" >${user.experience} </span> </td>
+                </tr>
+                <tr>
+                    <td><i>
+                        <span class="vintage"> 昵称：</span> <br></i></td>
+                    <td><span style="font-size: 25px">${user.nickname} </span> </td>
+                </tr>
+                <tr>
+                    <td><i>
+                        <span class="vintage"> 粉丝数：</span> <br></i></td>
+                    <td><span style="font-size: 25px"><b>${count} </b></span> </td>
+                </tr>
+                <tr>
+                    <td><i>
+                        <span class="vintage"> 管理的板块：</span> <br></i></td>
+                    <td>
+                        <th:if test="${user.plateId==0}">
+                            <span style="font-size: 25px"><b>暂无</b></span>
+                        </th:if>
+                        <th:if test="${user.plateId!=0}">
+                            <span style="font-size: 25px"><b>${user.plateName} </b></span>
+                        </th:if>
+                    </td>
+                </tr>
+
+            </table>
+
+            </div>
+            <div style="float: left ;width: 36%">
+                <form action="/user/picture" enctype="multipart/form-data" method="post">
+                    <input type="file"  name="file" style="margin-left: 34px;margin-top: 50px" value="上传头像" >
+                    <button class="butclass">上传头像(最大2M)</button>
+                </form>
+            </div>
+            <span style="font-size: 25px;color:red">${info}</span>
+            <div style="float: right;width:70%">
+                <button id="showChanTable" style="margin-top: -250px;" >设置个人信息</button>
+                    <div class="changeinfo" id="chaninfo" >
+                        <form action="/changeInfo" method="post">
+                            密码：<input style="height: 28px" type="password" name="psw" id=""><br>
+                            昵称：<input style="height: 28px" type="text" name="nickname">
+                            <button>提交</button>
+                        </form>
+                    </div>
+                <shiro:hasPermission name="moderator:agree">
+                <div id="applyManagerTable" style="width:100%;margin: 0 auto;">
+                        <h1 style="text-align: center">版主申请列表</h1>
+                    <h1 style="color: red">${applyError}</h1>
+                    <c:forEach items="${applys}" var="apply"  varStatus="f">
+                            <table class="dataintable" style="width: 100%">
+                                <tr>
+                                    <td><i> <span class="vintage"> 编号:</span> <br></i></td>
+                                    <td><span style="font-size: 25px">${f.count} </span> </td>
+                                </tr>
+                                <tr>
+                                    <td><i> <span class="vintage"> 申请者:</span> <br></i></td>
+                                    <td><span style="font-size: 25px">${apply.nickName} </span> </td>
+                                </tr>
+                                <tr>
+                                    <td><i><span class="vintage"> 申请板块：</span><br></i></td>
+                                    <td><span style="font-size: 25px" >${apply.plateName} </span> </td>
+                                </tr>
+                                <tr>
+                                    <td><i>
+                                        <span class="vintage"> 申请时间：</span> <br></i></td>
+                                    <td><span style="font-size: 25px">${apply.applyDate} </span> </td>
+                                </tr>
+                            </table>
+                            <a href="/agreeApply?applyId=${apply.applyId}&userId=${apply.userId}&plateId=${apply.plateId}" style="float: left;color: green;font-size: 20px"><b>同意</b></a>&emsp;&emsp;&emsp;
+                        <a href="/disAgree?applyId=${apply.applyId}" style="float:right;color:red;font-size: 20px"><b>否决</b></a>
+                        <hr>
+                    </c:forEach>
+
+                </div>
+                </shiro:hasPermission>
+            </div>
+
+        </in>
+        </div>
+
+    </div>
+</div>
+<!-- End of Page Container -->
+
+<!-- Start of Footer -->
+<footer id="footer-wrapper">
+    <div id="footer" class="container">
+        <div class="row">
+
+            <div class="span3">
+                <section class="widget">
+                    <h3 class="title">How it works</h3>
+                    <div class="textwidget">
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
+                        <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="span3">
+                <section class="widget"><h3 class="title">Categories</h3>
+                    <ul>
+                        <li><a href="#" title="Lorem ipsum dolor sit amet,">Advanced Techniques</a> </li>
+                        <li><a href="#" title="Lorem ipsum dolor sit amet,">Designing in WordPress</a></li>
+                        <li><a href="#" title="Lorem ipsum dolor sit amet,">Server &amp; Database</a></li>
+                        <li><a href="#" title="Lorem ipsum dolor sit amet, ">Theme Development</a></li>
+                        <li><a href="#" title="Lorem ipsum dolor sit amet,">Website Dev</a></li>
+                        <li><a href="#" title="Lorem ipsum dolor sit amet,">WordPress for Beginners</a></li>
+                        <li><a href="#" title="Lorem ipsum dolor sit amet, ">WordPress Plugins</a></li>
+                    </ul>
+                </section>
+            </div>
+
+
+
+            <div class="span3">
+                <section class="widget">
+                    <h3 class="title">Flickr Photos</h3>
+                    <div class="flickr-photos" id="basicuse">
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </div>
+    <!-- end of #footer -->
+
+    <!-- Footer Bottom -->
+    <div id="footer-bottom-wrapper">
+        <div id="footer-bottom" class="container">
+            <div class="row">
+                <div class="span6">
+                    <p class="copyright">
+                        Copyright © 2013. All Rights Reserved by KnowledgeBase.Collect from
+                    </p>
+                </div>
+                <div class="span6">
+                    <!-- Social Navigation -->
+                    <ul class="social-nav clearfix">
+                        <li class="linkedin"><a target="_blank" href="#"></a></li>
+                        <li class="stumble"><a target="_blank" href="#"></a></li>
+                        <li class="google"><a target="_blank" href="#"></a></li>
+                        <li class="deviantart"><a target="_blank" href="#"></a></li>
+                        <li class="flickr"><a target="_blank" href="#"></a></li>
+                        <li class="skype"><a target="_blank" href="skype:#?call"></a></li>
+                        <li class="rss"><a target="_blank" href="#"></a></li>
+                        <li class="twitter"><a target="_blank" href="#"></a></li>
+                        <li class="facebook"><a target="_blank" href="#"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Footer Bottom -->
+
+</footer>
+<!-- End of Footer -->
+
+<a href="#top" id="scroll-top"></a>
+
+<!-- script -->
+<!--<script type='text/javascript' src='js/jquery-1.8.3.min.js'></script>-->
+<script type='text/javascript' src='/js/jquery.easing.1.3.js'></script>
+<script type='text/javascript' src='/js/prettyphoto/jquery.prettyPhoto.js'></script>
+<script type='text/javascript' src='/js/jquery.liveSearch.js'></script>
+<script type='text/javascript' src='/js/jquery.form.js'></script>
+<script type='text/javascript' src='/js/jquery.validate.min.js'></script>
+<script type='text/javascript' src='/js/custom.js'></script>
+
+</body>
+</html>

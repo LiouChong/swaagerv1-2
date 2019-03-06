@@ -1,5 +1,6 @@
 package com.bysj.config.shiro;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -75,10 +76,10 @@ public class ShiroConfiguration {
 
         // 具体controller的链接
         // 首页跳转允许
-        filterChainDefinetionMap.put("/post/query/recommended", "anon");
+        filterChainDefinetionMap.put("/post/index", "anon");
         filterChainDefinetionMap.put("/user/login", "anon");
         // 简单搜索功能允许
-//        filterChainDefinetionMap.put("/post/query/simple", "anon");
+        filterChainDefinetionMap.put("/post/query/simple", "anon");
 
 
         // 退出登录页面
@@ -87,7 +88,7 @@ public class ShiroConfiguration {
 
         shiroFilterFactoryBean.setLoginUrl("/login");
         //登陆成功后跳转的页面
-        shiroFilterFactoryBean.setSuccessUrl("/post/query/recommended");
+        shiroFilterFactoryBean.setSuccessUrl("/post/index");
 
         filterChainDefinetionMap.put("/**", "authc");
         //未授权界面
@@ -116,5 +117,13 @@ public class ShiroConfiguration {
         return hashedCredentialsMatcher;
     }
 
+    /**
+     * thymeleaf 与shiro标签的配置（标签生效）
+     * @return
+     */
+    @Bean
+    public ShiroDialect shiroDialect(){
+        return new ShiroDialect();
+    }
 
 }

@@ -10,7 +10,10 @@ import com.bysj.service.IUserService;
 import io.swagger.annotations.*;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
+import org.springframework.http.codec.multipart.Part;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -27,9 +30,6 @@ import java.util.Map;
 public class UserController {
 
 
-    @Resource
-    public IUserService iUserService;
-
     /**
      * 发送邮件
      *
@@ -42,6 +42,9 @@ public class UserController {
     public String sendEmail(@RequestBody Map map, HttpServletRequest request) throws IOException {
         return iUserService.sendVerificationCode(map, request);
     }
+
+    @Resource
+    public IUserService iUserService;
 
 
     /**
@@ -98,7 +101,7 @@ public class UserController {
             }
 
             if (successUrl == null) {
-                successUrl = "/post/query/recommended";
+                successUrl = "/post/index";
             }
             return new ModelAndView("redirect:" + successUrl);
         } else {
@@ -145,7 +148,7 @@ public class UserController {
     }
 
     /**
-     * 通过ID查询
+     * 查询用户详细信息
      *
      * @param id
      * @return actionResponse
@@ -154,10 +157,10 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/user/query/{id}", method = RequestMethod.GET)
-    public ActionResponse queryById(@ApiParam(value = "user") @PathVariable("id") Integer id) throws Exception {
+    @RequestMapping(value = "/user/detail", method = RequestMethod.GET)
+    public ModelAndView queryById(ModelAndView modelAndView) throws Exception {
 
-        return ActionResponse.success(iUserService.getById(id));
+        return iUserService.getInfoById(modelAndView);
     }
 
     /**
@@ -174,6 +177,21 @@ public class UserController {
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id) throws Exception {
 
         return ActionResponse.success(iUserService.deleteById(id));
+    }
+
+    /**
+     * 上传头像
+     *
+     * @param id
+     * @return actionResponse
+     */
+    @ApiOperation(value = "通过ID删除接口", notes = "主键封装对象")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
+    })
+    @RequestMapping(value = "/user/picture", method = RequestMethod.POST)
+    public void addPicture(@RequestPart("file") MultipartFile profilePicture, ModelAndView model, HttpServletRequest request) throws Exception {
+        iUserService.addPicture(profilePicture, model, request);
     }
 }
 
