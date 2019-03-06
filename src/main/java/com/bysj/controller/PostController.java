@@ -108,10 +108,10 @@ public class PostController {
     public ModelAndView queryList(@ApiParam(value = "post") PostSimpleQueryList postQuery, ModelAndView mav)throws Exception{
         // 获取帖子列表与总记录数
         List<PostResponse> postList = iPostService.findPageSimplePost(postQuery);
-        Integer totalRecords = iPostService.findCount(postQuery);
-
+        Integer totalRecords = iPostService.findSimpleQueryCount(postQuery);
+        Integer pageSize = postQuery.getPageSize();
         // 获取总页数
-        int totalPage = PageUtil.getTotalPage(totalRecords, postQuery.getPageSize());
+        Integer totalPage = PageUtil.getTotalPage(totalRecords, pageSize);
         mav.addObject("pageSize", postQuery.getPageSize());
         mav.addObject("totalRecords", totalRecords);
         mav.addObject("totalPage", totalPage);

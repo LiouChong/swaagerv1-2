@@ -129,7 +129,7 @@
             <div class="span8 main-listing">
                 <h2 style="color: red">${errorInfo}</h2>
                 <!--<c:forEach items="${postAndPlates}" var="postAndPlate">-->
-                    <article class="format-standard type-post hentry clearfix" th:each="post,postStat : ${postList}">
+                    <article class="format-standard type-post hentry clearfix" th:each="post,postStat:${postList}">
                         <header class="clearfix">
 
                             <h3 class="post-title">
@@ -137,7 +137,7 @@
                             </h3>
 
                             <div class="post-meta clearfix">
-                                <span class="date" th:text="${post.getGmtCreate}"><!--${postAndPlate.time}--></span>
+                                <span class="date" th:text="${post.gmtCreate}"><!--${postAndPlate.time}--></span>
                                 <span class="category" th:text="${post.plateName}"><!--${postAndPlate.plateName}--></span>
                                 <span class="comments" th:text="${post.replyCount}"><!--${postAndPlate.replyCount}--></span>
                                     <span class="like-count" th:text="${post.thumbupCount}"></span>
@@ -159,7 +159,7 @@
                     <hr style="color: red">
                 <!--</c:forEach>-->
                 <div id="pagination">
-                    <span style="font-size: 16px ; font-family: 'Javanese Text'" th:text="'共有' + ${totalPage} + ', 当前第' + ${currentPage} + ' 页'">共有${page.maxPageNum} 页，当前第${page.pageNum} 页</span><br>
+                    <span style="font-size: 16px ; font-family: 'Javanese Text'" th:text="'共有' + ${totalPage} + ', 当前第' + ${currentPage} + ' 页'"></span><br>
                     <!--<a href="/searchInfo?search=${searchInfo}" class="btn">« 第一页</a>
                     <c:if test="${page.pageNum == 1}">
                         <a href="/searchInfo?search=${searchInfo}" class="btn">« 上一页</a>

@@ -42,7 +42,7 @@ public interface IPostService extends IBaseService<Post> {
         List<PostResponse> findListPost(PostQueryForList query) throws Exception;
 
         /**
-         * 批量查询
+         * 批量查询，用于推荐帖子
          * @param query
          * @return
          */
@@ -54,4 +54,11 @@ public interface IPostService extends IBaseService<Post> {
          * @return
          */
         List<PostResponse> findPageSimplePost(PostSimpleQueryList queryList);
+
+        /**
+         * 获取简单查询数量
+         * @param queryList
+         * @return
+         */
+        Integer findSimpleQueryCount(PostSimpleQueryList queryList);
 }

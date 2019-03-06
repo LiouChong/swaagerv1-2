@@ -94,13 +94,13 @@ public class UserController {
             if (savedRequest != null && savedRequest.getMethod().equalsIgnoreCase("GET")) {
                 successUrl = savedRequest.getRequestUrl();
                 System.out.println("url======>> " + successUrl);
+
             }
 
             if (successUrl == null) {
                 successUrl = "/post/query/recommended";
-                return new ModelAndView("redirect:" + successUrl);
             }
-
+            return new ModelAndView("redirect:" + successUrl);
         } else {
             if (actionResponse.getBody() != null) {
                 modelAndView.addObject("login_info", actionResponse.getBody().toString());

@@ -22,4 +22,7 @@ public interface PostDao extends IBaseDao<Post> {
      * @return
      */
     List<PostResponse> findPageSimplePost(PostSimpleQueryList queryList);
+
+
+    Integer findSimpleQueryCount(PostSimpleQueryList queryList);
 }

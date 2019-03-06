@@ -25,47 +25,47 @@ import java.util.List;
  */
 @Service
 public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostService {
-        @Resource
-        private PostDao postDao;
-        @Resource
-        private BaseConverter<PostRequest, Post> requestConverter;
-        @Resource
-        private BaseConverter<Post, PostResponse> responseConverter;
-        @Resource
-        private NumberChineseEx numberChineseEx;
+    @Resource
+    private PostDao postDao;
+    @Resource
+    private BaseConverter<PostRequest, Post> requestConverter;
+    @Resource
+    private BaseConverter<Post, PostResponse> responseConverter;
+    @Resource
+    private NumberChineseEx numberChineseEx;
 
-        @Override
-        public Integer savePost(PostRequest request) throws Exception {
-            Post post = requestConverter.convert(request, Post.class);
-            return postDao.insert(post);
+    @Override
+    public Integer savePost(PostRequest request) throws Exception {
+        Post post = requestConverter.convert(request, Post.class);
+        return postDao.insert(post);
+    }
+
+    @Override
+    public Integer updatePost(PostRequest request) throws Exception {
+        Post post = requestConverter.convert(request, Post.class);
+        return postDao.update(post);
+    }
+
+    @Override
+    public List<PostResponse> findListPost(PostQueryForList query) throws Exception {
+        List<Post> postList = postDao.findQuery(query);
+        //TODO
+        List<PostResponse> postResponse = responseConverter.convert(postList, PostResponse.class);
+        return postResponse;
+    }
+
+    @Override
+    public List<PostResponse> findPagePost(PostQueryForList query) throws Exception {
+        // 根据条件查询到符合的帖子集合
+        List<PostResponse> postList = this.findListPost(query);
+
+        //对帖子集合进行数字中文转换
+        for (PostResponse postResponse : postList) {
+            exChangeNumber(postResponse);
         }
 
-        @Override
-        public Integer updatePost(PostRequest request) throws Exception {
-            Post post = requestConverter.convert(request, Post.class);
-            return postDao.update(post);
-        }
-
-        @Override
-        public List<PostResponse> findListPost(PostQueryForList query) throws Exception {
-            List<Post> postList = postDao.findQuery(query);
-            //TODO
-            List<PostResponse> postResponse = responseConverter.convert(postList,PostResponse.class );
-            return postResponse;
-        }
-
-        @Override
-        public List<PostResponse> findPagePost(PostQueryForList query) throws Exception {
-            // 根据条件查询到符合的帖子集合
-            List<PostResponse> postList = this.findListPost(query);
-
-            //对帖子集合进行数字中文转换
-            for (PostResponse postResponse : postList) {
-                exChangeNumber(postResponse);
-            }
-
-            return postList;
-        }
+        return postList;
+    }
 
     @Override
     public List<PostResponse> findPageSimplePost(PostSimpleQueryList queryList) {
@@ -78,6 +78,11 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
         }
 
         return postResponses;
+    }
+
+    @Override
+    public Integer findSimpleQueryCount(PostSimpleQueryList queryList) {
+        return postDao.findSimpleQueryCount(queryList);
     }
 
     private void exChangeNumber(PostResponse postResponse) {
