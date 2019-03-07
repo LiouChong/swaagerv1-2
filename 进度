@@ -2,3 +2,11 @@
     用户详情、帖子详情未完成。用户详情将service写完，controller观察是否返回
     modelAndView。返回完成后需要在页面观察显示信息。然后完成上传头像、修改信息等功能。
     帖子详情大部分未完成。
+3月7号 个人详情后端大致完成，显示有问题，样式很丑，东西未显示完全。（修改头像已完成）注意todo要修改的
+
+gt：great than（大于）>
+ge：great equal（大于等于）>=
+eq：equal（等于）==
+lt：less than（小于）<
+le：less equal（小于等于）<=
+ne：not equal（不等于）!=

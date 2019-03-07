@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="/images/beijing.jpg" />
 
     <!-- Style Sheet-->
-    <%--<link rel="stylesheet" href="style.css"/>--%>
+    <!--<link rel="stylesheet" href="style.css"/>-->
     <link rel='stylesheet' id='bootstrap-css-css'  href='/css/bootstrap5152.css?ver=1.0' type='text/css' media='all' />
     <link rel='stylesheet' id='responsive-css-css'  href='/css/responsive5152.css?ver=1.0' type='text/css' media='all' />
     <link rel='stylesheet' id='pretty-photo-css-css'  href='/js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all' />
@@ -130,7 +130,7 @@
             <div class="logo-container">
                 <!-- Website Logo -->
                 <a href="/index-2"  title="BBS技术分享网站">
-                    <img src="images/logo.png" alt="BBS technology sharing site">
+                    <img src="/images/logo.png" alt="BBS technology sharing site">
                 </a>
                 <span class="tag-line">思想的宽度从分享开始</span>
             </div>
@@ -142,7 +142,7 @@
                     <ul id="menu-top-menu" class="clearfix">
                         <li class="current-menu-item"><a href="/index-2">首页</a></li>
                         <li><a href="/home-categories-description">关注</a></li>
-                        <%--<li><a href="/home-categories-articles">categories-articles</a></li>--%>
+                        <!--<li><a href="/home-categories-articles">categories-articles</a></li>-->
                         <li><a href="/articles-list">最新</a></li>
                         <li><a href="/faq">常见问题</a></li>
                         <li><a href="/contact">联系我们</a></li>
@@ -164,57 +164,46 @@
     <div class="container">
         <in id="info">
             <div >
-                <th:if test="${user.ifBan==1}">
-                    <h1 style="color: gray;text-align: center"> 以被封禁 </h1>
-                </th:if>
-                <th:if test="${user.ifBan ==0}">
-                    <h1 style="text-align: center">个人信息</h1>
-                </th:if>
+
+                    <h1 style="color: gray;text-align: center" th:if="${user.state} eq '无效'"> 以被封禁 </h1>
+                    <h1 style="text-align: center" th:if="${user.state} eq '有效'">个人信息</h1>
 
 
                 <div id="left_box">
-                    <th:if test="${user.picture==null}">
-                        <h2>暂无头像！</h2>
-                    </th:if>
-                    <th:if test="${user.picture!=null}">
-                        <img src="/user/${user.picture}" style="width: 100%;height: 300px"/>
-                    </th:if>
+                        <h2 th:if="${user.picture} eq null">暂无头像！</h2>
+                        <img th:if="${user.picture} ne null" src="/user/${user.picture}" style="width: 100%;height: 300px"/>
                 </div>
 
 
             <table class="dataintable">
                 <tr>
                     <td><i> <span class="vintage"> 邮箱:</span> <br></i></td>
-                    <td><span style="font-size: 25px">${user.email} </span> </td>
+                    <td><span style="font-size: 25px" th:text="${user.email}"><!--${user.email} --></span> </td>
                 </tr>
                 <tr>
                     <td><i> <span class="vintage"> 密码:</span> <br></i></td>
-                    <td><span style="font-size: 25px">${user.psw} </span> </td>
+                    <td><span style="font-size: 25px" th:text="${user.psw}"><!--${user.psw} --></span> </td>
                 </tr>
                 <tr>
-                    <td><i><span class="vintage"> 经验值：</span><br></i></td>
-                    <td><span style="font-size: 25px" >${user.experience} </span> </td>
+                    <td><i><span class="vintage"> 积分数：</span><br></i></td>
+                    <td><span style="font-size: 25px"  th:text="${user.money}"><!--${user.experience}--> </span> </td>
                 </tr>
                 <tr>
                     <td><i>
                         <span class="vintage"> 昵称：</span> <br></i></td>
-                    <td><span style="font-size: 25px">${user.nickname} </span> </td>
+                    <td><span style="font-size: 25px" th:text="${user.nickname}"><!--${user.nickname} --></span> </td>
                 </tr>
                 <tr>
                     <td><i>
                         <span class="vintage"> 粉丝数：</span> <br></i></td>
-                    <td><span style="font-size: 25px"><b>${count} </b></span> </td>
+                    <td><span style="font-size: 25px"><b><!--${count}--> 0</b></span> </td>
                 </tr>
                 <tr>
                     <td><i>
                         <span class="vintage"> 管理的板块：</span> <br></i></td>
                     <td>
-                        <th:if test="${user.plateId==0}">
-                            <span style="font-size: 25px"><b>暂无</b></span>
-                        </th:if>
-                        <th:if test="${user.plateId!=0}">
-                            <span style="font-size: 25px"><b>${user.plateName} </b></span>
-                        </th:if>
+                            <span style="font-size: 25px" th:if="${user.plateName eq null}"><b >暂无</b></span>
+                            <span style="font-size: 25px" th:if="${user.plateName ne null}"><b th:text="${user.plateName}"></b></span>
                     </td>
                 </tr>
 
@@ -227,7 +216,7 @@
                     <button class="butclass">上传头像(最大2M)</button>
                 </form>
             </div>
-            <span style="font-size: 25px;color:red">${info}</span>
+            <!--<span style="font-size: 25px;color:red">${info}</span>-->
             <div style="float: right;width:70%">
                 <button id="showChanTable" style="margin-top: -250px;" >设置个人信息</button>
                     <div class="changeinfo" id="chaninfo" >

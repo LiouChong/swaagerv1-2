@@ -3,6 +3,7 @@ package com.bysj.dao;
 
 import com.bysj.common.response.IBaseDao;
 import com.bysj.entity.User;
+import com.bysj.entity.vo.response.UserResponse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,4 +31,11 @@ public interface UserDao extends IBaseDao<User> {
      * @return
      */
     List<String> selectUserPermissionBylevel(@Param("level") Integer level);
+
+    /**
+     * 获取用户详细信息
+     * @param id
+     * @return
+     */
+    UserResponse userDetailInfo(Integer id);
 }

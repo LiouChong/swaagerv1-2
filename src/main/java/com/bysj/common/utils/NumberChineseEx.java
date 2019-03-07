@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 /**
  * @Author: 刘冲
@@ -31,6 +32,9 @@ public class NumberChineseEx<T> {
                     field.setAccessible(true);
                     Integer fieldValue = (Integer)field.get(t);
 
+                    if (Objects.isNull(fieldValue)) {
+                        return null;
+                    }
                     ApiModelProperty annotation = field.getAnnotation(ApiModelProperty.class);
                     //获得关联内容，格式为 1 有效,0 无效
                     String numChineseRel = annotation.value().split(":")[1];

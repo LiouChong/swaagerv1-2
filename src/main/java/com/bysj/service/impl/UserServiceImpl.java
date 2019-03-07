@@ -8,6 +8,7 @@ import com.bysj.common.response.ActionResponse;
 import com.bysj.common.response.PageResult;
 import com.bysj.common.response.RespBasicCode;
 import com.bysj.common.utils.MailUtil;
+import com.bysj.common.utils.NumberChineseEx;
 import com.bysj.dao.UserDao;
 import com.bysj.entity.User;
 import com.bysj.entity.vo.query.UserQuery;
@@ -28,6 +29,7 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -64,6 +66,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     private BaseConverter<UserRequest, User> requestConverter;
     @Resource
     private BaseConverter<User, UserResponse> responseConverter;
+
+    @Autowired
+    private NumberChineseEx numberChineseEx;
 
     /**
      * 保存用户，用户用户注册
@@ -225,9 +230,19 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
             model.addObject("info","超出图片大小限制！");
         }
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        String fileName = user.getEmail() + System.currentTimeMillis();
+
+//        String fileName = user.getEmail() + System.currentTimeMillis();
+
+        // 获取上传的文件名字
+        String fileName = profilePicture.getOriginalFilename();
+        // 通过文件名获取文件后缀
+        String suffixname = fileName.substring(fileName.lastIndexOf(".") + 1);
+        // TODO: 这里记得修改为当前登录用户
+
+        String pictureName = "970009721@qq.com" + System.currentTimeMillis() + "." + suffixname;
         try {
-            profilePicture.transferTo(new File(fileName));
+            // 保存文件
+            profilePicture.transferTo(new File(pictureName));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -236,15 +251,14 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         return model;
     }
 
-    public User getByEmail(String email) {
-        return userDao.selectByemail(email);
-    }
-
     @Override
     public ModelAndView getInfoById(ModelAndView modelAndView) throws Exception {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        user = userDao.getById(user.getId());
-        modelAndView.addObject("user",user);
+        // TODO 这里赋值要改变
+        UserResponse userResponse = userDao.userDetailInfo(/*user.getId()*/ 1);
+        numberChineseEx.NumExchangeChinese(userResponse, "sex");
+        numberChineseEx.NumExchangeChinese(userResponse, "state");
+        modelAndView.addObject("user",userResponse);
         modelAndView.setViewName("myInfo");
         return modelAndView;
     }

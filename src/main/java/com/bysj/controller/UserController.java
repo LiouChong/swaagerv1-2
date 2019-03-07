@@ -159,7 +159,6 @@ public class UserController {
     })
     @RequestMapping(value = "/user/detail", method = RequestMethod.GET)
     public ModelAndView queryById(ModelAndView modelAndView) throws Exception {
-
         return iUserService.getInfoById(modelAndView);
     }
 
@@ -193,5 +192,6 @@ public class UserController {
     public void addPicture(@RequestPart("file") MultipartFile profilePicture, ModelAndView model, HttpServletRequest request) throws Exception {
         iUserService.addPicture(profilePicture, model, request);
     }
+
 }
 

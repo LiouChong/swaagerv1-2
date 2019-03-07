@@ -2,10 +2,15 @@ package com.bysj.entity.vo.response;
 
 
 import com.bysj.common.request.BaseEntity;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
- * UserResponse 响应对象
+ * 用户详细信息响应对象
  * </p>
  *
  * @author 刘冲
@@ -13,5 +18,195 @@ import com.bysj.common.request.BaseEntity;
  */
 
 public class UserResponse extends BaseEntity {
+    /**
+     * 昵称
+     */
+    @ApiModelProperty("昵称")
+    private String nickname;
+    /**
+     * 密码
+     */
+    @ApiModelProperty("密码")
+    private String psw;
+    /**
+     * 积分
+     */
+    @ApiModelProperty("积分")
+    private Integer money;
+    /**
+     * 邮箱
+     */
+    @ApiModelProperty("邮箱")
+    private String email;
+    /**
+     * 头像
+     */
+    @ApiModelProperty("头像")
+    private String picture;
+    /**
+     * 个性签名
+     */
+    @ApiModelProperty("个性签名")
+    private String signaTure;
+    /**
+     * 性别:1 男,2 女
+     */
+    @ApiModelProperty("性别:1 男,2 女")
+    private Boolean sex;
+    /**
+     * 年龄
+     */
+    @ApiModelProperty("年龄")
+    private Integer age;
 
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("创建时间")
+    private Date gmtCreate;
+
+    /**
+     * 粉丝数
+     */
+    @ApiModelProperty("粉丝数")
+    private Integer fanCount;
+
+    /**
+     * 管理板块名称
+     */
+    @ApiModelProperty("管理的板块名称")
+    private List<String> plateName;
+
+    /**
+     * 状态，1 有效0 无效
+     */
+    @ApiModelProperty("状态:1 有效,0 无效")
+    private Integer state;
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getPsw() {
+        return psw;
+    }
+
+    public void setPsw(String psw) {
+        this.psw = psw;
+    }
+
+    public Integer getMoney() {
+        return money;
+    }
+
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getSignaTure() {
+        return signaTure;
+    }
+
+    public void setSignaTure(String signaTure) {
+        this.signaTure = signaTure;
+    }
+
+    public Boolean getSex() {
+        return sex;
+    }
+
+    public void setSex(Boolean sex) {
+        this.sex = sex;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Integer getFanCount() {
+        return fanCount;
+    }
+
+    public void setFanCount(Integer fanCount) {
+        this.fanCount = fanCount;
+    }
+
+    public List<String> getPlateName() {
+        return plateName;
+    }
+
+    public void setPlateName(List<String> plateName) {
+        this.plateName = plateName;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"nickname\":\"")
+                .append(nickname).append('\"');
+        sb.append(",\"psw\":\"")
+                .append(psw).append('\"');
+        sb.append(",\"money\":")
+                .append(money);
+        sb.append(",\"email\":\"")
+                .append(email).append('\"');
+        sb.append(",\"picture\":\"")
+                .append(picture).append('\"');
+        sb.append(",\"signaTure\":\"")
+                .append(signaTure).append('\"');
+        sb.append(",\"sex\":")
+                .append(sex);
+        sb.append(",\"age\":")
+                .append(age);
+        sb.append(",\"gmtCreate\":\"")
+                .append(gmtCreate).append('\"');
+        sb.append(",\"fanCount\":")
+                .append(fanCount);
+        sb.append(",\"plateName\":")
+                .append(plateName);
+        sb.append(",\"state\":")
+                .append(state);
+        sb.append('}');
+        return sb.toString();
+    }
 }

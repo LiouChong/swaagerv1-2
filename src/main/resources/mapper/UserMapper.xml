@@ -19,9 +19,25 @@
         <result column="gmt_modify" property="gmtModify"/>
         <result column="user_modify" property="userModify"/>
     </resultMap>
-<!-- 通用查询结果列 -->
+    <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, nickname, psw, money, email, picture, level, signa_ture AS signaTure, sex, age,state,gmt_create,gmt_modify,user_modify
+        id
+        ,
+        nickname,
+        psw,
+        money,
+        email,
+        picture,
+        level,
+        signa_ture
+        AS
+        signaTure,
+        sex,
+        age,
+        state,
+        gmt_create,
+        gmt_modify,
+        user_modify
     </sql>
 
     <sql id="Table_Name">
@@ -199,6 +215,37 @@
         where id = #{id}
     </select>
 
+    <!-- 根据主键查询 -->
+    <select id="userDetailInfo" resultType="com.bysj.entity.vo.response.UserResponse" parameterType="java.lang.Integer">
+        SELECT
+            u.id,
+            nickname,
+            psw,
+            money,
+            email,
+            picture,
+            signa_ture AS signaTure,
+            sex,
+            age,
+            u.gmt_create,
+            (
+                SELECT
+                    count( fan_id ) from
+                    USER u
+                        INNER JOIN follow f ON u.id = f.star_id
+                WHERE
+                    u.id = #{id}
+            ) as fanCount,
+            group_concat( p.plate_name ) AS playeName
+        FROM
+            USER u
+                INNER JOIN plater p ON u.id = p.owner_id
+        WHERE
+            u.id = #{id}
+        GROUP BY
+            u.id
+    </select>
+
 
     <delete id="deleteById" parameterType="java.lang.Integer">
         delete from
@@ -251,10 +298,14 @@
     </select>
 
     <select id="selectByemail" parameterType="String" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List"/> from user where email = "${email}"
+        select
+        <include refid="Base_Column_List"/>
+        from user where email = "${email}"
     </select>
 
     <select id="selectUserPermissionBylevel" parameterType="Integer" resultType="String">
-        SELECT permission from permission p where p.role_id = #{level}
+        SELECT permission
+        from permission p
+        where p.role_id = #{level}
     </select>
 </mapper>
