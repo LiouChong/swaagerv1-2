@@ -28,7 +28,7 @@
     <![endif]-->
     <style type="text/css">
         div {
-            /*border:1px solid black;*/
+            border:1px solid black;
         }
         .changeinfo{
             float: right;
@@ -94,9 +94,6 @@
             height: 600px;
         }
 
-        .vintage{
-            font-size:28px;
-        }
 
         #left_box{
             float: left;
@@ -206,19 +203,24 @@
                             <span style="font-size: 25px" th:if="${user.plateName ne null}"><b th:text="${user.plateName}"></b></span>
                     </td>
                 </tr>
+                <tr>
+                    <td><i><span class="vintage">设置头像： </span> </i></td>
+                    <td>
+                        <form action="/user/picture" enctype="multipart/form-data" method="post">
+                            <input type="file"  name="file" value="上传头像" >
+                            <button class="butclass">上传头像(最大2M)</button>
+                        </form>
+                    </td>
+                </tr>
 
             </table>
 
             </div>
-            <div style="float: left ;width: 36%">
-                <form action="/user/picture" enctype="multipart/form-data" method="post">
-                    <input type="file"  name="file" style="margin-left: 34px;margin-top: 50px" value="上传头像" >
-                    <button class="butclass">上传头像(最大2M)</button>
-                </form>
-            </div>
+
             <!--<span style="font-size: 25px;color:red">${info}</span>-->
             <div style="float: right;width:70%">
-                <button id="showChanTable" style="margin-top: -250px;" >设置个人信息</button>
+                <hr>
+                <button id="showChanTable">设置个人信息</button>
                     <div class="changeinfo" id="chaninfo" >
                         <form action="/changeInfo" method="post">
                             密码：<input style="height: 28px" type="password" name="psw" id=""><br>
