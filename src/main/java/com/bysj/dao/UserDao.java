@@ -3,6 +3,7 @@ package com.bysj.dao;
 
 import com.bysj.common.response.IBaseDao;
 import com.bysj.entity.User;
+import com.bysj.entity.vo.request.UserRequestForUpdate;
 import com.bysj.entity.vo.response.UserResponse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -38,4 +39,6 @@ public interface UserDao extends IBaseDao<User> {
      * @return
      */
     UserResponse userDetailInfo(Integer id);
+
+    Integer updateUser(UserRequestForUpdate userRequestForUpdate);
 }

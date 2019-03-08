@@ -9,6 +9,7 @@ import com.bysj.entity.vo.query.UserQuery;
 import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequest;
+import com.bysj.entity.vo.request.UserRequestForUpdate;
 import com.bysj.entity.vo.response.UserResponse;
 import org.springframework.http.codec.multipart.Part;
 import org.springframework.ui.Model;
@@ -43,7 +44,7 @@ public interface IUserService extends IBaseService<User> {
          * @param request
          * @return
          */
-        Integer updateUser(UserRequest request) throws Exception;
+        Integer updateUser(UserRequestForUpdate request) throws Exception;
 
         /**
          * 查询对象集合
@@ -92,7 +93,7 @@ public interface IUserService extends IBaseService<User> {
          * @param request
          * @return
          */
-        ModelAndView addPicture(MultipartFile profilePicture, ModelAndView model, HttpServletRequest request);
+        ModelAndView addPicture(MultipartFile profilePicture, ModelAndView model, HttpServletRequest request) throws Exception;
 
         ModelAndView getInfoById(ModelAndView modelAndView) throws Exception;
 }

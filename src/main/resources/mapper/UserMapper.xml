@@ -201,9 +201,72 @@
         update
         <include refid="Table_Name"></include>
         <trim prefix="SET" suffixOverrides=",">
-            <include refid="Set_Column_List"></include>
+            <if test=" nickname != null">
+                nickname = #{nickname },
+            </if>
+            <if test=" psw != null">
+                psw = #{psw },
+            </if>
+            <if test=" money != null">
+                money = #{money },
+            </if>
+            <if test=" email != null">
+                email = #{email },
+            </if>
+            <if test=" picture != null">
+                picture = #{picture },
+            </if>
+            <if test=" level != null">
+                level = #{level },
+            </if>
+            <if test=" signaTure != null">
+                signa_ture = #{signaTure },
+            </if>
+            <if test=" sex != null">
+                sex = #{sex },
+            </if>
+            <if test=" age != null">
+                age = #{age },
+            </if>
+            <if test=" gmtCreate != null">
+                gmt_create = #{gmtCreate },
+            </if>
+            <if test=" gmtModify != null">
+                gmt_modify = #{gmtModify },
+            </if>
+            <if test=" userModify != null">
+                user_modify = #{userModify },
+            </if>
         </trim>
         where id = #{id}
+    </update>
+
+    <update id="updateUser">
+        update user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test=" nickname != null">
+                nickname = #{nickname },
+            </if>
+            <if test=" psw != null">
+                psw = #{psw },
+            </if>
+            <if test=" signaTure != null">
+                signa_ture = #{signaTure },
+            </if>
+            <if test=" sex != null">
+                sex = #{sex },
+            </if>
+            <if test=" age != null">
+                age = #{age },
+            </if>
+            <if test=" gmtModify != null">
+                gmt_modify = #{gmtModify },
+            </if>
+            <if test=" userModify != null">
+                user_modify = #{userModify },
+            </if>
+        </trim>
+          where id = ${id}
     </update>
 
     <!-- 根据主键查询 -->
@@ -227,7 +290,7 @@
             signa_ture AS signaTure,
             sex,
             age,
-            u.gmt_create,
+            u.gmt_create as gmtCreate,
             (
                 SELECT
                     count( fan_id ) from
@@ -236,6 +299,7 @@
                 WHERE
                     u.id = #{id}
             ) as fanCount,
+            u.state ,
             group_concat( p.plate_name ) AS playeName
         FROM
             USER u

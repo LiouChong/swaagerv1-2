@@ -51,8 +51,11 @@ public class UserResponse extends BaseEntity {
     /**
      * 性别:1 男,2 女
      */
-    @ApiModelProperty("性别:1 男,2 女")
-    private Boolean sex;
+    @ApiModelProperty("性别:1 男,0 女")
+    private Integer sex;
+
+    private String sexStr;
+
     /**
      * 年龄
      */
@@ -64,6 +67,9 @@ public class UserResponse extends BaseEntity {
      */
     @ApiModelProperty("创建时间")
     private Date gmtCreate;
+
+    @ApiModelProperty("创建时间字符串")
+    private String gmtCreateStr;
 
     /**
      * 粉丝数
@@ -82,6 +88,24 @@ public class UserResponse extends BaseEntity {
      */
     @ApiModelProperty("状态:1 有效,0 无效")
     private Integer state;
+
+    private String stateStr;
+
+    public String getSexStr() {
+        return sexStr;
+    }
+
+    public void setSexStr(String sexStr) {
+        this.sexStr = sexStr;
+    }
+
+    public String getStateStr() {
+        return stateStr;
+    }
+
+    public void setStateStr(String stateStr) {
+        this.stateStr = stateStr;
+    }
 
     public Integer getState() {
         return state;
@@ -139,11 +163,11 @@ public class UserResponse extends BaseEntity {
         this.signaTure = signaTure;
     }
 
-    public Boolean getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(Boolean sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
@@ -179,6 +203,14 @@ public class UserResponse extends BaseEntity {
         this.plateName = plateName;
     }
 
+    public String getGmtCreateStr() {
+        return gmtCreateStr;
+    }
+
+    public void setGmtCreateStr(String gmtCreateStr) {
+        this.gmtCreateStr = gmtCreateStr;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
@@ -200,6 +232,8 @@ public class UserResponse extends BaseEntity {
                 .append(age);
         sb.append(",\"gmtCreate\":\"")
                 .append(gmtCreate).append('\"');
+        sb.append(",\"gmtCreateStr\":\"")
+                .append(gmtCreateStr).append('\"');
         sb.append(",\"fanCount\":")
                 .append(fanCount);
         sb.append(",\"plateName\":")

@@ -51,8 +51,8 @@ public class UserRequest  {
     /**
      *  性别:1 男,2 女
      */
-    @ApiModelProperty("性别:1 男,2 女")
-    private Boolean sex;
+    @ApiModelProperty("性别:1 男,0 女")
+    private Integer sex;
     /**
      *  年龄
      */
@@ -124,14 +124,13 @@ public class UserRequest  {
         }
 
 
-    public Boolean getSex() {
-    return sex;
+    public Integer getSex() {
+        return sex;
     }
 
-    public void setSex(Boolean sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
-        }
-
+    }
 
     public Integer getAge() {
     return age;

@@ -7,14 +7,17 @@ import com.bysj.common.request.BaseServiceImpl;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.response.PageResult;
 import com.bysj.common.response.RespBasicCode;
+import com.bysj.common.utils.DateUtils;
 import com.bysj.common.utils.MailUtil;
 import com.bysj.common.utils.NumberChineseEx;
+import com.bysj.common.utils.UserHandle;
 import com.bysj.dao.UserDao;
 import com.bysj.entity.User;
 import com.bysj.entity.vo.query.UserQuery;
 import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequest;
+import com.bysj.entity.vo.request.UserRequestForUpdate;
 import com.bysj.entity.vo.response.UserResponse;
 import com.bysj.service.IUserService;
 import io.swagger.models.Model;
@@ -31,6 +34,7 @@ import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -69,6 +73,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
 
     @Autowired
     private NumberChineseEx numberChineseEx;
+
+    @Autowired
+    private UserHandle userHandle;
 
     /**
      * 保存用户，用户用户注册
@@ -112,7 +119,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         }
     }
 
-
     /**
      * 更新用户
      * @param request
@@ -120,10 +126,12 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
      * @throws Exception
      */
     @Override
-    public Integer updateUser(UserRequest request) throws Exception {
-        User user = requestConverter.convert(request, User.class);
-        return userDao.update(user);
+    public Integer updateUser(UserRequestForUpdate request) throws Exception {
+        request.setGmtModify(new Date());
+        request.setUserModify(userHandle.getUserId());
+        return userDao.updateUser(request);
     }
+
 
     /**
      * 根据条件分页查询，被下面的方法调用
@@ -223,14 +231,11 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     }
 
     @Override
-    public ModelAndView addPicture(MultipartFile profilePicture, ModelAndView model, HttpServletRequest request) {
-        //Part写入文件,或者用MultipartFile
-//        profilePicture.transferTo(new File("路径")); 但是要传入MultiPartFile
+    @Transactional
+    public ModelAndView addPicture(MultipartFile profilePicture, ModelAndView model, HttpServletRequest request) throws Exception {
         if (profilePicture.getSize() > 2097152) {
             model.addObject("info","超出图片大小限制！");
         }
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-
 //        String fileName = user.getEmail() + System.currentTimeMillis();
 
         // 获取上传的文件名字
@@ -246,8 +251,16 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         } catch (IOException e) {
             e.printStackTrace();
         }
+        User user = (User)SecurityUtils.getSubject().getPrincipal();
+        user.setPicture(pictureName);
+
+        user.setGmtModify(new Date());
+        user.setUserModify(user.getId());
+        userDao.update(user);
+
         model.addObject("info","头像修改成功！");
         model.setViewName("/myInfo");
+
         return model;
     }
 
@@ -256,10 +269,14 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         // TODO 这里赋值要改变
         UserResponse userResponse = userDao.userDetailInfo(/*user.getId()*/ 1);
-        numberChineseEx.NumExchangeChinese(userResponse, "sex");
-        numberChineseEx.NumExchangeChinese(userResponse, "state");
+        userResponse.setSexStr(numberChineseEx.NumExchangeChinese(userResponse, "sex"));
+        userResponse.setStateStr(numberChineseEx.NumExchangeChinese(userResponse, "state"));
+
+        userResponse.setGmtCreateStr(DateUtils.getDataString(userResponse.getGmtCreate(), DateUtils.WHOLE_FORMAT));
+
         modelAndView.addObject("user",userResponse);
         modelAndView.setViewName("myInfo");
+
         return modelAndView;
     }
 }

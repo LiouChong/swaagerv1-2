@@ -6,6 +6,7 @@ import com.bysj.entity.vo.query.UserQuery;
 import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequest;
+import com.bysj.entity.vo.request.UserRequestForUpdate;
 import com.bysj.service.IUserService;
 import io.swagger.annotations.*;
 import org.apache.shiro.web.util.SavedRequest;
@@ -126,10 +127,9 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/user/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "user") UserRequest userRequest) throws Exception {
-        iUserService.updateUser(userRequest);
-        return ActionResponse.success();
+    @RequestMapping(value = "/user/update", method = RequestMethod.POST)
+    public Integer updateSingle(@ApiParam(value = "user")@RequestBody UserRequestForUpdate userRequest) throws Exception {
+        return iUserService.updateUser(userRequest);
     }
 
     /**
