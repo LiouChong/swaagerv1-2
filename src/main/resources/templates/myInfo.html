@@ -115,7 +115,7 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
         $(document).click(function () {
-            $("#showChanTable").click(function () {
+            $("#showChanTable").unbind('click').click(function () {
                 $.ajax({
                     type:"POST",
                     url:"/user/update",
@@ -133,6 +133,8 @@
                     success: function (message) {
                         if (message == 1) {
                             alert("修改成功!")
+                        } else if (message.body != null) {
+                            alert(message.body)
                         } else {
                             alert("修改失败！服务器异常。请稍后再试")
                         }

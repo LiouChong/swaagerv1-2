@@ -140,6 +140,12 @@ public class UserRequestForUpdate extends BaseEntity {
                 .append(sex);
         sb.append(",\"age\":")
                 .append(age);
+        sb.append(",\"gmtModify\":\"")
+                .append(gmtModify).append('\"');
+        sb.append(",\"userModify\":")
+                .append(userModify);
+        sb.append(",\"oldPswValue\":\"")
+                .append(oldPswValue).append('\"');
         sb.append('}');
         return sb.toString();
     }

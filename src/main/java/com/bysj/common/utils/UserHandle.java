@@ -13,13 +13,15 @@ import org.springframework.stereotype.Component;
 public class UserHandle {
 
     public Integer getUserId() {
-        User user = (User)SecurityUtils.getSubject().getPrincipal();
-        return user.getId();
+
+        return getUser().getId();
     }
 
     public String getUserEmail() {
-        User u = (User)SecurityUtils.getSubject().getPrincipal();
-        return u.getEmail();
+        return getUser().getEmail();
     }
 
+    public User getUser() {
+        return (User) SecurityUtils.getSubject().getPrincipal();
+    }
 }

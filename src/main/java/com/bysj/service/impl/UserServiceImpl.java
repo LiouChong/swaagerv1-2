@@ -127,9 +127,28 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
      */
     @Override
     public Integer updateUser(UserRequestForUpdate request) throws Exception {
-        request.setGmtModify(new Date());
-        request.setUserModify(userHandle.getUserId());
-        return userDao.updateUser(request);
+        String email = userHandle.getUserEmail();
+        String md5Psw = new Md5Hash(request.getOldPswValue(), email).toString();
+        //如果填写了旧密码，就说明需要变更密码
+        if (request.getOldPswValue() != null ) {
+            //如果填写的旧密码是对的，则进行变更
+            if (md5Psw.equals(userHandle.getUser().getPsw())) {
+                //对密码进行加密
+                String md5NewPsw = new Md5Hash(request.getPsw(), email).toString();
+
+                //对密码、修改时间、修改人赋值
+                request.setPsw(md5NewPsw);
+                request.setGmtModify(new Date());
+                request.setUserModify(userHandle.getUserId());
+
+                return userDao.updateUser(request);
+            } else {
+                throw new RequestParamsException("旧密码有误！请重新填写");
+            }
+        } else {
+            request.setPsw(null);
+            return userDao.updateUser(request);
+        }
     }
 
 
