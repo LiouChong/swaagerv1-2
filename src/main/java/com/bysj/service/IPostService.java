@@ -6,9 +6,11 @@ import com.bysj.entity.Post;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
 import com.bysj.entity.vo.request.PostRequest;
+import com.bysj.entity.vo.response.PostDetailResponse;
 import com.bysj.entity.vo.response.PostResponse;
 
 import java.util.List;
+
 
 /**
  * <p>
@@ -61,4 +63,11 @@ public interface IPostService extends IBaseService<Post> {
          * @return
          */
         Integer findSimpleQueryCount(PostSimpleQueryList queryList);
+
+        /**
+         * 获取帖子详情。
+         * @param id
+         * @return
+         */
+        PostDetailResponse getPostDetailById(Integer id);
 }

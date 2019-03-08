@@ -8,6 +8,7 @@ import com.bysj.entity.Post;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
 import com.bysj.entity.vo.request.PostRequest;
+import com.bysj.entity.vo.response.PostDetailResponse;
 import com.bysj.entity.vo.response.PostResponse;
 import com.bysj.service.IPostService;
 import org.springframework.stereotype.Service;
@@ -83,6 +84,12 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     @Override
     public Integer findSimpleQueryCount(PostSimpleQueryList queryList) {
         return postDao.findSimpleQueryCount(queryList);
+    }
+
+    @Override
+    public PostDetailResponse getPostDetailById(Integer id) {
+        //TODO 查询帖子详情
+        return null;
     }
 
     private void exChangeNumber(PostResponse postResponse) {

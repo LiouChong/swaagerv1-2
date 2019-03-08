@@ -132,10 +132,9 @@ public class PostController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "post") @PathVariable("id") Integer id)throws Exception{
-
-        return ActionResponse.success(iPostService.getById(id));
+        return ActionResponse.success(iPostService.getPostDetailById(id));
     }
 
     /**
