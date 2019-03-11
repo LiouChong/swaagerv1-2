@@ -23,12 +23,12 @@ http://creativecommons.org/licenses/by/3.0/
 ***/
 jQuery.fn.liveSearch = function (conf) {
 	var config = jQuery.extend({
-		url:			'/search-results.php?q=', 
-		id:				'jquery-live-search', 
-		duration:		400, 
+		url:			'/search-results.php?q=',
+		id:				'jquery-live-search',
+		duration:		400,
 		typeDelay:		200,
-		loadingClass:	'loading', 
-		onSlideUp:		function () {}, 
+		loadingClass:	'loading',
+		onSlideUp:		function () {},
 		uptadePosition:	false
 	}, conf);
 
@@ -61,9 +61,9 @@ jQuery.fn.liveSearch = function (conf) {
 		var repositionLiveSearch = function () {
 			var tmpOffset	= input.offset();
 			var inputDim	= {
-				left:		tmpOffset.left, 
-				top:		tmpOffset.top, 
-				width:		input.outerWidth(), 
+				left:		tmpOffset.left,
+				top:		tmpOffset.top,
+				width:		input.outerWidth(),
 				height:		input.outerHeight()
 			};
 
@@ -71,8 +71,8 @@ jQuery.fn.liveSearch = function (conf) {
 			inputDim.totalWidth	= inputDim.width - liveSearchPaddingBorderHoriz;
 
 			liveSearch.css({
-				position:	'absolute', 
-				left:		inputDim.left + 'px', 
+				position:	'absolute',
+				left:		inputDim.left + 'px',
 				top:		inputDim.topPos + 'px',
 				width:		inputDim.totalWidth + 'px'
 			});
@@ -81,7 +81,7 @@ jQuery.fn.liveSearch = function (conf) {
 		// Shows live-search for this input
 		var showLiveSearch = function () {
 			// Always reposition the live-search every time it is shown
-			// in case user has resized browser-window or zoomed in or whatever
+			// in case user_picture has resized browser-window or zoomed in or whatever
 			repositionLiveSearch();
 
 			// We need to bind a resize-event every time live search is shown

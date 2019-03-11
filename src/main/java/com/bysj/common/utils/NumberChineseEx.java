@@ -23,7 +23,7 @@ public class NumberChineseEx<T> {
      * @param t 需要转换的实体
      * @param fieldName 转换的属性
      */
-    public String NumExchangeChinese(T t, String fieldName) {
+    public String numExchangeChinese(T t, String fieldName) {
         Field[] fields = t.getClass().getDeclaredFields();
         for (Field field : fields) {
             //如果拿到想要转换的属性

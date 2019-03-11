@@ -2,10 +2,12 @@ package com.bysj.service;
 
 
 import com.bysj.common.request.IBaseService;
+import com.bysj.common.request.ObjectQuery;
 import com.bysj.entity.Post;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
 import com.bysj.entity.vo.request.PostRequest;
+import com.bysj.entity.vo.response.PlateNameForIndex;
 import com.bysj.entity.vo.response.PostDetailResponse;
 import com.bysj.entity.vo.response.PostResponse;
 
@@ -36,12 +38,6 @@ public interface IPostService extends IBaseService<Post> {
          */
         Integer updatePost(PostRequest request) throws Exception;
 
-        /**
-         * 查询对象集合
-         * @param query
-         * @return
-         */
-        List<PostResponse> findListPost(PostQueryForList query) throws Exception;
 
         /**
          * 批量查询，用于推荐帖子
@@ -70,4 +66,23 @@ public interface IPostService extends IBaseService<Post> {
          * @return
          */
         PostDetailResponse getPostDetailById(Integer id);
+
+        /**
+         * 查询所有板块名称
+         * @return
+         */
+        List<PlateNameForIndex> findAllPlateNames();
+
+        /**
+         * 查询所有帖子
+         * @return
+         */
+        List<PostResponse> findAllPostTimeDesc(ObjectQuery objectQuery);
+
+        /**
+         * 查询所有帖子数量
+         * @return
+         */
+        Integer findAllPostCount();
+
 }

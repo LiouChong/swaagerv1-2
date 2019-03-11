@@ -1,16 +1,23 @@
 package com.bysj.bbsv1;
 
+import com.bysj.common.utils.DateUtils;
 import com.bysj.common.utils.NumberChineseEx;
 import com.bysj.dao.PostDao;
 import com.bysj.dao.UserDao;
 import com.bysj.entity.Post;
+import com.bysj.entity.Reply;
 import com.bysj.entity.vo.query.PostQueryForList;
+import com.bysj.entity.vo.request.ReplyRequest;
+import com.bysj.entity.vo.response.PostDetailResponse;
 import com.bysj.entity.vo.response.PostResponse;
+import com.bysj.entity.vo.response.ReplyForPostDetail;
 import com.bysj.service.IPostService;
+import com.bysj.service.IReplyService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -26,6 +33,9 @@ public class Bbsv1ApplicationTests {
 
     @Resource
     NumberChineseEx numberChineseEx;
+
+    @Autowired
+    IReplyService replyService;
 
     @Resource
     PostDao postDao;
@@ -46,7 +56,47 @@ public class Bbsv1ApplicationTests {
     public void testChange() {
         PostResponse postResponse = new PostResponse();
         postResponse.setIfGood(2);
-        numberChineseEx.NumExchangeChinese(postResponse, "ifGood");
+        numberChineseEx.numExchangeChinese(postResponse, "ifGood");
+    }
+
+    @Test
+    public void testPostDetail() {
+        PostDetailResponse postDetailResponse = postDao.findPostDetail(1);
+        postDetailResponse.setArticleFromStr(numberChineseEx.numExchangeChinese(postDetailResponse,"articleFrom"));
+        postDetailResponse.setArticleTypeStr(numberChineseEx.numExchangeChinese(postDetailResponse,"articleType"));
+        postDetailResponse.setIfGoodStr(numberChineseEx.numExchangeChinese(postDetailResponse,"ifGood"));
+        System.out.println(postDetailResponse);
+    }
+
+    @Test
+    public void getDetailReply() {
+        List<ReplyForPostDetail> replys = postDao.findReplyForPost(1);
+        replys.forEach(item -> {
+            item.setGmtCreateStr(DateUtils.getDataString(item.getGmtCreate(),DateUtils.WHOLE_FORMAT));
+            System.out.println(item.getGmtCreateStr());
+        });
+    }
+
+    @Test
+    public void getPostDetail() throws Exception {
+        PostQueryForList postQuery = new PostQueryForList();
+        postQuery.setIfGood(1);
+        List<PostResponse> postList = postService.findPagePost(postQuery);
+        System.out.println("=============================================");
+        System.out.println(postList);
+        System.out.println("=============================================");
+    }
+
+    @Test
+    public void addNewReply() throws Exception {
+        ReplyRequest replyRequest = new ReplyRequest();
+        replyRequest.setPostId(2);
+        replyRequest.setReplyInfo("你好");
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println(replyService.saveReply(replyRequest));
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
     }
 
 }

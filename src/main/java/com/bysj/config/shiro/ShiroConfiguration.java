@@ -80,6 +80,8 @@ public class ShiroConfiguration {
         filterChainDefinetionMap.put("/user/login", "anon");
         // 简单搜索功能允许
         filterChainDefinetionMap.put("/post/query/simple", "anon");
+        filterChainDefinetionMap.put("/post/detail/*", "anon");
+        filterChainDefinetionMap.put("/query/all", "anon");
 
 
         // 退出登录页面

@@ -20,18 +20,12 @@ import com.bysj.entity.vo.request.UserRequest;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
 import com.bysj.entity.vo.response.UserResponse;
 import com.bysj.service.IUserService;
-import io.swagger.models.Model;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.util.ByteSource;
-import org.apache.shiro.web.util.SavedRequest;
-import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,7 +37,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -255,7 +248,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         if (profilePicture.getSize() > 2097152) {
             model.addObject("info","超出图片大小限制！");
         }
-//        String fileName = user.getEmail() + System.currentTimeMillis();
+//        String fileName = user_picture.getEmail() + System.currentTimeMillis();
 
         // 获取上传的文件名字
         String fileName = profilePicture.getOriginalFilename();
@@ -284,18 +277,20 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     }
 
     @Override
-    public ModelAndView getInfoById(ModelAndView modelAndView) throws Exception {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        // TODO 这里赋值要改变
-        UserResponse userResponse = userDao.userDetailInfo(/*user.getId()*/ 1);
-        userResponse.setSexStr(numberChineseEx.NumExchangeChinese(userResponse, "sex"));
-        userResponse.setStateStr(numberChineseEx.NumExchangeChinese(userResponse, "state"));
+    public UserResponse getInfoById(Integer id) throws Exception {
+        UserResponse userResponse = userDao.userDetailInfo(id);
+
+        userResponse.setSexStr(numberChineseEx.numExchangeChinese(userResponse, "sex"));
+        userResponse.setStateStr(numberChineseEx.numExchangeChinese(userResponse, "state"));
 
         userResponse.setGmtCreateStr(DateUtils.getDataString(userResponse.getGmtCreate(), DateUtils.WHOLE_FORMAT));
 
-        modelAndView.addObject("user",userResponse);
-        modelAndView.setViewName("myInfo");
+        return userResponse;
+    }
 
-        return modelAndView;
+    @Override
+    public UserResponse getCurrentUserInfo() throws Exception {
+        Integer currentUserId = userHandle.getUserId();
+        return getInfoById(currentUserId);
     }
 }

@@ -42,9 +42,9 @@ public class PostQueryForList extends ObjectQuery{
     @ApiModelProperty("文章的来源:1 原创,2 转载")
     private Integer articleFrom;
     /**
-     * 文章的类型:1讨论帖,2 资源贴,3 求问贴
+     * 文章的类型:1 讨论帖,2 资源贴,3 求问贴
      */
-    @ApiModelProperty("文章的类型:1讨论帖,2 资源贴,3 求问贴")
+    @ApiModelProperty("文章的类型:1 讨论帖,2 资源贴,3 求问贴")
     private Integer articleType;
 
     public String getTitle() {

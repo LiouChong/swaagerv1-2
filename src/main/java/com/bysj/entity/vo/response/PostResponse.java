@@ -61,11 +61,15 @@ public class PostResponse extends BaseEntity {
      */
     @ApiModelProperty("创建时间")
     private Date gmtCreate;
+
+    private String gmtCreateStr;
     /**
      * 修改时间
      */
     @ApiModelProperty("修改时间")
     private Date gmtModify;
+
+    private String gmtModifyStr;
     /**
      * 阅读数
      */
@@ -81,7 +85,7 @@ public class PostResponse extends BaseEntity {
     private String articleFromStr;
 
     /**
-     * 文章的类型:1讨论帖,2 资源贴,3 求问贴
+     * 文章的类型:1 讨论帖,2 资源贴,3 求问贴
      */
     @ApiModelProperty("文章的类型:1 讨论帖,2 资源贴,3 求问贴")
     private Integer articleType;
@@ -208,5 +212,62 @@ public class PostResponse extends BaseEntity {
 
     public void setArticleType(Integer articleType) {
         this.articleType = articleType;
+    }
+
+    public String getGmtCreateStr() {
+        return gmtCreateStr;
+    }
+
+    public void setGmtCreateStr(String gmtCreateStr) {
+        this.gmtCreateStr = gmtCreateStr;
+    }
+
+    public String getGmtModifyStr() {
+        return gmtModifyStr;
+    }
+
+    public void setGmtModifyStr(String gmtModifyStr) {
+        this.gmtModifyStr = gmtModifyStr;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"title\":\"")
+                .append(title).append('\"');
+        sb.append(",\"info\":\"")
+                .append(info).append('\"');
+        sb.append(",\"posterName\":\"")
+                .append(posterName).append('\"');
+        sb.append(",\"ifGood\":")
+                .append(ifGood);
+        sb.append(",\"ifGoodStr\":\"")
+                .append(ifGoodStr).append('\"');
+        sb.append(",\"plateName\":\"")
+                .append(plateName).append('\"');
+        sb.append(",\"replyCount\":")
+                .append(replyCount);
+        sb.append(",\"thumbupCount\":")
+                .append(thumbupCount);
+        sb.append(",\"gmtCreate\":\"")
+                .append(gmtCreate).append('\"');
+        sb.append(",\"gmtCreateStr\":\"")
+                .append(gmtCreateStr).append('\"');
+        sb.append(",\"gmtModify\":\"")
+                .append(gmtModify).append('\"');
+        sb.append(",\"gmtModifyStr\":\"")
+                .append(gmtModifyStr).append('\"');
+        sb.append(",\"readCount\":")
+                .append(readCount);
+        sb.append(",\"articleFrom\":")
+                .append(articleFrom);
+        sb.append(",\"articleFromStr\":\"")
+                .append(articleFromStr).append('\"');
+        sb.append(",\"articleType\":")
+                .append(articleType);
+        sb.append(",\"articleTypeStr\":\"")
+                .append(articleTypeStr).append('\"');
+        sb.append('}');
+        return sb.toString();
     }
 }

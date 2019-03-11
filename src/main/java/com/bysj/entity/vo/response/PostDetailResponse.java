@@ -43,6 +43,8 @@ public class PostDetailResponse extends BaseEntity {
      */
     @ApiModelProperty("是否被推荐:1 被推荐,0 未被推荐")
     private Integer ifGood;
+
+    private String ifGoodStr;
     /**
      * 板块id
      */
@@ -52,7 +54,7 @@ public class PostDetailResponse extends BaseEntity {
     /**
      * 板块名称
      */
-    private Integer plateName;
+    private String plateName;
     /**
      * 回复数
      */
@@ -68,21 +70,14 @@ public class PostDetailResponse extends BaseEntity {
      */
     @ApiModelProperty("创建时间")
     private Date gmtCreate;
+
+    private String gmrCreateStr;
     /**
      * 修改时间
      */
     @ApiModelProperty("修改时间")
     private Date gmtModify;
-    /**
-     * 创建用户
-     */
-    @ApiModelProperty("创建用户")
-    private Integer createUser;
-    /**
-     * 修改用户
-     */
-    @ApiModelProperty("修改用户")
-    private Integer modifyUser;
+    private String gmtModifyStr;
     /**
      * 阅读数
      */
@@ -93,18 +88,36 @@ public class PostDetailResponse extends BaseEntity {
      */
     @ApiModelProperty("文章的来源:1 原创,2 转载")
     private Integer articleFrom;
+
+    private String articleFromStr;
     /**
-     * 文章的类型:1讨论帖,2 资源贴,3 求问贴
+     * 文章的类型:1 讨论帖,2 资源贴,3 求问贴
      */
-    @ApiModelProperty("文章的类型:1讨论帖,2 资源贴,3 求问贴")
+    @ApiModelProperty("文章的类型:1 讨论帖,2 资源贴,3 求问贴")
     private Integer articleType;
+
+    private String articleTypeStr;
 
     /**
      * 该帖子的回复列表
-     * @return
      */
-
     private List<ReplyForPostDetail> replys;
+
+    public String getGmrCreateStr() {
+        return gmrCreateStr;
+    }
+
+    public void setGmrCreateStr(String gmrCreateStr) {
+        this.gmrCreateStr = gmrCreateStr;
+    }
+
+    public String getGmtModifyStr() {
+        return gmtModifyStr;
+    }
+
+    public void setGmtModifyStr(String gmtModifyStr) {
+        this.gmtModifyStr = gmtModifyStr;
+    }
 
     public String getTitle() {
         return title;
@@ -154,11 +167,11 @@ public class PostDetailResponse extends BaseEntity {
         this.plateId = plateId;
     }
 
-    public Integer getPlateName() {
+    public String getPlateName() {
         return plateName;
     }
 
-    public void setPlateName(Integer plateName) {
+    public void setPlateName(String plateName) {
         this.plateName = plateName;
     }
 
@@ -194,22 +207,6 @@ public class PostDetailResponse extends BaseEntity {
         this.gmtModify = gmtModify;
     }
 
-    public Integer getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(Integer createUser) {
-        this.createUser = createUser;
-    }
-
-    public Integer getModifyUser() {
-        return modifyUser;
-    }
-
-    public void setModifyUser(Integer modifyUser) {
-        this.modifyUser = modifyUser;
-    }
-
     public Integer getReadCount() {
         return readCount;
     }
@@ -242,6 +239,30 @@ public class PostDetailResponse extends BaseEntity {
         this.replys = replys;
     }
 
+    public String getIfGoodStr() {
+        return ifGoodStr;
+    }
+
+    public void setIfGoodStr(String ifGoodStr) {
+        this.ifGoodStr = ifGoodStr;
+    }
+
+    public String getArticleFromStr() {
+        return articleFromStr;
+    }
+
+    public void setArticleFromStr(String articleFromStr) {
+        this.articleFromStr = articleFromStr;
+    }
+
+    public String getArticleTypeStr() {
+        return articleTypeStr;
+    }
+
+    public void setArticleTypeStr(String articleTypeStr) {
+        this.articleTypeStr = articleTypeStr;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
@@ -255,28 +276,34 @@ public class PostDetailResponse extends BaseEntity {
                 .append(posterName).append('\"');
         sb.append(",\"ifGood\":")
                 .append(ifGood);
+        sb.append(",\"ifGoodStr\":\"")
+                .append(ifGoodStr).append('\"');
         sb.append(",\"plateId\":")
                 .append(plateId);
-        sb.append(",\"plateName\":")
-                .append(plateName);
+        sb.append(",\"plateName\":\"")
+                .append(plateName).append('\"');
         sb.append(",\"replyCount\":")
                 .append(replyCount);
         sb.append(",\"thumbupCount\":")
                 .append(thumbupCount);
         sb.append(",\"gmtCreate\":\"")
                 .append(gmtCreate).append('\"');
+        sb.append(",\"gmrCreateStr\":\"")
+                .append(gmrCreateStr).append('\"');
         sb.append(",\"gmtModify\":\"")
                 .append(gmtModify).append('\"');
-        sb.append(",\"createUser\":")
-                .append(createUser);
-        sb.append(",\"modifyUser\":")
-                .append(modifyUser);
+        sb.append(",\"gmtModifyStr\":\"")
+                .append(gmtModifyStr).append('\"');
         sb.append(",\"readCount\":")
                 .append(readCount);
         sb.append(",\"articleFrom\":")
                 .append(articleFrom);
+        sb.append(",\"articleFromStr\":\"")
+                .append(articleFromStr).append('\"');
         sb.append(",\"articleType\":")
                 .append(articleType);
+        sb.append(",\"articleTypeStr\":\"")
+                .append(articleTypeStr).append('\"');
         sb.append(",\"replys\":")
                 .append(replys);
         sb.append('}');

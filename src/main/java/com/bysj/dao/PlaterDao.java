@@ -3,6 +3,9 @@ package com.bysj.dao;
 
 import com.bysj.common.response.IBaseDao;
 import com.bysj.entity.Plater;
+import com.bysj.entity.vo.response.PlateNameForIndex;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,5 +16,9 @@ import com.bysj.entity.Plater;
  * @since 2019-02-28
  */
 public interface PlaterDao extends IBaseDao<Plater> {
-
+    /**
+     * 查询所有板块名字
+     * @return
+     */
+    List<PlateNameForIndex> findAllPlateName();
 }

@@ -4,9 +4,12 @@ package com.bysj.controller;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.vo.query.ReplyQuery;
 import com.bysj.entity.vo.request.ReplyRequest;
+import com.bysj.entity.vo.response.PostDetailResponse;
 import com.bysj.service.IReplyService;
 import io.swagger.annotations.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
@@ -24,6 +27,9 @@ public class ReplyController {
     @Resource
     public IReplyService iReplyService;
 
+    @Autowired
+    private PostController postController;
+
     /**
      * 保存
      * @param replyRequest
@@ -33,10 +39,9 @@ public class ReplyController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/save/single", method = RequestMethod.POST)
-    public ActionResponse saveSingle(@ApiParam(value = "reply") @RequestBody ReplyRequest replyRequest)throws Exception{
-        iReplyService.saveReply(replyRequest);
-        return ActionResponse.success();
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public PostDetailResponse saveSingle(@ApiParam(value = "reply") @RequestBody ReplyRequest replyRequest)throws Exception{
+        return iReplyService.saveReply(replyRequest);
     }
 
     /**
@@ -93,9 +98,9 @@ public class ReplyController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
-
-        return ActionResponse.success(iReplyService.deleteById(id));
+    public void deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id, ModelAndView modelAndView)throws Exception{
+        Integer postId = iReplyService.deleteById(id);
+        postController.queryById(postId, modelAndView);
     }
 }
 

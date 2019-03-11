@@ -95,5 +95,17 @@ public interface IUserService extends IBaseService<User> {
          */
         ModelAndView addPicture(MultipartFile profilePicture, ModelAndView model, HttpServletRequest request) throws Exception;
 
-        ModelAndView getInfoById(ModelAndView modelAndView) throws Exception;
+        /**
+         * 根据id查询用户详情
+         * @param id
+         * @return
+         * @throws Exception
+         */
+        UserResponse getInfoById(Integer id) throws Exception;
+
+        /**
+         * 获取当前用户详情
+         * @return
+         */
+        UserResponse getCurrentUserInfo() throws Exception;
 }

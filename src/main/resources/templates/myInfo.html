@@ -1,25 +1,30 @@
-<html   xmlns:th="http://www.thymeleaf.org"
-        xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
-<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en-US"> <![endif]-->
-<!--[if IE 7]>    <html class="lt-ie9 lt-ie8" lang="en-US"> <![endif]-->
-<!--[if IE 8]>    <html class="lt-ie9" lang="en-US"> <![endif]-->
-<!--[if gt IE 8]><! <html lang="en-US"> <![endif]-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<!--[if lt IE 7]>
+<html class="lt-ie9 lt-ie8 lt-ie7" lang="en-US"> <![endif]-->
+<!--[if IE 7]>
+<html class="lt-ie9 lt-ie8" lang="en-US"> <![endif]-->
+<!--[if IE 8]>
+<html class="lt-ie9" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!
+<html lang="en-US"> <![endif]-->
 <head>
     <!-- META TAGS -->
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>BBS technology sharing site</title>
 
-    <link rel="shortcut icon" href="/images/beijing.jpg" />
+    <link rel="shortcut icon" href="/images/beijing.jpg"/>
 
     <!-- Style Sheet-->
     <!--<link rel="stylesheet" href="style.css"/>-->
-    <link rel='stylesheet' id='bootstrap-css-css'  href='/css/bootstrap5152.css?ver=1.0' type='text/css' media='all' />
-    <link rel='stylesheet' id='responsive-css-css'  href='/css/responsive5152.css?ver=1.0' type='text/css' media='all' />
-    <link rel='stylesheet' id='pretty-photo-css-css'  href='/js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4' type='text/css' media='all' />
-    <link rel='stylesheet' id='main-css-css'  href='/css/main5152.css?ver=1.0' type='text/css' media='all' />
-    <link rel='stylesheet' id='custom-css-css'  href='/css/custom5152.html?ver=1.0' type='text/css' media='all' />
+    <link rel='stylesheet' id='bootstrap-css-css' href='/css/bootstrap5152.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='responsive-css-css' href='/css/responsive5152.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='pretty-photo-css-css' href='/js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='main-css-css' href='/css/main5152.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='custom-css-css' href='/css/custom5152.html?ver=1.0' type='text/css' media='all'/>
 
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -30,12 +35,14 @@
         div {
             /*border:1px solid black;*/
         }
-        .changeinfo{
+
+        .changeinfo {
             float: right;
             width: 100%;
             display: none;
-            font-size:28px ;
+            font-size: 28px;
         }
+
         .butclass {
             background-color: #0d90d1;
             display: inline-block;
@@ -45,50 +52,57 @@
             text-decoration: none;
             font: 14px/100% Arial, Helvetica, sans-serif;
             padding: .5em 2em .55em;
-            text-shadow: 0 1px 1px rgba(0,0,0,.3);
+            text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
             -webkit-border-radius: .5em;
             -moz-border-radius: .5em;
             border-radius: .5em;
-            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-            box-shadow: 0 1px 2px rgba(0,0,0,.2);
+            -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+            -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
         }
+
         .butclass:hover {
             text-decoration: none;
         }
+
         .butclass:active {
             position: relative;
             top: 1px;
         }
+
         table.dataintable {
-            float:right;
-            margin-top:15px;
-            border-collapse:collapse;
-            border:1px solid #aaa;
-            width:60%;
+            float: right;
+            margin-top: 15px;
+            border-collapse: collapse;
+            border: 1px solid #aaa;
+            width: 60%;
         }
+
         table.dataintable th {
-            vertical-align:baseline;
-            padding:5px 15px 5px 6px;
-            background-color:#3F3F3F;
-            border:1px solid #3F3F3F;
-            text-align:left;
-            color:#fff;
+            vertical-align: baseline;
+            padding: 5px 15px 5px 6px;
+            background-color: #3F3F3F;
+            border: 1px solid #3F3F3F;
+            text-align: left;
+            color: #fff;
         }
 
         table.dataintable td {
-            vertical-align:text-top;
-            padding:6px 15px 6px 6px;
-            border:1px solid #aaa;
+            vertical-align: text-top;
+            padding: 6px 15px 6px 6px;
+            border: 1px solid #aaa;
         }
+
         table.dataintable tr:nth-child(odd) {
-            background-color:#F5F5F5;
+            background-color: #F5F5F5;
             height: 50px
         }
+
         table.dataintable tr:nth-child(even) {
-            background-color:#fff;
+            background-color: #fff;
             height: 50px;
         }
+
         .input_css {
             font-size: 22px;
             width: 400px;
@@ -97,18 +111,19 @@
         #info {
             height: 600px;
         }
+
         .signaTureShow {
             float: left;
             width: 37%;
             /*border: 1px solid black;*/
-            height:150px;
+            height: 150px;
         }
 
-        #left_box{
+        #left_box {
             float: left;
             width: 37%;
             border: 1px solid black;
-            height:400px;
+            height: 400px;
         }
     </style>
 
@@ -117,19 +132,19 @@
         $(document).click(function () {
             $("#showChanTable").unbind('click').click(function () {
                 $.ajax({
-                    type:"POST",
-                    url:"/user/update",
+                    type: "POST",
+                    url: "/user/update",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
-                        id:$("#idValue").val(),
-                        nickname:$("#nicknameValue").val(),
-                        oldPswValue:$("#oldPswValue").val(),
-                        psw:$("#pswValue").val(),
-                        signaTure:$("#signaTureValue").val(),
-                        age:$("#ageValue").val(),
-                        sex:$("input[name='sexValue']:checked").val()
+                        id: $("#idValue").val(),
+                        nickname: $("#nicknameValue").val(),
+                        oldPswValue: $("#oldPswValue").val(),
+                        psw: $("#pswValue").val(),
+                        signaTure: $("#signaTureValue").val(),
+                        age: $("#ageValue").val(),
+                        sex: $("input[name='sexValue']:checked").val()
                     }),
-                    dataType:"json",
+                    dataType: "json",
                     success: function (message) {
                         if (message == 1) {
                             alert("修改成功!")
@@ -157,7 +172,7 @@
 
             <div class="logo-container">
                 <!-- Website Logo -->
-                <a href="/index-2"  title="BBS技术分享网站">
+                <a href="/index-2" title="BBS技术分享网站">
                     <img src="/images/logo.png" alt="BBS technology sharing site">
                 </a>
                 <span class="tag-line">思想的宽度从分享开始</span>
@@ -168,14 +183,21 @@
             <nav class="main-nav">
                 <div class="menu-top-menu-container">
                     <ul id="menu-top-menu" class="clearfix">
-                        <li class="current-menu-item"><a href="/index-2">首页</a></li>
+                        <li class="current-menu-item"><a href="/post/index">首页</a></li>
                         <li><a href="/home-categories-description">关注</a></li>
                         <!--<li><a href="/home-categories-articles">categories-articles</a></li>-->
-                        <li><a href="/articles-list">最新</a></li>
+                        <li><a href="/post/query/all">最新</a></li>
                         <li><a href="/faq">常见问题</a></li>
                         <li><a href="/contact">联系我们</a></li>
-                        <shiro:guest><li><a href="/login">登录  注册</a> </li></shiro:guest>
-                        <shiro:user><li>欢迎您：<a href="#"><shiro:principal property="email"></shiro:principal> </a>&emsp;</li> <a href="/logout" style="color: white">注销</a> </shiro:user>
+                        <shiro:guest>
+                            <li><a href="/login">登录 注册</a></li>
+                        </shiro:guest>
+                        <shiro:user>
+                            <li>欢迎您：<a href="#">
+                                <shiro:principal property="email"></shiro:principal>
+                            </a>&emsp;
+                            </li>
+                            <a href="/logout" style="color: white">注销</a></shiro:user>
                     </ul>
                 </div>
             </nav>
@@ -191,36 +213,39 @@
 <div class="page-container">
     <div class="container">
         <!--<input id="info">-->
-            <div style="height: 800px">
-                    <h1 style="color: gray;text-align: center" th:if="${user.stateStr} eq '无效'"> 以被封禁 </h1>
-                    <h1 style="text-align: center" th:if="${user.stateStr} eq '有效'">个人信息</h1>
+        <div style="height: 800px">
+            <h1 style="color: gray;text-align: center" th:if="${user.stateStr} eq '无效'"> 以被封禁 </h1>
+            <h1 style="text-align: center" th:if="${user.stateStr} eq '有效'">个人信息</h1>
 
 
-                <div id="left_box">
-                        <h2 th:if="${user.picture} eq null">暂无头像！</h2>
-                        <img th:if="${user.picture} ne null" th:src="'/user/' + ${user.picture}" style="width: 100%;height: 100%"/>
-                </div>
+            <div id="left_box">
+                <h2 th:if="${user.picture} eq null">暂无头像！</h2>
+                <img th:if="${user.picture} ne null" th:src="'/user_picture/' + ${user.picture}"
+                     style="width: 100%;height: 100%"/>
+            </div>
 
-                <input id="idValue" th:attr="value=${user.id}" hidden>
+            <input id="idValue" th:attr="value=${user.id}" hidden>
             <table class="dataintable">
                 <tr>
                     <td><i> <span class="vintage"> 邮箱:</span> <br></i></td>
-                    <td><span class="input_css"  th:text="${user.email}"><!--${user.email} --></span> </td>
+                    <td><span class="input_css" th:text="${user.email}"><!--${user_picture.email} --></span></td>
                 </tr>
                 <tr>
                     <td><i> <span class="vintage"> 旧密码:</span> <br></i></td>
-                    <td><input id="oldPswValue" class="input_css" > </td>
+                    <td><input id="oldPswValue" class="input_css"></td>
                 </tr>
                 <tr>
                     <td><i> <span class="vintage"> 新密码:</span> <br></i></td>
-                    <td><input id="pswValue" class="input_css" > </td>
+                    <td><input id="pswValue" class="input_css"></td>
                 </tr>
                 <tr>
                     <td><i> <span class="vintage"> 性别:</span> <br></i></td>
                     <td>
                         <div th:if="${user.sexStr} eq '男'">
-                            <input type="radio" name="sexValue" value="1" class="input_css" checked="checked"><span class="input_css">男 </span> &emsp;&emsp;
-                            <input type="radio" name="sexValue" value="0" class="input_css" /><span class="input_css">女</span>
+                            <input type="radio" name="sexValue" value="1" class="input_css" checked="checked"><span
+                                class="input_css">男 </span> &emsp;&emsp;
+                            <input type="radio" name="sexValue" value="0" class="input_css"/><span
+                                class="input_css">女</span>
                         </div>
                         <div th:if="${user.sexStr} eq '女'">
                             <input type="radio" name="sexValue" value="1" class="input_css">男 &emsp;&emsp;&emsp;
@@ -230,28 +255,31 @@
                 </tr>
                 <tr>
                     <td><i> <span class="vintage"> 年龄:</span> <br></i></td>
-                    <td><input id="ageValue" class="input_css" th:attr="value=${user.age}"><!--${user.psw} --></input> </td>
+                    <td><input id="ageValue" class="input_css" th:attr="value=${user.age}">
+                        <!--${user_picture.psw} --></input> </td>
                 </tr>
                 <tr>
                     <td><i><span class="vintage"> 积分数：</span><br></i></td>
-                    <td><span class="input_css" th:text=${user.money}><!--${user.psw} --></span> </td>
+                    <td><span class="input_css" th:text=${user.money}><!--${user_picture.psw} --></span></td>
                 </tr>
                 <tr>
                     <td><i>
                         <span class="vintage"> 昵称：</span> <br></i></td>
-                    <td><input id="nicknameValue" class="input_css" th:attr="value=${user.nickname}"><!--${user.psw} --></input> </td>
+                    <td><input id="nicknameValue" class="input_css" th:attr="value=${user.nickname}">
+                        <!--${user_picture.psw} --></input> </td>
                 </tr>
                 <tr>
                     <td><i>
                         <span class="vintage"> 粉丝数：</span> <br></i></td>
-                    <td><span class="input_css" th:text="${user.fanCount}"><!--${user.psw} --></span> </td>
+                    <td><span class="input_css" th:text="${user.fanCount}"><!--${user_picture.psw} --></span></td>
                 </tr>
                 <tr>
                     <td><i>
                         <span class="vintage"> 管理的板块：</span> <br></i></td>
                     <td>
-                            <span style="font-size: 25px" th:if="${user.plateName eq null}"><b >暂无</b></span>
-                            <span style="font-size: 25px" th:if="${user.plateName ne null}"><b th:text="${user.plateName}"></b></span>
+                        <span style="font-size: 25px" th:if="${user.plateName eq null}"><b>暂无</b></span>
+                        <span style="font-size: 25px" th:if="${user.plateName ne null}"><b
+                                th:text="${user.plateName}"></b></span>
                     </td>
                 </tr>
 
@@ -259,7 +287,7 @@
                     <td><i><span class="vintage">设置头像： </span> </i></td>
                     <td>
                         <form action="/user/picture" enctype="multipart/form-data" method="post">
-                            <input type="file"  name="file" value="上传头像" >
+                            <input type="file" name="file" value="上传头像">
                             <button class="butclass">上传头像(最大2M)</button>
                         </form>
                     </td>
@@ -274,54 +302,56 @@
 
             </table>
 
-                <div id="signaTureText" class="signaTureShow">
-                    <h2>个性签名</h2>
-                    <textarea id="signaTureValue" th:text="${user.signaTure}" style="height: 100%; width: 100% "/>
-                </div>
-
-                <div style="float: right;width:60%; margin-top: 30px">
-                    <button id="showChanTable">保存修改</button>
-
-                    <shiro:hasPermission name="moderator:agree">
-                        <div id="applyManagerTable" style="width:100%;margin: 0 auto;">
-                            <h1 style="text-align: center">版主申请列表</h1>
-                            <h1 style="color: red">${applyError}</h1>
-                            <c:forEach items="${applys}" var="apply"  varStatus="f">
-                                <table class="dataintable" style="width: 100%">
-                                    <tr>
-                                        <td><i> <span class="vintage"> 编号:</span> <br></i></td>
-                                        <td><span style="font-size: 25px">${f.count} </span> </td>
-                                    </tr>
-                                    <tr>
-                                        <td><i> <span class="vintage"> 申请者:</span> <br></i></td>
-                                        <td><span style="font-size: 25px">${apply.nickName} </span> </td>
-                                    </tr>
-                                    <tr>
-                                        <td><i><span class="vintage"> 申请板块：</span><br></i></td>
-                                        <td><span style="font-size: 25px" >${apply.plateName} </span> </td>
-                                    </tr>
-                                    <tr>
-                                        <td><i>
-                                            <span class="vintage"> 申请时间：</span> <br></i></td>
-                                        <td><span style="font-size: 25px">${apply.applyDate} </span> </td>
-                                    </tr>
-                                </table>
-                                <a href="/agreeApply?applyId=${apply.applyId}&userId=${apply.userId}&plateId=${apply.plateId}" style="float: left;color: green;font-size: 20px"><b>同意</b></a>&emsp;&emsp;&emsp;
-                                <a href="/disAgree?applyId=${apply.applyId}" style="float:right;color:red;font-size: 20px"><b>否决</b></a>
-                                <hr>
-                            </c:forEach>
-
-                        </div>
-                    </shiro:hasPermission>
-                </div>
+            <div id="signaTureText" class="signaTureShow">
+                <h2>个性签名</h2>
+                <textarea id="signaTureValue" th:text="${user.signaTure}" style="height: 100%; width: 100% "/>
             </div>
 
-            <!--<span style="font-size: 25px;color:red">${info}</span>-->
+            <div style="float: right;width:60%; margin-top: 30px">
+                <button id="showChanTable">保存修改</button>
 
-        </in>
+                <shiro:hasPermission name="moderator:agree">
+                    <div id="applyManagerTable" style="width:100%;margin: 0 auto;">
+                        <h1 style="text-align: center">版主申请列表</h1>
+                        <h1 style="color: red">${applyError}</h1>
+                        <c:forEach items="${applys}" var="apply" varStatus="f">
+                            <table class="dataintable" style="width: 100%">
+                                <tr>
+                                    <td><i> <span class="vintage"> 编号:</span> <br></i></td>
+                                    <td><span style="font-size: 25px">${f.count} </span></td>
+                                </tr>
+                                <tr>
+                                    <td><i> <span class="vintage"> 申请者:</span> <br></i></td>
+                                    <td><span style="font-size: 25px">${apply.nickName} </span></td>
+                                </tr>
+                                <tr>
+                                    <td><i><span class="vintage"> 申请板块：</span><br></i></td>
+                                    <td><span style="font-size: 25px">${apply.plateName} </span></td>
+                                </tr>
+                                <tr>
+                                    <td><i>
+                                        <span class="vintage"> 申请时间：</span> <br></i></td>
+                                    <td><span style="font-size: 25px">${apply.applyDate} </span></td>
+                                </tr>
+                            </table>
+                            <a href="/agreeApply?applyId=${apply.applyId}&userId=${apply.userId}&plateId=${apply.plateId}"
+                               style="float: left;color: green;font-size: 20px"><b>同意</b></a>&emsp;&emsp;&emsp;
+                            <a href="/disAgree?applyId=${apply.applyId}"
+                               style="float:right;color:red;font-size: 20px"><b>否决</b></a>
+                            <hr>
+                        </c:forEach>
+
+                    </div>
+                </shiro:hasPermission>
+            </div>
         </div>
 
+        <!--<span style="font-size: 25px;color:red">${info}</span>-->
+
+        </in>
     </div>
+
+</div>
 </div>
 <!-- End of Page Container -->
 
@@ -334,8 +364,10 @@
                 <section class="widget">
                     <h3 class="title">How it works</h3>
                     <div class="textwidget">
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
-                        <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
+                            tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
+                        <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl
+                            ut aliquip ex ea commodo consequat. </p>
                     </div>
                 </section>
             </div>
@@ -343,7 +375,7 @@
             <div class="span3">
                 <section class="widget"><h3 class="title">Categories</h3>
                     <ul>
-                        <li><a href="#" title="Lorem ipsum dolor sit amet,">Advanced Techniques</a> </li>
+                        <li><a href="#" title="Lorem ipsum dolor sit amet,">Advanced Techniques</a></li>
                         <li><a href="#" title="Lorem ipsum dolor sit amet,">Designing in WordPress</a></li>
                         <li><a href="#" title="Lorem ipsum dolor sit amet,">Server &amp; Database</a></li>
                         <li><a href="#" title="Lorem ipsum dolor sit amet, ">Theme Development</a></li>
@@ -353,7 +385,6 @@
                     </ul>
                 </section>
             </div>
-
 
 
             <div class="span3">

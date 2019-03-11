@@ -49,13 +49,26 @@ public class Reply extends BaseEntity {
      * 创建者id
      */
     @ApiModelProperty("创建者id")
-    private String userCreate;
+    private Integer userCreate;
     /**
      * 修改者id
      */
     @ApiModelProperty("修改者id")
-    private String userModify;
+    private Integer userModify;
 
+    /**
+     * 状态
+     * @return
+     */
+    private Integer state;
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
     public String getReplyInfo() {
         return replyInfo;
@@ -102,34 +115,42 @@ public class Reply extends BaseEntity {
     }
 
 
-    public String getUserCreate() {
+    public Integer getUserCreate() {
         return userCreate;
     }
 
-    public void setUserCreate(String userCreate) {
+    public void setUserCreate(Integer userCreate) {
         this.userCreate = userCreate;
     }
 
-
-    public String getUserModify() {
+    public Integer getUserModify() {
         return userModify;
     }
 
-    public void setUserModify(String userModify) {
+    public void setUserModify(Integer userModify) {
         this.userModify = userModify;
     }
 
-
     @Override
     public String toString() {
-        return "Reply{" +
-                ", replyInfo=" + replyInfo +
-                ", postId=" + postId +
-                ", thumbupCount=" + thumbupCount +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModify=" + gmtModify +
-                ", userCreate=" + userCreate +
-                ", userModify=" + userModify +
-                "}";
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"replyInfo\":\"")
+                .append(replyInfo).append('\"');
+        sb.append(",\"postId\":")
+                .append(postId);
+        sb.append(",\"thumbupCount\":")
+                .append(thumbupCount);
+        sb.append(",\"gmtCreate\":\"")
+                .append(gmtCreate).append('\"');
+        sb.append(",\"gmtModify\":\"")
+                .append(gmtModify).append('\"');
+        sb.append(",\"userCreate\":")
+                .append(userCreate);
+        sb.append(",\"userModify\":")
+                .append(userModify);
+        sb.append(",\"state\":")
+                .append(state);
+        sb.append('}');
+        return sb.toString();
     }
 }

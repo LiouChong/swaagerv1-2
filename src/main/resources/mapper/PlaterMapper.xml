@@ -186,6 +186,9 @@
         </where>
     </select>
 
+    <select id="findAllPlateName" resultType="com.bysj.entity.vo.response.PlateNameForIndex">
+        select id, plate_name as plateName from plater
+    </select>
     <select id="findQuery" resultType="com.bysj.entity.Plater" parameterType="com.bysj.common.request.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>

@@ -7,7 +7,9 @@ import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequest;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
+import com.bysj.entity.vo.response.UserResponse;
 import com.bysj.service.IUserService;
+import com.google.common.primitives.Booleans;
 import io.swagger.annotations.*;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.util.Map;
 
@@ -72,7 +75,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/user/regist", method = RequestMethod.POST)
-    public ActionResponse saveSingle(@ApiParam(value = "user") @RequestBody UserRequestForRegist userRequest, HttpServletRequest request) throws Exception {
+    public ActionResponse saveSingle(@ApiParam(value = "user_picture") @RequestBody UserRequestForRegist userRequest, HttpServletRequest request) throws Exception {
         // @todo: 处理异常类
         return iUserService.saveUser(userRequest, request);
     }
@@ -87,7 +90,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping(value = "/login")
     public ModelAndView doLogin(UserRequestForLogin userRequest,ModelAndView modelAndView, HttpServletRequest request) throws Exception {
         ActionResponse actionResponse = iUserService.doLogin(userRequest, request);
 
@@ -128,7 +131,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/user/update", method = RequestMethod.POST)
-    public Integer updateSingle(@ApiParam(value = "user")@RequestBody UserRequestForUpdate userRequest) throws Exception {
+    public Integer updateSingle(@ApiParam(value = "user_picture")@RequestBody UserRequestForUpdate userRequest) throws Exception {
         return iUserService.updateUser(userRequest);
     }
 
@@ -143,7 +146,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/user/query/list", method = RequestMethod.GET)
-    public ActionResponse queryList(@ApiParam(value = "user") UserQuery userQuery) throws Exception {
+    public ActionResponse queryList(@ApiParam(value = "user_picture") UserQuery userQuery) throws Exception {
         return ActionResponse.success(iUserService.findPageUser(userQuery));
     }
 
@@ -157,9 +160,27 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/user/detail", method = RequestMethod.GET)
-    public ModelAndView queryById(ModelAndView modelAndView) throws Exception {
-        return iUserService.getInfoById(modelAndView);
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public ModelAndView queryById(@PathVariable(value = "id") Integer id, ModelAndView modelAndView) throws Exception {
+        modelAndView.addObject("user",iUserService.getInfoById(id));
+        modelAndView.setViewName("myInfo");
+        return modelAndView;
+    }
+
+    /**
+     * 查询当前用户详细信息
+     *
+     * @return actionResponse
+     */
+    @ApiOperation(value = "通过ID查询", notes = "主键封装对象")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
+    })
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public ModelAndView getUserInfo(ModelAndView modelAndView) throws Exception {
+        modelAndView.addObject("user",iUserService.getCurrentUserInfo());
+        modelAndView.setViewName("myInfo");
+        return modelAndView;
     }
 
     /**

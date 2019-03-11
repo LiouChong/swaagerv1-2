@@ -6,6 +6,7 @@ import com.bysj.common.response.PageResult;
 import com.bysj.entity.Reply;
 import com.bysj.entity.vo.query.ReplyQuery;
 import com.bysj.entity.vo.request.ReplyRequest;
+import com.bysj.entity.vo.response.PostDetailResponse;
 import com.bysj.entity.vo.response.ReplyResponse;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public interface IReplyService extends IBaseService<Reply> {
          * @param request
          * @return
          */
-        Integer saveReply(ReplyRequest request) throws Exception;
+        PostDetailResponse saveReply(ReplyRequest request) throws Exception;
 
         /**
          * 修改

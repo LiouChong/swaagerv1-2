@@ -90,7 +90,7 @@ public class AssetGenerator {
         // 需要生成的表
         strategy.setInclude(new String[]{"applyplate", "chat_record", "favorites_article", "follow",
                 "permission", "plate", "plater", "post", "private_letter",
-                "reply", "team", "tlevel", "total_station_information","user","user_ban","user_team_rel"});
+                "reply", "team", "tlevel", "total_station_information","user_picture","user_ban","user_team_rel"});
 
 //        strategy.setInclude(new String[]{"asset_user"});
 
@@ -114,7 +114,7 @@ public class AssetGenerator {
 
         //-----------指定mapper.xml输出路径start-----------
         // 自定义输出配置
-//        String projectPath = System.getProperty("user.dir");
+//        String projectPath = System.getProperty("user_picture.dir");
         String projectPath = outPutDir;
         InjectionConfig cfg = new InjectionConfig() {
             @Override

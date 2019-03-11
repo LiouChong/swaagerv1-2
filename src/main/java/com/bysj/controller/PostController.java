@@ -1,13 +1,17 @@
 package com.bysj.controller;
 
+import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.utils.PageUtil;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
 import com.bysj.entity.vo.request.PostRequest;
+import com.bysj.entity.vo.response.PlateNameForIndex;
+import com.bysj.entity.vo.response.PostDetailResponse;
 import com.bysj.entity.vo.response.PostResponse;
 import com.bysj.service.IPostService;
 import io.swagger.annotations.*;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,8 +28,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/post")
 public class PostController {
-
-
     @Resource
     public IPostService iPostService;
 
@@ -79,11 +81,16 @@ public class PostController {
 
         // 获取总页数
         int totalPage = PageUtil.getTotalPage(totalRecords, postQuery.getPageSize());
+
+        //获取板块名称
+        List<PlateNameForIndex> plateNameForIndices = iPostService.findAllPlateNames();
+
         mav.addObject("pageSize", postQuery.getPageSize());
         mav.addObject("totalRecords", totalRecords);
         mav.addObject("totalPage", totalPage);
         mav.addObject("currentPage", postQuery.getCurrentPage());
         mav.addObject("postList", postList);
+        mav.addObject("plates", plateNameForIndices);
 
         // 设置跳转的页面
         mav.setViewName("index-2");
@@ -95,7 +102,7 @@ public class PostController {
 
     /**
      * 查询帖子
-     *  TODO 这里暂时只通过 标题和内容查询，后期可以拓展为详细查询。
+     *
      * @param postQuery
      * @return actionResponse
      */
@@ -104,8 +111,9 @@ public class PostController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/query/simple", method = RequestMethod.GET)
-//    @RequiresPermissions("post:test")
+    // @RequiresPermissions("post:test")
     public ModelAndView queryList(@ApiParam(value = "post") PostSimpleQueryList postQuery, ModelAndView mav)throws Exception{
+        // TODO 这里暂时只通过 标题和内容查询，后期可以拓展为详细查询。
         // 获取帖子列表与总记录数
         List<PostResponse> postList = iPostService.findPageSimplePost(postQuery);
         Integer totalRecords = iPostService.findSimpleQueryCount(postQuery);
@@ -133,8 +141,11 @@ public class PostController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
-    public ActionResponse queryById(@ApiParam(value = "post") @PathVariable("id") Integer id)throws Exception{
-        return ActionResponse.success(iPostService.getPostDetailById(id));
+    public ModelAndView queryById(@ApiParam(value = "post") @PathVariable("id") Integer id, ModelAndView modelAndView)throws Exception{
+        PostDetailResponse postDetailResponse = iPostService.getPostDetailById(id);
+        modelAndView.addObject("postDetail", postDetailResponse);
+        modelAndView.setViewName("single");
+        return modelAndView;
     }
 
     /**
@@ -150,6 +161,31 @@ public class PostController {
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
 
         return ActionResponse.success(iPostService.deleteById(id));
+    }
+
+    /**
+     * 按时间排序查询所有帖子
+     *
+     * @return actionResponse
+     */
+    @ApiOperation(value = "分页获取帖子", notes = "传入查询条件")
+    @RequestMapping(value = "/query/all", method = RequestMethod.GET)
+    public ModelAndView queryPostList(ObjectQuery objectQuery, ModelAndView mav)throws Exception{
+        // 获取帖子列表与总记录数
+        List<PostResponse> postList = iPostService.findAllPostTimeDesc(objectQuery);
+        Integer totalRecords = iPostService.findAllPostCount();
+        Integer pageSize = objectQuery.getPageSize();
+        // 获取总页数
+        Integer totalPage = PageUtil.getTotalPage(totalRecords, pageSize);
+        mav.addObject("pageSize", pageSize);
+        mav.addObject("totalRecords", totalRecords);
+        mav.addObject("totalPage", totalPage);
+        mav.addObject("currentPage", objectQuery.getCurrentPage());
+        mav.addObject("postList", postList);
+
+        // 设置跳转的页面
+        mav.setViewName("articles-list");
+        return mav;
     }
 }
 

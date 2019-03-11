@@ -26,6 +26,8 @@ public class ReplyForPostDetail {
      */
     @ApiModelProperty("创建时间")
     private Date gmtCreate;
+
+    private String gmtCreateStr;
     /**
      * 创建者id
      */
@@ -36,6 +38,27 @@ public class ReplyForPostDetail {
      * 创建者名字
      */
     private String userCreateName;
+
+    /**
+     * 创建者头像
+     */
+    private String userImg;
+
+    public String getUserImg() {
+        return userImg;
+    }
+
+    public void setUserImg(String userImg) {
+        this.userImg = userImg;
+    }
+
+    public String getGmtCreateStr() {
+        return gmtCreateStr;
+    }
+
+    public void setGmtCreateStr(String gmtCreateStr) {
+        this.gmtCreateStr = gmtCreateStr;
+    }
 
     public String getReplyInfo() {
         return replyInfo;
@@ -86,6 +109,8 @@ public class ReplyForPostDetail {
                 .append(thumbupCount);
         sb.append(",\"gmtCreate\":\"")
                 .append(gmtCreate).append('\"');
+        sb.append(",\"gmtCreateStr\":\"")
+                .append(gmtCreateStr).append('\"');
         sb.append(",\"userCreate\":\"")
                 .append(userCreate).append('\"');
         sb.append(",\"userCreateName\":\"")
