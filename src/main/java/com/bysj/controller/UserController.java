@@ -97,22 +97,24 @@ public class UserController {
         String successUrl = null;
         if ("登陆成功".equals(actionResponse.getBody())) {
             SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(request);
-            // 如果shiro保存的有上次请求，则返回上次请求页面
+            // 如果shiro保存的有上次请求并且不为"/"，则返回上次请求页面，否则跳转到首页。
             if (savedRequest != null && savedRequest.getMethod().equalsIgnoreCase("GET")) {
-                successUrl = savedRequest.getRequestUrl();
-                System.out.println("url======>> " + successUrl);
-
+                if (!("/".equals(savedRequest.getRequestUrl()))) {
+                    successUrl = savedRequest.getRequestUrl();
+                    System.out.println("url======>> " + successUrl);
+                } else {
+                    successUrl = "post/index";
+                }
+            } else {
+                successUrl = "post/index";
             }
 
-            if (successUrl == null) {
-                successUrl = "/post/index";
-            }
             return new ModelAndView("redirect:" + successUrl);
         } else {
             if (actionResponse.getBody() != null) {
                 modelAndView.addObject("login_info", actionResponse.getBody().toString());
-            } else if (actionResponse.getHead() != null){
-                modelAndView.addObject("login_info",String.valueOf(actionResponse.getHead()));
+            } else if (actionResponse.getHead() != null) {
+                modelAndView.addObject("login_info", String.valueOf(actionResponse.getHead()));
             }
         }
         modelAndView.setViewName("/login");
@@ -202,7 +204,7 @@ public class UserController {
     /**
      * 上传头像
      *
-     * @param id
+     * @param
      * @return actionResponse
      */
     @ApiOperation(value = "通过ID删除接口", notes = "主键封装对象")

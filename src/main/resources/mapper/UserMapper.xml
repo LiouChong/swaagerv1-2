@@ -299,8 +299,7 @@
                 WHERE
                     u.id = #{id}
             ) as fanCount,
-            u.state ,
-            group_concat( p.plate_name ) AS playeName
+            u.state
         FROM
             USER u
                 INNER JOIN plater p ON u.id = p.owner_id

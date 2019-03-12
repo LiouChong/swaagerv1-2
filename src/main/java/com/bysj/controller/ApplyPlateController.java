@@ -2,51 +2,45 @@ package com.bysj.controller;
 
 
 import com.bysj.common.response.ActionResponse;
-import com.bysj.entity.vo.query.ReplyQuery;
-import com.bysj.entity.vo.request.ReplyRequest;
-import com.bysj.entity.vo.response.PostDetailResponse;
-import com.bysj.service.IReplyService;
+import com.bysj.entity.vo.query.ApplyPlateQuery;
+import com.bysj.entity.vo.request.ApplyPlateRequest;
+import com.bysj.service.IApplyPlateService;
 import io.swagger.annotations.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
 /**
  *
  * @author lc
- * @since 2019-02-28
+ * @since 2019-03-12
  */
-@Api(value = "Reply", description = "回复表")
+@Api(value = "ApplyPlate", description = "版主申请表")
 @RestController
-@RequestMapping("/reply")
-public class ReplyController {
-
+@RequestMapping("/v1/bbs/applyplate")
+public class ApplyPlateController {
 
     @Resource
-    public IReplyService iReplyService;
-
-    @Autowired
-    private PostController postController;
+    public IApplyPlateService iApplyPlateService;
 
     /**
-     * 发表回复
-     * @param replyRequest
+     * 保存
+     * @param applyPlateRequest
      * @return actionResponse
      */
     @ApiOperation(value = "保存接口", notes = "传入实体对象信息")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public PostDetailResponse saveSingle(@ApiParam(value = "reply") @RequestBody ReplyRequest replyRequest)throws Exception{
-        return iReplyService.saveReply(replyRequest);
+    @RequestMapping(value = "/save/single", method = RequestMethod.POST)
+    public ActionResponse saveSingle(@ApiParam(value = "applyPlate") @RequestBody ApplyPlateRequest applyPlateRequest)throws Exception{
+        iApplyPlateService.saveApplyPlate(applyPlateRequest);
+        return ActionResponse.success();
     }
 
     /**
      * 修改
-     * @param replyRequest
+     * @param applyPlateRequest
      * @return actionResponse
      */
     @ApiOperation(value = "修改接口", notes = "传入实体对象信息")
@@ -54,14 +48,14 @@ public class ReplyController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "reply")ReplyRequest replyRequest)throws Exception{
-        iReplyService.updateReply(replyRequest);
+    public ActionResponse updateSingle(@ApiParam(value = "applyPlate")ApplyPlateRequest applyPlateRequest)throws Exception{
+        iApplyPlateService.updateApplyPlate(applyPlateRequest);
         return ActionResponse.success();
     }
 
     /**
      * 批量查询
-     * @param replyQuery
+     * @param applyPlateQuery
      * @return actionResponse
      */
     @ApiOperation(value = "批量查询接口", notes = "传入查询条件")
@@ -69,8 +63,8 @@ public class ReplyController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/query/list", method = RequestMethod.GET)
-    public ActionResponse queryList(@ApiParam(value = "reply") ReplyQuery replyQuery)throws Exception{
-        return ActionResponse.success(iReplyService.findPageReply(replyQuery));
+    public ActionResponse queryList(@ApiParam(value = "applyPlate") ApplyPlateQuery applyPlateQuery)throws Exception{
+        return ActionResponse.success(iApplyPlateService.findPageApplyPlate(applyPlateQuery));
     }
 
     /**
@@ -83,9 +77,8 @@ public class ReplyController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
-    public ActionResponse queryById(@ApiParam(value = "reply") @PathVariable("id") Integer id)throws Exception{
-
-        return ActionResponse.success(iReplyService.getById(id));
+    public ActionResponse queryById(@ApiParam(value = "applyPlate") @PathVariable("id") Integer id)throws Exception{
+        return ActionResponse.success(iApplyPlateService.getById(id));
     }
 
     /**
@@ -98,9 +91,8 @@ public class ReplyController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public void deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id, ModelAndView modelAndView)throws Exception{
-        Integer postId = iReplyService.deleteById(id);
-        postController.queryById(postId, modelAndView);
+    public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
+        return ActionResponse.success(iApplyPlateService.deleteById(id));
     }
 }
 

@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bysj.dao.PlaterDao">
+<mapper namespace="com.bysj.dao.ApplyPlateDao">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.bysj.entity.Plater">
+    <resultMap id="BaseResultMap" type="com.bysj.entity.ApplyPlate">
         <id column="id" property="id"/>
-        <result column="plate_name" property="plateName"/>
-        <result column="owner_id" property="ownerId"/>
+        <result column="user_id" property="userId"/>
+        <result column="info" property="info"/>
+        <result column="plate_id" property="plateId"/>
         <result column="state" property="state"/>
         <result column="gmt_create" property="gmtCreate"/>
         <result column="gmt_modify" property="gmtModify"/>
-        <result column="user_create" property="userCreate"/>
-        <result column="user_modify" property="userModify"/>
     </resultMap>
 <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, plate_name AS plateName, owner_id AS ownerId, state, gmt_create AS gmtCreate, gmt_modify AS gmtModify, user_create AS userCreate, user_modify AS userModify
+        id, user_id AS userId, info, plate_id AS plateId, state, gmt_create AS gmtCreate, gmt_modify AS gmtModify
     </sql>
 
     <sql id="Table_Name">
-        plater
+        apply_plate
     </sql>
 
 
     <sql id="IF_Base_Column_List">
-        <if test=" plateName != null">
-            plate_name,
+        <if test=" userId != null">
+            user_id,
         </if>
-        <if test=" ownerId != null">
-            owner_id,
+        <if test=" info != null">
+            info,
+        </if>
+        <if test=" plateId != null">
+            plate_id,
         </if>
         <if test=" state != null">
             state,
@@ -39,20 +41,17 @@
         <if test=" gmtModify != null">
             gmt_modify,
         </if>
-        <if test=" userCreate != null">
-            user_create,
-        </if>
-        <if test=" userModify != null">
-            user_modify,
-        </if>
     </sql>
 
     <sql id="IF_Value_Column_List">
-        <if test=" plateName != null">
-            #{plateName },
+        <if test=" userId != null">
+            #{userId },
         </if>
-        <if test=" ownerId != null">
-            #{ownerId },
+        <if test=" info != null">
+            #{info },
+        </if>
+        <if test=" plateId != null">
+            #{plateId },
         </if>
         <if test=" state != null">
             #{state },
@@ -63,20 +62,17 @@
         <if test=" gmtModify != null">
             #{gmtModify },
         </if>
-        <if test=" userCreate != null">
-            #{userCreate },
-        </if>
-        <if test=" userModify != null">
-            #{userModify },
-        </if>
     </sql>
 
     <sql id="Set_Column_List">
-        <if test=" plateName != null">
-            plate_name = #{plateName },
+        <if test=" userId != null">
+            user_id = #{userId },
         </if>
-        <if test=" ownerId != null">
-            owner_id = #{ownerId },
+        <if test=" info != null">
+            info = #{info },
+        </if>
+        <if test=" plateId != null">
+            plate_id = #{plateId },
         </if>
         <if test=" state != null">
             state = #{state },
@@ -87,20 +83,17 @@
         <if test=" gmtModify != null">
             gmt_modify = #{gmtModify },
         </if>
-        <if test=" userCreate != null">
-            user_create = #{userCreate },
-        </if>
-        <if test=" userModify != null">
-            user_modify = #{userModify },
-        </if>
     </sql>
 
     <sql id="Where_Column_List">
-        <if test=" plateName != null">
-            and plate_name = #{plateName }
+        <if test=" userId != null">
+            and user_id = #{userId }
         </if>
-        <if test=" ownerId != null">
-            and owner_id = #{ownerId }
+        <if test=" info != null">
+            and info = #{info }
+        </if>
+        <if test=" plateId != null">
+            and plate_id = #{plateId }
         </if>
         <if test=" state != null">
             and state = #{state }
@@ -111,15 +104,9 @@
         <if test=" gmtModify != null">
             and gmt_modify = #{gmtModify }
         </if>
-        <if test=" userCreate != null">
-            and user_create = #{userCreate }
-        </if>
-        <if test=" userModify != null">
-            and user_modify = #{userModify }
-        </if>
     </sql>
 
-    <insert id="insert" parameterType="com.bysj.entity.Plater">
+    <insert id="insert" parameterType="com.bysj.entity.ApplyPlate">
         insert into
         <include refid="Table_Name"></include>
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -130,7 +117,7 @@
         </trim>
     </insert>
 
-    <update id="update" parameterType="com.bysj.entity.Plater">
+    <update id="update" parameterType="com.bysj.entity.ApplyPlate">
         update
         <include refid="Table_Name"></include>
         <trim prefix="SET" suffixOverrides=",">
@@ -140,7 +127,7 @@
     </update>
 
     <!-- 根据主键查询 -->
-    <select id="getById" resultType="com.bysj.entity.Plater" parameterType="java.lang.Integer">
+    <select id="getById" resultType="com.bysj.entity.ApplyPlate" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from
@@ -155,7 +142,7 @@
         where id = #{id}
     </delete>
 
-    <select id="getByWhere" resultType="com.bysj.entity.Plater" parameterType="java.util.Map">
+    <select id="getByWhere" resultType="com.bysj.entity.ApplyPlate" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
@@ -168,7 +155,7 @@
     </select>
 
 
-    <select id="getAll" resultType="com.bysj.entity.Plater">
+    <select id="getAll" resultType="com.bysj.entity.ApplyPlate">
         select *
         from
         <include refid="Table_Name"></include>
@@ -186,10 +173,7 @@
         </where>
     </select>
 
-    <select id="findAllPlateName" resultType="com.bysj.entity.vo.response.PlateNameForIndex">
-        select id, plate_name as plateName from plater
-    </select>
-    <select id="findQuery" resultType="com.bysj.entity.Plater" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findQuery" resultType="com.bysj.entity.ApplyPlate" parameterType="com.bysj.common.request.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>
@@ -200,9 +184,5 @@
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
-    </select>
-
-    <select id="findPlateNameByUserId" parameterType="Integer" resultType="string">
-        select plate_name as plateName from plater where owner_id = ${userId}
     </select>
 </mapper>

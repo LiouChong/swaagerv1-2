@@ -23,7 +23,7 @@ public class AssetGenerator {
     /**
      * 代码输出路径
      */
-    private String outPutDir = "C:\\Users\\bysj\\Desktop\\bbs-plus";
+    private String outPutDir = "C:\\Users\\Antiy\\Desktop\\bbs-plus";
 
     /**
      * 代码作者
@@ -88,9 +88,7 @@ public class AssetGenerator {
         // 表名生成策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         // 需要生成的表
-        strategy.setInclude(new String[]{"applyplate", "chat_record", "favorites_article", "follow",
-                "permission", "plate", "plater", "post", "private_letter",
-                "reply", "team", "tlevel", "total_station_information","user_picture","user_ban","user_team_rel"});
+        strategy.setInclude(new String[]{"apply_plate"});
 
 //        strategy.setInclude(new String[]{"asset_user"});
 
@@ -234,7 +232,7 @@ public class AssetGenerator {
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("123456");
-        dsc.setUrl("jdbc:mysql://localhost:3306/bysj?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&useSSL=true");
+        dsc.setUrl("jdbc:mysql://localhost:3306/bbs?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&useSSL=true");
         mpg.setDataSource(dsc);
     }
 

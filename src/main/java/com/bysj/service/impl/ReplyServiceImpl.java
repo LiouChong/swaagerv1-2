@@ -48,7 +48,6 @@ public class ReplyServiceImpl extends BaseServiceImpl<Reply> implements IReplySe
         Reply reply = requestConverter.convert(request, Reply.class);
 
         Date nowDate = new Date();
-
         Integer userId = userHandle.getUserId();
 
         // 给回复的修改时间、创建时间、创建人、修改人赋值

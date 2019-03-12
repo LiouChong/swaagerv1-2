@@ -71,7 +71,7 @@ public class ShiroConfiguration {
         filterChainDefinetionMap.put("/assets/**", "anon");
         filterChainDefinetionMap.put("/images/**", "anon");
         filterChainDefinetionMap.put("/js/**", "anon");
-        filterChainDefinetionMap.put("/user/**", "anon");
+        filterChainDefinetionMap.put("/user_picture/**", "anon");
         filterChainDefinetionMap.put("/favicon.ico", "anon");
 
         // 具体controller的链接
@@ -81,7 +81,7 @@ public class ShiroConfiguration {
         // 简单搜索功能允许
         filterChainDefinetionMap.put("/post/query/simple", "anon");
         filterChainDefinetionMap.put("/post/detail/*", "anon");
-        filterChainDefinetionMap.put("/query/all", "anon");
+        filterChainDefinetionMap.put("/post/query/all", "anon");
 
 
         // 退出登录页面

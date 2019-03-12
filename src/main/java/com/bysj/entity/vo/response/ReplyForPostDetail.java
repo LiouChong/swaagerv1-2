@@ -1,5 +1,6 @@
 package com.bysj.entity.vo.response;
 
+import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
@@ -9,7 +10,7 @@ import java.util.Date;
  *
  * @author liuchong
  */
-public class ReplyForPostDetail {
+public class ReplyForPostDetail extends BaseEntity {
     /**
      * 回复信息
      */

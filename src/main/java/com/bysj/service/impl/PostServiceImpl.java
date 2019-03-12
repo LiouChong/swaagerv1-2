@@ -133,7 +133,11 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
 
     @Override
     public List<PostResponse> findAllPostTimeDesc(ObjectQuery objectQuery) {
-        return postDao.findAllPostTimeDesc(objectQuery);
+        List<PostResponse> allPostTimeDesc = postDao.findAllPostTimeDesc(objectQuery);
+        for (PostResponse postResponse : allPostTimeDesc) {
+            exChangeNumber(postResponse);
+        }
+        return allPostTimeDesc;
     }
 
     @Override

@@ -28,9 +28,9 @@
     <!--BOTTOM START-->
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/font-awesome.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/font-awesome.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -41,10 +41,20 @@
 
 
     <!--BOTTOM END-->
+    <link rel="shortcut icon" href="favicon_16.ico"/>
+    <link rel="bookmark" href="favicon_16.ico"/>
+    <!-- site css -->
+    <link rel="stylesheet" href="/css/site.min.css">
 
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/js/site.min.js"></script>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-    <script src="js/html5.js"></script></script>
+    <script src="/js/html5.js"></script></script>
     <![endif]-->
     <style type="text/css">
         div {
@@ -146,10 +156,10 @@
         }
     </style>
 
-    <script src="/js/jquery-3.3.1.js"></script>
+    <script src="js/jquery-3.3.1.js"></script>
     <script>
         $(document).ready(function () {
-            $("#showChanTable").click(function () {
+            $("#showChanTable").unbind('click').click(function () {
                 $.ajax({
                     type: "POST",
                     url: "/user/update",
@@ -231,152 +241,164 @@
 <!-- Start of Page Container -->
 <div class="page-container">
     <div class="container">
-        <!--<input id="info">-->
-        <div style="height:1200px">
-            <h1 style="color: gray;text-align: center" th:if="${user.stateStr} eq '无效'"> 以被封禁 </h1>
-            <h1 style="text-align: center" th:if="${user.stateStr} eq '有效'">个人信息</h1>
+        <div class="panel-body">
+            <div class="content-row">
+                <h2 class="content-row-title">Accordions</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel-group" id="accordion1">
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion1"
+                                           href="#collapseOne">版主申请管理 &emsp;<span class="badge">14</span></a>
 
-
-            <div id="left_box">
-                <h2 th:if="${user.picture} eq null">暂无头像！</h2>
-                <img th:if="${user.picture} ne null" th:src="'/user_picture/' + ${user.picture}"
-                     style="width: 100%;height: 100%"/>
-            </div>
-
-            <input id="idValue" th:attr="value=${user.id}" hidden>
-            <table class="dataintable">
-                <tr>
-                    <td><i> <span class="vintage"> 邮箱:</span> <br></i></td>
-                    <td><span class="input_css" th:text="${user.email}"><!--${user_picture.email} --></span></td>
-                </tr>
-                <tr>
-                    <td><i> <span class="vintage"> 旧密码:</span> <br></i></td>
-                    <td><input id="oldPswValue" class="input_css"></td>
-                </tr>
-                <tr>
-                    <td><i> <span class="vintage"> 新密码:</span> <br></i></td>
-                    <td><input id="pswValue" class="input_css"></td>
-                </tr>
-                <tr>
-                    <td><i> <span class="vintage"> 性别:</span> <br></i></td>
-                    <td>
-                        <div th:if="${user.sexStr} eq '男'">
-                            <input type="radio" name="sexValue" value="1" class="input_css" checked="checked"><span
-                                class="input_css">男 </span> &emsp;&emsp;
-                            <input type="radio" name="sexValue" value="0" class="input_css"/><span
-                                class="input_css">女</span>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                        richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
+                                        brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+                                        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                        shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+                                        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+                                        Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
+                                        you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo">版主管理
+                                            &emsp;<span class="badge">14</span></a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                        richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
+                                        brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+                                        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                        shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+                                        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+                                        Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
+                                        you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion1"
+                                           href="#collapseThree">帖子管理 &emsp;<span class="badge">14</span></a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                        richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
+                                        brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+                                        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                        shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+                                        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+                                        Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
+                                        you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion1"
+                                           href="#collapseFour">用户管理 &emsp;<span class="badge">14</span></a>
+                                    </h4>
+                                </div>
+                                <div id="collapseFour" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                        richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
+                                        brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+                                        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                        shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+                                        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+                                        Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
+                                        you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion1"
+                                           href="#collapseFive">讨论组管理 &emsp;<span class="badge">14</span></a>
+                                    </h4>
+                                </div>
+                                <div id="collapseFive" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
+                                        richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
+                                        brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
+                                        sunt aliqua put a bird on it squid single-origin coffee nulla assumenda
+                                        shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson
+                                        cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+                                        Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
+                                        you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div th:if="${user.sexStr} eq '女'">
-                            <input type="radio" name="sexValue" value="1" class="input_css">男 &emsp;&emsp;&emsp;
-                            <input type="radio" name="sexValue" value="0" class="input_css" checked="checked"/>女
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td><i> <span class="vintage"> 年龄:</span> <br></i></td>
-                    <td><input id="ageValue" class="input_css" th:attr="value=${user.age}">
-                        <!--${user_picture.psw} --></input> </td>
-                </tr>
-                <tr>
-                    <td><i><span class="vintage"> 积分数：</span><br></i></td>
-                    <td><span class="input_css" th:text="${user.money}"><!--${user_picture.psw} --></span></td>
-                </tr>
-                <tr>
-                    <td><i>
-                        <span class="vintage"> 昵称：</span> <br></i></td>
-                    <td><input id="nicknameValue" class="input_css" th:attr="value=${user.nickname}">
-                        <!--${user_picture.psw} --></input> </td>
-                </tr>
-                <tr>
-                    <td><i>
-                        <span class="vintage"> 粉丝数：</span> <br></i></td>
-                    <td><span class="input_css" th:text="${user.fanCount}"><!--${user_picture.psw} --></span></td>
-                </tr>
-                <tr>
-                    <td><i>
-                        <span class="vintage"> 管理的板块：</span> <br></i></td>
-                    <td>
-                        <a class="plateName" th:if="${user.plateName eq null}"><b>暂无</b></a>
-                        <a class="plateName" th:if="${user.plateName ne null}"
-                           th:each="plate, plateStat:${user.plateName}"
-                           th:text="${plateStat.index + 1} + ' ' + ${plate} +' '  "><b
-                                th:text="${user.plateName}"></b></a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td><i><span class="vintage">设置头像： </span> </i></td>
-                    <td>
-                        <form action="/user/picture" enctype="multipart/form-data" method="post">
-                            <input type="file" name="file" value="上传头像">
-                            <button class="butclass"><b>上传头像(最大2M)</b></button>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td><i>
-                        <span class="vintage"> 创建时间：</span> <br></i></td>
-                    <td>
-                        <span style="font-size: 25px"><b th:text="${user.gmtCreateStr}"></b></span>
-                    </td>
-                </tr>
-
-            </table>
-
-            <div id="signaTureText" class="signaTureShow">
-                <h2>个性签名</h2>
-                <textarea id="signaTureValue" th:text="${user.signaTure}" style="height: 100%; width: 100% "/>
-            </div>
-            <div style="margin-top: 100px;">
-                <div style="float: right;width:60%; margin-top: 30px">
-                    <button id="showChanTable">保存修改</button>
-                </div>
-
-                <shiro:hasPermission name="moderator:agree">
-                    <br><br><br><br><br>
-                    <div id="applyManagerTable" style=" border-color: red;width:100%;margin-top:450px;text-align: center;">
-                       <h1><a href="/backstage/manage">管理论坛后台</a></h1>
-                        <!--TODO 这里进行跳转-->
-                        <!--<h1 style="color: red">${applyError}</h1>
-                        <c:forEach items="${applys}" var="apply" varStatus="f">
-                            <table class="dataintable" style="width: 100%">
-                                <tr>
-                                    <td><i> <span class="vintage"> 编号:</span> <br></i></td>
-                                    <td><span style="font-size: 25px">${f.count} </span></td>
-                                </tr>
-                                <tr>
-                                    <td><i> <span class="vintage"> 申请者:</span> <br></i></td>
-                                    <td><span style="font-size: 25px">${apply.nickName} </span></td>
-                                </tr>
-                                <tr>
-                                    <td><i><span class="vintage"> 申请板块：</span><br></i></td>
-                                    <td><span style="font-size: 25px">${apply.plateName} </span></td>
-                                </tr>
-                                <tr>
-                                    <td><i>
-                                        <span class="vintage"> 申请时间：</span> <br></i></td>
-                                    <td><span style="font-size: 25px">${apply.applyDate} </span></td>
-                                </tr>
-                            </table>
-                            <a href="/agreeApply?applyId=${apply.applyId}&userId=${apply.userId}&plateId=${apply.plateId}"
-                               style="float: left;color: green;font-size: 20px"><b>同意</b></a>&emsp;&emsp;&emsp;
-                            <a href="/disAgree?applyId=${apply.applyId}"
-                               style="float:right;color:red;font-size: 20px"><b>否决</b></a>
-                            <hr>
-                        </c:forEach>-->
-
                     </div>
-                </shiro:hasPermission>
+                </div>
             </div>
+            <!-- Lists
+                              ================================================== -->
+            <div class="content-row">
+                <div class="col-md-12">
+                    <div class="bs-example">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>@twitter</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /example -->
+                    <div class="highlight"><pre><code class="html"><span class="nt">&lt;table</span> <span class="na">class=</span><span
+                            class="s">&quot;table table-striped&quot;</span><span class="nt">&gt;</span>
+                                        ...
+                                      <span class="nt">&lt;/table&gt;</span></code></pre>
+                    </div>
 
+                </div>
+            </div>
         </div>
-
-        <!--<span style="font-size: 25px;color:red">${info}</span>-->
-
-        </in>
     </div>
-
-</div>
 </div>
 <!-- End of Page Container -->
 

@@ -4,6 +4,7 @@ package com.bysj.dao;
 import com.bysj.common.response.IBaseDao;
 import com.bysj.entity.Plater;
 import com.bysj.entity.vo.response.PlateNameForIndex;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,4 +22,11 @@ public interface PlaterDao extends IBaseDao<Plater> {
      * @return
      */
     List<PlateNameForIndex> findAllPlateName();
+
+    /**
+     * 根据用户id查询其管理的板块
+     * @param userId
+     * @return
+     */
+    List<String> findPlateNameByUserId(@Param("userId") Integer userId);
 }

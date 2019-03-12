@@ -1,5 +1,6 @@
 package com.bysj.controller;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -15,4 +16,9 @@ public class PageController {
         return "login";
     }
 
+    @GetMapping("/backstage/manage")
+    @RequiresPermissions("user:ban")
+    public String getManagePage() {
+        return "manage";
+    }
 }

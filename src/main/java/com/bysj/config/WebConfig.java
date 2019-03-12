@@ -19,4 +19,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(true) //设置为true
                 .maxAge(3600);
     }*/
+
+   
 }

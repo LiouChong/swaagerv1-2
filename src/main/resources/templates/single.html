@@ -66,22 +66,23 @@
         $(document).ready(function () {
             // 点击提交评论
             $("#submit").click(function () {
-                 $.ajax({
-                     url: "/reply/save",
-                     type: "POST",
-                     contentType: "application/json; charset=utf-8",
-                     data: JSON.stringify({
-                         replyInfo:$("#comment").val(),
-                         postId:$("#postId").val()
-                     }),
-                     dataType: "json",
-                     seccess: function (data) {
-                         $("#ajaxinfo").html(data);
-                     },
-                     error: function () {
-                         $("#sendidcode").attr(data.body);
-                     }
-                 });
+                $.ajax({
+                    url: "/reply/save",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        replyInfo: $("#comment").val(),
+                        postId: $("#postId").val()
+                    }),
+                    dataType: "json",
+                    success: function (data) {
+                        window.location.href = "/post/detail/" + $("#postId").val();
+                        alert("发表成功！")
+                    },
+                    error: function () {
+                        alert("发表失败！")
+                    }
+                });
             })
         });
     </script>
@@ -118,7 +119,7 @@
                             <li><a href="/login">登录 注册</a></li>
                         </shiro:guest>
                         <shiro:user>
-                            <li>欢迎您：<a href="/myInfo">
+                            <li>欢迎您：<a href="/user">
                                 <shiro:principal property="email"></shiro:principal>
                             </a>&emsp;
                             </li>
@@ -190,7 +191,11 @@
                             <article id="comment-2">
 
                                 <a href="#">
-                                    <img alt="" th:src="'/user_picture/' + ${reply.userImg}"
+                                    <img th:if="${reply.userImg} ne null"
+                                         th:src="'/user_picture/' + ${reply.userImg}"
+                                         class="avatar avatar-60 photo"
+                                         height="60" width="60">
+                                    <img th:if="${reply.userImg} eq null" src="/user_picture/default.jpg"
                                          class="avatar avatar-60 photo"
                                          height="60" width="60">
                                 </a>

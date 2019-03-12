@@ -1,6 +1,5 @@
 package com.bysj.config.shiro;
 
-import com.bysj.common.exception.RequestParamsException;
 import com.bysj.dao.UserDao;
 import com.bysj.entity.User;
 import org.apache.shiro.authc.*;

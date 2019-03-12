@@ -16,4 +16,5 @@ public class MyFormAuthticationFilter extends FormAuthenticationFilter {
         httpServletResponse.sendRedirect("/post/index");
         return true;
     }
+
 }

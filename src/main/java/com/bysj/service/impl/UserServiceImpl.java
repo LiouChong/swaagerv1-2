@@ -11,6 +11,7 @@ import com.bysj.common.utils.DateUtils;
 import com.bysj.common.utils.MailUtil;
 import com.bysj.common.utils.NumberChineseEx;
 import com.bysj.common.utils.UserHandle;
+import com.bysj.dao.PlaterDao;
 import com.bysj.dao.UserDao;
 import com.bysj.entity.User;
 import com.bysj.entity.vo.query.UserQuery;
@@ -55,6 +56,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
 
     @Resource
     private UserDao userDao;
+
+    @Resource
+    private PlaterDao platerDao;
 
     @Resource
     private BaseConverter<UserRequestForRegist, User> requestSaveConverter;
@@ -123,7 +127,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         String email = userHandle.getUserEmail();
         String md5Psw = new Md5Hash(request.getOldPswValue(), email).toString();
         //如果填写了旧密码，就说明需要变更密码
-        if (request.getOldPswValue() != null ) {
+        if (request.getOldPswValue() != null && !("".equals(request.getOldPswValue()))) {
             //如果填写的旧密码是对的，则进行变更
             if (md5Psw.equals(userHandle.getUser().getPsw())) {
                 //对密码进行加密
@@ -279,7 +283,10 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     @Override
     public UserResponse getInfoById(Integer id) throws Exception {
         UserResponse userResponse = userDao.userDetailInfo(id);
+        List<String> plateNames = platerDao.findPlateNameByUserId(id);
 
+
+        userResponse.setPlateName(plateNames);
         userResponse.setSexStr(numberChineseEx.numExchangeChinese(userResponse, "sex"));
         userResponse.setStateStr(numberChineseEx.numExchangeChinese(userResponse, "state"));
 

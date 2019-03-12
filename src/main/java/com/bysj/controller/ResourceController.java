@@ -1,4 +1,4 @@
-package com.cuit.bbs.controller;
+package com.bysj.controller;
 
 
 import com.bysj.common.response.ActionResponse;
