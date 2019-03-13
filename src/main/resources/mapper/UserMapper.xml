@@ -302,7 +302,7 @@
             u.state
         FROM
             USER u
-                INNER JOIN plater p ON u.id = p.owner_id
+                LEFT JOIN plater p ON u.id = p.owner_id
         WHERE
             u.id = #{id}
         GROUP BY

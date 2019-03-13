@@ -38,10 +38,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * <p>
@@ -284,7 +281,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     public UserResponse getInfoById(Integer id) throws Exception {
         UserResponse userResponse = userDao.userDetailInfo(id);
         List<String> plateNames = platerDao.findPlateNameByUserId(id);
-
 
         userResponse.setPlateName(plateNames);
         userResponse.setSexStr(numberChineseEx.numExchangeChinese(userResponse, "sex"));
