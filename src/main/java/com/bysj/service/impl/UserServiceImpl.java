@@ -4,6 +4,7 @@ import com.bysj.common.exception.BussinessException;
 import com.bysj.common.exception.RequestParamsException;
 import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
+import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.response.PageResult;
 import com.bysj.common.response.RespBasicCode;
@@ -15,10 +16,13 @@ import com.bysj.dao.PlaterDao;
 import com.bysj.dao.UserDao;
 import com.bysj.entity.User;
 import com.bysj.entity.vo.query.UserQuery;
+import com.bysj.entity.vo.query.UserQueryByLevel;
 import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequest;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
+import com.bysj.entity.vo.response.UserBanResponse;
+import com.bysj.entity.vo.response.UserLevellResponse;
 import com.bysj.entity.vo.response.UserResponse;
 import com.bysj.service.IUserService;
 import org.apache.shiro.SecurityUtils;
@@ -99,6 +103,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
             user.setGmtCreate(new Date());
             user.setGmtModify(new Date());
 
+            // TODO 注册时候加密已经注释，便于测试，后面解开
             //利用shiro的MD5加密对密码进行加密（加上盐值）
             String psw = new Md5Hash(user.getPsw(),user.getEmail()).toString();
 
@@ -243,6 +248,14 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         return ActionResponse.success("登陆成功");
     }
 
+    /**
+     * 用户上传图片
+     * @param profilePicture
+     * @param model
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @Override
     @Transactional
     public ModelAndView addPicture(MultipartFile profilePicture, ModelAndView model, HttpServletRequest request) throws Exception {
@@ -257,7 +270,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         String suffixname = fileName.substring(fileName.lastIndexOf(".") + 1);
         // TODO: 这里记得修改为当前登录用户
 
-        String pictureName = "970009721@qq.com" + System.currentTimeMillis() + "." + suffixname;
+        String pictureName = userHandle.getUserEmail() + System.currentTimeMillis() + "." + suffixname;
         try {
             // 保存文件
             profilePicture.transferTo(new File(pictureName));
@@ -292,8 +305,38 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     }
 
     @Override
+    public PageResult<UserLevellResponse> findUserByLevel(UserQueryByLevel userQueryByLevel) {
+        return new PageResult<>(userQueryByLevel.getPageSize(),
+                this.findLevelCount(userQueryByLevel), userQueryByLevel.getCurrentPage(),
+                this.findListUserByLevel(userQueryByLevel));
+    }
+
+    private Integer findLevelCount(UserQueryByLevel queryByLevel) {
+        return userDao.findCountByLevel(queryByLevel);
+    }
+
+    private List<UserLevellResponse> findListUserByLevel(UserQueryByLevel userQueryByLevel) {
+        return userDao.findUserByLevel(userQueryByLevel);
+    }
+
+    @Override
     public UserResponse getCurrentUserInfo() throws Exception {
         Integer currentUserId = userHandle.getUserId();
         return getInfoById(currentUserId);
+    }
+
+    @Override
+    public PageResult<UserBanResponse> findPageUserBan(ObjectQuery objectQuery) {
+        return new PageResult<>(objectQuery.getPageSize(),
+                this.getBanUserCount(), objectQuery.getCurrentPage(),
+                this.findBanUserList(objectQuery));
+    }
+
+    private Integer getBanUserCount() {
+        return userDao.findBanUserCount();
+    }
+
+    private List<UserBanResponse> findBanUserList(ObjectQuery objectQuery) {
+        return userDao.findPageBanUser(objectQuery);
     }
 }

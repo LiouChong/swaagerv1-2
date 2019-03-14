@@ -12,7 +12,7 @@ import com.bysj.common.request.ObjectQuery;
  * @since 2018-12-27
  */
 
-public class UserQuery extends ObjectQuery {
+public class UserQueryByLevel extends ObjectQuery {
     /**
      * 用户权限
      */

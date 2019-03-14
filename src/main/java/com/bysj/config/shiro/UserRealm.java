@@ -47,6 +47,8 @@ public class UserRealm extends AuthorizingRealm {
         if (user == null) {
             throw new UnknownAccountException();
         }
-        return new SimpleAuthenticationInfo(user, user.getPsw(), ByteSource.Util.bytes(user.getEmail()), getName());
+        // TODO 上面的注释加解密
+//        return new SimpleAuthenticationInfo(user, user.getPsw(), ByteSource.Util.bytes(user.getEmail()), getName());
+        return new SimpleAuthenticationInfo(user, user.getPsw(), getName());
     }
 }

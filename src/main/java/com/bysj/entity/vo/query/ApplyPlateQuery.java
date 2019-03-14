@@ -7,7 +7,7 @@ import com.bysj.common.request.ObjectQuery;
  * ApplyPlate 查询条件
  * </p>
  *
- * @author wh
+ * @author Liuchong
  * @since 2018-12-27
  */
 

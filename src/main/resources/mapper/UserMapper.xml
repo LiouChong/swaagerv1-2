@@ -266,7 +266,7 @@
                 user_modify = #{userModify },
             </if>
         </trim>
-          where id = ${id}
+        where id = ${id}
     </update>
 
     <!-- 根据主键查询 -->
@@ -287,18 +287,19 @@
             money,
             email,
             picture,
-            signa_ture AS signaTure,
+            signa_ture   AS signaTure,
             sex,
             age,
             u.gmt_create as gmtCreate,
             (
                 SELECT
-                    count( fan_id ) from
+                    count(fan_id)
+                from
                     USER u
                         INNER JOIN follow f ON u.id = f.star_id
                 WHERE
                     u.id = #{id}
-            ) as fanCount,
+            )            as fanCount,
             u.state
         FROM
             USER u
@@ -348,8 +349,10 @@
     </select>
 
     <select id="findQuery" resultType="com.bysj.entity.User" parameterType="com.bysj.common.request.ObjectQuery">
-        select * from
-        <include refid="Table_Name"></include>
+        select
+        *
+        from
+        user
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -371,4 +374,49 @@
         from permission p
         where p.role_id = #{level}
     </select>
+    <select id="findCountByLevel" resultType="java.lang.Integer"
+            parameterType="com.bysj.entity.vo.query.UserQueryByLevel">
+        select
+            count(1)
+        from user u
+                 inner join plater p on u.id = p.owner_id
+        where u.level = #{userLevel}
+    </select>
+    <select id="findUserByLevel" resultType="com.bysj.entity.vo.response.UserLevellResponse"
+            parameterType="com.bysj.entity.vo.query.UserQueryByLevel">
+        select
+            nickname,
+            email,
+            `level`,
+            u.gmt_create as userGmtCreate,
+            plate_name   as plateName,
+            p.gmt_create as platerGmtCreate
+        from user u
+                 inner join plater p on u.id = p.owner_id
+        where u.level = #{userLevel}
+    </select>
+    <select id="findPageBanUser" resultType="com.bysj.entity.vo.response.UserBanResponse">
+        SELECT
+        u.email,
+        u.nickname,
+        u.gmt_create as gmtCreate,
+        u.gmt_modify as gmtModify,
+        u.ban_reason as banReason,
+        uu.nickname as banUserName
+        FROM
+        USER u
+        INNER JOIN USER uu ON u.user_modify = uu.id
+        WHERE
+        u.state = 0
+        <if test="pageSize !=-1">
+            LIMIT #{pageSize} offset #{pageOffset}
+        </if>
+    </select>
+    <select id="findBanUserCount" resultType="java.lang.Integer">
+        select
+            count(1)
+        from user
+        where user.state = 0
+    </select>
+
 </mapper>

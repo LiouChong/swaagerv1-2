@@ -2,17 +2,18 @@ package com.bysj.service;
 
 
 import com.bysj.common.request.IBaseService;
+import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.PageResult;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.User;
 import com.bysj.entity.vo.query.UserQuery;
+import com.bysj.entity.vo.query.UserQueryByLevel;
 import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
-import com.bysj.entity.vo.request.UserRequest;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
+import com.bysj.entity.vo.response.UserBanResponse;
+import com.bysj.entity.vo.response.UserLevellResponse;
 import com.bysj.entity.vo.response.UserResponse;
-import org.springframework.http.codec.multipart.Part;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -108,4 +109,18 @@ public interface IUserService extends IBaseService<User> {
          * @return
          */
         UserResponse getCurrentUserInfo() throws Exception;
+
+        /**
+         * 根据等级查询用户
+         * @param userQueryByLevel
+         * @return
+         */
+        PageResult<UserLevellResponse> findUserByLevel(UserQueryByLevel userQueryByLevel);
+
+        /**
+         * 分页查询被封禁用户
+         * @param objectQuery
+         * @return
+         */
+        PageResult<UserBanResponse> findPageUserBan(ObjectQuery objectQuery);
 }

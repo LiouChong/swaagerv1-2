@@ -9,7 +9,7 @@ import java.util.Date;
  * ApplyPlateRequest 请求对象
  * </p>
  *
- * @author wh
+ * @author Liuchong
  * @since 2018-12-27
  */
 

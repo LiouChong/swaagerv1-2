@@ -202,21 +202,17 @@
             <nav class="main-nav">
                 <div class="menu-top-menu-container">
                     <ul id="menu-top-menu" class="clearfix">
-                        <li class="current-menu-item"><a href="/post/index">首页</a></li>
+                        <li ><a href="/post/index">首页</a></li>
                         <li><a href="/home-categories-description">关注</a></li>
-                        <!--<li><a href="/home-categories-articles">categories-articles</a></li>-->
+                        <li><a href="/home-categories-articles">推荐</a></li>
                         <li><a href="/post/query/all">最新</a></li>
                         <li><a href="/faq">常见问题</a></li>
                         <li><a href="/contact">联系我们</a></li>
-                        <shiro:guest>
-                            <li><a href="/login">登录 注册</a></li>
-                        </shiro:guest>
-                        <shiro:user>
-                            <li>欢迎您：<a href="#">
+                            <li class="current-menu-item">欢迎您：<a href="#">
                                 <shiro:principal property="email"></shiro:principal>
                             </a>&emsp;
                             </li>
-                            <a href="/logout" style="color: white">注销</a></shiro:user>
+                            <a href="/logout" style="color: white">注销</a>
                     </ul>
                 </div>
             </nav>

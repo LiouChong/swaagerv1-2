@@ -1,11 +1,14 @@
 package com.bysj.dao;
 
 
+import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.IBaseDao;
 import com.bysj.entity.User;
+import com.bysj.entity.vo.query.UserQueryByLevel;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
+import com.bysj.entity.vo.response.UserBanResponse;
+import com.bysj.entity.vo.response.UserLevellResponse;
 import com.bysj.entity.vo.response.UserResponse;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -40,5 +43,37 @@ public interface UserDao extends IBaseDao<User> {
      */
     UserResponse userDetailInfo(Integer id);
 
+    /**
+     * 更新用户
+     * @param userRequestForUpdate
+     * @return
+     */
     Integer updateUser(UserRequestForUpdate userRequestForUpdate);
+
+    /**
+     * 根据等级查询数量
+     * @param userQueryByLevel
+     * @return
+     */
+    Integer findCountByLevel(UserQueryByLevel userQueryByLevel);
+
+    /**
+     * 根据等级查询用户列表
+     * @param userQueryByLevel
+     * @return
+     */
+    List<UserLevellResponse> findUserByLevel(UserQueryByLevel userQueryByLevel);
+
+    /**
+     * 分页查询被封禁用户
+     * @param objectQuery
+     * @return
+     */
+    List<UserBanResponse> findPageBanUser(ObjectQuery objectQuery);
+
+    /**
+     * 查询被封禁用户数量
+     * @return
+     */
+    Integer findBanUserCount();
 }

@@ -93,10 +93,11 @@
             <nav class="main-nav">
                 <div class="menu-top-menu-container">
                     <ul id="menu-top-menu" class="clearfix">
-                        <li class="current-menu-item"><a href="/post/index">首页</a></li>
+                        <li ><a href="/post/index">首页</a></li>
+                        <li><a href="/home-categories-description">关注</a></li>
                         <li><a href="/home-categories-description">推荐</a></li>
                         <!--<li><a href="/home-categories-articles">categories-articles</a></li>-->
-                        <li><a href="/post/query/all">最新</a></li>
+                        <li class="current-menu-item"><a href="/post/query/all">最新</a></li>
                         <li><a href="/faq">常见问题</a></li>
                         <li><a href="/contact">联系我们</a></li>
                         <shiro:guest>
@@ -124,8 +125,8 @@
         <h3 class="search-header">Have a Question?</h3>
         <p class="search-tag-line">If you have any question you can ask below or enter what you are looking for!</p>
 
-        <form id="search-form" class="search-form clearfix" method="get" action="#" autocomplete="off">
-            <input class="search-term required" type="text" id="s" name="s" placeholder="Type your search terms here"
+        <form id="search-form" class="search-form clearfix" method="get" action="/post/query/simple" autocomplete="off">
+            <input class="search-term required" type="text" id="s" name="integratedQuery" placeholder="Type your search terms here"
                    title="* Please enter a search term!"/>
             <input class="search-btn" type="submit" value="Search"/>
             <div id="search-error-container"></div>

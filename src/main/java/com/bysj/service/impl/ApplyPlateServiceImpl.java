@@ -2,6 +2,7 @@ package com.bysj.service.impl;
 
 import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
+import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.PageResult;
 import com.bysj.dao.ApplyPlateDao;
 import com.bysj.entity.ApplyPlate;
@@ -25,35 +26,38 @@ import java.util.List;
 @Service
 public class ApplyPlateServiceImpl extends BaseServiceImpl<ApplyPlate> implements IApplyPlateService {
 
-        @Resource
-        private ApplyPlateDao applyPlateDao;
-        @Resource
-        private BaseConverter<ApplyPlateRequest, ApplyPlate> requestConverter;
-        @Resource
-        private BaseConverter<ApplyPlate, ApplyPlateResponse> responseConverter;
+    @Resource
+    private ApplyPlateDao applyPlateDao;
+    @Resource
+    private BaseConverter<ApplyPlateRequest, ApplyPlate> requestConverter;
+    @Resource
+    private BaseConverter<ApplyPlate, ApplyPlateResponse> responseConverter;
 
-        @Override
-        public Integer saveApplyPlate(ApplyPlateRequest request) throws Exception {
-            ApplyPlate applyPlate = requestConverter.convert(request, ApplyPlate.class);
-            return applyPlateDao.insert(applyPlate);
-        }
+    @Override
+    public Integer saveApplyPlate(ApplyPlateRequest request) throws Exception {
+        ApplyPlate applyPlate = requestConverter.convert(request, ApplyPlate.class);
+        return applyPlateDao.insert(applyPlate);
+    }
 
-        @Override
-        public Integer updateApplyPlate(ApplyPlateRequest request) throws Exception {
-            ApplyPlate applyPlate = requestConverter.convert(request, ApplyPlate.class);
-            return applyPlateDao.update(applyPlate);
-        }
+    @Override
+    public Integer updateApplyPlate(ApplyPlateRequest request) throws Exception {
+        ApplyPlate applyPlate = requestConverter.convert(request, ApplyPlate.class);
+        return applyPlateDao.update(applyPlate);
+    }
 
-        @Override
-        public List<ApplyPlateResponse> findListApplyPlate(ApplyPlateQuery query) throws Exception {
-            List<ApplyPlate> applyPlateList = applyPlateDao.findQuery(query);
-            //TODO
-            List<ApplyPlateResponse> applyPlateResponse = responseConverter.convert(applyPlateList,ApplyPlateResponse.class );
-            return applyPlateResponse;
-        }
+    @Override
+    public List<ApplyPlateResponse> findAllApply(ObjectQuery query) throws Exception {
+        List<ApplyPlateResponse> applyPlateList = applyPlateDao.findAllApply(query);
+        return applyPlateList;
+    }
 
-        @Override
-        public PageResult<ApplyPlateResponse> findPageApplyPlate(ApplyPlateQuery query) throws Exception {
-            return new PageResult<>(query.getPageSize(), this.findCount(query),query.getCurrentPage(), this.findListApplyPlate(query));
-        }
+    @Override
+    public Integer findAllCount() {
+        return applyPlateDao.findAllCount();
+    }
+
+    @Override
+    public PageResult<ApplyPlateResponse> findPageApplyPlate(ObjectQuery query) throws Exception {
+        return new PageResult<>(query.getPageSize(), this.findAllCount(), query.getCurrentPage(), this.findAllApply(query));
+    }
 }

@@ -3,6 +3,7 @@ package com.bysj.service.impl;
 import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
 import com.bysj.common.request.ObjectQuery;
+import com.bysj.common.response.PageResult;
 import com.bysj.common.utils.DateUtils;
 import com.bysj.common.utils.NumberChineseEx;
 import com.bysj.dao.PlaterDao;
@@ -12,10 +13,7 @@ import com.bysj.entity.Post;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
 import com.bysj.entity.vo.request.PostRequest;
-import com.bysj.entity.vo.response.PlateNameForIndex;
-import com.bysj.entity.vo.response.PostDetailResponse;
-import com.bysj.entity.vo.response.PostResponse;
-import com.bysj.entity.vo.response.ReplyForPostDetail;
+import com.bysj.entity.vo.response.*;
 import com.bysj.service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -143,5 +141,19 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     @Override
     public Integer findAllPostCount() {
         return postDao.findAllPostCount();
+    }
+
+    @Override
+    public PageResult<PostBanResponse> findPageBanPost(ObjectQuery objectQuery) {
+        return new PageResult<>(objectQuery.getPageSize(), this.findBanPostCount(),
+                objectQuery.getCurrentPage(), this.findListBanPost(objectQuery));
+    }
+
+    private List<PostBanResponse> findListBanPost(ObjectQuery objectQuery) {
+        return postDao.findPageBanPost(objectQuery);
+    }
+
+    private Integer findBanPostCount() {
+        return postDao.findPageBanPostCount();
     }
 }

@@ -3,11 +3,13 @@ package com.bysj.service;
 
 import com.bysj.common.request.IBaseService;
 import com.bysj.common.request.ObjectQuery;
+import com.bysj.common.response.PageResult;
 import com.bysj.entity.Post;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
 import com.bysj.entity.vo.request.PostRequest;
 import com.bysj.entity.vo.response.PlateNameForIndex;
+import com.bysj.entity.vo.response.PostBanResponse;
 import com.bysj.entity.vo.response.PostDetailResponse;
 import com.bysj.entity.vo.response.PostResponse;
 
@@ -85,4 +87,9 @@ public interface IPostService extends IBaseService<Post> {
          */
         Integer findAllPostCount();
 
+        /**
+         *分页查询所有被封禁的帖子
+         * @return
+         */
+        PageResult<PostBanResponse> findPageBanPost(ObjectQuery objectQuery);
 }

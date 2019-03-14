@@ -478,9 +478,12 @@
         and p.state = 1
         <if test="integratedQuery != null">
             and (
-            p.title like CONCAT('%', #{integratedQuery}, '%'}
-            or p.info like CONCAT('%', #{integratedQuery}, '%'}
+            p.title like CONCAT('%', #{integratedQuery}, '%')
+            or p.info like CONCAT('%', #{integratedQuery}, '%')
             )
+        </if>
+        <if test="pageSize !=-1">
+            LIMIT #{pageSize} offset #{pageOffset}
         </if>
     </select>
     <select id="findSimpleQueryCount" resultType="java.lang.Integer"
@@ -496,8 +499,10 @@
         and p.create_user = u.id
         and p.state = 1
         <if test="integratedQuery != null">
-            p.title like CONCAT('%', #{integratedQuery}, '%'}
-            or p.info like CONCAT('%', #{integratedQuery}, '%'}
+            and (
+            p.title like CONCAT('%', #{integratedQuery}, '%')
+            or p.info like CONCAT('%', #{integratedQuery}, '%')
+            )
         </if>
     </select>
     <select id="findPostDetail" resultType="com.bysj.entity.vo.response.PostDetailResponse">
@@ -533,6 +538,35 @@
         from reply r
                  inner join post p on r.post_id = p.id
                  inner join user u on r.user_create = u.id
-        where r.post_id = ${postId} and r.state = 1
+        where r.post_id = ${postId}
+          and r.state = 1
+    </select>
+
+    <select id="findPageBanPost" resultType="com.bysj.entity.vo.response.PostBanResponse">
+        select
+        p.title,
+        uu.nickname as posterName,
+        pl.plate_name as plateName,
+        p.gmt_create as postGmtCreate,
+        p.gmt_modify as gmtModify,
+        p.ban_reason as banReason,
+        u.nickname as banUserName
+        from post p
+        inner join user u on p.modify_user = u.id
+        inner join plater pl on p.plate_id = pl.id
+        inner join user uu on p.poster_id = uu.id
+        where p.state = 0
+        <if test="pageSize !=-1">
+            LIMIT #{pageSize} offset #{pageOffset}
+        </if>
+    </select>
+    <select id="findPageBanPostCount" resultType="java.lang.Integer">
+        select
+            count(1)
+        from post p
+                 inner join user u on p.modify_user = u.id
+                 inner join plater pl on p.plate_id = pl.id
+                 inner join user uu on p.poster_id = uu.id
+        where p.state = 0
     </select>
 </mapper>

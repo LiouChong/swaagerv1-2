@@ -12,9 +12,24 @@
         <result column="gmt_create" property="gmtCreate"/>
         <result column="gmt_modify" property="gmtModify"/>
     </resultMap>
-<!-- 通用查询结果列 -->
+    <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id AS userId, info, plate_id AS plateId, state, gmt_create AS gmtCreate, gmt_modify AS gmtModify
+        id
+        ,
+        user_id
+        AS
+        userId,
+        info,
+        plate_id
+        AS
+        plateId,
+        state,
+        gmt_create
+        AS
+        gmtCreate,
+        gmt_modify
+        AS
+        gmtModify
     </sql>
 
     <sql id="Table_Name">
@@ -184,5 +199,29 @@
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
+    </select>
+    <select id="findAllApply" resultType="com.bysj.entity.vo.response.ApplyPlateResponse">
+        select
+            ap.id,
+            user_id      as applyUserId,
+            u.nickname   as applyUserName,
+            info         as applyInfo,
+            p.plate_name as applyPlateName,
+            ap.gmt_create as applyTime
+        from apply_plate ap
+                 inner join user u on ap.user_id = u.id
+                 inner join plater p on ap.plate_id = p.id
+        where ap.state = 1
+        <if test="pageSize !=-1">
+            LIMIT #{pageSize} offset #{pageOffset}
+        </if>
+    </select>
+    <select id="findAllCount" resultType="java.lang.Integer">
+        select
+            count(1)
+        from apply_plate ap
+                 inner join user u on ap.user_id = u.id
+                 inner join plater p on ap.plate_id = p.id
+        where ap.state = 1
     </select>
 </mapper>

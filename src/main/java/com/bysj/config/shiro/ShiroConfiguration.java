@@ -28,7 +28,8 @@ public class ShiroConfiguration {
     @Bean
     public UserRealm userRealm() {
         UserRealm userRealm = new UserRealm();
-        userRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        // TODO 这里展示不加密解密
+//        userRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         return userRealm;
     }
 

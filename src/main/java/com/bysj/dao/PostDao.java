@@ -5,9 +5,7 @@ import com.bysj.common.response.IBaseDao;
 import com.bysj.entity.Post;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
-import com.bysj.entity.vo.response.PostDetailResponse;
-import com.bysj.entity.vo.response.PostResponse;
-import com.bysj.entity.vo.response.ReplyForPostDetail;
+import com.bysj.entity.vo.response.*;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.ibatis.annotations.Param;
 
@@ -69,4 +67,17 @@ public interface PostDao extends IBaseDao<Post> {
      * @return
      */
     Integer findAllPostCount();
+
+    /**
+     * 查询被封禁帖子
+     * @param objectQuery
+     * @return
+     */
+    List<PostBanResponse> findPageBanPost(ObjectQuery objectQuery);
+
+    /**
+     * 查询被封禁帖子数量
+     * @return
+     */
+    Integer findPageBanPostCount();
 }

@@ -84,5 +84,24 @@ public class PageResult<T> implements Serializable, Cloneable {
         return this.hasPrevious;
     }
 
-
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"pageSize\":")
+                .append(pageSize);
+        sb.append(",\"totalRecords\":")
+                .append(totalRecords);
+        sb.append(",\"currentPage\":")
+                .append(currentPage);
+        sb.append(",\"items\":")
+                .append(items);
+        sb.append(",\"totalPages\":")
+                .append(totalPages);
+        sb.append(",\"hasNext\":")
+                .append(hasNext);
+        sb.append(",\"hasPrevious\":")
+                .append(hasPrevious);
+        sb.append('}');
+        return sb.toString();
+    }
 }

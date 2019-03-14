@@ -5,23 +5,17 @@ import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.vo.query.UserQuery;
 import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
-import com.bysj.entity.vo.request.UserRequest;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
-import com.bysj.entity.vo.response.UserResponse;
 import com.bysj.service.IUserService;
-import com.google.common.primitives.Booleans;
 import io.swagger.annotations.*;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
-import org.springframework.http.codec.multipart.Part;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.util.Map;
 

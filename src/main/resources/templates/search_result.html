@@ -91,6 +91,7 @@
                 <div class="menu-top-menu-container">
                     <ul id="menu-top-menu" class="clearfix">
                         <li><a href="/post/index">首页</a></li>
+                        <li><a href="/home-categories-description">关注</a></li>
                         <li><a href="/home-categories-description">推荐</a></li>
                         <!--<li><a href="/home-categories-articles">categories-articles</a></li>-->
                         <li class="current-menu-item"><a href="/post/query/all">最新</a></li>
@@ -121,8 +122,8 @@
         <h3 class="search-header">Have a Question?</h3>
         <p class="search-tag-line">If you have any question you can ask below or enter what you are looking for!</p>
 
-        <form id="search-form" class="search-form clearfix" method="get" action="searchInfo" autocomplete="off">
-            <input class="search-term required" type="text" id="s" name="search"
+        <form id="search-form" class="search-form clearfix" method="get" action="/post/query/simple" autocomplete="off">
+            <input class="search-term required" type="text" id="s" name="integratedQuery"
                    placeholder="Type your search terms here" title="* Please enter a search term!"/>
             <input class="search-btn" type="submit" value="Search"/>
             <div id="search-error-container"></div>
@@ -144,8 +145,7 @@
                     <header class="clearfix">
 
                         <h3 class="post-title">
-                            <a href="/articles-list/${postAndPlate.id}" th:text="${post.title}">
-                                <!--${postAndPlate.title}--></a>
+                            <a th:href="'/post/detail/' + ${post.id}" th:text="${post.title}"></a>
                         </h3>
 
                         <div class="post-meta clearfix">
