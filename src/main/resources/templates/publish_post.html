@@ -1,0 +1,392 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<!--[if lt IE 7]>
+<html class="lt-ie9 lt-ie8 lt-ie7" lang="en-US"> <![endif]
+[if IE 7]>    <html class="lt-ie9 lt-ie8" lang="en-US"> <![endif]
+[if IE 8]>    <html class="lt-ie9" lang="en-US"> <![endif]
+[if gt IE 8]><! <html lang="en-US"> <![endif]-->
+<head>
+    <!-- META TAGS -->
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BBS technology sharing site</title>
+
+    <link rel="shortcut icon" href="/images/beijing.jpg"/>
+
+    <!-- Style Sheet-->
+    <!--<link rel="stylesheet" href="style.css"/>-->
+    <link rel='stylesheet' id='bootstrap-css-css' href='/css/bootstrap5152.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='responsive-css-css' href='/css/responsive5152.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='pretty-photo-css-css' href='/js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='main-css-css' href='/css/main5152.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='custom-css-css' href='/css/custom5152.html?ver=1.0' type='text/css' media='all'/>
+
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5.js"></script></script>
+    <![endif]-->
+    <style type="text/css">
+        .butclass {
+            background-color: #0d90d1;
+            display: inline-block;
+            outline: none;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font: 14px/100% Arial, Helvetica, sans-serif;
+            padding: .5em 2em .55em;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+            -webkit-border-radius: .5em;
+            -moz-border-radius: .5em;
+            border-radius: .5em;
+            -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+            -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+        }
+
+        .akshelp {
+            font-size: 18px;
+        }
+
+        .askhelpImg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .butclass:hover {
+            text-decoration: none;
+        }
+
+        .butclass:active {
+            position: relative;
+            top: 1px;
+        }
+
+        select {
+            width: 50px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<!-- Start of Header -->
+<div class="header-wrapper">
+    <header>
+        <div class="container">
+
+
+            <div class="logo-container">
+                <!-- Website Logo -->
+                <a href="/index-2" title="BBS技术分享网站">
+                    <img src="/images/logo.png" alt="BBS technology sharing site">
+                </a>
+                <span class="tag-line">思想的宽度从分享开始</span>
+            </div>
+
+
+            <!-- Start of Main Navigation -->
+            <nav class="main-nav">
+                <div class="menu-top-menu-container">
+                    <ul id="menu-top-menu" class="clearfix">
+                        <li class="current-menu-item"><a href="/post/index">首页</a></li>
+                        <li><a href="/home-categories-description">推荐</a></li>
+                        <li><a href="/articles-list">最新</a></li>
+                        <li><a href="/faq">常见问题</a></li>
+                        <li><a href="/contact">联系我们</a></li>
+                        <shiro:guest>
+                            <li><a href="/login">登录 注册</a></li>
+                        </shiro:guest>
+                        <shiro:user>
+                            <li>欢迎您：<a href="/myInfo">
+                                <shiro:principal property="email"></shiro:principal>
+                            </a>&emsp;
+                            </li>
+                            <a href="/logout" style="color: white">注销</a></shiro:user>
+                    </ul>
+                </div>
+            </nav>
+            <!-- End of Main Navigation -->
+
+        </div>
+    </header>
+</div>
+<!-- End of Header -->
+
+
+<!-- Start of Page Container -->
+<div class="page-container">
+    <div class="container">
+        <div style="border: 0px solid aquamarine;height: 800px">
+            <div style="margin: 0 auto;width: 78%">
+                <!--<form action="/newPost" method="post">-->
+                <br>
+                <input type="text" name="title" id="" placeholder="标题"
+                       style="font-size: 24px;width: 60%;height: 40px;">
+
+                <span style="font-size: 19px">文章来源：
+                    <select id="article_from" style="width: 125px">
+                        <option>--选择来源--</option>
+                        <option value="1">原创</option>
+                        <option value="2">转载</option>
+                    </select>
+                </span>
+
+                <br>
+                <br>
+
+                <textarea name="info" id="info" style="width: 90%;height: 300px;overflow: auto;font-size: 24px"
+                          placeholder="内容"></textarea>
+
+                <br>
+                <br>
+                <p style="font-size: 19px">
+                    <span style="width: 100px">文章类型：</span>
+                    <select id="article_type" style="width: 125px">
+                        <option>--选择类型--</option>
+                        <option value="1">讨论贴</option>
+                        <option value="2">资源贴</option>
+                        <option value="3">求问贴</option>
+                    </select>
+                    &emsp;&emsp;
+                    <span hidden id="give_money">
+                            悬赏:<input type="text" name="give_money" style="width: 47px;height: 30px">分
+                        </span>
+                    <span hidden id="need_money">
+                            需要:<input type="text" style="width: 47px;height: 30px" name="need_money">分
+                        </span>
+                </p>
+                <script src="/js/jquery-3.3.1.js" th:inline="javascript">
+                </script>
+                <script>
+                    $(document).ready(function () {
+                        // 点击提交评论
+                        $("#article_type").blur(function () {
+                            if ($("#article_type").val() == 2) {
+                                $("#need_money").hide();
+                                $("#give_money").show();
+                            } else if ($("#article_type").val() == 3) {
+                                $("#give_money").hide();
+                                $("#need_money").show();
+                            } else {
+                                $("#need_money").hide();
+                                $("#give_money").hide();
+                            }
+                        });
+
+                        $("#changeValue").click(function () {
+                            if (!$("#askhelp1").is(":hidden")) {
+                                $("#askhelp1").hide();
+                                $("#askhelp2").show();
+                            } else if (!$("#askhelp2").is(":hidden")) {
+                                $("#askhelp2").hide();
+                                $("#askhelp3").show();
+                            } else {
+                                $("#askhelp3").hide();
+                                $("#askhelp1").show();
+                            }
+                        });
+
+                        $("#submit").click(function () {
+
+                            if ($("input[name='title']").val() == "") {
+                                alert("请输入标题！");
+                            } else if ($("#info").val() == "") {
+                                alert("请输入内容！");
+                            } else if ($("#article_from").val() == "--选择来源--") {
+                                alert("请选择来源！");
+                            } else if ($("#article_type").val() == "--选择类型--") {
+                                alert("请选择类型！");
+                            } else if ( $("#select_plate").val() == "--选择板块--") {
+                                alert("请选择板块！");
+                            } else {
+                                var listNo;
+                                if (! $("#askhelp1").is(":hidden"))  {
+                                    listNo = $("#helpUser1Hidden").val();
+                                    alert(listNo)
+                                } else if (! $("#askhelp2").is(":hidden")) {
+                                    listNo = $("#helpUser2Hidden").val();
+                                } else {
+                                    listNo = $("#helpUser3Hidden").val();
+                                }
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/post/save/single",
+                                    contentType: "application/json; charset=utf-8",
+                                    data: {
+                                        title: $("input[name='title']").val(),
+                                        info: $("#info").val(),
+                                        plateId: $("#select_plate").val(),
+                                        articleFrom: $("#article_from").val(),
+                                        articleType: $("#article_type").val(),
+                                        giveMoney: $("input[name='give_money']").val(),
+                                        needMoney: $("input[name='need_money']").val(),
+                                        askHelp:listNo
+                                    },
+                                    dataType: "json",
+                                    success: function (message) {
+                                        $("#tags").show();
+                                        if (message.body != null) {
+                                            // $("#regist_info").text(message.head.result + "," + message.body)
+                                            alert(message.body)
+                                        } else {
+                                            // $("#regist_info").text(message.head.result)
+                                            alert(message.head.result)
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    });
+                </script>
+                <p style="font-size: 19px">
+                    <span style="width: 100px">文章板块：</span>
+
+                    <select id="select_plate" style="width: 125px" name="plateId">
+                        <option>--选择板块--</option>
+                        <option onclick="selectClick()"
+                                th:each="plate,plateStat:${plates}" th:value="${plate.id}"
+                                th:text="${plate.platename}"></option>
+                    </select>
+                </p>
+                <p style="font-size: 19px">
+                    <span style="width: 100px">邀请作答：</span>
+                    <span id="askhelp1">
+                         <!--隐藏域用来jquery获取受邀请人信息-->
+                        <input th:attr="type='hidden'" th:value="${helpUsersOne}" id="helpUser1Hidden">
+                            <span th:each="user1, userStat:${helpUsersOne}">
+                                <img class="askhelpImg" th:src="'/user_picture/' + ${user1.picture}"/>
+                                <a class="akshelp" th:text="${user1.nickname}" th:href="'/user/' + ${user1.id}"></a>&emsp;
+                            </span>
+                        </span>
+                    <span id="askhelp2" hidden>
+                         <!--隐藏域用来jquery获取受邀请人信息-->
+                        <input th:attr="type='hidden'" th:value="${helpUsersTwo}" id="helpUser2Hidden">
+                             <span th:each="user2, user2Stat:${helpUsersTwo}">
+                                <img class="askhelpImg" th:src="'/user_picture/' + ${user2.picture}"/>
+                                <a class="akshelp" th:text="${user2.nickname}" th:href="'/user/' + ${user2.id}"></a>&emsp;
+                            </span>
+                        </span>
+                    <span id="askhelp3" hidden>
+                         <input th:attr="type='hidden'" th:value="${helpUsersThree}" id="helpUser3Hidden">
+                            <span th:each="user3, user3Stat:${helpUsersThree}">
+                                <img class="askhelpImg" th:src="'/user_picture/' + ${user3.picture}"/>
+                                <a class="akshelp" th:text="${user3.nickname}" th:href="'/user/' + ${user3.id}"></a>&emsp;
+                            </span>
+                        </span>
+                </p>
+                &emsp;
+                <p>
+                        <span style="margin-left: 100px">
+                           <a href="javascript:void(0)" id="changeValue"> <img src="/images/refresh.jpg"
+                                                                               style="width: 17px; height: 17px">换一批</a>
+                        </span>
+                </p>
+                <!--<p style="font-size:19px;">
+                    <span style="width: 100px">选择邀请：</span>
+                        <input type="text" id="hasApply" style="width:500px; height: 36px;">
+                </p>-->
+
+                <br>
+                <button class="butclass" id="submit">提交</button>
+                <!--</form>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Page Container -->
+
+<!-- Start of Footer -->
+<footer id="footer-wrapper">
+    <div id="footer" class="container">
+        <div class="row">
+
+            <div class="span3">
+                <section class="widget">
+                    <h3 class="title">How it works</h3>
+                    <div class="textwidget">
+                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
+                            tincidunt ut laoreet dolore magna aliquam erat volutpat. </p>
+                        <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl
+                            ut aliquip ex ea commodo consequat. </p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="span3">
+                <section class="widget"><h3 class="title">Categories</h3>
+                    <ul>
+                        <li><a href="#" title="Lorem ipsum dolor sit amet,">Advanced Techniques</a></li>
+                        <li><a href="#" title="Lorem ipsum dolor sit amet,">Designing in WordPress</a></li>
+                        <li><a href="#" title="Lorem ipsum dolor sit amet,">Server &amp; Database</a></li>
+                        <li><a href="#" title="Lorem ipsum dolor sit amet, ">Theme Development</a></li>
+                        <li><a href="#" title="Lorem ipsum dolor sit amet,">Website Dev</a></li>
+                        <li><a href="#" title="Lorem ipsum dolor sit amet,">WordPress for Beginners</a></li>
+                        <li><a href="#" title="Lorem ipsum dolor sit amet, ">WordPress Plugins</a></li>
+                    </ul>
+                </section>
+            </div>
+
+
+            <div class="span3">
+                <section class="widget">
+                    <h3 class="title">Flickr Photos</h3>
+                    <div class="flickr-photos" id="basicuse">
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </div>
+    <!-- end of #footer -->
+
+    <!-- Footer Bottom -->
+    <div id="footer-bottom-wrapper">
+        <div id="footer-bottom" class="container">
+            <div class="row">
+                <div class="span6">
+                    <p class="copyright">
+                        Copyright © 2013. All Rights Reserved by KnowledgeBase.Collect from
+                    </p>
+                </div>
+                <div class="span6">
+                    <!-- Social Navigation -->
+                    <ul class="social-nav clearfix">
+                        <li class="linkedin"><a target="_blank" href="#"></a></li>
+                        <li class="stumble"><a target="_blank" href="#"></a></li>
+                        <li class="google"><a target="_blank" href="#"></a></li>
+                        <li class="deviantart"><a target="_blank" href="#"></a></li>
+                        <li class="flickr"><a target="_blank" href="#"></a></li>
+                        <li class="skype"><a target="_blank" href="skype:#?call"></a></li>
+                        <li class="rss"><a target="_blank" href="#"></a></li>
+                        <li class="twitter"><a target="_blank" href="#"></a></li>
+                        <li class="facebook"><a target="_blank" href="#"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Footer Bottom -->
+
+</footer>
+<!-- End of Footer -->
+
+<a href="#top" id="scroll-top"></a>
+
+<!-- script -->
+
+<script type='text/javascript' src='/js/jquery.easing.1.3.js'></script>
+<script type='text/javascript' src='/js/prettyphoto/jquery.prettyPhoto.js'></script>
+<script type='text/javascript' src='/js/jflickrfeed.js'></script>
+<script type='text/javascript' src='/js/jquery.liveSearch.js'></script>
+<script type='text/javascript' src='/js/jquery.form.js'></script>
+<script type='text/javascript' src='/js/jquery.validate.min.js'></script>
+<script type='text/javascript' src='/js/custom.js'></script>
+
+</body>
+</html>

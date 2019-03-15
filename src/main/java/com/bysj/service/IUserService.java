@@ -11,6 +11,7 @@ import com.bysj.entity.vo.query.UserQueryByLevel;
 import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
+import com.bysj.entity.vo.response.RandUserForHelpResponse;
 import com.bysj.entity.vo.response.UserBanResponse;
 import com.bysj.entity.vo.response.UserLevellResponse;
 import com.bysj.entity.vo.response.UserResponse;
@@ -123,4 +124,10 @@ public interface IUserService extends IBaseService<User> {
          * @return
          */
         PageResult<UserBanResponse> findPageUserBan(ObjectQuery objectQuery);
+
+        /**
+         * 随机查询12个用户赋值给发帖页面邀请帮助的人
+         * @return
+         */
+        List<RandUserForHelpResponse> findRandUser();
 }

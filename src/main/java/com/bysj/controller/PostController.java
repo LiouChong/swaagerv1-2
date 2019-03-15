@@ -9,13 +9,18 @@ import com.bysj.entity.vo.request.PostRequest;
 import com.bysj.entity.vo.response.PlateNameForIndex;
 import com.bysj.entity.vo.response.PostDetailResponse;
 import com.bysj.entity.vo.response.PostResponse;
+import com.bysj.entity.vo.response.RandUserForHelpResponse;
 import com.bysj.service.IPostService;
+import com.bysj.service.IUserService;
 import io.swagger.annotations.*;
+import org.apache.commons.collections.list.SynchronizedList;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,8 +33,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/post")
 public class PostController {
-    @Resource
+    @Autowired
     public IPostService iPostService;
+
+    @Autowired
+    public IUserService userService;
+
 
     /**
      * 保存
@@ -187,5 +196,30 @@ public class PostController {
         mav.setViewName("articles-list");
         return mav;
     }
+    /**
+     * 获取发帖页面
+     *
+     * @return actionResponse
+     */
+    @ApiOperation(value = "获取发帖", notes = "传入查询条件")
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public ModelAndView getPostAddPage(ModelAndView mav)throws Exception{
+        // 发帖时的所有板块
+        List<PlateNameForIndex> plateNameForIndex = iPostService.findAllPlateNames();
+        // 发帖时的邀请人
+        List<RandUserForHelpResponse> randUserForHelpResponses = userService.findRandUser();
+
+        // 赋值
+        mav.addObject("plates",plateNameForIndex);
+        mav.addObject("helpUsersOne", randUserForHelpResponses.subList(0, 4));
+        mav.addObject("helpUsersTwo", randUserForHelpResponses.subList(4, 8));
+        mav.addObject("helpUsersThree", randUserForHelpResponses.subList(8, 12));
+
+        // 设置跳转的页面
+        mav.setViewName("publish_post");
+        return mav;
+    }
+
+
 }
 

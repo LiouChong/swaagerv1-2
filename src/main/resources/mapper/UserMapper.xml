@@ -418,5 +418,15 @@
         from user
         where user.state = 0
     </select>
+    <select id="findRandomUser" resultType="com.bysj.entity.vo.response.RandUserForHelpResponse">
+        select
+            id,
+            nickname,
+            picture
+        from user
+        where
+            id > (rand() * (select max(id) from user) - 12)
+            limit 12
+    </select>
 
 </mapper>

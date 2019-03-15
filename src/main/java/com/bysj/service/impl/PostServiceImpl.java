@@ -46,6 +46,7 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     @Override
     public Integer savePost(PostRequest request) throws Exception {
         Post post = requestConverter.convert(request, Post.class);
+
         return postDao.insert(post);
     }
 

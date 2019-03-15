@@ -21,6 +21,7 @@ import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequest;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
+import com.bysj.entity.vo.response.RandUserForHelpResponse;
 import com.bysj.entity.vo.response.UserBanResponse;
 import com.bysj.entity.vo.response.UserLevellResponse;
 import com.bysj.entity.vo.response.UserResponse;
@@ -338,5 +339,10 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
 
     private List<UserBanResponse> findBanUserList(ObjectQuery objectQuery) {
         return userDao.findPageBanUser(objectQuery);
+    }
+
+    @Override
+    public List<RandUserForHelpResponse> findRandUser() {
+        return userDao.findRandomUser();
     }
 }

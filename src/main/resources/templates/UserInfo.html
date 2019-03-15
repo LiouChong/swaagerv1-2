@@ -145,38 +145,6 @@
         }
     </style>
 
-    <script src="/js/jquery-3.3.1.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("#showChanTable").click(function () {
-                $.ajax({
-                    type: "POST",
-                    url: "/user/update",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({
-                        id: $("#idValue").val(),
-                        nickname: $("#nicknameValue").val(),
-                        oldPswValue: $("#oldPswValue").val(),
-                        psw: $("#pswValue").val(),
-                        signaTure: $("#signaTureValue").val(),
-                        age: $("#ageValue").val(),
-                        sex: $("input[name='sexValue']:checked").val()
-                    }),
-                    dataType: "json",
-                    success: function (message) {
-                        if (message == 1) {
-                            alert("修改成功!")
-                        } else if (message.body != null) {
-                            alert(message.body)
-                        } else {
-                            alert("修改失败！服务器异常。请稍后再试")
-                        }
-                    }
-                })
-            });
-
-        });
-    </script>
 
 </head>
 
@@ -226,7 +194,6 @@
 <!-- Start of Page Container -->
 <div class="page-container">
     <div class="container">
-        <!--<input id="info">-->
         <div style="height:1200px">
             <h1 style="color: gray;text-align: center" th:if="${user.stateStr} eq '无效'"> 以被封禁 </h1>
             <h1 style="text-align: center" th:if="${user.stateStr} eq '有效'">个人信息</h1>
@@ -245,32 +212,24 @@
                     <td><span class="input_css" th:text="${user.email}"><!--${user_picture.email} --></span></td>
                 </tr>
                 <tr>
-                    <td><i> <span class="vintage"> 旧密码:</span> <br></i></td>
-                    <td><input id="oldPswValue" class="input_css"></td>
-                </tr>
-                <tr>
-                    <td><i> <span class="vintage"> 新密码:</span> <br></i></td>
-                    <td><input id="pswValue" class="input_css"></td>
-                </tr>
-                <tr>
                     <td><i> <span class="vintage"> 性别:</span> <br></i></td>
                     <td>
                         <div th:if="${user.sexStr} eq '男'">
-                            <input type="radio" name="sexValue" value="1" class="input_css" checked="checked"><span
+                            <input type="radio" disabled name="sexValue" value="1" class="input_css" checked="checked"><span
                                 class="input_css">男 </span> &emsp;&emsp;
-                            <input type="radio" name="sexValue" value="0" class="input_css"/><span
+                            <input type="radio" disabled name="sexValue" value="0" class="input_css"/><span
                                 class="input_css">女</span>
                         </div>
                         <div th:if="${user.sexStr} eq '女'">
-                            <input type="radio" name="sexValue" value="1" class="input_css">男 &emsp;&emsp;&emsp;
-                            <input type="radio" name="sexValue" value="0" class="input_css" checked="checked"/>女
+                            <input type="radio" disabled name="sexValue" value="1" class="input_css">男 &emsp;&emsp;&emsp;
+                            <input type="radio" disabled name="sexValue" value="0" class="input_css" checked="checked"/>女
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td><i> <span class="vintage"> 年龄:</span> <br></i></td>
-                    <td><input id="ageValue" class="input_css" th:attr="value=${user.age}">
-                        <!--${user_picture.psw} --></input> </td>
+                    <td><span id="ageValue" class="input_css" th:text="${user.age}">
+                        <!--${user_picture.psw} --></span> </td>
                 </tr>
                 <tr>
                     <td><i><span class="vintage"> 积分数：</span><br></i></td>
@@ -279,8 +238,8 @@
                 <tr>
                     <td><i>
                         <span class="vintage"> 昵称：</span> <br></i></td>
-                    <td><input id="nicknameValue" class="input_css" th:attr="value=${user.nickname}">
-                        <!--${user_picture.psw} --></input> </td>
+                    <td><span id="nicknameValue" class="input_css" th:text="${user.nickname}">
+                        <!--${user_picture.psw} --></span> </td>
                 </tr>
                 <tr>
                     <td><i>
@@ -291,21 +250,11 @@
                     <td><i>
                         <span class="vintage"> 管理的板块：</span> <br></i></td>
                     <td>
-                        <a class="plateName" th:if="${user.plateName eq null}"><b>暂无</b></a>
-                        <a class="plateName" th:if="${user.plateName ne null}"
+                        <span class="plateName" th:if="${user.plateName.size() eq 0}"><b>暂无</b></span>
+                        <a class="plateName" th:if="${user.plateName.size() ne 0}"
                            th:each="plate, plateStat:${user.plateName}"
                            th:text="${plateStat.index + 1} + ' ' + ${plate} +' '  "><b
                                 th:text="${user.plateName}"></b></a>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td><i><span class="vintage">设置头像： </span> </i></td>
-                    <td>
-                        <form action="/user/picture" enctype="multipart/form-data" method="post">
-                            <input type="file" name="file" value="上传头像">
-                            <button class="butclass"><b>上传头像(最大2M)</b></button>
-                        </form>
                     </td>
                 </tr>
                 <tr>
@@ -320,54 +269,9 @@
 
             <div id="signaTureText" class="signaTureShow">
                 <h2>个性签名</h2>
-                <textarea id="signaTureValue" th:text="${user.signaTure}" style="height: 100%; width: 100% "/>
+                <textarea disabled id="signaTureValue" th:text="${user.signaTure}" style="height: 100%; width: 100% "/>
             </div>
-            <div style="margin-top: 100px;">
-                <div style="float: right;width:60%; margin-top: 30px">
-                    <button id="showChanTable">保存修改</button>
-                </div>
-
-                <shiro:hasPermission name="moderator:agree">
-                    <br><br><br><br><br>
-                    <div id="applyManagerTable" style=" border-color: red;width:100%;margin-top:450px;text-align: center;">
-                       <h1><a href="/backstage/manage">管理论坛后台</a></h1>
-                        <!--TODO 这里进行跳转-->
-                        <!--<h1 style="color: red">${applyError}</h1>
-                        <c:forEach items="${applys}" var="apply" varStatus="f">
-                            <table class="dataintable" style="width: 100%">
-                                <tr>
-                                    <td><i> <span class="vintage"> 编号:</span> <br></i></td>
-                                    <td><span style="font-size: 25px">${f.count} </span></td>
-                                </tr>
-                                <tr>
-                                    <td><i> <span class="vintage"> 申请者:</span> <br></i></td>
-                                    <td><span style="font-size: 25px">${apply.nickName} </span></td>
-                                </tr>
-                                <tr>
-                                    <td><i><span class="vintage"> 申请板块：</span><br></i></td>
-                                    <td><span style="font-size: 25px">${apply.plateName} </span></td>
-                                </tr>
-                                <tr>
-                                    <td><i>
-                                        <span class="vintage"> 申请时间：</span> <br></i></td>
-                                    <td><span style="font-size: 25px">${apply.applyDate} </span></td>
-                                </tr>
-                            </table>
-                            <a href="/agreeApply?applyId=${apply.applyId}&userId=${apply.userId}&plateId=${apply.plateId}"
-                               style="float: left;color: green;font-size: 20px"><b>同意</b></a>&emsp;&emsp;&emsp;
-                            <a href="/disAgree?applyId=${apply.applyId}"
-                               style="float:right;color:red;font-size: 20px"><b>否决</b></a>
-                            <hr>
-                        </c:forEach>-->
-
-                    </div>
-                </shiro:hasPermission>
-            </div>
-
         </div>
-
-        <!--<span style="font-size: 25px;color:red">${info}</span>-->
-
         </in>
     </div>
 

@@ -96,6 +96,23 @@ public class Post extends BaseEntity {
     @ApiModelProperty("文章的类型:1 讨论帖,2 资源贴,3 求问贴")
     private Integer articleType;
 
+    /**
+     * 被封禁理由
+     */
+    @ApiModelProperty("被封禁理由")
+    private Integer banReason;
+
+    /**
+     * 悬赏积分
+     */
+    @ApiModelProperty("悬赏积分")
+    private Integer giveMoney;
+
+    /**
+     * 需要积分
+     */
+    @ApiModelProperty("需要积分")
+    private Integer needMoney;
 
     public String getTitle() {
         return title;
@@ -150,6 +167,29 @@ public class Post extends BaseEntity {
         this.replyCount = replyCount;
     }
 
+    public Integer getBanReason() {
+        return banReason;
+    }
+
+    public void setBanReason(Integer banReason) {
+        this.banReason = banReason;
+    }
+
+    public Integer getGiveMoney() {
+        return giveMoney;
+    }
+
+    public void setGiveMoney(Integer giveMoney) {
+        this.giveMoney = giveMoney;
+    }
+
+    public Integer getNeedMoney() {
+        return needMoney;
+    }
+
+    public void setNeedMoney(Integer needMoney) {
+        this.needMoney = needMoney;
+    }
 
     public Integer getThumbupCount() {
         return thumbupCount;

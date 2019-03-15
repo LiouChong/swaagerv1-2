@@ -1,8 +1,10 @@
 package com.bysj.entity.vo.request;
 
+import com.bysj.entity.vo.response.RandUserForHelpResponse;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -31,55 +33,10 @@ public class PostRequest  {
     @ApiModelProperty("作者id")
     private Integer posterId;
     /**
-     *  是否被推荐:1 被推荐,0 未被推荐
-     */
-    @ApiModelProperty("是否被推荐:1 被推荐,0 未被推荐")
-    private Integer ifGood;
-    /**
      *  板块id
      */
     @ApiModelProperty("板块id")
     private Integer plateId;
-    /**
-     *  回复数
-     */
-    @ApiModelProperty("回复数")
-    private Integer replyCount;
-    /**
-     *  点赞数
-     */
-    @ApiModelProperty("点赞数")
-    private Integer thumbupCount;
-    /**
-     *  创建时间
-     */
-    @ApiModelProperty("创建时间")
-    private Date gmtCreate;
-    /**
-     *  修改时间
-     */
-    @ApiModelProperty("修改时间")
-    private Date gmtModify;
-    /**
-     *  创建用户
-     */
-    @ApiModelProperty("创建用户")
-    private Integer createUser;
-    /**
-     *  修改用户
-     */
-    @ApiModelProperty("修改用户")
-    private Integer modifyUser;
-    /**
-     *  状态:1 未删除,0 已删除
-     */
-    @ApiModelProperty("状态:1 未删除,0 已删除")
-    private Integer state;
-    /**
-     *  阅读数
-     */
-    @ApiModelProperty("阅读数")
-    private Integer readCount;
     /**
      *  文章的来源:1 原创,2 转载
      */
@@ -91,6 +48,22 @@ public class PostRequest  {
     @ApiModelProperty("文章的类型:1 讨论帖,2 资源贴,3 求问贴")
     private Integer articleType;
 
+    /**
+     * 悬赏积分
+     */
+    @ApiModelProperty("悬赏积分")
+    private Integer giveMoney;
+
+    /**
+     * 需要积分
+     */
+    @ApiModelProperty("需要积分")
+    private Integer needMoney;
+
+    /**
+     * 邀请的人
+     */
+    private List<RandUserForHelpResponse> askHelp;
 
 
     public String getTitle() {
@@ -119,16 +92,6 @@ public class PostRequest  {
         this.posterId = posterId;
         }
 
-
-    public Integer getIfGood() {
-    return ifGood;
-    }
-
-    public void setIfGood(Integer ifGood) {
-        this.ifGood = ifGood;
-        }
-
-
     public Integer getPlateId() {
     return plateId;
     }
@@ -136,79 +99,6 @@ public class PostRequest  {
     public void setPlateId(Integer plateId) {
         this.plateId = plateId;
         }
-
-
-    public Integer getReplyCount() {
-    return replyCount;
-    }
-
-    public void setReplyCount(Integer replyCount) {
-        this.replyCount = replyCount;
-        }
-
-
-    public Integer getThumbupCount() {
-    return thumbupCount;
-    }
-
-    public void setThumbupCount(Integer thumbupCount) {
-        this.thumbupCount = thumbupCount;
-        }
-
-
-    public Date getGmtCreate() {
-    return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-        }
-
-
-    public Date getGmtModify() {
-    return gmtModify;
-    }
-
-    public void setGmtModify(Date gmtModify) {
-        this.gmtModify = gmtModify;
-        }
-
-
-    public Integer getCreateUser() {
-    return createUser;
-    }
-
-    public void setCreateUser(Integer createUser) {
-        this.createUser = createUser;
-        }
-
-
-    public Integer getModifyUser() {
-    return modifyUser;
-    }
-
-    public void setModifyUser(Integer modifyUser) {
-        this.modifyUser = modifyUser;
-        }
-
-
-    public Integer getState() {
-    return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
-        }
-
-
-    public Integer getReadCount() {
-    return readCount;
-    }
-
-    public void setReadCount(Integer readCount) {
-        this.readCount = readCount;
-        }
-
 
     public Integer getArticleFrom() {
     return articleFrom;
@@ -218,7 +108,6 @@ public class PostRequest  {
         this.articleFrom = articleFrom;
         }
 
-
     public Integer getArticleType() {
     return articleType;
     }
@@ -227,7 +116,23 @@ public class PostRequest  {
         this.articleType = articleType;
         }
 
+    public Integer getGiveMoney() {
+        return giveMoney;
+    }
 
+    public void setGiveMoney(Integer giveMoney) {
+        this.giveMoney = giveMoney;
+    }
 
+    public Integer getNeedMoney() {
+        return needMoney;
+    }
 
+    public void setAskHelp(List<RandUserForHelpResponse> askHelp) {
+        this.askHelp = askHelp;
+    }
+
+    public void setNeedMoney(Integer needMoney) {
+        this.needMoney = needMoney;
+    }
 }

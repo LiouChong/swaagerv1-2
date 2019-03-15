@@ -6,6 +6,7 @@ import com.bysj.common.response.IBaseDao;
 import com.bysj.entity.User;
 import com.bysj.entity.vo.query.UserQueryByLevel;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
+import com.bysj.entity.vo.response.RandUserForHelpResponse;
 import com.bysj.entity.vo.response.UserBanResponse;
 import com.bysj.entity.vo.response.UserLevellResponse;
 import com.bysj.entity.vo.response.UserResponse;
@@ -76,4 +77,6 @@ public interface UserDao extends IBaseDao<User> {
      * @return
      */
     Integer findBanUserCount();
+
+    List<RandUserForHelpResponse> findRandomUser();
 }

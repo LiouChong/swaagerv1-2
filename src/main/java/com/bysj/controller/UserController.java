@@ -6,6 +6,7 @@ import com.bysj.entity.vo.query.UserQuery;
 import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
+import com.bysj.entity.vo.response.UserResponse;
 import com.bysj.service.IUserService;
 import io.swagger.annotations.*;
 import org.apache.shiro.web.util.SavedRequest;
@@ -158,8 +159,9 @@ public class UserController {
     })
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public ModelAndView queryById(@PathVariable(value = "id") Integer id, ModelAndView modelAndView) throws Exception {
-        modelAndView.addObject("user",iUserService.getInfoById(id));
-        modelAndView.setViewName("myInfo");
+        UserResponse infoById = iUserService.getInfoById(id);
+        modelAndView.addObject("user",infoById);
+        modelAndView.setViewName("UserInfo");
         return modelAndView;
     }
 
