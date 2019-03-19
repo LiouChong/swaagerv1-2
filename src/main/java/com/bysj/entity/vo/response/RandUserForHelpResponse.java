@@ -8,7 +8,7 @@ import com.bysj.common.request.BaseEntity;
  * @Date: 2019/3/15 14:16
  */
 public class RandUserForHelpResponse{
-    private Integer id;
+    private Integer revQuestionUserId;
     private String nickname;
     private String picture;
 
@@ -28,19 +28,19 @@ public class RandUserForHelpResponse{
         this.picture = picture;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getRevQuestionUserId() {
+        return revQuestionUserId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setRevQuestionUserId(Integer revQuestionUserId) {
+        this.revQuestionUserId = revQuestionUserId;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
-        sb.append("\"id\":")
-                .append(id);
+        sb.append("\"revQuestionUserId\":")
+                .append(revQuestionUserId);
         sb.append(",\"nickname\":\"")
                 .append(nickname).append('\"');
         sb.append(",\"picture\":\"")

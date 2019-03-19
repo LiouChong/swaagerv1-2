@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="/js/jquery-3.3.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#test").click(function () {
+                $(this).hide();
+            })
+        });
+
+    </script>
 </head>
 <body>
 <h1>您没有权限！</h1>
-<img src="/user_picture/default.jpg"/>
+<img src="/user_picture/default.jpg" id="test"/>
 </body>
 </html>

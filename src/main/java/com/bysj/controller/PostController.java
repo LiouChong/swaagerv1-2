@@ -3,8 +3,10 @@ package com.bysj.controller;
 import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.utils.PageUtil;
+import com.bysj.entity.Post;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
+import com.bysj.entity.vo.request.PostDel;
 import com.bysj.entity.vo.request.PostRequest;
 import com.bysj.entity.vo.response.PlateNameForIndex;
 import com.bysj.entity.vo.response.PostDetailResponse;
@@ -13,14 +15,10 @@ import com.bysj.entity.vo.response.RandUserForHelpResponse;
 import com.bysj.service.IPostService;
 import com.bysj.service.IUserService;
 import io.swagger.annotations.*;
-import org.apache.commons.collections.list.SynchronizedList;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -71,7 +69,7 @@ public class PostController {
     }
 
     /**
-     * 分页获取推荐的帖子
+     * 首页信息
      * @param postQuery
      * @return actionResponse
      */
@@ -85,7 +83,34 @@ public class PostController {
         postQuery.setIfGood(1);
 
         // 获取帖子列表与总记录数
-        List<PostResponse> postList = iPostService.findPagePost(postQuery);
+        List<PostResponse> postList = iPostService.findPagePost(postQuery,"index");
+        //获取板块名称
+        List<PlateNameForIndex> plateNameForIndices = iPostService.findAllPlateNames();
+
+        mav.addObject("postList", postList);
+        mav.addObject("plates", plateNameForIndices);
+
+        // 设置跳转的页面
+        mav.setViewName("index-2");
+        return mav;
+    }
+
+    /**
+     * 分页获取推荐的帖子
+     * @param postQuery
+     * @return actionResponse
+     */
+    @ApiOperation(value = "分页获取帖子", notes = "传入查询条件")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
+    })
+    @RequestMapping(value = "/query/good", method = RequestMethod.GET)
+    public ModelAndView queryAllGoodPost(@ApiParam(value = "post") PostQueryForList postQuery, ModelAndView mav)throws Exception{
+        //首页查看被推荐文章，因此在这里设置查询条件为被推荐文章
+        postQuery.setIfGood(1);
+
+        // 获取帖子列表与总记录数
+        List<PostResponse> postList = iPostService.findPagePost(postQuery,"articleGood");
         Integer totalRecords = iPostService.findCount(postQuery);
 
         // 获取总页数
@@ -102,7 +127,7 @@ public class PostController {
         mav.addObject("plates", plateNameForIndices);
 
         // 设置跳转的页面
-        mav.setViewName("index-2");
+        mav.setViewName("articles-good-list");
         return mav;
     }
 
@@ -159,17 +184,16 @@ public class PostController {
 
     /**
      * 通过ID删除
-     * @param id
+     * @param postDel
      * @return actionResponse
      */
     @ApiOperation(value = "通过ID删除接口", notes = "主键封装对象")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
-
-        return ActionResponse.success(iPostService.deleteById(id));
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String deleteById(@RequestBody PostDel postDel)throws Exception{
+        return iPostService.delById(postDel).toString();
     }
 
     /**
@@ -178,7 +202,7 @@ public class PostController {
      * @return actionResponse
      */
     @ApiOperation(value = "分页获取帖子", notes = "传入查询条件")
-    @RequestMapping(value = "/query/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/query/list", method = RequestMethod.GET)
     public ModelAndView queryPostList(ObjectQuery objectQuery, ModelAndView mav)throws Exception{
         // 获取帖子列表与总记录数
         List<PostResponse> postList = iPostService.findAllPostTimeDesc(objectQuery);
@@ -218,6 +242,34 @@ public class PostController {
         // 设置跳转的页面
         mav.setViewName("publish_post");
         return mav;
+    }
+
+    /**
+     * 取消推荐帖子
+     *
+     * @return actionResponse
+     */
+    @ApiOperation(value = "取消推荐的帖子", notes = "传入修改条件")
+    @RequestMapping(value = "/cancel", method = RequestMethod.POST)
+    public String cancelGoodPost(@RequestBody Post post)throws Exception{
+        String result = iPostService.calcenGoodPost(post);
+        return result;
+    }
+
+    /**
+     * 推荐帖子
+     *
+     * @return actionResponse
+     */
+    @ApiOperation(value = "取消推荐的帖子", notes = "传入修改条件")
+    @RequestMapping(value = "/setGood", method = RequestMethod.POST)
+    public String setPostGood(@RequestBody Post post)throws Exception{
+        Integer result = iPostService.setGoodPost(post);
+        if (result.equals(1)) {
+            return result.toString();
+        } else {
+            return "服务器异常，请稍后再试！";
+        }
     }
 
 

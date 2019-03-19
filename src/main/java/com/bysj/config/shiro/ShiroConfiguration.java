@@ -82,7 +82,7 @@ public class ShiroConfiguration {
         // 简单搜索功能允许
         filterChainDefinetionMap.put("/post/query/simple", "anon");
         filterChainDefinetionMap.put("/post/detail/*", "anon");
-        filterChainDefinetionMap.put("/post/query/all", "anon");
+        filterChainDefinetionMap.put("/post/query/*", "anon");
 
 
         // 退出登录页面

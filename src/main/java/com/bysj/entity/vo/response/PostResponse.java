@@ -93,6 +93,25 @@ public class PostResponse extends BaseEntity {
     @ApiModelProperty("文章的类型的中文形式")
     private String articleTypeStr;
 
+    private Integer giveMoney;
+
+    private Integer needMoney;
+
+    public Integer getGiveMoney() {
+        return giveMoney;
+    }
+
+    public void setGiveMoney(Integer giveMoney) {
+        this.giveMoney = giveMoney;
+    }
+
+    public Integer getNeedMoney() {
+        return needMoney;
+    }
+
+    public void setNeedMoney(Integer needMoney) {
+        this.needMoney = needMoney;
+    }
 
     public String getIfGoodStr() {
         return ifGoodStr;
@@ -267,6 +286,10 @@ public class PostResponse extends BaseEntity {
                 .append(articleType);
         sb.append(",\"articleTypeStr\":\"")
                 .append(articleTypeStr).append('\"');
+        sb.append(",\"giveMoney\":")
+                .append(giveMoney);
+        sb.append(",\"needMoney\":")
+                .append(needMoney);
         sb.append('}');
         return sb.toString();
     }

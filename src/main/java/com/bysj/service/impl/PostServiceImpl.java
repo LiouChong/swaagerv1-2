@@ -1,24 +1,37 @@
 package com.bysj.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.bysj.common.exception.BussinessException;
 import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
 import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.PageResult;
 import com.bysj.common.utils.DateUtils;
 import com.bysj.common.utils.NumberChineseEx;
+import com.bysj.common.utils.UserHandle;
 import com.bysj.dao.PlaterDao;
 import com.bysj.dao.PostDao;
+import com.bysj.entity.Askhelp;
 import com.bysj.entity.Plater;
 import com.bysj.entity.Post;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
+import com.bysj.entity.vo.request.AskhelpRequest;
+import com.bysj.entity.vo.request.PostDel;
 import com.bysj.entity.vo.request.PostRequest;
 import com.bysj.entity.vo.response.*;
+import com.bysj.service.IAskhelpService;
 import com.bysj.service.IPostService;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,16 +51,57 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     @Resource
     private BaseConverter<PostRequest, Post> requestConverter;
     @Resource
+    private BaseConverter<Post, PostRequest> postRequestConverter;
+    @Resource
     private BaseConverter<Post, PostResponse> responseConverter;
     @Resource
     private NumberChineseEx numberChineseEx;
 
+    @Autowired
+    private UserHandle userHandle;
+    @Autowired
+    private IAskhelpService askhelpService;
+
 
     @Override
+    @Transactional
     public Integer savePost(PostRequest request) throws Exception {
         Post post = requestConverter.convert(request, Post.class);
 
-        return postDao.insert(post);
+        Integer userId = userHandle.getUserId();
+        Date nowDate = new Date();
+
+        // 给帖子创建人、修改人、创建时间、修改时间赋值。
+        post.setPosterId(userId);
+        post.setCreateUser(userId);
+        post.setModifyUser(userId);
+        post.setGmtCreate(nowDate);
+        post.setGmtModify(nowDate);
+
+        // 插入帖子后，会自动将递增后的id返还给post对象。
+        postDao.insert(post);
+
+        String askHelpStr= request.getAskHelp();
+        if (askHelpStr != null) {
+            JSONArray objects = JSONArray.parseArray(askHelpStr);
+            List<AskhelpRequest> askhelpRequestList = objects.toJavaList(AskhelpRequest.class);
+            askhelpRequestList.forEach(item -> {
+                // 给每一个请求赋值
+                item.setPostId(post.getId());
+                item.setSendQuestionUserId(userId);
+                item.setMessage(post.getTitle());
+                item.setGmtCreate(nowDate);
+
+                try {
+                    // 执行插入操作
+                    askhelpService.saveAskhelp(item);
+                } catch (Exception e) {
+                    throw new BussinessException("系统异常，请稍后再试！");
+                }
+            });
+        }
+
+        return 1;
     }
 
     @Override
@@ -56,9 +110,16 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
         return postDao.update(post);
     }
     @Override
-    public List<PostResponse> findPagePost(PostQueryForList query) throws Exception {
+    public List<PostResponse> findPagePost(PostQueryForList query, String pageIndex) throws Exception {
+        List<PostResponse> postList;
         // 根据条件查询到符合的帖子集合
-        List<PostResponse> postList = postDao.findPostQuery(query);
+        if ("index".equals(pageIndex)) {
+            postList = postDao.findPostForIndex();
+        } else if ("articleGood".equals(pageIndex)) {
+            postList = postDao.findPostQuery(query);
+        } else {
+            postList = new ArrayList<>();
+        }
 
         //对帖子集合进行数字中文转换
         postList.forEach(item -> {
@@ -156,5 +217,30 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
 
     private Integer findBanPostCount() {
         return postDao.findPageBanPostCount();
+    }
+
+    @Override
+    public String calcenGoodPost(Post post) throws Exception {
+        if (post.getId() == null) {
+            return "文章选择不能为空！请刷新页面后再试";
+        }
+        post.setIfGood(0);
+        post.setModifyUser(userHandle.getUserId());
+        post.setGmtModify(new Date());
+
+        return postDao.update(post).toString();
+    }
+
+    @Override
+    public Integer setGoodPost(Post post) {
+        post.setIfGood(1);
+        post.setGmtModify(new Date());
+        post.setModifyUser(userHandle.getUserId());
+        return postDao.setGoodPost(post);
+    }
+
+    @Override
+    public Integer delById(PostDel postDel) {
+        return postDao.delPost(postDel);
     }
 }

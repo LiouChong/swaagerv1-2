@@ -21,7 +21,7 @@
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-    <script src="/js/html5.js"></script></script>
+    <script src="/js/html5.js"></script>
     <![endif]-->
     <style type="text/css">
         .butclass {
@@ -51,7 +51,32 @@
             top: 1px;
         }
     </style>
-
+    <script src="/js/jquery-3.3.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("a[name$='cancel']").click(function () {
+                var r = confirm("是否确定？")
+                if (r == true) {
+                    $(this).parent().parent().parent().slideUp(400);
+                    $.ajax({
+                        type: "POST",
+                        url: "/post/cancel",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({
+                            id:$(this).prev().val()
+                        }),
+                        dataType: "json",
+                        success: function (message) {
+                            if (message != 1) {
+                                alert(message);
+                                window.location.reload();
+                            }
+                        }
+                    });
+                }
+            })
+        });
+    </script>
 </head>
 
 <body>
@@ -77,8 +102,8 @@
                     <ul id="menu-top-menu" class="clearfix">
                         <li class="current-menu-item"><a href="/post/index">首页</a></li>
                         <li><a href="/home-categories-description">关注</a></li>
-                        <li><a href="/home-categories-articles">推荐</a></li>
-                        <li><a href="/post/query/all">最新</a></li>
+                        <li><a href="/post/query/good">推荐</a></li>
+                        <li><a href="/post/query/list">最新</a></li>
                         <li><a href="/faq">常见问题</a></li>
                         <li><a href="/contact">联系我们</a></li>
                         <shiro:guest>
@@ -183,20 +208,26 @@
                 <br><br><br>
                 <hr>
                 <br>
-                <div class="span8 main-listing">
-                    <h3 class="title">推荐：</h3>
+                <div class="span8 main-listing" id="info">
+                    <span style="font-size: 25px; float: left"><b>推荐：</b></span><span
+                        style="float: right; font-size: 20px"> <a href="/post/query/good">查看更多</a> </span> <br>
+                    <hr>
                     <article class="format-standard type-post hentry clearfix" th:each="post,postStat : ${postList}">
 
                         <header class="clearfix">
                             <h3 class="post-title">
                                 <a th:href="'/post/detail/' + ${post.id}" th:text="${post.title}">
                                 </a><span class="badge badge-default" th:text="${post.articleTypeStr}"></span>
-                                <shiro:hasPermission name="post:un_good"><a style="float: right;font-size: 13px;color:red;" href="#">取消推荐</a></shiro:hasPermission>
+                                <shiro:hasPermission name="post:un_good">
+                                    <input th:value="${post.id}" type="hidden">
+                                    <a style="float: right;font-size: 13px;color:red;" href="javascript:void(0)"
+                                            name="cancel">取消推荐</a>
+                                </shiro:hasPermission>
                             </h3>
 
                             <div class="post-meta clearfix">
                                 <span class="date" th:text="'创建:' + ${post.gmtCreateStr}"><!--${post.time}--></span>
-                                <span class="category"><a href="#" title="View all posts in ${post.plateName}"
+                                <span class="category"><a href="#"
                                                           th:text="${post.plateName}"><!--${post.plateName}--></a></span>
                                 <span class="comments"><a href="#"
                                                           title="Comment on Integrating WordPress with Your Website"
@@ -213,29 +244,35 @@
 
                     </article>
                     <!--</c:forEach>-->
-
-
-                    <div id="pagination">
+                    <!--<div id="pagination">
                         <span style="font-size: 16px ; font-family: 'Javanese Text'"
                               th:text=" '共有 ' + ${totalPage} + ' 页' + '，当前第 ' + ${currentPage} + ' 页'"></span><br>
-                        <!--<a href="/index-2?pageNum=${page.pageNum}" class="btn">« 第一页</a>-->
-                        <!-- <c:choose>
-                             <c:when test="${page.pageNum>1}">
-                                 <a href="/index-2?pageNum=${page.pageNum-1}" class="btn">« 上一页 </a>
-                             </c:when>
-                             <c:when test="${page.pageNum==1}">
-                                 <a href="/index-2?pageNum=${page.pageNum}" class="btn">« 上一页 </a>
-                             </c:when>
-
-                         </c:choose>
-                         <c:if test="${page.pageNum < page.maxPageNum}">
-                             <a href="/index-2?pageNum=${page.pageNum+1}" class="btn">下一页</a>
-                         </c:if>
-                         <c:if test="${page.pageNum == page.maxPageNum}">
-                             <a href="/index-2?pageNum=${page.pageNum}" class="btn">下一页 »</a>
-                         </c:if>
-                         <a href="/index-2?pageNum=${page.maxPageNum}" class="btn">最后一页 »</a>-->
-                    </div>
+                        <a href="/post/index?currentPage=1" class="btn">« 第一页</a>
+                        <span th:if="${currentPage == 1}">
+                            <a href="/post/index?currentPage=1" class="btn">« 上一页</a>
+                        </span>
+                        <span th:if="${currentPage > 1}">
+                            <a th:href="'/post/index?currentPage=' + ${currentPage - 1}" class="btn">« 上一页</a>
+                        </span>
+                        <a th:if="${totalPage} <= 9">
+                            <span th:each="i:${#numbers.sequence(1, totalPage)}">
+                                <a th:href="'/post/index?currentPage=' + ${i}" class="btn" th:text="${i}"/>
+                            </span>
+                        </a>
+                        <a th:if="${totalPage} > 9">
+                        <span th:each="i:${#numbers.sequence(1, 9)}">
+                            <a th:href="'/post/index?currentPage=' + ${i}" class="btn" th:text="${i}"/>
+                        </span>
+                            <a class="btn" th:text=".."></a>
+                        </a>
+                        <span th:if="${currentPage} == ${totalPage}">
+                        <a th:href="'/post/index?currentPage=' + ${currentPage}" class="btn">下一页 »</a>
+                    </span>
+                        <span th:if="${currentPage} != ${totalPage}">
+                        <a th:href="'/post/index?currentPage=' + ${currentPage + 1}" class="btn">下一页 »</a>
+                    </span>
+                        <a th:href="'/post/index?currentPage=' + ${totalPage}" class="btn">最后一页 »</a>
+                    </div>-->
 
                 </div>
             </div>

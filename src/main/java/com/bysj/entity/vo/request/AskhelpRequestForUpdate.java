@@ -15,7 +15,10 @@ import java.util.Date;
  * @since 2019-02-28
  */
 
-public class AskhelpRequest extends BaseEntity {
+public class AskhelpRequestForUpdate extends BaseEntity {
+
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 帖子id
@@ -42,6 +45,11 @@ public class AskhelpRequest extends BaseEntity {
      */
     @ApiModelProperty("创建时间")
     private Date gmtCreate;
+    /**
+     * 状态:1 有效 2无效
+     */
+    @ApiModelProperty("状态:1 有效,0 无效")
+    private Integer state;
 
 
     public Integer getPostId() {
@@ -89,6 +97,13 @@ public class AskhelpRequest extends BaseEntity {
     }
 
 
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
 
     @Override
@@ -99,6 +114,7 @@ public class AskhelpRequest extends BaseEntity {
                 ", sendQuestionUserId=" + sendQuestionUserId +
                 ", message=" + message +
                 ", gmtCreate=" + gmtCreate +
+                ", state=" + state +
                 "}";
     }
 }

@@ -420,7 +420,7 @@
     </select>
     <select id="findRandomUser" resultType="com.bysj.entity.vo.response.RandUserForHelpResponse">
         select
-            id,
+            id as revQuestionUserId,
             nickname,
             picture
         from user

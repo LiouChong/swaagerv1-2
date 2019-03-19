@@ -103,6 +103,32 @@ public class PostDetailResponse extends BaseEntity {
      */
     private List<ReplyForPostDetail> replys;
 
+    /**
+     * 需要积分
+     */
+    private Integer needMoney;
+
+    /**
+     * 悬赏积分
+     */
+    private Integer giveMoney;
+
+    public Integer getNeedMoney() {
+        return needMoney;
+    }
+
+    public void setNeedMoney(Integer needMoney) {
+        this.needMoney = needMoney;
+    }
+
+    public Integer getGiveMoney() {
+        return giveMoney;
+    }
+
+    public void setGiveMoney(Integer giveMoney) {
+        this.giveMoney = giveMoney;
+    }
+
     public String getGmrCreateStr() {
         return gmrCreateStr;
     }

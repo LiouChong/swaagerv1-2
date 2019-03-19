@@ -63,8 +63,7 @@ public class PostRequest  {
     /**
      * 邀请的人
      */
-    private List<RandUserForHelpResponse> askHelp;
-
+    private String askHelp;
 
     public String getTitle() {
     return title;
@@ -128,11 +127,16 @@ public class PostRequest  {
         return needMoney;
     }
 
-    public void setAskHelp(List<RandUserForHelpResponse> askHelp) {
-        this.askHelp = askHelp;
-    }
-
     public void setNeedMoney(Integer needMoney) {
         this.needMoney = needMoney;
     }
+
+    public String getAskHelp() {
+        return askHelp;
+    }
+
+    public void setAskHelp(String askHelp) {
+        this.askHelp = askHelp;
+    }
+
 }

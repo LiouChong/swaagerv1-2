@@ -77,15 +77,6 @@ public class Bbsv1ApplicationTests {
         });
     }
 
-    @Test
-    public void getPostDetail() throws Exception {
-        PostQueryForList postQuery = new PostQueryForList();
-        postQuery.setIfGood(1);
-        List<PostResponse> postList = postService.findPagePost(postQuery);
-        System.out.println("=============================================");
-        System.out.println(postList);
-        System.out.println("=============================================");
-    }
 
     @Test
     public void addNewReply() throws Exception {

@@ -12,9 +12,24 @@
         <result column="gmt_create" property="gmtCreate"/>
         <result column="state" property="state"/>
     </resultMap>
-<!-- 通用查询结果列 -->
+    <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, post_id AS postId, rev_question_user_id AS revQuestionUserId, send_question_user_id AS sendQuestionUserId, message, gmt_create AS gmtCreate, state
+        id
+        ,
+        post_id
+        AS
+        postId,
+        rev_question_user_id
+        AS
+        revQuestionUserId,
+        send_question_user_id
+        AS
+        sendQuestionUserId,
+        message,
+        gmt_create
+        AS
+        gmtCreate,
+        state
     </sql>
 
     <sql id="Table_Name">
@@ -115,6 +130,12 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <include refid="IF_Value_Column_List"></include>
         </trim>
+    </insert>
+    <insert id="insertBySelf" parameterType="com.bysj.entity.vo.request.AskhelpRequest">
+        insert into
+            askhelp (post_id, rev_question_user_id, send_question_user_id, message, gmt_create)
+        values
+          (#{postId}, #{revQuestionUserId}, #{sendQuestionUserId}, #{message}, #{gmtCreate})
     </insert>
 
     <update id="update" parameterType="com.bysj.entity.Askhelp">

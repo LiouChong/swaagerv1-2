@@ -65,59 +65,16 @@
             top: 1px;
         }
     </style>
-    <script src="/js/jquery-3.3.1.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("a[name$='setGood']").click(function () {
-                var r = confirm("是否确定？")
-                if (r == true) {
-                    $(this).children().text("已推荐");
-                    $.ajax({
-                        type: "POST",
-                        url: "/post/setGood",
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify({
-                            id:$(this).prev().val()
-                        }),
-                        dataType: "json",
-                        success: function (message) {
-                            if (message != 1) {
-                                alert(message);
-                                window.location.reload();
-                            }
-                        }
-                    });
-                }
-            })
+    <!-- <script src="http://code.jquery.com/jquery-latest.js"></script>
+      <script>
+          $(document).ready(function(){
+              $("#editBut").click(function () {
+                  $("#li1").toggle();
+                  $("#li2").toggle();
+              });
+              });
 
-            $("a[name$='delPost']").click(function () {
-                var judge = prompt("请输入删除理由");
-                if (judge == true ) {
-                    if (judge.length == 0) {
-                        alert("请输入删除理由！");
-                    } else {
-                        $(this).parent().parent().parent().slideUp(400);
-                        $.ajax({
-                            type: "POST",
-                            url: "/post/delete",
-                            data:JSON.stringify({
-                                id:$(this).prev().val(),
-                                banReason:judge
-                            }),
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            success: function (message) {
-                                if (message !== 1) {
-                                    alert(message);
-                                    window.location.reload();
-                                }
-                            }
-                        });
-                    }
-                }
-            })
-        });
-    </script>
+      </script>-->
 </head>
 
 <body>
@@ -143,8 +100,8 @@
                     <ul id="menu-top-menu" class="clearfix">
                         <li><a href="/post/index">首页</a></li>
                         <li><a href="/home-categories-description">关注</a></li>
-                        <li><a href="/post/query/good">推荐</a></li>
-                        <li class="/post/query/list"><a href="/query/list">最新</a></li>
+                        <li class="current-menu-item"><a href="/home-categories-description">推荐</a></li>
+                        <li><a href="/post/query/list">最新</a></li>
                         <li><a href="/faq">常见问题</a></li>
                         <li><a href="/contact">联系我们</a></li>
                         <shiro:guest>
@@ -214,19 +171,17 @@
                             <span class="category" th:text="${post.plateName}"></span>
                             <span class="comments" th:text="${post.replyCount}"></span>
                             <span class="like-count" th:text="${post.thumbupCount}"></span>
-                            <input th:value="${post.id}" type="hidden">
                             <shiro:hasPermission name="post:delete">
-                                <a href="javascript:void(0)"
-                                   style="color: red" name="delPost">删除</a>
+                                <a href="/deletePost?postId=${postAndPlate.id}&pageNum=${page.pageNum}"
+                                   style="color: red">删除</a>
                             </shiro:hasPermission>
 
 
                             <shiro:hasPermission name="post:good">
                                 <span th:if="${post.ifGood eq 1}" style="color: green;float: right"><b>已推荐</b></span>
-                                <input th:value="${post.id}" type="hidden">
                                 <a style="color:green; float:right"
                                    th:if="${post.ifGood eq 0}"
-                                   href="javascript:void(0)" name="setGood"><b>推荐</b></a>
+                                   href="/takeGoodPost?postId=${postAndPlate.id}&pageNum=${page.pageNum}"><b>推荐</b></a>
                             </shiro:hasPermission>
                         </div><!-- end of post meta -->
 

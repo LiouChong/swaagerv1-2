@@ -7,6 +7,7 @@ import com.bysj.common.response.PageResult;
 import com.bysj.entity.Post;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
+import com.bysj.entity.vo.request.PostDel;
 import com.bysj.entity.vo.request.PostRequest;
 import com.bysj.entity.vo.response.PlateNameForIndex;
 import com.bysj.entity.vo.response.PostBanResponse;
@@ -46,7 +47,7 @@ public interface IPostService extends IBaseService<Post> {
          * @param query
          * @return
          */
-        List<PostResponse> findPagePost(PostQueryForList query) throws Exception;
+        List<PostResponse> findPagePost(PostQueryForList query, String pageName) throws Exception;
 
         /**
          * 通过标题和内容简单查询
@@ -92,4 +93,25 @@ public interface IPostService extends IBaseService<Post> {
          * @return
          */
         PageResult<PostBanResponse> findPageBanPost(ObjectQuery objectQuery);
+
+        /**
+         * 取消推荐帖子
+         * @param
+         * @return
+         */
+        String calcenGoodPost(Post post) throws Exception;
+
+        /**
+         * 设置推荐帖子
+         * @param post
+         * @return
+         */
+        Integer setGoodPost(Post post);
+
+        /**
+         * 根据id删除帖子
+         * @param postDel
+         * @return
+         */
+        Integer delById(PostDel postDel);
 }

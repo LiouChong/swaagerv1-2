@@ -287,14 +287,68 @@
         </if>
     </sql>
 
-    <insert id="insert" parameterType="com.bysj.entity.Post">
+    <insert id="insert" parameterType="com.bysj.entity.Post" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into
         post
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <include refid="IF_Base_Column_List"></include>
+            title,
+            info,
+            poster_id,
+            <if test=" ifGood != null">
+                if_good,
+            </if>
+            plate_id,
+            <if test=" replyCount != null">
+                reply_count,
+            </if>
+            <if test=" thumbupCount != null">
+                thumbup_count,
+            </if>
+            gmt_create,
+            gmt_modify,
+            create_user,
+            modify_user,
+            <if test=" readCount != null">
+                read_count,
+            </if>
+            article_from,
+            article_type,
+            <if test=" giveMoney != null">
+                give_money,
+            </if>
+            <if test=" needMoney != null">
+                need_money,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <include refid="IF_Value_Column_List"></include>
+            #{title },
+            #{info },
+            #{posterId },
+            <if test=" ifGood != null">
+                #{ifGood },
+            </if>
+            #{plateId },
+            <if test=" replyCount != null">
+                #{replyCount },
+            </if>
+            <if test=" thumbupCount != null">
+                #{thumbupCount },
+            </if>
+            #{gmtCreate },
+            #{gmtModify },
+            #{createUser },
+            #{modifyUser },
+            <if test=" readCount != null">
+                #{readCount },
+            </if>
+            #{articleFrom },
+            #{articleType },
+            <if test=" giveMoney != null">
+                #{giveMoney},
+            </if>
+            <if test=" needMoney != null">
+                #{needMoney},
+            </if>
         </trim>
     </insert>
 
@@ -307,20 +361,39 @@
         where id = #{id}
     </update>
 
+    <update id="setGoodPost" parameterType="com.bysj.entity.Post">
+        update post
+        set if_Good     = #{ifGood},
+            gmt_modify  = #{gmtModify},
+            create_user = #{modifyUser}
+        where id = ${id}
+    </update>
+
     <!-- 根据主键查询 -->
     <select id="getById" resultType="com.bysj.entity.Post" parameterType="java.lang.Integer">
         select
-        <include refid="Base_Column_List"/>
+            id          as id,
+            if_good     as ifGood,
+            gmt_modify  as gmtmodify,
+            modify_user as modifyUser
         from
-        post
+            post
         where id = #{id}
     </select>
 
 
     <delete id="deleteById" parameterType="java.lang.Integer">
-        delete
-        from
+        update
             post
+        set state = 0
+        where id = #{id}
+    </delete>
+    <delete id="delPost" parameterType="com.bysj.entity.vo.request.PostDel">
+        update post
+        set state       = 0,
+            gmt_modify  = #{gmtmodify},
+            modify_user = #{modifyUser}
+            ban_reason =#{banReason}
         where id = #{id}
     </delete>
 
@@ -410,6 +483,32 @@
         </if>
     </select>
 
+    <select id="findPostForIndex" resultType="com.bysj.entity.vo.response.PostResponse">
+        select
+            p.id,
+            p.title,
+            p.info,
+            u.nickname      as posterName,
+            p.if_good       as ifGood,
+            pl.plate_name   as plateName,
+            p.reply_count   as replyCount,
+            p.thumbup_count as thumbupCount,
+            p.gmt_create    as gmtCreate,
+            p.gmt_modify    as gmtModify,
+            p.read_count    as readCount,
+            p.article_from  as articleFrom,
+            p.article_type  as articleType
+        from
+            post p
+                inner join
+                user u on p.poster_id = u.id
+                inner join
+                plater pl on p.plate_id = pl.id
+        where
+            p.if_good = 1
+            LIMIT
+            5
+    </select>
     <select id="findAllPostTimeDesc" resultType="com.bysj.entity.vo.response.PostResponse"
             parameterType="com.bysj.common.request.ObjectQuery">
         select
@@ -425,7 +524,9 @@
         p.gmt_modify as gmtModify,
         p.read_count as readCount,
         p.article_from as articleFrom,
-        p.article_type as articleType
+        p.article_type as articleType,
+        p.need_money as needMoney,
+        p.give_money as giveMoney
         from
         post p
         inner join
@@ -521,7 +622,9 @@
             post.gmt_modify as gmtModify,
             read_count      as readCount,
             article_from    as articleFrom,
-            article_type    as articleType
+            article_type    as articleType,
+            need_money      as needMoney,
+            give_money      as giveMoney
         from post
                  inner join user on post.poster_id = user.id
                  inner join plater on post.plate_id = plater.id

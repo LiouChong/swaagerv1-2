@@ -5,6 +5,7 @@ import com.bysj.common.response.IBaseDao;
 import com.bysj.entity.Post;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
+import com.bysj.entity.vo.request.PostDel;
 import com.bysj.entity.vo.response.*;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.ibatis.annotations.Param;
@@ -56,6 +57,12 @@ public interface PostDao extends IBaseDao<Post> {
     List<PostResponse> findPostQuery(PostQueryForList query);
 
     /**
+     * 查询首页推荐的帖子
+     * @return
+     */
+    List<PostResponse> findPostForIndex();
+
+    /**
      * 时间顺序查询所有帖子
      * @param objectQuery
      * @return
@@ -80,4 +87,18 @@ public interface PostDao extends IBaseDao<Post> {
      * @return
      */
     Integer findPageBanPostCount();
+
+    /**
+     * 推荐帖子
+     * @param post
+     * @return
+     */
+    Integer setGoodPost(Post post);
+
+    /**
+     * 删除帖子
+     * @param postDel
+     * @return
+     */
+    Integer delPost(PostDel postDel);
 }

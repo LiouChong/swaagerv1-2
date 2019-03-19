@@ -21,7 +21,6 @@ public class UserHandle {
     private UserDao userDao;
 
     public Integer getUserId() {
-
         return getUser().getId();
     }
 

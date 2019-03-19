@@ -34,8 +34,7 @@ public class AskhelpServiceImpl extends BaseServiceImpl<Askhelp> implements IAsk
 
     @Override
     public Integer saveAskhelp(AskhelpRequest request) throws Exception {
-        Askhelp askhelp = requestConverter.convert(request, Askhelp.class);
-        return askhelpDao.insert(askhelp);
+        return askhelpDao.insertBySelf(request);
     }
 
     @Override
