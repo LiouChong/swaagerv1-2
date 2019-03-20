@@ -13,9 +13,31 @@
         <result column="user_create" property="userCreate"/>
         <result column="user_modify" property="userModify"/>
     </resultMap>
-<!-- 通用查询结果列 -->
+    <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, reply_info AS replyInfo, post_id AS postId, thumbup_count AS thumbupCount, gmt_create AS gmtCreate, gmt_modify AS gmtModify, user_create AS userCreate, user_modify AS userModify
+        id
+        ,
+        reply_info
+        AS
+        replyInfo,
+        post_id
+        AS
+        postId,
+        thumbup_count
+        AS
+        thumbupCount,
+        gmt_create
+        AS
+        gmtCreate,
+        gmt_modify
+        AS
+        gmtModify,
+        user_create
+        AS
+        userCreate,
+        user_modify
+        AS
+        userModify
     </sql>
 
     <sql id="Table_Name">
@@ -132,10 +154,10 @@
 
     <update id="update" parameterType="com.bysj.entity.Reply">
         update
-        <include refid="Table_Name"></include>
-        <trim prefix="SET" suffixOverrides=",">
-            <include refid="Set_Column_List"></include>
-        </trim>
+            reply
+        set state       = 0,
+            user_modify = #{userModify},
+            gmt_modify  = #{gmtModify}
         where id = #{id}
     </update>
 
@@ -197,5 +219,31 @@
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
+    </select>
+    <select id="findReplyForPost" resultType="com.bysj.entity.vo.response.ReplyForPostDetail">
+        select
+        r.id,
+        r.reply_info as replyInfo,
+        r.thumbup_count as thumbupCount,
+        r.gmt_create as gmtCreate,
+        r.user_create as userCreate,
+        u.nickname as userCreateName,
+        u.picture as userImg
+        from reply r
+        inner join post p on r.post_id = p.id
+        inner join user u on r.user_create = u.id
+        where r.post_id = ${postId}
+        and r.state = 1
+        <if test="pageSize !=-1">
+            LIMIT #{pageSize} offset #{pageOffset}
+        </if>
+    </select>
+    <select id="findCountForDetail" resultType="java.lang.Integer">
+        select count(1)
+        from reply r
+                 inner join post p on r.post_id = p.id
+                 inner join user u on r.user_create = u.id
+        where r.post_id = ${postId}
+        and r.state = 1
     </select>
 </mapper>

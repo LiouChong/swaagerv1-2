@@ -153,7 +153,7 @@
                     <header class="clearfix">
 
                         <h3 class="post-title">
-                            <a th:href="'/post/detail/' + ${post.id}" th:text="${post.title}"></a>
+                            <a th:href="'/post/detail?postId=' + ${post.id}" th:text="${post.title}"></a>
                             <span th:if="${post.articleType == 1}">
                                 <span class="badge badge-default" th:text="${post.articleTypeStr}"></span>
                             </span>

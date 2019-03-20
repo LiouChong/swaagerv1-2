@@ -68,7 +68,7 @@ public interface IPostService extends IBaseService<Post> {
          * @param id
          * @return
          */
-        PostDetailResponse getPostDetailById(Integer id);
+        PostDetailResponse getPostDetailById(Integer id) throws Exception;
 
         /**
          * 查询所有板块名称
@@ -114,4 +114,6 @@ public interface IPostService extends IBaseService<Post> {
          * @return
          */
         Integer delById(PostDel postDel);
+
+        Post getAllById(Integer id);
 }

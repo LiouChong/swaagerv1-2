@@ -2,20 +2,23 @@ package com.bysj.controller;
 
 import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.ActionResponse;
+import com.bysj.common.response.PageResult;
 import com.bysj.common.utils.PageUtil;
 import com.bysj.entity.Post;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
+import com.bysj.entity.vo.query.ReplyQuery;
 import com.bysj.entity.vo.request.PostDel;
 import com.bysj.entity.vo.request.PostRequest;
-import com.bysj.entity.vo.response.PlateNameForIndex;
-import com.bysj.entity.vo.response.PostDetailResponse;
-import com.bysj.entity.vo.response.PostResponse;
-import com.bysj.entity.vo.response.RandUserForHelpResponse;
+import com.bysj.entity.vo.response.*;
+import com.bysj.service.IApplyPlateService;
 import com.bysj.service.IPostService;
+import com.bysj.service.IReplyService;
 import com.bysj.service.IUserService;
 import io.swagger.annotations.*;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,6 +39,9 @@ public class PostController {
 
     @Autowired
     public IUserService userService;
+
+    @Autowired
+    private IReplyService replyService;
 
 
     /**
@@ -167,17 +173,24 @@ public class PostController {
 
     /**
      * 通过ID查询
-     * @param id
+     * @param replyQuery
      * @return actionResponse
      */
     @ApiOperation(value = "通过ID查询", notes = "主键封装对象")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
-    public ModelAndView queryById(@ApiParam(value = "post") @PathVariable("id") Integer id, ModelAndView modelAndView)throws Exception{
-        PostDetailResponse postDetailResponse = iPostService.getPostDetailById(id);
+    @RequestMapping(value = "/detail", method = RequestMethod.GET)
+    @Transactional
+    public ModelAndView queryById(@ApiParam(value = "post") ReplyQuery replyQuery, ModelAndView modelAndView)throws Exception{
+        PostDetailResponse postDetailResponse = iPostService.getPostDetailById(replyQuery.getPostId());
+        // 分页查询
+        PageResult<ReplyForPostDetail> pageReply = replyService.findPageReply(replyQuery);
+        postDetailResponse.setReplys(pageReply.getItems());
         modelAndView.addObject("postDetail", postDetailResponse);
+        modelAndView.addObject("currentPage", pageReply.getCurrentPage());
+        modelAndView.addObject("totalRecord", pageReply.getTotalRecords());
+        modelAndView.addObject("totalPage", pageReply.getTotalPages());
         modelAndView.setViewName("single");
         return modelAndView;
     }
@@ -192,6 +205,7 @@ public class PostController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequiresPermissions("post:delete")
     public String deleteById(@RequestBody PostDel postDel)throws Exception{
         return iPostService.delById(postDel).toString();
     }
@@ -251,6 +265,7 @@ public class PostController {
      */
     @ApiOperation(value = "取消推荐的帖子", notes = "传入修改条件")
     @RequestMapping(value = "/cancel", method = RequestMethod.POST)
+    @RequiresPermissions("post:un_good")
     public String cancelGoodPost(@RequestBody Post post)throws Exception{
         String result = iPostService.calcenGoodPost(post);
         return result;
@@ -263,6 +278,7 @@ public class PostController {
      */
     @ApiOperation(value = "取消推荐的帖子", notes = "传入修改条件")
     @RequestMapping(value = "/setGood", method = RequestMethod.POST)
+    @RequiresPermissions("post:good")
     public String setPostGood(@RequestBody Post post)throws Exception{
         Integer result = iPostService.setGoodPost(post);
         if (result.equals(1)) {

@@ -5,6 +5,7 @@ import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.vo.query.UserQuery;
 import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
+import com.bysj.entity.vo.request.UserRequestForBan;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
 import com.bysj.entity.vo.response.UserResponse;
 import com.bysj.service.IUserService;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Map;
@@ -208,9 +210,25 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/user/picture", method = RequestMethod.POST)
-    public void addPicture(@RequestPart("file") MultipartFile profilePicture, ModelAndView model, HttpServletRequest request) throws Exception {
-        iUserService.addPicture(profilePicture, model, request);
+    public ModelAndView addPicture(@RequestPart("file") MultipartFile profilePicture, ModelAndView model, HttpServletRequest request) throws Exception {
+        String info = iUserService.addPicture(profilePicture, request);
+        model.addObject("info", info);
+        return getUserInfo(model);
     }
 
+    /**
+     * 封禁或者解封用户
+     *
+     * @param
+     * @return actionResponse
+     */
+    @ApiOperation(value = "通过用户id封禁用户", notes = "主键封装对象")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
+    })
+    @RequestMapping(value = "/user/ban", method = RequestMethod.POST)
+    public String banUser(@RequestBody UserRequestForBan userRequestForBan) throws Exception {
+        return iUserService.banUser(userRequestForBan);
+    }
 }
 

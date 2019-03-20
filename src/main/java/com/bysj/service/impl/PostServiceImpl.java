@@ -81,6 +81,7 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
         // 插入帖子后，会自动将递增后的id返还给post对象。
         postDao.insert(post);
 
+        // 请求帮助的人，此时拿出来为字符串形式，下面转换为Json后转化为集合。
         String askHelpStr= request.getAskHelp();
         if (askHelpStr != null) {
             JSONArray objects = JSONArray.parseArray(askHelpStr);
@@ -151,7 +152,7 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     }
 
     @Override
-    public PostDetailResponse getPostDetailById(Integer id) {
+    public PostDetailResponse getPostDetailById(Integer id) throws Exception {
         PostDetailResponse postDetailResponse = postDao.findPostDetail(id);
 
         // 对数字进行转换
@@ -167,15 +168,10 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
         String gmtModifyStr = DateUtils.getDataString(postDetailResponse.getGmtModify(), DateUtils.WHOLE_FORMAT);
         postDetailResponse.setGmrCreateStr(gmtModifyStr);
 
-        // 查询得到帖子的回复信息
-        List<ReplyForPostDetail> replys = postDao.findReplyForPost(id);
-
-        // 对回复信息的日期进行转换
-        replys.forEach(item -> {
-            item.setGmtCreateStr(DateUtils.getDataString(item.getGmtCreate(),DateUtils.WHOLE_FORMAT));
-        });
-
-        postDetailResponse.setReplys(replys);
+        // 阅读量 + 1
+        Post allById = postDao.getAllById(id);
+        allById.setReadCount(allById.getReadCount() + 1);
+        postDao.update(allById);
 
         return postDetailResponse;
     }
@@ -241,6 +237,13 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
 
     @Override
     public Integer delById(PostDel postDel) {
+        postDel.setGmtModify(new Date());
+        postDel.setModifyUser(userHandle.getUserId());
         return postDao.delPost(postDel);
+    }
+
+    @Override
+    public Post getAllById(Integer id) {
+        return postDao.getAllById(id);
     }
 }

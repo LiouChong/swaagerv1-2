@@ -268,6 +268,14 @@
         </trim>
         where id = ${id}
     </update>
+    <update id="banUser">
+        update user
+        set
+            state       = #{state},
+            gmt_modify  = #{gmtModify},
+            user_modify = #{modifyUser}
+        where id = #{id}
+    </update>
 
     <!-- 根据主键查询 -->
     <select id="getById" resultType="com.bysj.entity.User" parameterType="java.lang.Integer">
@@ -397,6 +405,7 @@
     </select>
     <select id="findPageBanUser" resultType="com.bysj.entity.vo.response.UserBanResponse">
         SELECT
+        u.id,
         u.email,
         u.nickname,
         u.gmt_create as gmtCreate,

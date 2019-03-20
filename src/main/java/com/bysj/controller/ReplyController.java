@@ -3,11 +3,15 @@ package com.bysj.controller;
 
 import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.vo.query.ReplyQuery;
+import com.bysj.entity.vo.request.ReplyDelRequest;
 import com.bysj.entity.vo.request.ReplyRequest;
 import com.bysj.entity.vo.response.PostDetailResponse;
 import com.bysj.service.IReplyService;
 import io.swagger.annotations.*;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,9 +31,6 @@ public class ReplyController {
     @Resource
     public IReplyService iReplyService;
 
-    @Autowired
-    private PostController postController;
-
     /**
      * 发表回复
      * @param replyRequest
@@ -40,23 +41,24 @@ public class ReplyController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public PostDetailResponse saveSingle(@ApiParam(value = "reply") @RequestBody ReplyRequest replyRequest)throws Exception{
-        return iReplyService.saveReply(replyRequest);
+    @Transactional
+    @RequiresAuthentication
+    public ModelAndView saveSingle(@ApiParam(value = "reply")ReplyRequest replyRequest,ModelAndView modelAndView)throws Exception{
+        iReplyService.saveReply(replyRequest);
+        modelAndView.setViewName("redirect:/post/detail?postId=" + replyRequest.getPostId());
+        return modelAndView;
     }
 
     /**
-     * 修改
+     * 删除评论
      * @param replyRequest
      * @return actionResponse
      */
-    @ApiOperation(value = "修改接口", notes = "传入实体对象信息")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
-    })
+    @ApiOperation(value = "/update/single", notes = "传入实体对象信息")
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "reply")ReplyRequest replyRequest)throws Exception{
-        iReplyService.updateReply(replyRequest);
-        return ActionResponse.success();
+    @Transactional
+    public String updateSingle(@ApiParam(value = "reply") @RequestBody ReplyDelRequest replyRequest)throws Exception{
+        return iReplyService.updateReply(replyRequest);
     }
 
     /**
@@ -73,34 +75,5 @@ public class ReplyController {
         return ActionResponse.success(iReplyService.findPageReply(replyQuery));
     }
 
-    /**
-     * 通过ID查询
-     * @param id
-     * @return actionResponse
-     */
-    @ApiOperation(value = "通过ID查询", notes = "主键封装对象")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
-    })
-    @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
-    public ActionResponse queryById(@ApiParam(value = "reply") @PathVariable("id") Integer id)throws Exception{
-
-        return ActionResponse.success(iReplyService.getById(id));
-    }
-
-    /**
-     * 通过ID删除
-     * @param id
-     * @return actionResponse
-     */
-    @ApiOperation(value = "通过ID删除接口", notes = "主键封装对象")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
-    })
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public void deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id, ModelAndView modelAndView)throws Exception{
-        Integer postId = iReplyService.deleteById(id);
-        postController.queryById(postId, modelAndView);
-    }
 }
 

@@ -99,33 +99,21 @@
     <script src="js/jquery-3.3.1.js"></script>
     <script>
         $(document).ready(function () {
-            $("#showChanTable").unbind('click').click(function () {
+            $("a[name='un_ban_user']").click(function () {
                 $.ajax({
                     type: "POST",
-                    url: "/user/update",
+                    url: "/user/ban",
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
-                        id: $("#idValue").val(),
-                        nickname: $("#nicknameValue").val(),
-                        oldPswValue: $("#oldPswValue").val(),
-                        psw: $("#pswValue").val(),
-                        signaTure: $("#signaTureValue").val(),
-                        age: $("#ageValue").val(),
-                        sex: $("input[name='sexValue']:checked").val()
+                        id: $(this).parent().prev().val(),
+                        state: 1
                     }),
-                    dataType: "json",
+                    dataType: "text",
                     success: function (message) {
-                        if (message == 1) {
-                            alert("修改成功!")
-                        } else if (message.body != null) {
-                            alert(message.body)
-                        } else {
-                            alert("修改失败！服务器异常。请稍后再试")
-                        }
+                        alert(message);
                     }
                 })
             });
-
         });
     </script>
 
@@ -306,7 +294,7 @@
                                                         <td th:text="${post.gmtModify}"></td>
                                                         <td th:text="${post.banReason}"></td>
                                                         <td th:text="${post.banUserName}"></td>
-                                                        <td><a>查看详情</a> &emsp;<a>解禁</a></td>
+                                                        <td><a>查看详情</a> &emsp;<a href="javascript:void(0)" name="un_ban_post">解禁</a></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -348,7 +336,8 @@
                                                         <td th:text="${user.gmtModify}"></td>
                                                         <td th:text="${user.banReason}"></td>
                                                         <td th:text="${user.banUserName}"></td>
-                                                        <td><a>查看详情</a>&emsp;<a>解禁</a></td>
+                                                        <input th:value="${user.id}" type="hidden"/>
+                                                        <td><a>查看详情</a>&emsp;<a href="javascript:void(0)" name="un_ban_user">解禁</a></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>

@@ -78,12 +78,14 @@ public class ShiroConfiguration {
         // 具体controller的链接
         // 首页跳转允许
         filterChainDefinetionMap.put("/post/index", "anon");
-        filterChainDefinetionMap.put("/user/login", "anon");
+        filterChainDefinetionMap.put("/login", "anon");
         // 简单搜索功能允许
         filterChainDefinetionMap.put("/post/query/simple", "anon");
-        filterChainDefinetionMap.put("/post/detail/*", "anon");
+        filterChainDefinetionMap.put("/post/detail**", "anon");
         filterChainDefinetionMap.put("/post/query/*", "anon");
-
+        filterChainDefinetionMap.put("/reply/update/single", "anon");
+        filterChainDefinetionMap.put("/reply/save", "authc");
+        filterChainDefinetionMap.put("/user/*", "anon");
 
         // 退出登录页面
         filterChainDefinetionMap.put("/logout", "logout");

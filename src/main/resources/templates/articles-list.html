@@ -92,28 +92,26 @@
 
             $("a[name$='delPost']").click(function () {
                 var judge = prompt("请输入删除理由");
-                if (judge == true ) {
-                    if (judge.length == 0) {
-                        alert("请输入删除理由！");
-                    } else {
-                        $(this).parent().parent().parent().slideUp(400);
-                        $.ajax({
-                            type: "POST",
-                            url: "/post/delete",
-                            data:JSON.stringify({
-                                id:$(this).prev().val(),
-                                banReason:judge
-                            }),
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            success: function (message) {
-                                if (message !== 1) {
-                                    alert(message);
-                                    window.location.reload();
-                                }
+                if (judge ) {
+                    $(this).parent().parent().parent().slideUp(400);
+                    $.ajax({
+                        type: "POST",
+                        url: "/post/delete",
+                        data: JSON.stringify({
+                            id: $(this).prev().val(),
+                            banReason: judge
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (message) {
+                            if (message !== 1) {
+                                alert(message);
+                                window.location.reload();
                             }
-                        });
-                    }
+                        }
+                    });
+                } else if (judge === "") {
+                    alert("请输入删除理由！");
                 }
             })
         });
@@ -144,7 +142,7 @@
                         <li><a href="/post/index">首页</a></li>
                         <li><a href="/home-categories-description">关注</a></li>
                         <li><a href="/post/query/good">推荐</a></li>
-                        <li class="/post/query/list"><a href="/query/list">最新</a></li>
+                        <li class="current-menu-item"><a href="/post/query/list">最新</a></li>
                         <li><a href="/faq">常见问题</a></li>
                         <li><a href="/contact">联系我们</a></li>
                         <shiro:guest>
@@ -196,7 +194,7 @@
                     <header class="clearfix">
 
                         <h3 class="post-title">
-                            <a th:href="'/post/detail/' + ${post.id}" th:text="${post.title}"></a>
+                            <a th:href="'/post/detail?postId=' + ${post.id}" th:text="${post.title}"></a>
                             <span th:if="${post.articleType == 1}">
                                 <span class="badge badge-default" th:text="${post.articleTypeStr}"></span>
                             </span>
@@ -232,7 +230,7 @@
 
                     </header>
 
-                    <a class="readmore-link" th:href="'/post/detail/' + ${post.id}"><p
+                    <a class="readmore-link" th:href="'/post/detail?postId=' + ${post.id}"><p
                             style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;"
                             th:text="${post.info}">
                     </p><span style="color: darkblue;float: right">Read more</span></a>

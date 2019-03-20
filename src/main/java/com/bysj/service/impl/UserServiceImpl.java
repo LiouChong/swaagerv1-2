@@ -20,6 +20,7 @@ import com.bysj.entity.vo.query.UserQueryByLevel;
 import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequest;
+import com.bysj.entity.vo.request.UserRequestForBan;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
 import com.bysj.entity.vo.response.RandUserForHelpResponse;
 import com.bysj.entity.vo.response.UserBanResponse;
@@ -252,16 +253,15 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     /**
      * 用户上传图片
      * @param profilePicture
-     * @param model
      * @param request
      * @return
      * @throws Exception
      */
     @Override
     @Transactional
-    public ModelAndView addPicture(MultipartFile profilePicture, ModelAndView model, HttpServletRequest request) throws Exception {
+    public String addPicture(MultipartFile profilePicture, HttpServletRequest request) throws Exception {
         if (profilePicture.getSize() > 2097152) {
-            model.addObject("info","超出图片大小限制！");
+            return "超出图片大小限制！";
         }
 //        String fileName = user_picture.getEmail() + System.currentTimeMillis();
 
@@ -270,7 +270,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
         // 通过文件名获取文件后缀
         String suffixname = fileName.substring(fileName.lastIndexOf(".") + 1);
         // TODO: 这里记得修改为当前登录用户
-
+        System.out.println("------------->>> " + suffixname);
         String pictureName = userHandle.getUserEmail() + System.currentTimeMillis() + "." + suffixname;
         try {
             // 保存文件
@@ -283,12 +283,11 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
 
         user.setGmtModify(new Date());
         user.setUserModify(user.getId());
-        userDao.update(user);
-
-        model.addObject("info","头像修改成功！");
-        model.setViewName("/myInfo");
-
-        return model;
+        if (userDao.update(user) == 1 ) {
+            return "更改成功!";
+        } else {
+            return "更改失败！请稍后再试";
+        }
     }
 
     @Override
@@ -344,5 +343,17 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     @Override
     public List<RandUserForHelpResponse> findRandUser() {
         return userDao.findRandomUser();
+    }
+
+    @Override
+    public String banUser(UserRequestForBan userRequestForBan) {
+        userRequestForBan.setGmtModify(new Date());
+        userRequestForBan.setModifyUser(userHandle.getUserId());
+        if (userDao.banUser(userRequestForBan) == 1) {
+            return "成功！";
+        } else {
+            return "失败";
+        }
+
     }
 }

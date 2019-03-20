@@ -13,5 +13,22 @@ import com.bysj.common.request.ObjectQuery;
  */
 
 public class ReplyQuery extends ObjectQuery {
+    private Integer postId;
 
+    public Integer getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Integer postId) {
+        this.postId = postId;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"postId\":")
+                .append(postId);
+        sb.append('}');
+        return sb.toString();
+    }
 }

@@ -72,6 +72,7 @@ public class PageController {
 
         // 查询被封禁帖子列表
         PageResult<PostBanResponse> pageBanPost = postService.findPageBanPost(new ObjectQuery());
+        // 查询被封禁用户列表
         PageResult<UserBanResponse> pageBanUser = userService.findPageUserBan(new ObjectQuery());
 
         model.addAttribute("ApplyPlate", pageApplyPlate);

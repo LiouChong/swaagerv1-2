@@ -101,4 +101,12 @@ public interface PostDao extends IBaseDao<Post> {
      * @return
      */
     Integer delPost(PostDel postDel);
+
+
+    /**
+     * 全量查询帖子
+     * @param id
+     * @return
+     */
+    Post getAllById(Integer id);
 }

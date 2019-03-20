@@ -64,9 +64,58 @@
     </script>
     <script>
         $(document).ready(function () {
-            // 点击提交评论
-            $("#deleteBut").click(function () {
-                alert()
+            // 点击删除评论
+            $("a[name='deleteBut']").click(function () {
+                var c = confirm("确定删除？");
+                var flag = 1;
+                if (c) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/reply/update/single",
+                        data: JSON.stringify({
+                            id: $(this).prev().val(),
+                            postId: $(this).prev().prev().val()
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "text",
+                        //这里要求ajax为同步操作，不然还没给flag赋值，就执行下面的判断。就会出现bug
+                        async :false,
+                        success: function (message) {
+                            if (message === "成功!") {
+                                $("#comments-title").text($("#comments-title").prev().val() - 1 + "Comments")
+                                $("#comments-title").prev().val($("#comments-title").prev().val() - 1)
+                                flag = 2
+                            } else {
+                                alert(message)
+                            }
+                        }
+                    });
+                    if (flag === 2) {
+                        $(this).parent().parent().parent().parent().slideUp(400)
+                    }
+                }
+            })
+
+            $("a[name='banUser']").click(function () {
+                var judge = prompt("请输入封禁理由");
+                if (judge) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/user/ban",
+                        data: JSON.stringify({
+                            id: $(this).prev().val(),
+                            banReason: judge,
+                            state: 0
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        datatype: "json",
+                        success: function (message) {
+                            alert(message);
+                        }
+                    })
+                } else if (judge === "") {
+                    alert("请输入封禁理由！");
+                }
             })
         });
     </script>
@@ -88,15 +137,14 @@
                 <span class="tag-line">Premium WordPress Theme</span>
             </div>
 
-
             <!-- Start of Main Navigation -->
             <nav class="main-nav">
                 <div class="menu-top-menu-container">
                     <ul id="menu-top-menu" class="clearfix">
-                        <li ><a href="/post/index">首页</a></li>
+                        <li><a href="/post/index">首页</a></li>
                         <li><a href="/home-categories-description">关注</a></li>
                         <li><a href="/post/query/good">推荐</a></li>
-                        <li class="current-menu-item"><a href="/query/list">最新</a></li>
+                        <li class="current-menu-item"><a href="/post/query/list">最新</a></li>
                         <li><a href="/faq">常见问题</a></li>
                         <li><a href="/contact">联系我们</a></li>
                         <shiro:guest>
@@ -125,7 +173,8 @@
         <p class="search-tag-line">If you have any question you can ask below or enter what you are looking for!</p>
 
         <form id="search-form" class="search-form clearfix" method="get" action="/post/query/simple" autocomplete="off">
-            <input class="search-term required" type="text" id="s" name="integratedQuery" placeholder="Type your search terms here"
+            <input class="search-term required" type="text" id="s" name="integratedQuery"
+                   placeholder="Type your search terms here"
                    title="* Please enter a search term!"/>
             <input class="search-btn" type="submit" value="Search"/>
             <div id="search-error-container"></div>
@@ -164,9 +213,12 @@
                 </article>
                 <section id="comments">
 
+                    <input th:value="${postDetail.replyCount}" type="hidden">
                     <h3 id="comments-title" th:text="${postDetail.replyCount} + 'Comments' "></h3>
-                    <h3 style="color:red;" th:if="${postDetail.articleType == 2}" th:text="'需要' + ${postDetail.needMoney} + '分'"></h3>
-                    <h3 style="color:red;" th:if="${postDetail.articleType == 3}" th:text="'悬赏' + ${postDetail.giveMoney} + '分'"></h3>
+                    <h3 style="color:red;" th:if="${postDetail.articleType == 2}"
+                        th:text="'需要' + ${postDetail.needMoney} + '分'"></h3>
+                    <h3 style="color:red;" th:if="${postDetail.articleType == 3}"
+                        th:text="'悬赏' + ${postDetail.giveMoney} + '分'"></h3>
                     <ol class="commentlist" th:fragment="ajaxinfo">
                         <!--<c:forEach items="${ReplyAndUsers}" var="replyAndUser" varStatus="floor">-->
 
@@ -179,10 +231,10 @@
                                     <img th:if="${reply.userImg} ne null"
                                          th:src="'/user_picture/' + ${reply.userImg}"
                                          class="avatar avatar-60 photo"
-                                         height="60" width="60">
+                                         height="60" width="60" th:href="'/user/' + ${reply.userCreate}" }>
                                     <img th:if="${reply.userImg} eq null" src="/user_picture/default.jpg"
                                          class="avatar avatar-60 photo"
-                                         height="60" width="60">
+                                         height="60" width="60" th:href="'/user/' + ${reply.userCreate}">
                                 </a>
 
                                 <div class="comment-meta">
@@ -190,24 +242,31 @@
                                     <h5 class="author">
                                         <cite class="fn">
                                             <a rel="external nofollow" class="url"
-                                               th:text="${reply.userCreateName}"></a>
+                                               th:text="${reply.userCreateName}"
+                                               th:href="'/user/' + ${reply.userCreate}"></a>
                                         </cite>
                                         - <a class="comment-reply-link" href="#">Reply</a>
                                         <span style="float: right" th:text="${replyList.index + 1}  + '楼'"></span>
-                                        &emsp;</a> <a href="" style="color: gray;">封禁</a>
+                                        <input th:value="${reply.userCreate}" type="hidden"/>
+                                        &emsp;
+                                        <shiro:hasPermission name="user:ban"></a>
+                                            <a href="javascript:void(0)" style="color: gray;" name="banUser">封禁</a>
+                                        </shiro:hasPermission>
                                     </h5>
 
                                     <p class="date">
 
                                         <time datetime="2013-02-26T13:18:47+00:00"
                                               th:text="${reply.gmtCreateStr}"></time>
-                                        <a href="javascript:void(0);" id="deleteBut"
+                                        <input th:value="${postDetail.id}" type="hidden"/>
+                                        <input th:value="${reply.id}" type="hidden"/>
+                                        <!--<shiro:hasPermission name="reply:delete">-->
+                                        <a href="javascript:void(0);" name="deleteBut"
                                            style="float: right;color:red">删除</a>
+                                        <!--</shiro:hasPermission>-->
 
                                     </p>
-
                                 </div><!-- end .comment-meta -->
-
                                 <div class="comment-body">
                                     <p th:text="${reply.replyInfo}"></p>
                                 </div><!-- end of comment-body -->
@@ -215,6 +274,45 @@
                             </article><!-- end of comment -->
 
                         </li>
+                        <div id="pagination">
+                            <span style="font-size: 16px ; font-family: 'Javanese Text'"
+                                  th:text="'共有' + ${totalPage} + '页，当前第' + ${currentPage} + '页'"></span><br>
+                            <a th:href="'/post/detail?currentPage=1&postId=' + ${postDetail.id}" class="btn">« 第一页</a>
+                            <span th:if="${currentPage == 1}">
+                                            <a th:href="'/post/detail?currentPage=1&postId=' + ${postDetail.id}"
+                                               class="btn">« 上一页</a>
+                                        </span>
+                            <span th:if="${currentPage > 1}">
+                                            <a th:href="'/post/detail?currentPage=' + ${currentPage - 1} + '&postId=' + ${postDetail.id}"
+                                               class="btn">« 上一页</a>
+                                        </span>
+                            <a th:if="${totalPage} <= 9">
+                                            <span th:each="i:${#numbers.sequence(1, totalPage)}">
+                                                <a th:href="'/post/detail?currentPage=' + ${i} + '&postId=' + ${postDetail.id}"
+                                                   class="btn"
+                                                   th:text="${i}"/>
+                                            </span>
+                            </a>
+                            <a th:if="${totalPage} > 9">
+                                            <span th:each="i:${#numbers.sequence(1, 9)}">
+                                                <a th:href="'/post/detail?currentPage=' + ${i} + '&postId='+${postDetail.id}"
+                                                   class="btn"
+                                                   th:text="${i}"/>
+                                            </span>
+                                <a class="btn" th:text=".."></a>
+                            </a>
+                            <span th:if="${currentPage} == ${totalPage}">
+                                            <a th:href="'/post/detail?currentPage=' + ${currentPage} + '&postId='+${postDetail.id}"
+                                               class="btn">下一页 »</a>
+                                        </span>
+                            <span th:if="${currentPage} != ${totalPage}">
+                                            <a th:href="'/post/detail?currentPage=' + ${currentPage + 1} + '&postId='+${postDetail.id} "
+                                               class="btn">下一页 »</a>
+                                        </span>
+                            <a th:href="'/post/detail?currentPage=' + ${totalPage} + '&postId=' + ${postDetail.id}"
+                               class="btn">最后一页
+                                »</a>
+                        </div>
                     </ol>
 
                     <!--</c:forEach>-->
@@ -231,22 +329,18 @@
 
                         <!--<form action="/reply/add" method="post" id="commentform">-->
 
-                        <input id="postId" th:value="${postDetail.id}" type="hidden">
-                        <div>
-                            <label for="comment" style="font-size: 20px">评论</label>
-                            <textarea class="span8" name="replyInfo" id="comment" cols="58" rows="10"></textarea>
-                        </div>
 
-                        <!--<p class="allowed-tags">You can use these HTML tags and attributes
-                            <small><code>&lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt;
-                                &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt;
-                                &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </code></small>
-                        </p>-->
+                        <form action="/reply/save" method="post">
+                            <input id="postId" th:value="${postDetail.id}" name="postId" type="hidden">
+                            <div>
+                                <label for="comment" style="font-size: 20px">评论</label>
+                                <textarea class="span8" name="replyInfo" id="comment" cols="58" rows="10"></textarea>
+                            </div>
 
-                        <div>
-                            <input class="btn" name="submit" type="submit" id="submit" value="提交评论">
-                        </div>
-
+                            <div>
+                                <input name="submit" type="submit" id="submit" value="提交评论">
+                            </div>
+                        </form>
                         <!--</form>-->
 
                     </div>

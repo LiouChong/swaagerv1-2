@@ -5,8 +5,10 @@ import com.bysj.common.request.IBaseService;
 import com.bysj.common.response.PageResult;
 import com.bysj.entity.Reply;
 import com.bysj.entity.vo.query.ReplyQuery;
+import com.bysj.entity.vo.request.ReplyDelRequest;
 import com.bysj.entity.vo.request.ReplyRequest;
 import com.bysj.entity.vo.response.PostDetailResponse;
+import com.bysj.entity.vo.response.ReplyForPostDetail;
 import com.bysj.entity.vo.response.ReplyResponse;
 
 import java.util.List;
@@ -33,7 +35,7 @@ public interface IReplyService extends IBaseService<Reply> {
          * @param request
          * @return
          */
-        Integer updateReply(ReplyRequest request) throws Exception;
+        String updateReply(ReplyDelRequest request) throws Exception;
 
         /**
          * 查询对象集合
@@ -47,6 +49,6 @@ public interface IReplyService extends IBaseService<Reply> {
          * @param query
          * @return
          */
-        PageResult<ReplyResponse> findPageReply(ReplyQuery query) throws Exception;
+        PageResult<ReplyForPostDetail> findPageReply(ReplyQuery query) throws Exception;
 
 }

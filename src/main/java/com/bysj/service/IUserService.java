@@ -10,6 +10,7 @@ import com.bysj.entity.vo.query.UserQuery;
 import com.bysj.entity.vo.query.UserQueryByLevel;
 import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
+import com.bysj.entity.vo.request.UserRequestForBan;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
 import com.bysj.entity.vo.response.RandUserForHelpResponse;
 import com.bysj.entity.vo.response.UserBanResponse;
@@ -91,11 +92,10 @@ public interface IUserService extends IBaseService<User> {
         /**
          * 上传图片
          * @param profilePicture
-         * @param model
          * @param request
          * @return
          */
-        ModelAndView addPicture(MultipartFile profilePicture, ModelAndView model, HttpServletRequest request) throws Exception;
+        String addPicture(MultipartFile profilePicture, HttpServletRequest request) throws Exception;
 
         /**
          * 根据id查询用户详情
@@ -130,4 +130,6 @@ public interface IUserService extends IBaseService<User> {
          * @return
          */
         List<RandUserForHelpResponse> findRandUser();
+
+        String banUser(UserRequestForBan userRequestForBan);
 }

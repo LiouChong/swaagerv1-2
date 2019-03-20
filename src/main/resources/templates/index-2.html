@@ -216,7 +216,7 @@
 
                         <header class="clearfix">
                             <h3 class="post-title">
-                                <a th:href="'/post/detail/' + ${post.id}" th:text="${post.title}">
+                                <a th:href="'/post/detail?postId=' + ${post.id}" th:text="${post.title}">
                                 </a><span class="badge badge-default" th:text="${post.articleTypeStr}"></span>
                                 <shiro:hasPermission name="post:un_good">
                                     <input th:value="${post.id}" type="hidden">

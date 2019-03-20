@@ -375,12 +375,21 @@
             id          as id,
             if_good     as ifGood,
             gmt_modify  as gmtmodify,
-            modify_user as modifyUser
+            modify_user as modifyUser,
+            reply_count as replyCount
         from
             post
         where id = #{id}
     </select>
 
+    <!-- 根据主键查询 -->
+    <select id="getAllById" resultType="com.bysj.entity.Post" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        post
+        where id = #{id}
+    </select>
 
     <delete id="deleteById" parameterType="java.lang.Integer">
         update
@@ -391,9 +400,9 @@
     <delete id="delPost" parameterType="com.bysj.entity.vo.request.PostDel">
         update post
         set state       = 0,
-            gmt_modify  = #{gmtmodify},
-            modify_user = #{modifyUser}
-            ban_reason =#{banReason}
+            gmt_modify  = #{gmtModify},
+            modify_user = #{modifyUser},
+            ban_reason  =#{banReason}
         where id = #{id}
     </delete>
 
@@ -632,6 +641,7 @@
     </select>
     <select id="findReplyForPost" resultType="com.bysj.entity.vo.response.ReplyForPostDetail">
         select
+            r.id,
             r.reply_info    as replyInfo,
             r.thumbup_count as thumbupCount,
             r.gmt_create    as gmtCreate,
