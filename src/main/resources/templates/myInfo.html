@@ -228,13 +228,18 @@
     <div class="container">
         <!--<input id="info">-->
         <div style="height:1200px">
-            <h1 style="color: gray;text-align: center" th:if="${user.stateStr} eq '无效'"> 以被封禁 </h1>
+            <span  th:if="${user.stateStr} eq '无效'">
+                <h1 style="color: gray;text-align: center"> 已被封禁 </h1>
+                &emsp;&emsp;操作人：<span th:text="${user.modifyUserName}"></span>&emsp;
+                修改时间：<span th:text="${user.gmtModify}"></span>&emsp;
+                理由：<span th:text="${user.banReason}"></span>
+            </span>
             <h1 style="text-align: center" th:if="${user.stateStr} eq '有效'">个人信息</h1>
 
 
             <div id="left_box">
                 <h2 th:if="${user.picture} eq null">暂无头像！</h2>
-                <img th:if="${user.picture} ne null" th:src="'D://user_picture//' + ${user.picture}"
+                <img th:if="${user.picture} ne null" th:src="'/img/' + ${user.picture}"
                      style="width: 100%;height: 100%"/>
             </div>
 
@@ -298,16 +303,6 @@
                                 th:text="${user.plateName}"></b></a>
                     </td>
                 </tr>
-
-                <tr>
-                    <td><i><span class="vintage">设置头像： </span> </i></td>
-                    <td>
-                        <form action="/user/picture" enctype="multipart/form-data" method="post">
-                            <input type="file" name="file" value="上传头像">
-                            <button class="butclass"><b>上传头像(最大2M)</b></button>
-                        </form>
-                    </td>
-                </tr>
                 <tr>
                     <td><i>
                         <span class="vintage"> 创建时间：</span> <br></i></td>
@@ -315,54 +310,31 @@
                         <span style="font-size: 25px"><b th:text="${user.gmtCreateStr}"></b></span>
                     </td>
                 </tr>
-
             </table>
 
             <div id="signaTureText" class="signaTureShow">
+                <h2><span class="vintage">设置头像： </span> </h2>
+                <br>
+                <form action="/user/picture" enctype="multipart/form-data" method="post">
+                    <input type="file" name="file" value="上传头像">
+                    <button class="butclass"><b>上传头像(最大2M)</b></button>
+                </form>
+                <hr>
                 <h2>个性签名</h2>
                 <textarea id="signaTureValue" th:text="${user.signaTure}" style="height: 100%; width: 100% "/>
             </div>
             <div style="margin-top: 100px;">
                 <div style="float: right;width:60%; margin-top: 30px">
                     <button id="showChanTable">保存修改</button>
+                    <shiro:hasPermission name="moderator:agree">
+                        <br><br><br><br><br>
+                        <div id="applyManagerTable" style=" border-color: red;text-align: center; float: right">
+                            <h1><a href="/backstage/manage">管理论坛后台</a></h1>
+                        </div>
+                    </shiro:hasPermission>
                 </div>
-
-                <shiro:hasPermission name="moderator:agree">
-                    <br><br><br><br><br>
-                    <div id="applyManagerTable" style=" border-color: red;width:100%;margin-top:450px;text-align: center;">
-                       <h1><a href="/backstage/manage">管理论坛后台</a></h1>
-                        <!--TODO 这里进行跳转-->
-                        <!--<h1 style="color: red">${applyError}</h1>
-                        <c:forEach items="${applys}" var="apply" varStatus="f">
-                            <table class="dataintable" style="width: 100%">
-                                <tr>
-                                    <td><i> <span class="vintage"> 编号:</span> <br></i></td>
-                                    <td><span style="font-size: 25px">${f.count} </span></td>
-                                </tr>
-                                <tr>
-                                    <td><i> <span class="vintage"> 申请者:</span> <br></i></td>
-                                    <td><span style="font-size: 25px">${apply.nickName} </span></td>
-                                </tr>
-                                <tr>
-                                    <td><i><span class="vintage"> 申请板块：</span><br></i></td>
-                                    <td><span style="font-size: 25px">${apply.plateName} </span></td>
-                                </tr>
-                                <tr>
-                                    <td><i>
-                                        <span class="vintage"> 申请时间：</span> <br></i></td>
-                                    <td><span style="font-size: 25px">${apply.applyDate} </span></td>
-                                </tr>
-                            </table>
-                            <a href="/agreeApply?applyId=${apply.applyId}&userId=${apply.userId}&plateId=${apply.plateId}"
-                               style="float: left;color: green;font-size: 20px"><b>同意</b></a>&emsp;&emsp;&emsp;
-                            <a href="/disAgree?applyId=${apply.applyId}"
-                               style="float:right;color:red;font-size: 20px"><b>否决</b></a>
-                            <hr>
-                        </c:forEach>-->
-
-                    </div>
-                </shiro:hasPermission>
             </div>
+
 
         </div>
 

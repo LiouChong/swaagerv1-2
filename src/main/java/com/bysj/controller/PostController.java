@@ -11,10 +11,7 @@ import com.bysj.entity.vo.query.ReplyQuery;
 import com.bysj.entity.vo.request.PostDel;
 import com.bysj.entity.vo.request.PostRequest;
 import com.bysj.entity.vo.response.*;
-import com.bysj.service.IApplyPlateService;
-import com.bysj.service.IPostService;
-import com.bysj.service.IReplyService;
-import com.bysj.service.IUserService;
+import com.bysj.service.*;
 import io.swagger.annotations.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +39,9 @@ public class PostController {
 
     @Autowired
     private IReplyService replyService;
+
+    @Autowired
+    private IFavoritesArticleService favoritesArticleService;
 
 
     /**
@@ -184,9 +184,17 @@ public class PostController {
     @Transactional
     public ModelAndView queryById(@ApiParam(value = "post") ReplyQuery replyQuery, ModelAndView modelAndView)throws Exception{
         PostDetailResponse postDetailResponse = iPostService.getPostDetailById(replyQuery.getPostId());
-        // 分页查询
+        // 分页查询回复
         PageResult<ReplyForPostDetail> pageReply = replyService.findPageReply(replyQuery);
         postDetailResponse.setReplys(pageReply.getItems());
+
+        // 若又收藏信息，则表示已收藏
+        if (favoritesArticleService.getIfCollectByUserId(postDetailResponse.getPosterId(), postDetailResponse.getId()) != null) {
+            postDetailResponse.setCollectBoolean(true);
+        } else {
+            postDetailResponse.setCollectBoolean(false);
+        }
+
         modelAndView.addObject("postDetail", postDetailResponse);
         modelAndView.addObject("currentPage", pageReply.getCurrentPage());
         modelAndView.addObject("totalRecord", pageReply.getTotalRecords());

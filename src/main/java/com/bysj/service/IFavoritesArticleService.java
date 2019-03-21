@@ -30,9 +30,11 @@ public interface IFavoritesArticleService extends IBaseService<FavoritesArticle>
         /**
          * 修改
          * @param request
+         * @param state
          * @return
+         * @throws Exception
          */
-        Integer updateFavoritesArticle(FavoritesArticleRequest request) throws Exception;
+        Integer updateFavoritesArticle(FavoritesArticleRequest request, Integer state) throws Exception;
 
         /**
          * 查询对象集合
@@ -48,4 +50,10 @@ public interface IFavoritesArticleService extends IBaseService<FavoritesArticle>
          */
         PageResult<FavoritesArticleResponse> findPageFavoritesArticle(FavoritesArticleQuery query) throws Exception;
 
+        /**
+         * 根据用户id查询收藏信息
+         * @param id 用户id
+         * @return
+         */
+        FavoritesArticle getIfCollectByUserId(Integer UserId, Integer postId);
 }

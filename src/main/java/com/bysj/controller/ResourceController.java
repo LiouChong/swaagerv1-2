@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 /**
- *
  * @author lc
  * @since 2019-02-28
  */
@@ -26,6 +25,7 @@ public class ResourceController {
 
     /**
      * 保存
+     *
      * @param resourceRequest
      * @return actionResponse
      */
@@ -34,13 +34,14 @@ public class ResourceController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/save/single", method = RequestMethod.POST)
-    public ActionResponse saveSingle(@ApiParam(value = "resource") @RequestBody ResourceRequest resourceRequest)throws Exception{
+    public ActionResponse saveSingle(@ApiParam(value = "resource") @RequestBody ResourceRequest resourceRequest) throws Exception {
         iResourceService.saveResource(resourceRequest);
         return ActionResponse.success();
     }
 
     /**
      * 修改
+     *
      * @param resourceRequest
      * @return actionResponse
      */
@@ -49,13 +50,14 @@ public class ResourceController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "resource") ResourceRequest resourceRequest)throws Exception{
+    public ActionResponse updateSingle(@ApiParam(value = "resource") ResourceRequest resourceRequest) throws Exception {
         iResourceService.updateResource(resourceRequest);
         return ActionResponse.success();
     }
 
     /**
      * 批量查询
+     *
      * @param resourceQuery
      * @return actionResponse
      */
@@ -64,12 +66,13 @@ public class ResourceController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/query/list", method = RequestMethod.GET)
-    public ActionResponse queryList(@ApiParam(value = "resource") ResourceQuery resourceQuery)throws Exception{
+    public ActionResponse queryList(@ApiParam(value = "resource") ResourceQuery resourceQuery) throws Exception {
         return ActionResponse.success(iResourceService.findPageResource(resourceQuery));
     }
 
     /**
      * 通过ID查询
+     *
      * @param id
      * @return actionResponse
      */
@@ -78,13 +81,14 @@ public class ResourceController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
-    public ActionResponse queryById(@ApiParam(value = "resource") @PathVariable("id") Integer id)throws Exception{
+    public ActionResponse queryById(@ApiParam(value = "resource") @PathVariable("id") Integer id) throws Exception {
 
         return ActionResponse.success(iResourceService.getById(id));
     }
 
     /**
      * 通过ID删除
+     *
      * @param id
      * @return actionResponse
      */
@@ -93,7 +97,7 @@ public class ResourceController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
+    public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id) throws Exception {
 
         return ActionResponse.success(iResourceService.deleteById(id));
     }

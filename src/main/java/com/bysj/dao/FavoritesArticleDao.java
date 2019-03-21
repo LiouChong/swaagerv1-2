@@ -14,4 +14,11 @@ import com.bysj.entity.FavoritesArticle;
  */
 public interface FavoritesArticleDao extends IBaseDao<FavoritesArticle> {
 
+    /**
+     * 根据用户id获取搜藏信息
+     * @Author liuchong
+     * @Date 2019/3/21 13:30
+     */
+    FavoritesArticle getIfCollectByUserId(Integer userId, Integer postId);
+
 }

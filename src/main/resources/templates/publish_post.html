@@ -263,7 +263,7 @@
                          <!--隐藏域用来jquery获取受邀请人信息-->
                         <input th:attr="type='hidden'" th:value="${helpUsersOne}" id="helpUser1Hidden">
                             <span th:each="user1, userStat:${helpUsersOne}">
-                                <img class="askhelpImg" th:src="'/user_picture/' + ${user1.picture}"/>
+                                <img class="askhelpImg" th:src="'/img/' + ${user1.picture}"/>
                                 <a class="akshelp" th:text="${user1.nickname}"
                                    th:href="'/user/' + ${user1.revQuestionUserId}"></a>&emsp;
                             </span>
@@ -272,7 +272,7 @@
                          <!--隐藏域用来jquery获取受邀请人信息-->
                         <input th:attr="type='hidden'" th:value="${helpUsersTwo}" id="helpUser2Hidden">
                              <span th:each="user2, user2Stat:${helpUsersTwo}">
-                                <img class="askhelpImg" th:src="'/user_picture/' + ${user2.picture}"/>
+                                <img class="askhelpImg" th:src="'/img/' + ${user2.picture}"/>
                                 <a class="akshelp" th:text="${user2.nickname}"
                                    th:href="'/user/' + ${user2.revQuestionUserId}"></a>&emsp;
                             </span>
@@ -280,7 +280,7 @@
                     <span id="askhelp3" hidden>
                          <input th:attr="type='hidden'" th:value="${helpUsersThree}" id="helpUser3Hidden">
                             <span th:each="user3, user3Stat:${helpUsersThree}">
-                                <img class="askhelpImg" th:src="'/user_picture/' + ${user3.picture}"/>
+                                <img class="askhelpImg" th:src="'/img/' + ${user3.picture}"/>
                                 <a class="akshelp" th:text="${user3.nickname}"
                                    th:href="'/user/' + ${user3.revQuestionUserId}"></a>&emsp;
                             </span>

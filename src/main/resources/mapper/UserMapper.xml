@@ -290,14 +290,14 @@
     <select id="userDetailInfo" resultType="com.bysj.entity.vo.response.UserResponse" parameterType="java.lang.Integer">
         SELECT
             u.id,
-            nickname,
-            psw,
-            money,
-            email,
-            picture,
-            signa_ture   AS signaTure,
-            sex,
-            age,
+            u.nickname,
+            u.psw,
+            u.money,
+            u.email,
+            u.picture,
+            u.signa_ture   AS signaTure,
+            u.sex,
+            u.age,
             u.gmt_create as gmtCreate,
             (
                 SELECT
@@ -308,10 +308,14 @@
                 WHERE
                     u.id = #{id}
             )            as fanCount,
-            u.state
+            u.state,
+            u.gmt_modify as gmtModify,
+            u2.nickname  as modifyUserName,
+            u.ban_reason as banReason
         FROM
             USER u
                 LEFT JOIN plater p ON u.id = p.owner_id
+                inner join user u2 on u.user_modify = u2.id
         WHERE
             u.id = #{id}
         GROUP BY

@@ -62,9 +62,6 @@ public class ShiroConfiguration {
 
         //拦截器
         Map<String, String> filterChainDefinetionMap = new LinkedHashMap<>();
-
-
-
         // 前端采用thyleaf，因此不能直接使用static，必须准确到每个静态目录。
         filterChainDefinetionMap.put("/css/**", "anon");
         filterChainDefinetionMap.put("/fonts/**", "anon");
@@ -74,6 +71,7 @@ public class ShiroConfiguration {
         filterChainDefinetionMap.put("/js/**", "anon");
         filterChainDefinetionMap.put("/user_picture/**", "anon");
         filterChainDefinetionMap.put("/favicon.ico", "anon");
+        filterChainDefinetionMap.put("/img/**", "anon");
 
         // 具体controller的链接
         // 首页跳转允许
@@ -85,7 +83,9 @@ public class ShiroConfiguration {
         filterChainDefinetionMap.put("/post/query/*", "anon");
         filterChainDefinetionMap.put("/reply/update/single", "anon");
         filterChainDefinetionMap.put("/reply/save", "authc");
+        filterChainDefinetionMap.put("/user", "authc");
         filterChainDefinetionMap.put("/user/*", "anon");
+        filterChainDefinetionMap.put("/403", "anon");
 
         // 退出登录页面
         filterChainDefinetionMap.put("/logout", "logout");

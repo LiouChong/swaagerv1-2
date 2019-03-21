@@ -12,9 +12,28 @@
         <result column="user_create" property="userCreate"/>
         <result column="user_modify" property="userModify"/>
     </resultMap>
-<!-- 通用查询结果列 -->
+    <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        user_id AS userId, post_id AS postId, state, gmt_create AS gmtCreate, gmt_modify AS gmtModify, user_create AS userCreate, user_modify AS userModify
+        user_id
+        AS
+        userId
+        ,
+        post_id
+        AS
+        postId,
+        state,
+        gmt_create
+        AS
+        gmtCreate,
+        gmt_modify
+        AS
+        gmtModify,
+        user_create
+        AS
+        userCreate,
+        user_modify
+        AS
+        userModify
     </sql>
 
     <sql id="Table_Name">
@@ -120,7 +139,7 @@
 
     <insert id="insert" parameterType="com.bysj.entity.FavoritesArticle">
         insert into
-        <include refid="Table_Name"></include>
+        favorites_article
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <include refid="IF_Base_Column_List"></include>
         </trim>
@@ -131,11 +150,14 @@
 
     <update id="update" parameterType="com.bysj.entity.FavoritesArticle">
         update
-        <include refid="Table_Name"></include>
-        <trim prefix="SET" suffixOverrides=",">
-            <include refid="Set_Column_List"></include>
-        </trim>
-        where id = #{id}
+            favorites_article
+        set
+            user_id = #{userId},
+            post_id = #{postId},
+            state = #{state},
+            gmt_modify = #{gmtModify}
+            user_modify = #{userModify}
+        where post_id = #{postId}
     </update>
 
     <!-- 根据主键查询 -->
@@ -146,7 +168,14 @@
         <include refid="Table_Name"></include>
         where id = #{id}
     </select>
-
+    <select id="getIfCollectByUserId" resultType="com.bysj.entity.FavoritesArticle" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        <include refid="Table_Name"></include>
+        where user_id = #{userId} and post_id = #{postId}
+        and state = 1
+    </select>
 
     <delete id="deleteById" parameterType="java.lang.Integer">
         delete from
@@ -185,7 +214,8 @@
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.bysj.entity.FavoritesArticle" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findQuery" resultType="com.bysj.entity.FavoritesArticle"
+            parameterType="com.bysj.common.request.ObjectQuery">
         select * from
         <include refid="Table_Name"></include>
         <where>

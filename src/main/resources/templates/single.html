@@ -116,7 +116,81 @@
                 } else if (judge === "") {
                     alert("请输入封禁理由！");
                 }
-            })
+            });
+
+            $("#collect").click(function () {
+                if ($("#collect").text() === "收藏") {
+                    $.ajax({
+                        type:"POST",
+                        url:"/collect/save/single",
+                        crossDomain:true,
+                        data:JSON.stringify({
+                            postId:$(this).prev().val()
+                        }),
+                        contentType:"application/json; charset=utf-8",
+                        dataType:"json",
+                        success: function (message) {
+                            alert("收藏" + message.head.result);
+                            $("#collect").text("已收藏");
+                        }
+                    })
+                } else {
+                    var c = confirm("取消收藏?")
+                    if (c) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/collect/update/single",
+                            crossDomain: true,
+                            data: JSON.stringify({
+                                postId: $(this).prev().val()
+                            }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (message) {
+                                alert("已取消")
+                                $("#collect").text("收藏");
+                            }
+                        })
+                    }
+                }
+            });
+
+            $("#un_collect").click(function () {
+                if ($("#un_collect").text() === "收藏") {
+                    $.ajax({
+                        type:"POST",
+                        url:"/collect/save/single",
+                        crossDomain:true,
+                        data:JSON.stringify({
+                            postId:$(this).prev().val()
+                        }),
+                        contentType:"application/json; charset=utf-8",
+                        dataType:"json",
+                        success: function (message) {
+                            alert("收藏" + message.head.result);
+                            $("#collect").text("已收藏");
+                        }
+                    })
+                } else {
+                    var c = confirm("取消收藏?")
+                    if (c) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/collect/update/single",
+                            crossDomain: true,
+                            data: JSON.stringify({
+                                postId: $(this).prev().val()
+                            }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (message) {
+                                alert("已取消")
+                                $("#un_collect").text("收藏");
+                            }
+                        })
+                    }
+                }
+            });
         });
     </script>
 </head>
@@ -193,21 +267,25 @@
                 <ul class="breadcrumb">
                     <li><a href="/post/index">Knowledge Base Theme</a><span class="divider">/</span></li>
                     <li><a href="#" th:attr="title='View all posts in ' + ${postDetail.plateName}"
-                           th:text="${postDetail.plateName}">
-                        <!--title="View all posts in ${postAndPlate.plateName}"--></a> <span
+                           th:text="${postDetail.plateName}"></a> <span
                             class="divider">/</span></li>
                     <li class="active" th:text="${postDetail.title}"></li>
                 </ul>
 
                 <article class=" type-post format-standard hentry clearfix">
-
-                    <h1 class="post-title" th:text="${postDetail.title}"></h1>
-
+                    <!--<h1 th:text="${postDetail.title}" class="post-title" ></h1>-->
+                    <span style="font-size: 30px; color: black;float:left" class="post-title" ><b th:text="${postDetail.title}"></b></span>
+                    <input th:value="${postDetail.id}" type="hidden">
+                    <shiro:user>
+                        <a th:if="${postDetail.collectBoolean} eq false" style="float: right;color: green; font-size: 18px" href="javascript:void(0)" id="collect"> 收藏</a>
+                        <a th:if="${postDetail.collectBoolean} eq true" style="float: right;color: green; font-size: 18px" href="javascript:void(0)" id="un_collect"> 已收藏</a>
+                    </shiro:user>
+                    <br><br>
                     <div class="post-meta clearfix">
                         <span class="date" th:text="${postDetail.gmrCreateStr}"></span>
                         <span class="category" th:text="${postDetail.plateName}"></span>
                         <span class="comments" th:text="${postDetail.replyCount}"></span>
-                        <span class="like-count" th:text="${postDetail.thumbupCount}"></span>
+                        <span class="like-count" th:text="${postDetail.readCount}"></span>
                     </div><!-- end of post meta -->
                     <p th:text="${postDetail.info}"></p>
                 </article>
@@ -229,10 +307,10 @@
 
                                 <a href="#">
                                     <img th:if="${reply.userImg} ne null"
-                                         th:src="'/user_picture/' + ${reply.userImg}"
+                                         th:src="'/img/' + ${reply.userImg}"
                                          class="avatar avatar-60 photo"
                                          height="60" width="60" th:href="'/user/' + ${reply.userCreate}" }>
-                                    <img th:if="${reply.userImg} eq null" src="/user_picture/default.jpg"
+                                    <img th:if="${reply.userImg} eq null" src="/img/default.jpg"
                                          class="avatar avatar-60 photo"
                                          height="60" width="60" th:href="'/user/' + ${reply.userCreate}">
                                 </a>
@@ -514,7 +592,7 @@
                 <div class="span6">
                     <p class="copyright">
                         Copyright © 2013. All Rights Reserved by KnowledgeBase.Collect from <a
-                            href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+                            href="#" title="网页模板" target="_blank">LiuChong</a>
                     </p>
                 </div>
                 <div class="span6">

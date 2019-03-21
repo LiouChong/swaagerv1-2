@@ -113,6 +113,20 @@ public class PostDetailResponse extends BaseEntity {
      */
     private Integer giveMoney;
 
+    /**
+     * 是否已经收藏该帖子
+     */
+    private Boolean collectBoolean;
+
+
+    public Boolean getCollectBoolean() {
+        return collectBoolean;
+    }
+
+    public void setCollectBoolean(Boolean collectBoolean) {
+        this.collectBoolean = collectBoolean;
+    }
+
     public Integer getNeedMoney() {
         return needMoney;
     }
@@ -332,6 +346,12 @@ public class PostDetailResponse extends BaseEntity {
                 .append(articleTypeStr).append('\"');
         sb.append(",\"replys\":")
                 .append(replys);
+        sb.append(",\"needMoney\":")
+                .append(needMoney);
+        sb.append(",\"giveMoney\":")
+                .append(giveMoney);
+        sb.append(",\"isCollect\":")
+                .append(collectBoolean);
         sb.append('}');
         return sb.toString();
     }

@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "FavoritesArticle", description = "喜欢的文章表")
 @RestController
-@RequestMapping("/favoritesarticle")
+@RequestMapping("/collect")
 public class FavoritesArticleController {
 
 
@@ -50,7 +50,7 @@ public class FavoritesArticleController {
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
     public ActionResponse updateSingle(@ApiParam(value = "favoritesArticle")FavoritesArticleRequest favoritesArticleRequest)throws Exception{
-        iFavoritesArticleService.updateFavoritesArticle(favoritesArticleRequest);
+        iFavoritesArticleService.updateFavoritesArticle(favoritesArticleRequest, 0);
         return ActionResponse.success();
     }
 

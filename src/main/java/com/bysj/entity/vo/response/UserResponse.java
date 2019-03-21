@@ -91,6 +91,45 @@ public class UserResponse extends BaseEntity {
 
     private String stateStr;
 
+    /**
+     * 修改时间
+     */
+    private String gmtModify;
+
+    /**
+     * 修改人名称
+     */
+    private String modifyUserName;
+
+    /**
+     * 封禁理由
+     */
+    private String banReason;
+
+    public String getBanReason() {
+        return banReason;
+    }
+
+    public void setBanReason(String banReason) {
+        this.banReason = banReason;
+    }
+
+    public String getGmtModify() {
+        return gmtModify;
+    }
+
+    public void setGmtModify(String gmtModify) {
+        this.gmtModify = gmtModify;
+    }
+
+    public String getModifyUserName() {
+        return modifyUserName;
+    }
+
+    public void setModifyUserName(String modifyUserName) {
+        this.modifyUserName = modifyUserName;
+    }
+
     public String getSexStr() {
         return sexStr;
     }
@@ -228,6 +267,8 @@ public class UserResponse extends BaseEntity {
                 .append(signaTure).append('\"');
         sb.append(",\"sex\":")
                 .append(sex);
+        sb.append(",\"sexStr\":\"")
+                .append(sexStr).append('\"');
         sb.append(",\"age\":")
                 .append(age);
         sb.append(",\"gmtCreate\":\"")
@@ -240,6 +281,14 @@ public class UserResponse extends BaseEntity {
                 .append(plateName);
         sb.append(",\"state\":")
                 .append(state);
+        sb.append(",\"stateStr\":\"")
+                .append(stateStr).append('\"');
+        sb.append(",\"gmtModify\":\"")
+                .append(gmtModify).append('\"');
+        sb.append(",\"modifyUserName\":\"")
+                .append(modifyUserName).append('\"');
+        sb.append(",\"banReason\":\"")
+                .append(banReason).append('\"');
         sb.append('}');
         return sb.toString();
     }

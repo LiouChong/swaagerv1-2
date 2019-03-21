@@ -320,8 +320,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     }
 
     @Override
-    public UserResponse getCurrentUserInfo() throws Exception {
-        Integer currentUserId = userHandle.getUserId();
+    public UserResponse getCurrentUserInfo(Integer currentUserId) throws Exception {
         return getInfoById(currentUserId);
     }
 

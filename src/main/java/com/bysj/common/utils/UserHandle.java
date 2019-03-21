@@ -21,7 +21,7 @@ public class UserHandle {
     private UserDao userDao;
 
     public Integer getUserId() {
-        return getUser().getId();
+        return getUser()==null? null: getUser().getId();
     }
 
     public String getUserEmail() {

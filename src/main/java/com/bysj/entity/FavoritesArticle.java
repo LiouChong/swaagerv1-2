@@ -34,7 +34,7 @@ public class FavoritesArticle extends BaseEntity {
      * 状态:1 有效,0 无效
      */
     @ApiModelProperty("状态:1 有效,0 无效")
-    private Boolean state;
+    private Integer state;
     /**
      * 创建时间
      */
@@ -75,14 +75,13 @@ public class FavoritesArticle extends BaseEntity {
     }
 
 
-    public Boolean getState() {
+    public Integer getState() {
         return state;
     }
 
-    public void setState(Boolean state) {
+    public void setState(Integer state) {
         this.state = state;
     }
-
 
     public Date getGmtCreate() {
         return gmtCreate;

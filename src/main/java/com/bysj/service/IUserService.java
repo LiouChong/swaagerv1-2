@@ -109,7 +109,7 @@ public interface IUserService extends IBaseService<User> {
          * 获取当前用户详情
          * @return
          */
-        UserResponse getCurrentUserInfo() throws Exception;
+        UserResponse getCurrentUserInfo(Integer currentUserId) throws Exception;
 
         /**
          * 根据等级查询用户

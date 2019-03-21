@@ -2,6 +2,7 @@ package com.bysj.controller;
 
 
 import com.bysj.common.response.ActionResponse;
+import com.bysj.common.utils.UserHandle;
 import com.bysj.entity.vo.query.UserQuery;
 import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
@@ -10,8 +11,10 @@ import com.bysj.entity.vo.request.UserRequestForUpdate;
 import com.bysj.entity.vo.response.UserResponse;
 import com.bysj.service.IUserService;
 import io.swagger.annotations.*;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,6 +33,8 @@ import java.util.Map;
 @RestController
 public class UserController {
 
+    @Autowired
+    UserHandle userHandle;
 
     /**
      * 发送邮件
@@ -177,8 +182,13 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @RequiresAuthentication
     public ModelAndView getUserInfo(ModelAndView modelAndView) throws Exception {
-        modelAndView.addObject("user",iUserService.getCurrentUserInfo());
+        if (userHandle.getUserId() == null) {
+            modelAndView.setViewName("/login");
+            return modelAndView;
+        }
+        modelAndView.addObject("user",iUserService.getCurrentUserInfo(userHandle.getUserId()));
         modelAndView.setViewName("myInfo");
         return modelAndView;
     }
@@ -213,7 +223,8 @@ public class UserController {
     public ModelAndView addPicture(@RequestPart("file") MultipartFile profilePicture, ModelAndView model, HttpServletRequest request) throws Exception {
         String info = iUserService.addPicture(profilePicture, request);
         model.addObject("info", info);
-        return getUserInfo(model);
+        model.setViewName("redirect:/user");
+        return model;
     }
 
     /**
