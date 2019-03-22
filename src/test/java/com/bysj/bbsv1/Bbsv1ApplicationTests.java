@@ -2,8 +2,10 @@ package com.bysj.bbsv1;
 
 import com.bysj.common.utils.DateUtils;
 import com.bysj.common.utils.NumberChineseEx;
+import com.bysj.dao.FavoritesArticleDao;
 import com.bysj.dao.PostDao;
 import com.bysj.dao.UserDao;
+import com.bysj.entity.FavoritesArticle;
 import com.bysj.entity.Post;
 import com.bysj.entity.Reply;
 import com.bysj.entity.vo.query.PostQueryForList;
@@ -39,6 +41,8 @@ public class Bbsv1ApplicationTests {
 
     @Resource
     PostDao postDao;
+    @Resource
+    FavoritesArticleDao favoritesArticleDao;
 
     @Test
     public void contextLoads() {
@@ -90,4 +94,9 @@ public class Bbsv1ApplicationTests {
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
     }
 
+    @Test
+    public void testFav() {
+        System.out.println("--------------------------------");
+        System.out.println(favoritesArticleDao.getByTwoId(1, 35).toString());
+    }
 }

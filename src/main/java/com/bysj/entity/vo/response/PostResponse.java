@@ -47,6 +47,11 @@ public class PostResponse extends BaseEntity {
     @ApiModelProperty("板块名称")
     private String plateName;
     /**
+     * 板块Id
+     */
+    @ApiModelProperty("板块Id")
+    private String plateId;
+    /**
      * 回复数
      */
     @ApiModelProperty("回复数")
@@ -92,6 +97,14 @@ public class PostResponse extends BaseEntity {
 
     @ApiModelProperty("文章的类型的中文形式")
     private String articleTypeStr;
+
+    public String getPlateId() {
+        return plateId;
+    }
+
+    public void setPlateId(String plateId) {
+        this.plateId = plateId;
+    }
 
     private Integer giveMoney;
 
@@ -264,6 +277,8 @@ public class PostResponse extends BaseEntity {
                 .append(ifGoodStr).append('\"');
         sb.append(",\"plateName\":\"")
                 .append(plateName).append('\"');
+        sb.append(",\"plateId\":\"")
+                .append(plateId).append('\"');
         sb.append(",\"replyCount\":")
                 .append(replyCount);
         sb.append(",\"thumbupCount\":")

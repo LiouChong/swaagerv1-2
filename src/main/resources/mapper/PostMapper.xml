@@ -443,6 +443,7 @@
         p.id,
         p.title,
         p.info,
+        p.plate_id as plateId,
         u.nickname as posterName,
         p.if_good as ifGood,
         pl.plate_name as plateName,
@@ -487,6 +488,7 @@
                 and p.create_user = u.id
             </trim>
         </where>
+             order by p.gmt_modify, p.gmt_create
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>

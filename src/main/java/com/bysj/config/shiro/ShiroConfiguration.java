@@ -86,6 +86,7 @@ public class ShiroConfiguration {
         filterChainDefinetionMap.put("/user", "authc");
         filterChainDefinetionMap.put("/user/*", "anon");
         filterChainDefinetionMap.put("/403", "anon");
+        filterChainDefinetionMap.put("/post/plate/list/**", "anon");
 
         // 退出登录页面
         filterChainDefinetionMap.put("/logout", "logout");

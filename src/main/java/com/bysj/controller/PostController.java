@@ -4,6 +4,7 @@ import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.response.PageResult;
 import com.bysj.common.utils.PageUtil;
+import com.bysj.entity.Plater;
 import com.bysj.entity.Post;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
@@ -42,6 +43,9 @@ public class PostController {
 
     @Autowired
     private IFavoritesArticleService favoritesArticleService;
+
+    @Autowired
+    private IPlaterService platerService;
 
 
     /**
@@ -97,7 +101,7 @@ public class PostController {
         mav.addObject("plates", plateNameForIndices);
 
         // 设置跳转的页面
-        mav.setViewName("index-2");
+        mav.setViewName("index");
         return mav;
     }
 
@@ -296,6 +300,33 @@ public class PostController {
         }
     }
 
+    /**
+     * 分板块展示帖子
+     *
+     * @return actionResponse
+     */
+    @ApiOperation(value = "取消推荐的帖子", notes = "传入修改条件")
+    @RequestMapping(value = "/plate/list", method = RequestMethod.GET)
+    public ModelAndView getPostByPlate(PostQueryForList postQueryForList, ModelAndView modelAndView) throws Exception{
+
+        postQueryForList.setPlateId(postQueryForList.getPlateId());
+        List<PostResponse> platePost = iPostService.findPagePost(postQueryForList, "platePost");
+        Integer totalRecords = iPostService.findCount(postQueryForList);
+
+        // 获取总页数
+        int totalPage = PageUtil.getTotalPage(totalRecords, postQueryForList.getPageSize());
+
+        modelAndView.addObject("pageSize", postQueryForList.getPageSize());
+        modelAndView.addObject("totalRecords", totalRecords);
+        modelAndView.addObject("totalPage", totalPage);
+        modelAndView.addObject("currentPage", postQueryForList.getCurrentPage());
+        modelAndView.addObject("postList", platePost);
+        modelAndView.addObject("plateId", postQueryForList.getPlateId());
+        modelAndView.addObject("plateOwnerName", platerService.getUserNameForPlate(postQueryForList.getPlateId()));
+        // 设置跳转的页面
+        modelAndView.setViewName("postsByPlate");
+        return modelAndView;
+    }
 
 }
 

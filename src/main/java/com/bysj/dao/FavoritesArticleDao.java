@@ -21,4 +21,5 @@ public interface FavoritesArticleDao extends IBaseDao<FavoritesArticle> {
      */
     FavoritesArticle getIfCollectByUserId(Integer userId, Integer postId);
 
+    FavoritesArticle getByTwoId(Integer userId, Integer postId);
 }

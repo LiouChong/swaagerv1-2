@@ -6,6 +6,7 @@ import com.bysj.common.response.PageResult;
 import com.bysj.entity.Plater;
 import com.bysj.entity.vo.query.PlaterQuery;
 import com.bysj.entity.vo.request.PlaterRequest;
+import com.bysj.entity.vo.response.PlaterForUserInfoResponse;
 import com.bysj.entity.vo.response.PlaterResponse;
 
 import java.util.List;
@@ -48,4 +49,10 @@ public interface IPlaterService extends IBaseService<Plater> {
          */
         PageResult<PlaterResponse> findPagePlater(PlaterQuery query) throws Exception;
 
+        /**
+         * 根据板块id查询版主名称
+         * @param plateId
+         * @return
+         */
+        PlaterForUserInfoResponse getUserNameForPlate(Integer plateId);
 }

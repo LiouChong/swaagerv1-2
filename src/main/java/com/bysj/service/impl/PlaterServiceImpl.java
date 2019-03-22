@@ -7,6 +7,7 @@ import com.bysj.dao.PlaterDao;
 import com.bysj.entity.Plater;
 import com.bysj.entity.vo.query.PlaterQuery;
 import com.bysj.entity.vo.request.PlaterRequest;
+import com.bysj.entity.vo.response.PlaterForUserInfoResponse;
 import com.bysj.entity.vo.response.PlaterResponse;
 import com.bysj.service.IPlaterService;
 import org.springframework.stereotype.Service;
@@ -56,5 +57,10 @@ public class PlaterServiceImpl extends BaseServiceImpl<Plater> implements IPlate
     @Override
     public PageResult<PlaterResponse> findPagePlater(PlaterQuery query) throws Exception {
         return new PageResult<>(query.getPageSize(), this.findCount(query), query.getCurrentPage(), this.findListPlater(query));
+    }
+
+    @Override
+    public PlaterForUserInfoResponse getUserNameForPlate(Integer plateId) {
+        return platerDao.getOwnerById(plateId);
     }
 }

@@ -147,6 +147,17 @@
         <include refid="Table_Name"></include>
         where id = #{id}
     </select>
+    <!-- 根据主键查询 -->
+    <select id="getOwnerById" resultType="com.bysj.entity.vo.response.PlaterForUserInfoResponse" parameterType="java.lang.Integer">
+        select
+          u.id,
+          nickname,
+               p.plate_name as plateName
+        from
+        plater p left join user u on p.owner_id = u.id
+        where p.id = #{getOwnerById}
+    </select>
+
 
 
     <delete id="deleteById" parameterType="java.lang.Integer">

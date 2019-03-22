@@ -116,7 +116,7 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
         // 根据条件查询到符合的帖子集合
         if ("index".equals(pageIndex)) {
             postList = postDao.findPostForIndex();
-        } else if ("articleGood".equals(pageIndex)) {
+        } else if ("articleGood".equals(pageIndex) || "platePost".equals(pageIndex)) {
             postList = postDao.findPostQuery(query);
         } else {
             postList = new ArrayList<>();

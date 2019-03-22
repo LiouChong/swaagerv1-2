@@ -49,7 +49,7 @@ public class FavoritesArticleController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "favoritesArticle")FavoritesArticleRequest favoritesArticleRequest)throws Exception{
+    public ActionResponse updateSingle(@ApiParam(value = "favoritesArticle") @RequestBody FavoritesArticleRequest favoritesArticleRequest)throws Exception{
         iFavoritesArticleService.updateFavoritesArticle(favoritesArticleRequest, 0);
         return ActionResponse.success();
     }

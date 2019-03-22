@@ -121,14 +121,22 @@ public class FavoritesArticle extends BaseEntity {
 
     @Override
     public String toString() {
-        return "FavoritesArticle{" +
-                "userId=" + userId +
-                ", postId=" + postId +
-                ", state=" + state +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModify=" + gmtModify +
-                ", userCreate=" + userCreate +
-                ", userModify=" + userModify +
-                "}";
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"userId\":")
+                .append(userId);
+        sb.append(",\"postId\":")
+                .append(postId);
+        sb.append(",\"state\":")
+                .append(state);
+        sb.append(",\"gmtCreate\":\"")
+                .append(gmtCreate).append('\"');
+        sb.append(",\"gmtModify\":\"")
+                .append(gmtModify).append('\"');
+        sb.append(",\"userCreate\":")
+                .append(userCreate);
+        sb.append(",\"userModify\":")
+                .append(userModify);
+        sb.append('}');
+        return sb.toString();
     }
 }
