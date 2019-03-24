@@ -3,6 +3,7 @@ package com.bysj.dao;
 
 import com.bysj.common.response.IBaseDao;
 import com.bysj.entity.FavoritesArticle;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -19,7 +20,13 @@ public interface FavoritesArticleDao extends IBaseDao<FavoritesArticle> {
      * @Author liuchong
      * @Date 2019/3/21 13:30
      */
-    FavoritesArticle getIfCollectByUserId(Integer userId, Integer postId);
+    FavoritesArticle getIfCollectByUserId(@Param("userId") Integer userId,@Param("postId") Integer postId);
 
-    FavoritesArticle getByTwoId(Integer userId, Integer postId);
+    /**
+     * 根据用户id和帖子id查询收藏信息
+     * @param userId
+     * @param postId
+     * @return
+     */
+    FavoritesArticle getByTwoId(@Param("userId") Integer userId,@Param("postId") Integer postId);
 }

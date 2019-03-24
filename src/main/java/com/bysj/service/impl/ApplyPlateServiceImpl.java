@@ -4,15 +4,18 @@ import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
 import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.PageResult;
+import com.bysj.common.utils.UserHandle;
 import com.bysj.dao.ApplyPlateDao;
 import com.bysj.entity.ApplyPlate;
-import com.bysj.entity.vo.query.ApplyPlateQuery;
 import com.bysj.entity.vo.request.ApplyPlateRequest;
 import com.bysj.entity.vo.response.ApplyPlateResponse;
 import com.bysj.service.IApplyPlateService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,11 +35,33 @@ public class ApplyPlateServiceImpl extends BaseServiceImpl<ApplyPlate> implement
     private BaseConverter<ApplyPlateRequest, ApplyPlate> requestConverter;
     @Resource
     private BaseConverter<ApplyPlate, ApplyPlateResponse> responseConverter;
+    @Autowired
+    private UserHandle userHandle;
 
     @Override
-    public Integer saveApplyPlate(ApplyPlateRequest request) throws Exception {
+    @RequiresAuthentication
+    public String saveApplyPlate(ApplyPlateRequest request) throws Exception {
+
+        Integer userId = userHandle.getUserId();
+        // 若数据库中已经
+        if (applyPlateDao.getInfoByUserIdAndPlateId(userId, request.getPlateId()) != null) {
+            return "请勿重复申请！";
+        }
         ApplyPlate applyPlate = requestConverter.convert(request, ApplyPlate.class);
-        return applyPlateDao.insert(applyPlate);
+        Date nowDate = new Date();
+
+        applyPlate.setGmtCreate(nowDate);
+        applyPlate.setGmtModify(nowDate);
+        applyPlate.setUserId(userHandle.getUserId());
+        try {
+            if (applyPlateDao.insert(applyPlate) == 1) {
+                return "申请成功";
+            } else {
+                return "申请失败！";
+            }
+        } catch (Exception e) {
+            return "申请失败！";
+        }
     }
 
     @Override

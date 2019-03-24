@@ -168,7 +168,7 @@
                         dataType:"json",
                         success: function (message) {
                             alert("收藏" + message.head.result);
-                            $("#collect").text("已收藏");
+                            $("#un_collect").text("已收藏");
                         }
                     })
                 } else {
@@ -277,8 +277,8 @@
                     <span style="font-size: 30px; color: black;float:left" class="post-title" ><b th:text="${postDetail.title}"></b></span>
                     <input th:value="${postDetail.id}" type="hidden">
                     <shiro:user>
-                        <a th:if="${postDetail.collectBoolean} eq false" style="float: right;color: green; font-size: 18px" href="javascript:void(0)" id="collect"> 收藏</a>
-                        <a th:if="${postDetail.collectBoolean} eq true" style="float: right;color: green; font-size: 18px" href="javascript:void(0)" id="un_collect"> 已收藏</a>
+                        <a th:if="${postDetail.collectBoolean} eq false" style="float: right;color: green; font-size: 18px" href="javascript:void(0)" id="collect">收藏</a>
+                        <a th:if="${postDetail.collectBoolean} eq true" style="float: right;color: green; font-size: 18px" href="javascript:void(0)" id="un_collect">已收藏</a>
                     </shiro:user>
                     <br><br>
                     <div class="post-meta clearfix">

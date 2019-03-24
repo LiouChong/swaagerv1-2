@@ -432,7 +432,27 @@
         post
         <where>
             <trim prefixOverrides="and">
-                <include refid="Where_Query_List"></include>
+                <if test=" title != null">
+                    and title = #{title }
+                </if>
+                <if test=" info != null">
+                    and info = #{info }
+                </if>
+                <if test=" ifGood != null">
+                    and if_good = #{ifGood }
+                </if>
+                <if test=" plateId != null">
+                    and plate_id = #{plateId }
+                </if>
+                <if test=" gmtCreate != null">
+                    and gmt_create = #{gmtCreate }
+                </if>
+                <if test=" articleFrom != null">
+                    and article_from = #{articleFrom }
+                </if>
+                <if test=" articleType != null">
+                    and article_type = #{articleType }
+                </if>
             </trim>
         </where>
     </select>
@@ -488,7 +508,7 @@
                 and p.create_user = u.id
             </trim>
         </where>
-             order by p.gmt_modify, p.gmt_create
+        order by p.gmt_modify, p.gmt_create
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>

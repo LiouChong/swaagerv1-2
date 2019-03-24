@@ -155,7 +155,7 @@
                p.plate_name as plateName
         from
         plater p left join user u on p.owner_id = u.id
-        where p.id = #{getOwnerById}
+        where p.id = #{plateId}
     </select>
 
 

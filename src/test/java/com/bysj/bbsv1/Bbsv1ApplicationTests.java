@@ -7,7 +7,6 @@ import com.bysj.dao.PostDao;
 import com.bysj.dao.UserDao;
 import com.bysj.entity.FavoritesArticle;
 import com.bysj.entity.Post;
-import com.bysj.entity.Reply;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.request.ReplyRequest;
 import com.bysj.entity.vo.response.PostDetailResponse;
@@ -19,7 +18,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -98,5 +96,11 @@ public class Bbsv1ApplicationTests {
     public void testFav() {
         System.out.println("--------------------------------");
         System.out.println(favoritesArticleDao.getByTwoId(1, 35).toString());
+    }
+
+    @Test
+    public void testgetFA() {
+        FavoritesArticle byTwoId = favoritesArticleDao.getByTwoId(1, 37);
+        System.out.println(byTwoId);
     }
 }

@@ -297,10 +297,10 @@
                         <span class="vintage"> 管理的板块：</span> <br></i></td>
                     <td>
                         <a class="plateName" th:if="${user.plateName eq null}"><b>暂无</b></a>
-                        <a class="plateName" th:if="${user.plateName ne null}"
+                        <span class="plateName" th:if="${user.plateName ne null}"
                            th:each="plate, plateStat:${user.plateName}"
                            th:text="${plateStat.index + 1} + ' ' + ${plate} +' '  "><b
-                                th:text="${user.plateName}"></b></a>
+                                th:text="${user.plateName}"></b> <br></span>
                     </td>
                 </tr>
                 <tr>

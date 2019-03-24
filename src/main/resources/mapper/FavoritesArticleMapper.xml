@@ -169,16 +169,28 @@
 
     <select id="getByTwoId" resultType="com.bysj.entity.FavoritesArticle" parameterType="java.lang.Integer">
         select
-        <include refid="Base_Column_List"/>
+            user_id AS userId,
+            post_id AS postId,
+            state,
+            gmt_create AS gmtCreate,
+            gmt_modify AS gmtModify,
+            user_create AS userCreate,
+            user_modify AS userModify
         from
-        <include refid="Table_Name"></include>
+        favorites_article
         where user_id = #{userId} and post_id = #{postId}
     </select>
     <select id="getIfCollectByUserId" resultType="com.bysj.entity.FavoritesArticle" parameterType="java.lang.Integer">
         select
-        <include refid="Base_Column_List"/>
+            user_id AS userId,
+            post_id AS postId,
+            state,
+            gmt_create AS gmtCreate,
+            gmt_modify AS gmtModify,
+            user_create AS userCreate,
+            user_modify AS userModify
         from
-        <include refid="Table_Name"></include>
+          favorites_article
         where user_id = #{userId} and post_id = #{postId}
         and state = 1
     </select>

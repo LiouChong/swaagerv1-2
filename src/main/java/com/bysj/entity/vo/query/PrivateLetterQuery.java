@@ -13,5 +13,40 @@ import com.bysj.common.request.ObjectQuery;
  */
 
 public class PrivateLetterQuery extends ObjectQuery {
+    /**
+     * 私信的接收者
+     */
+    private Integer userSendRev;
+    /**
+     * 是否已读:1 已读,0 未读
+     */
+    private Boolean ifRead;
+    /**
+     * 私信类型:1 用户私信,2 系统私信
+     */
+    private Integer letterType;
 
+    public Integer getUserSendRev() {
+        return userSendRev;
+    }
+
+    public void setUserSendRev(Integer userSendRev) {
+        this.userSendRev = userSendRev;
+    }
+
+    public Boolean getIfRead() {
+        return ifRead;
+    }
+
+    public void setIfRead(Boolean ifRead) {
+        this.ifRead = ifRead;
+    }
+
+    public Integer getLetterType() {
+        return letterType;
+    }
+
+    public void setLetterType(Integer letterType) {
+        this.letterType = letterType;
+    }
 }

@@ -17,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Api(value = "ApplyPlate", description = "版主申请表")
 @RestController
-@RequestMapping("/v1/bbs/applyplate")
+@RequestMapping("/applyplate")
 public class ApplyPlateController {
 
     @Resource
@@ -33,9 +33,9 @@ public class ApplyPlateController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/save/single", method = RequestMethod.POST)
-    public ActionResponse saveSingle(@ApiParam(value = "applyPlate") @RequestBody ApplyPlateRequest applyPlateRequest)throws Exception{
-        iApplyPlateService.saveApplyPlate(applyPlateRequest);
-        return ActionResponse.success();
+    public String saveSingle(@ApiParam(value = "applyPlate") @RequestBody ApplyPlateRequest applyPlateRequest)throws Exception{
+        String info = iApplyPlateService.saveApplyPlate(applyPlateRequest);
+        return info;
     }
 
     /**

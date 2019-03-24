@@ -315,7 +315,7 @@
         FROM
             USER u
                 LEFT JOIN plater p ON u.id = p.owner_id
-                inner join user u2 on u.user_modify = u2.id
+                left join user u2 on u.user_modify = u2.id
         WHERE
             u.id = #{id}
         GROUP BY

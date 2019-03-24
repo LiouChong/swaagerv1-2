@@ -45,20 +45,21 @@ public class FavoritesArticleServiceImpl extends BaseServiceImpl<FavoritesArticl
             Integer userId = userHandle.getUserId();
 
             if (favoritesArticleDao.getByTwoId(userId, favoritesArticle.getPostId()) != null) {
-                FavoritesArticle favoritesArticle1 = new FavoritesArticle();
+                FavoritesArticle favoritesArticle1 = favoritesArticleDao.getByTwoId(userId, favoritesArticle.getPostId());
                 favoritesArticle1.setState(1);
                 favoritesArticle1.setGmtModify(nowDate);
                 favoritesArticle1.setUserModify(userId);
-                favoritesArticleDao.update(favoritesArticle1);
-            }
-            // 设置4个属性和收藏者id
-            favoritesArticle.setGmtCreate(nowDate);
-            favoritesArticle.setGmtModify(nowDate);
-            favoritesArticle.setUserModify(userId);
-            favoritesArticle.setUserCreate(userId);
-            favoritesArticle.setUserId(userId);
+                return favoritesArticleDao.update(favoritesArticle1);
+            } else {
+                // 设置4个属性和收藏者id
+                favoritesArticle.setGmtCreate(nowDate);
+                favoritesArticle.setGmtModify(nowDate);
+                favoritesArticle.setUserModify(userId);
+                favoritesArticle.setUserCreate(userId);
+                favoritesArticle.setUserId(userId);
 
-            return favoritesArticleDao.insert(favoritesArticle);
+                return favoritesArticleDao.insert(favoritesArticle);
+            }
         }
 
         @Override

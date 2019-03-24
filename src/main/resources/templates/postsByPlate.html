@@ -67,7 +67,29 @@
     </style>
     <script src="/js/jquery-3.3.1.js"></script>
     <script>
+        $(document).ready(function () {
+            $("#applyPlate").click(function () {
+                var judge = prompt("请输入申请理由");
+                if (judge) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/applyplate/save/single",
+                        data: JSON.stringify({
+                            info: judge,
+                            plateId:$(this).prev().val()
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        datatype: "json",
+                        success: function (message) {
+                            alert(message);
+                        }
+                    })
+                } else if (judge === "") {
+                    alert("请输入申请理由！");
+                }
+            })
 
+        })
     </script>
 </head>
 
@@ -128,8 +150,12 @@
             <div class="span8 main-listing">
                 <!--<h2 style="color: red">${errorInfo}</h2>-->
                 <!--<c:forEach items="${postAndPlates}" var="postAndPlate">-->
-                <h2 th:if="${plateOwnerName.nickname ne null}" th:text="'板块名称:' + ${plateOwnerName.plateName} + '版主:' + ${plateOwnerName.nickname}"></h2>
-                <a th:if="${plateOwnerName.nickname eq null}" href="javascript:void(0)" id="applyPlate" >申请</a>
+                <input th:value="${plateId}" type="hidden">
+                <span  th:if="${plateOwnerName.nickname ne null}">
+                    <h2 th:text="'板块名称:' + ${plateOwnerName.plateName}"></h2>
+                    <h2 th:text="'版主:' + ${plateOwnerName.nickname}"/>
+                </span>
+                <shiro:authenticated><a style="font-size: 26px;" th:if="${plateOwnerName.nickname eq null}" href="javascript:void(0)" id="applyPlate" >申请版主</a></shiro:authenticated>
                 <article class="format-standard type-post hentry clearfix" th:each="post,postStat:${postList}">
                     <header class="clearfix">
 
@@ -168,7 +194,7 @@
 
                     </header>
 
-                    <a class="readmore-link" th:href="'/post/detail/' + ${post.id}"><p
+                    <a class="readmore-link" th:href="'/post/detail?postId=' + ${post.id}"><p
                             style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;"
                             th:text="${post.info}">
                     </p><span style="color: darkblue;float: right">Read more</span></a>

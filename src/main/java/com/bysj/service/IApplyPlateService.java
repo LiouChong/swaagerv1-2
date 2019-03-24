@@ -5,7 +5,6 @@ import com.bysj.common.request.IBaseService;
 import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.PageResult;
 import com.bysj.entity.ApplyPlate;
-import com.bysj.entity.vo.query.ApplyPlateQuery;
 import com.bysj.entity.vo.request.ApplyPlateRequest;
 import com.bysj.entity.vo.response.ApplyPlateResponse;
 
@@ -26,7 +25,7 @@ public interface IApplyPlateService extends IBaseService<ApplyPlate> {
          * @param request
          * @return
          */
-        Integer saveApplyPlate(ApplyPlateRequest request) throws Exception;
+        String saveApplyPlate(ApplyPlateRequest request) throws Exception;
 
         /**
          * 修改

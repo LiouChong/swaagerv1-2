@@ -2,12 +2,12 @@ package com.bysj.service;
 
 import com.bysj.common.request.IBaseService;
 import com.bysj.common.response.PageResult;
-import java.util.List;
-
 import com.bysj.entity.PrivateLetter;
 import com.bysj.entity.vo.query.PrivateLetterQuery;
 import com.bysj.entity.vo.request.PrivateLetterRequest;
 import com.bysj.entity.vo.response.PrivateLetterResponse;
+
+import java.util.List;
 
 
 /**
@@ -25,7 +25,7 @@ public interface IPrivateLetterService extends IBaseService<PrivateLetter> {
          * @param request
          * @return
          */
-        Integer savePrivateLetter(PrivateLetterRequest request) throws Exception;
+        String savePrivateLetter(PrivateLetterRequest request) throws Exception;
 
         /**
          * 修改

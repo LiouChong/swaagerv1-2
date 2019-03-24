@@ -16,7 +16,7 @@
         <result column="letter_type" property="letterType"/>
         <result column="user_rev_send" property="userRevSend"/>
     </resultMap>
-<!-- 通用查询结果列 -->
+    <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, user_send_send AS userSendSend, user_send_rev AS userSendRev, content, if_read AS ifRead, state, user_modify AS userModify, gmt_create AS gmtCreate, gmt_modify AS gmtModify, letter_type AS letterType, user_rev_send AS userRevSend
     </sql>
@@ -217,24 +217,35 @@
     <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
         select count(1)
         from
-        <include refid="Table_Name"></include>
-        <where>
-            <trim prefixOverrides="and">
-                <include refid="Where_Column_List"></include>
-            </trim>
-        </where>
+        private_letter
+        where
+        user_send_rev = #{userSendRev }
+        and user_rev_send != 0
+        and state = 1
+        <if test=" letterType != null">
+            and letter_type = #{letterType }
+        </if>
+        <if test=" ifRead != null">
+            and if_read = #{ifRead}
+        </if>
     </select>
 
-    <select id="findQuery" resultType="com.bysj.entity.PrivateLetter" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findQuery" resultType="com.bysj.entity.PrivateLetter"
+            parameterType="com.bysj.common.request.ObjectQuery">
         select * from
-        <include refid="Table_Name"></include>
-        <where>
-            <trim prefixOverrides="and">
-                <include refid="Where_Column_List"></include>
-            </trim>
-        </where>
-        <if test="pageSize !=-1">
-            LIMIT #{pageSize} offset #{pageOffset}
-        </if>
+          private_letter
+        where
+          user_send_rev = #{userSendRev }
+          and user_rev_send != 0
+          and state = 1
+          <if test=" letterType != null">
+             and letter_type = #{letterType }
+          </if>
+          <if test=" ifRead != null">
+            and if_read = #{ifRead}
+          </if>
+          <if test="pageSize !=-1">
+              LIMIT #{pageSize} offset #{pageOffset}
+          </if>
     </select>
 </mapper>
