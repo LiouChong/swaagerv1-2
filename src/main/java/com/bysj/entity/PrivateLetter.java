@@ -25,6 +25,7 @@ public class PrivateLetter extends BaseEntity {
      */
     @ApiModelProperty("发送者id（用于创建者）")
     private Integer userSendSend;
+
     /**
      * 接收者id
      */
@@ -39,7 +40,7 @@ public class PrivateLetter extends BaseEntity {
      * 是否已读:1 已读,0 未读
      */
     @ApiModelProperty("是否已读:1 已读,0 未读")
-    private Boolean ifRead;
+    private Integer ifRead;
     /**
      * 状态:1 有效,0 无效
      */
@@ -99,11 +100,11 @@ public class PrivateLetter extends BaseEntity {
     }
 
 
-    public Boolean getIfRead() {
+    public Integer getIfRead() {
         return ifRead;
     }
 
-    public void setIfRead(Boolean ifRead) {
+    public void setIfRead(Integer ifRead) {
         this.ifRead = ifRead;
     }
 
@@ -165,6 +166,7 @@ public class PrivateLetter extends BaseEntity {
     @Override
     public String toString() {
         return "PrivateLetter{" +
+                "id=" + super.getId() +
                 ", userSendSend=" + userSendSend +
                 ", userSendRev=" + userSendRev +
                 ", content=" + content +

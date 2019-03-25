@@ -4,9 +4,11 @@ import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.response.PageResult;
 import com.bysj.common.utils.PageUtil;
+import com.bysj.common.utils.UserHandle;
 import com.bysj.entity.Post;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
+import com.bysj.entity.vo.query.PrivateLetterQuery;
 import com.bysj.entity.vo.query.ReplyQuery;
 import com.bysj.entity.vo.request.PostDel;
 import com.bysj.entity.vo.request.PostRequest;
@@ -48,6 +50,12 @@ public class PostController {
 
     @Autowired
     private IPlaterService platerService;
+
+    @Autowired
+    private IPrivateLetterService privateLetterService;
+
+    @Autowired
+    private UserHandle userHandle;
 
 
     /**
@@ -99,8 +107,16 @@ public class PostController {
         //获取板块名称
         List<PlateNameForIndex> plateNameForIndices = iPostService.findAllPlateNames();
 
+        PrivateLetterQuery privateLetterQuery = new PrivateLetterQuery();
+        privateLetterQuery.setUserSendRev(userHandle.getUserId());
+        privateLetterQuery.setIfRead(0);
+
+        List<PrivateLetterResponse> privateLetters = privateLetterService.findListPrivateLetter(privateLetterQuery);
+
+
         mav.addObject("postList", postList);
         mav.addObject("plates", plateNameForIndices);
+        mav.addObject("privateLetter", privateLetters);
 
         // 设置跳转的页面
         mav.setViewName("index");

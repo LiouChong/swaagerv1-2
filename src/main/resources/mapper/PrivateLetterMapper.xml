@@ -18,7 +18,34 @@
     </resultMap>
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_send_send AS userSendSend, user_send_rev AS userSendRev, content, if_read AS ifRead, state, user_modify AS userModify, gmt_create AS gmtCreate, gmt_modify AS gmtModify, letter_type AS letterType, user_rev_send AS userRevSend
+        id
+        ,
+        user_send_send
+        AS
+        userSendSend,
+        user_send_rev
+        AS
+        userSendRev,
+        content,
+        if_read
+        AS
+        ifRead,
+        state,
+        user_modify
+        AS
+        userModify,
+        gmt_create
+        AS
+        gmtCreate,
+        gmt_modify
+        AS
+        gmtModify,
+        letter_type
+        AS
+        letterType,
+        user_rev_send
+        AS
+        userRevSend
     </sql>
 
     <sql id="Table_Name">
@@ -219,33 +246,54 @@
         from
         private_letter
         where
-        user_send_rev = #{userSendRev }
-        and user_rev_send != 0
+          user_rev_send != 0
         and state = 1
+        <if test=" userSendRev  != null">
+            and user_send_rev = #{userSendRev }
+        </if>
+
         <if test=" letterType != null">
             and letter_type = #{letterType }
         </if>
         <if test=" ifRead != null">
             and if_read = #{ifRead}
         </if>
+        <if test="pageSize !=-1">
+            LIMIT #{pageSize} offset #{pageOffset}
+        </if>
     </select>
 
     <select id="findQuery" resultType="com.bysj.entity.PrivateLetter"
             parameterType="com.bysj.common.request.ObjectQuery">
-        select * from
+        select
+               id,
+            user_Send_Send as userSendSend,
+            user_send_rev as userSendRev,
+            content,
+            if_read as ifRead,
+            state,
+            user_modify as userModify,
+            gmt_create as gmtCreate,
+            gmt_modify as gmtModify,
+            letter_type as letterType,
+            user_rev_send as userRevSend
+        from
           private_letter
         where
-          user_send_rev = #{userSendRev }
-          and user_rev_send != 0
-          and state = 1
-          <if test=" letterType != null">
-             and letter_type = #{letterType }
-          </if>
-          <if test=" ifRead != null">
+        and user_rev_send != 0
+        and state = 1
+        <if test=" userSendRev  != null">
+            and user_send_rev = #{userSendRev }
+        </if>
+
+        <if test=" letterType != null">
+            and letter_type = #{letterType }
+        </if>
+        <if test=" ifRead != null">
             and if_read = #{ifRead}
-          </if>
-          <if test="pageSize !=-1">
-              LIMIT #{pageSize} offset #{pageOffset}
-          </if>
+        </if>
+        <if test="pageSize !=-1">
+            LIMIT #{pageSize} offset #{pageOffset}
+        </if>
     </select>
 </mapper>

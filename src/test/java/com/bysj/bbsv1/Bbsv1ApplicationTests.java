@@ -2,12 +2,12 @@ package com.bysj.bbsv1;
 
 import com.bysj.common.utils.DateUtils;
 import com.bysj.common.utils.NumberChineseEx;
-import com.bysj.dao.FavoritesArticleDao;
-import com.bysj.dao.PostDao;
-import com.bysj.dao.UserDao;
+import com.bysj.dao.*;
 import com.bysj.entity.FavoritesArticle;
 import com.bysj.entity.Post;
+import com.bysj.entity.PrivateLetter;
 import com.bysj.entity.vo.query.PostQueryForList;
+import com.bysj.entity.vo.query.PrivateLetterQuery;
 import com.bysj.entity.vo.request.ReplyRequest;
 import com.bysj.entity.vo.response.PostDetailResponse;
 import com.bysj.entity.vo.response.PostResponse;
@@ -22,6 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.PriorityQueue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -41,6 +42,12 @@ public class Bbsv1ApplicationTests {
     PostDao postDao;
     @Resource
     FavoritesArticleDao favoritesArticleDao;
+
+    @Resource
+    private ApplyPlateDao applyPlateDao;
+
+    @Resource
+    private PrivateLetterDao privateLetterDao;
 
     @Test
     public void contextLoads() {
@@ -103,4 +110,18 @@ public class Bbsv1ApplicationTests {
         FavoritesArticle byTwoId = favoritesArticleDao.getByTwoId(1, 37);
         System.out.println(byTwoId);
     }
+
+    @Test
+    public void testgetInfoByUserIdAndPlateId() {
+        System.out.println("----------------------");
+        System.out.println(applyPlateDao.getInfoByUserIdAndPlateId(3,15));
+        System.out.println("----------------------");
+    }
+
+    @Test
+    public void testGetAllPL() throws Exception {
+        PrivateLetterQuery privateLetterQuery = new PrivateLetterQuery();
+        System.out.println(privateLetterDao.findQuery(privateLetterQuery));
+    }
+
 }

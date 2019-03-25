@@ -45,7 +45,7 @@ public class PrivateLetterServiceImpl extends BaseServiceImpl<PrivateLetter> imp
 
             privateLetter.setGmtCreate(nowDate);
             privateLetter.setGmtModify(nowDate);
-            privateLetter.setIfRead(false);
+            privateLetter.setIfRead(0);
             privateLetter.setLetterType(1);
             privateLetter.setUserModify(userId);
 

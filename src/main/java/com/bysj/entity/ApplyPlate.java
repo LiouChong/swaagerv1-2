@@ -17,40 +17,36 @@ import java.util.Date;
 
 public class ApplyPlate extends BaseEntity {
 
-
-private static final long serialVersionUID = 1L;
-
-        /**
-    *  申请的用户id
-    */
-        @ApiModelProperty("申请的用户id")
+    /**
+     * 申请的用户id
+     */
+    @ApiModelProperty("申请的用户id")
     private Integer userId;
-        /**
-    *  申请的理由
-    */
-        @ApiModelProperty("申请的理由")
+    /**
+     * 申请的理由
+     */
+    @ApiModelProperty("申请的理由")
     private String info;
-        /**
-    *  申请的板块
-    */
-        @ApiModelProperty("申请的板块")
+    /**
+     * 申请的板块
+     */
+    @ApiModelProperty("申请的板块")
     private Integer plateId;
-        /**
-    *  1 有效 0无效
-    */
-        @ApiModelProperty("1 有效 0无效")
+    /**
+     * 1 有效 0无效
+     */
+    @ApiModelProperty("1 有效 0无效")
     private Integer state;
-        /**
-    *  创建时间
-    */
-        @ApiModelProperty("创建时间")
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("创建时间")
     private Date gmtCreate;
-        /**
-    *  修改时间
-    */
-        @ApiModelProperty("修改时间")
+    /**
+     * 修改时间
+     */
+    @ApiModelProperty("修改时间")
     private Date gmtModify;
-
 
 
     public Integer getUserId() {
@@ -107,15 +103,15 @@ private static final long serialVersionUID = 1L;
     }
 
 
-        @Override
+    @Override
     public String toString() {
-            return "ApplyPlate{" +
-                                                                                            ", userId=" + userId +
-                                                                                        ", info=" + info +
-                                                                                        ", plateId=" + plateId +
-                                                                                        ", state=" + state +
-                                                                                        ", gmtCreate=" + gmtCreate +
-                                                                                        ", gmtModify=" + gmtModify +
-                                                "}";
+        return "ApplyPlate{" +
+                ", userId=" + userId +
+                ", info=" + info +
+                ", plateId=" + plateId +
+                ", state=" + state +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModify=" + gmtModify +
+                "}";
     }
-    }
+}

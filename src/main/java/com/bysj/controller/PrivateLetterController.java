@@ -34,9 +34,9 @@ public class PrivateLetterController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/save/single", method = RequestMethod.POST)
-    public ActionResponse saveSingle(@ApiParam(value = "privateLetter") @RequestBody PrivateLetterRequest privateLetterRequest)throws Exception{
-        iPrivateLetterService.savePrivateLetter(privateLetterRequest);
-        return ActionResponse.success();
+    public String saveSingle(@ApiParam(value = "privateLetter") @RequestBody PrivateLetterRequest privateLetterRequest)throws Exception{
+        String result = iPrivateLetterService.savePrivateLetter(privateLetterRequest);
+        return result;
     }
 
     /**

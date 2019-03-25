@@ -378,7 +378,7 @@
     <select id="selectByemail" parameterType="String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from user where email = "${email}"
+        from user where email = #{email}
     </select>
 
     <select id="selectUserPermissionBylevel" parameterType="Integer" resultType="String">

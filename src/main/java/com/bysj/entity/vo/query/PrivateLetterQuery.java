@@ -20,7 +20,7 @@ public class PrivateLetterQuery extends ObjectQuery {
     /**
      * 是否已读:1 已读,0 未读
      */
-    private Boolean ifRead;
+    private Integer ifRead;
     /**
      * 私信类型:1 用户私信,2 系统私信
      */
@@ -34,11 +34,11 @@ public class PrivateLetterQuery extends ObjectQuery {
         this.userSendRev = userSendRev;
     }
 
-    public Boolean getIfRead() {
+    public Integer getIfRead() {
         return ifRead;
     }
 
-    public void setIfRead(Boolean ifRead) {
+    public void setIfRead(Integer ifRead) {
         this.ifRead = ifRead;
     }
 
@@ -49,4 +49,5 @@ public class PrivateLetterQuery extends ObjectQuery {
     public void setLetterType(Integer letterType) {
         this.letterType = letterType;
     }
+
 }
