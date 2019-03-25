@@ -30,7 +30,7 @@ public class NumberChineseEx<T> {
             if (field.getName().equals(fieldName)) {
                 try {
                     field.setAccessible(true);
-                    Integer fieldValue = (Integer)field.get(t);
+                    Integer fieldValue = Integer.valueOf(field.get(t).toString());
 
                     if (Objects.isNull(fieldValue)) {
                         return null;

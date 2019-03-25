@@ -28,11 +28,14 @@ public class PrivateLetterResponse extends BaseEntity {
      */
     @ApiModelProperty("创建时间")
     private Date gmtCreate;
+    private String gmtCreateStr;
+
+
     /**
      * 私信类型:1 用户私信,2 系统私信
      */
     @ApiModelProperty("私信类型:1 用户私信,2 系统私信")
-    private Integer letterType;
+    private String letterType;
     /**
      * 发送者id（用于接收者）
      */
@@ -53,27 +56,26 @@ public class PrivateLetterResponse extends BaseEntity {
     }
 
 
-
-
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
 
-
-
-    public Integer getLetterType() {
+    public String getLetterType() {
         return letterType;
     }
 
-    public void setLetterType(Integer letterType) {
+    public void setLetterType(String letterType) {
         this.letterType = letterType;
     }
 
+    public String getUserRevSendName() {
+        return userRevSendName;
+    }
+
+    public void setUserRevSendName(String userRevSendName) {
+        this.userRevSendName = userRevSendName;
+    }
 
     public Integer getUserRevSend() {
         return userRevSend;
@@ -83,6 +85,21 @@ public class PrivateLetterResponse extends BaseEntity {
         this.userRevSend = userRevSend;
     }
 
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public String getGmtCreateStr() {
+        return gmtCreateStr;
+    }
+
+    public void setGmtCreateStr(String gmtCreateStr) {
+        this.gmtCreateStr = gmtCreateStr;
+    }
 
     @Override
     public String toString() {

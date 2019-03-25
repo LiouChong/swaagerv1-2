@@ -54,11 +54,11 @@ public class PrivateLetterServiceImpl extends BaseServiceImpl<PrivateLetter> imp
                 1: 若发送方删除私信，则置 发送方发送者为null，查询有哪些私信的时候直接插发送方发送者为自己。
                 2：若接收方删除私信，则置 接受放的发送者为null，查询有哪些接受的私信的时候，根据自己id查询丙炔接收方的发送者不为null
              */
-            // 发送者的接收者 已经设值
-            // 用户发送发的发送者
+            // 发送者的接收者 已经设值，此时接收者为入参。
+            // 用户发送发的发送者 此时发送者为当前登录用户
             privateLetter.setUserSendSend(userId);
             //  用于接受方的发送者
-            privateLetter.setUserRevSend(request.getUserSendRev());
+            privateLetter.setUserRevSend(userId);
 
             // TODO:考虑黑名单功能
             if (privateLetterDao.insert(privateLetter) == 1) {

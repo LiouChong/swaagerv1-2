@@ -50,6 +50,21 @@
             position: relative;
             top: 1px;
         }
+        #d1{
+
+            width:300px;
+
+            overflow:hidden;
+
+            white-space:nowrap;
+
+            text-overflow:ellipsis;
+
+            /*兼容性*/
+
+            -webkit-text-overflow:ellipsis;
+
+        }
     </style>
     <script src="/js/jquery-3.3.1.js"></script>
     <script>
@@ -154,16 +169,17 @@
 
                 <!-- Basic Home Page Template -->
                 <div class="row separator">
-                    <section class="span4 articles-list">
+                    <section class="span4 articles-list" style="height: 140px;">
                         <h3>私信</h3>
-                        <ul class="articles">
-                            <li class="article-entry standard">
-                                <h4><a href="#" th:value="${privateLetter.content}"></a></h4>
-                                <span class="article-meta">25 Feb, 2013 in <a href="#"
-                                                                              title="View all posts in Server &amp; Database">Server &amp; Database</a></span>
+                        <ul class="articles" th:if="${privateLetter ne null}">
+                            <li class="article-entry standard" th:each="letter, letterStat:${privateLetter}">
+                                <h4><a href="#" id="d1" th:text="${letter.content}"></a></h4>
+                                <span class="article-meta" th:text="${letter.gmtCreateStr} + '&emsp; from ' + ${letter.userRevSendName}">
+                                </span>
                                 <span class="like-count">66</span>
                             </li>
                         </ul>
+                        <h1 th:if="${privateLetter eq null}" th:text="请您登录"></h1>
                     </section>
 
 

@@ -3,6 +3,8 @@ package com.bysj.controller;
 import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.response.PageResult;
+import com.bysj.common.utils.DateUtils;
+import com.bysj.common.utils.NumberChineseEx;
 import com.bysj.common.utils.PageUtil;
 import com.bysj.common.utils.UserHandle;
 import com.bysj.entity.Post;
@@ -57,6 +59,8 @@ public class PostController {
     @Autowired
     private UserHandle userHandle;
 
+    @Autowired
+    private NumberChineseEx numberChineseEx;
 
     /**
      * 保存
@@ -107,17 +111,21 @@ public class PostController {
         //获取板块名称
         List<PlateNameForIndex> plateNameForIndices = iPostService.findAllPlateNames();
 
-        PrivateLetterQuery privateLetterQuery = new PrivateLetterQuery();
-        privateLetterQuery.setUserSendRev(userHandle.getUserId());
-        privateLetterQuery.setIfRead(0);
+        if (userHandle.getUserId() != null) {
+            PrivateLetterQuery privateLetterQuery = new PrivateLetterQuery();
+            privateLetterQuery.setUserSendRev(userHandle.getUserId());
+            privateLetterQuery.setIfRead(0);
 
-        List<PrivateLetterResponse> privateLetters = privateLetterService.findListPrivateLetter(privateLetterQuery);
+            List<PrivateLetterResponse> privateLetters = privateLetterService.findListPrivateLetter(privateLetterQuery);
 
-
+            privateLetters.forEach(item -> {
+                item.setLetterType(numberChineseEx.numExchangeChinese(item, "letterType"));
+                item.setGmtCreateStr(DateUtils.getDataString(item.getGmtCreate(), DateUtils.WHOLE_FORMAT));
+            });
+            mav.addObject("privateLetter", privateLetters);
+        }
         mav.addObject("postList", postList);
         mav.addObject("plates", plateNameForIndices);
-        mav.addObject("privateLetter", privateLetters);
-
         // 设置跳转的页面
         mav.setViewName("index");
         return mav;
