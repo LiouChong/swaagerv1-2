@@ -50,20 +50,13 @@
             position: relative;
             top: 1px;
         }
-        #d1{
-
-            width:300px;
-
-            overflow:hidden;
-
-            white-space:nowrap;
-
-            text-overflow:ellipsis;
-
-            /*兼容性*/
-
-            -webkit-text-overflow:ellipsis;
-
+        .pl{
+            width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            float: left;
         }
     </style>
     <script src="/js/jquery-3.3.1.js"></script>
@@ -119,7 +112,7 @@
                         <li><a href="/home-categories-description">关注</a></li>
                         <li><a href="/post/query/good">推荐</a></li>
                         <li><a href="/post/query/list">最新</a></li>
-                        <!--<li><a href="/post/plate/list">板块</a></li>-->
+                        <li><a href="/user/myManage">消息</a></li>
                         <li><a href="/faq">常见问题</a></li>
                         <li><a href="/contact">联系我们</a></li>
                         <shiro:guest>
@@ -172,11 +165,9 @@
                     <section class="span4 articles-list" style="height: 140px;">
                         <h3>私信</h3>
                         <ul class="articles" th:if="${privateLetter ne null}">
-                            <li class="article-entry standard" th:each="letter, letterStat:${privateLetter}">
-                                <h4><a href="#" id="d1" th:text="${letter.content}"></a></h4>
-                                <span class="article-meta" th:text="${letter.gmtCreateStr} + '&emsp; from ' + ${letter.userRevSendName}">
-                                </span>
-                                <span class="like-count">66</span>
+                            <li  th:each="letter, letterStat:${privateLetter}">
+                                <h4><a href="#" class="pl" th:text="'[' + ${letter.letterType} + ']&nbsp;' + ${letter.content}"></a></h4><br>
+                                <span class="article-meta" th:text="${letter.gmtCreateStr} "> </span>
                             </li>
                         </ul>
                         <h1 th:if="${privateLetter eq null}" th:text="请您登录"></h1>

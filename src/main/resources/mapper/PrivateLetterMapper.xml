@@ -266,17 +266,17 @@
     <select id="findQuery" resultType="com.bysj.entity.vo.response.PrivateLetterResponse"
             parameterType="com.bysj.common.request.ObjectQuery">
         select
-            pl.id,
-            user_Send_Send as userSendSend,
-            user_send_rev as userSendRev,
-            content,
-            if_read as ifRead,
-            pl.user_modify as userModify,
-            pl.gmt_create as gmtCreate,
-            pl. gmt_modify as gmtModify,
-            pl. letter_type as letterType,
-            pl. user_rev_send as userRevSend,
-            u.nickname as userRevSendName
+        pl.id,
+        user_Send_Send as userSendSend,
+        user_send_rev as userSendRev,
+        content,
+        if_read as ifRead,
+        pl.user_modify as userModify,
+        pl.gmt_create as gmtCreate,
+        pl. gmt_modify as gmtModify,
+        pl. letter_type as letterType,
+        pl. user_rev_send as userRevSend,
+        u.nickname as userRevSendName
         from
         private_letter pl inner join user u on
         pl.user_rev_send = u.id
@@ -296,5 +296,30 @@
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
+    </select>
+    <select id="getMySendLetter" resultType="com.bysj.entity.vo.response.PrivateLetterForMyResponse">
+        SELECT
+            pl.user_send_rev AS userSendRev,
+            u.nickname       AS userSendRevName,
+            pl.gmt_create    AS gmtCreate,
+            pl.content       AS content
+        FROM
+            private_letter pl
+                INNER JOIN USER u ON pl.user_send_rev = u.id
+        WHERE
+            pl.user_send_send = #{userId}
+
+    </select>
+    <select id="getMyRevLetter" resultType="com.bysj.entity.vo.response.PrivateLetterForMyResponse">
+        SELECT
+            pl.content,
+            pl.gmt_create     AS gmtcreate,
+            pl.user_send_send AS userrevsend,
+            u.nickname        AS userrevsendname
+        FROM
+            private_letter pl
+                INNER JOIN USER u ON pl.user_send_send = u.id
+        WHERE
+            pl.user_send_rev = ${userid}
     </select>
 </mapper>

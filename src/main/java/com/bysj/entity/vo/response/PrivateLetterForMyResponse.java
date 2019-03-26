@@ -15,7 +15,7 @@ import java.util.Date;
  * @since 2018-12-27
  */
 
-public class PrivateLetterResponse extends BaseEntity {
+public class PrivateLetterForMyResponse extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
     /**
@@ -30,22 +30,24 @@ public class PrivateLetterResponse extends BaseEntity {
     private Date gmtCreate;
     private String gmtCreateStr;
 
+    /**
+     *接收用户id
+     */
+    private Integer userSendRev;
+    /**
+     * 接收人姓名
+     */
+    private String userSendRevName;
 
     /**
-     * 私信类型:1 用户私信,2 系统私信
+     * 发送者id
      */
-    @ApiModelProperty("私信类型:1 用户,2 系统")
-    private String letterType;
-    /**
-     * 发送者id（用于接收者）
-     */
-    @ApiModelProperty("发送者id（用于接收者）")
     private Integer userRevSend;
 
+    /**
+     * 发送者姓名
+     */
     private String userRevSendName;
-
-
-
 
     public String getContent() {
         return content;
@@ -61,28 +63,12 @@ public class PrivateLetterResponse extends BaseEntity {
     }
 
 
-    public String getLetterType() {
-        return letterType;
+    public String getUserSendRevName() {
+        return userSendRevName;
     }
 
-    public void setLetterType(String letterType) {
-        this.letterType = letterType;
-    }
-
-    public String getUserRevSendName() {
-        return userRevSendName;
-    }
-
-    public void setUserRevSendName(String userRevSendName) {
-        this.userRevSendName = userRevSendName;
-    }
-
-    public Integer getUserRevSend() {
-        return userRevSend;
-    }
-
-    public void setUserRevSend(Integer userRevSend) {
-        this.userRevSend = userRevSend;
+    public void setUserSendRevName(String userSendRevName) {
+        this.userSendRevName = userSendRevName;
     }
 
     public Date getGmtCreate() {
@@ -101,6 +87,30 @@ public class PrivateLetterResponse extends BaseEntity {
         this.gmtCreateStr = gmtCreateStr;
     }
 
+    public Integer getUserSendRev() {
+        return userSendRev;
+    }
+
+    public void setUserSendRev(Integer userSendRev) {
+        this.userSendRev = userSendRev;
+    }
+
+    public Integer getUserRevSend() {
+        return userRevSend;
+    }
+
+    public void setUserRevSend(Integer userRevSend) {
+        this.userRevSend = userRevSend;
+    }
+
+    public String getUserRevSendName() {
+        return userRevSendName;
+    }
+
+    public void setUserRevSendName(String userRevSendName) {
+        this.userRevSendName = userRevSendName;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
@@ -108,8 +118,12 @@ public class PrivateLetterResponse extends BaseEntity {
                 .append(content).append('\"');
         sb.append(",\"gmtCreate\":\"")
                 .append(gmtCreate).append('\"');
-        sb.append(",\"letterType\":")
-                .append(letterType);
+        sb.append(",\"gmtCreateStr\":\"")
+                .append(gmtCreateStr).append('\"');
+        sb.append(",\"userSendRev\":")
+                .append(userSendRev);
+        sb.append(",\"userSendRevName\":\"")
+                .append(userSendRevName).append('\"');
         sb.append(",\"userRevSend\":")
                 .append(userRevSend);
         sb.append(",\"userRevSendName\":\"")

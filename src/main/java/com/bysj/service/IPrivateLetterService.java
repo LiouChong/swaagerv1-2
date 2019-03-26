@@ -1,10 +1,13 @@
 package com.bysj.service;
 
 import com.bysj.common.request.IBaseService;
+import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.PageResult;
 import com.bysj.entity.PrivateLetter;
+import com.bysj.entity.vo.query.PrivateLetterForMyManageQuery;
 import com.bysj.entity.vo.query.PrivateLetterQuery;
 import com.bysj.entity.vo.request.PrivateLetterRequest;
+import com.bysj.entity.vo.response.PrivateLetterForMyResponse;
 import com.bysj.entity.vo.response.PrivateLetterResponse;
 
 import java.util.List;
@@ -48,4 +51,12 @@ public interface IPrivateLetterService extends IBaseService<PrivateLetter> {
          */
         PageResult<PrivateLetterResponse> findPagePrivateLetter(PrivateLetterQuery query) throws Exception;
 
+        /**
+         * 查询我发送或者我接收的私信
+         * @param query
+         * @return
+         */
+        PageResult<PrivateLetterForMyResponse> findPageForMyManage(PrivateLetterForMyManageQuery privateLetterForMyManageQuery);
+
+        Integer findLetterCount(PrivateLetterForMyManageQuery query);
 }

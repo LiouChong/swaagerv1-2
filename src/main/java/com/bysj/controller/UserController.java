@@ -1,14 +1,19 @@
 package com.bysj.controller;
 
 
+import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.ActionResponse;
+import com.bysj.common.response.PageResult;
 import com.bysj.common.utils.UserHandle;
+import com.bysj.entity.vo.query.PrivateLetterForMyManageQuery;
 import com.bysj.entity.vo.query.UserQuery;
 import com.bysj.entity.vo.query.UserRequestForLogin;
 import com.bysj.entity.vo.query.UserRequestForRegist;
 import com.bysj.entity.vo.request.UserRequestForBan;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
+import com.bysj.entity.vo.response.PrivateLetterForMyResponse;
 import com.bysj.entity.vo.response.UserResponse;
+import com.bysj.service.IPrivateLetterService;
 import com.bysj.service.IUserService;
 import io.swagger.annotations.*;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -35,6 +40,8 @@ public class UserController {
 
     @Autowired
     UserHandle userHandle;
+    @Autowired
+    private IPrivateLetterService privateLetterService;
 
     /**
      * 发送邮件
@@ -240,6 +247,30 @@ public class UserController {
     @RequestMapping(value = "/user/ban", method = RequestMethod.POST)
     public String banUser(@RequestBody UserRequestForBan userRequestForBan) throws Exception {
         return iUserService.banUser(userRequestForBan);
+    }
+
+    /**
+     * 获得个人用户管理页面
+     *
+     * @param
+     * @return actionResponse
+     */
+    @ApiOperation(value = "通过用户id封禁用户", notes = "主键封装对象")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
+    })
+    @RequestMapping(value = "/user/myManage", method = RequestMethod.POST)
+    public String manageMyInfo(ModelAndView modelAndView) throws Exception {
+        PrivateLetterForMyManageQuery query = new PrivateLetterForMyManageQuery();
+        query.setUserSendSend(1);
+        PageResult<PrivateLetterForMyResponse> pageForMySend = privateLetterService.findPageForMyManage(query);
+        
+        query.setUserSendRev(null);
+        query.setUserSendSend(1);
+        PageResult<PrivateLetterForMyResponse> pageForMyRev = privateLetterService.findPageForMyManage(query);
+        modelAndView.addObject("sendLetter", pageForMySend);
+        modelAndView.addObject("revLetter", pageForMyRev);
+        return "my_manage";
     }
 }
 
