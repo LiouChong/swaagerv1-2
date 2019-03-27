@@ -2,6 +2,7 @@ package com.bysj.common.exception;
 
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.response.RespBasicCode;
+import org.apache.shiro.authz.UnauthenticatedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,5 +44,10 @@ public class ExceptionHandle {
             // 如果有异常信息，则返回异常信息
             return ActionResponse.fail(RespBasicCode.PARAMETER_ERROR, exception.getMessage());
         }
+    }
+
+    @ExceptionHandler(UnauthenticatedException.class)
+    public String redirectToLoginPage() {
+        return "redirect:/login";
     }
 }

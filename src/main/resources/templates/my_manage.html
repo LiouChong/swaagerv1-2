@@ -100,19 +100,6 @@
     <script>
         $(document).ready(function () {
             $("a[name='un_ban_user']").click(function () {
-                $.ajax({
-                    type: "POST",
-                    url: "/user/ban",
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify({
-                        id: $(this).parent().prev().val(),
-                        state: 1
-                    }),
-                    dataType: "text",
-                    success: function (message) {
-                        alert(message);
-                    }
-                })
             });
         });
     </script>
@@ -180,7 +167,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion1"
-                                           href="#collapseOne">版主申请管理 &emsp;<span class="badge" th:text="${ApplyPlate.totalRecords}"></span></a>
+                                           href="#collapseOne">收到私信 &emsp;<span class="badge" th:text="${revLetter.totalRecords}"></span></a>
 
                                     </h4>
                                 </div>
@@ -192,21 +179,19 @@
                                                     <thead>
                                                     <tr align="center">
                                                         <th>序号</th>
-                                                        <th>申请人</th>
-                                                        <th>申请信息</th>
-                                                        <th>申请版块</th>
-                                                        <th>申请时间</th>
+                                                        <th>发送人姓名</th>
+                                                        <th>内容</th>
+                                                        <th>发送时间</th>
                                                         <th align="right">操作</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr th:each="applyPlate, applyPlateStat:${ApplyPlate.items}">
-                                                            <td th:text="${applyPlateStat.index} + 1"></td>
-                                                            <td th:text="${applyPlate.applyUserName}"></td>
-                                                            <td style="width: 50%;" th:text="${applyPlate.applyInfo}"></td>
-                                                            <td th:text="${applyPlate.applyPlateName}"></td>
-                                                            <td th:text="${applyPlate.applyTimeStr}"></td>
-                                                            <td><a>同意</a> &emsp;<a>拒绝</a></td>
+                                                        <tr th:each="revLetters, revLetterStat:${revLetter.items}">
+                                                            <td th:text="${revLetterStat.index} + 1"></td>
+                                                            <td th:text="${revLetters.userRevSendName}"></td>
+                                                            <td style="width: 50%;" th:text="${revLetters.content}"></td>
+                                                            <td th:text="${revLetters.gmtCreateStr}"></td>
+                                                            <td><a>已读</a> &emsp;<a>删除</a></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -219,7 +204,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo">版主管理
-                                            &emsp;<span class="badge" th:text="${platers.totalRecords}"></span></a>
+                                            <!--&emsp;<span class="badge" th:text="${platers.totalRecords}"></span></a>-->
                                     </h4>
                                 </div>
                                 <div id="collapseTwo" class="panel-collapse collapse">
@@ -241,7 +226,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr th:each="plate, plateStat:${platers.items}">
+                                                    <!--<tr th:each="plate, plateStat:${platers.items}">
                                                         <td th:text="${plateStat.index} + 1"></td>
                                                         <td th:text="${plate.email}"></td>
                                                         <td th:text="${plate.nickname}"></td>
@@ -251,7 +236,7 @@
                                                         <td th:text="${plate.platerGmtCreateStr}"></td>
                                                         <td th:text="${plate.manageTime}"></td>
                                                         <td><a>卸任</a></td>
-                                                    </tr>
+                                                    </tr>-->
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -263,7 +248,9 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion1"
-                                           href="#collapseThree">帖子管理 &emsp;<span class="badge" th:text="${banPosts.totalRecords}"></span></a>
+                                           href="#collapseThree">帖子管理 &emsp;
+                                            <!--<span class="badge" th:text="${banPosts.totalRecords}"></span>-->
+                                        </a>
                                     </h4>
                                 </div>
                                 <div id="collapseThree" class="panel-collapse collapse">
@@ -285,7 +272,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr th:each="post, postStat:${banPosts.items}">
+                                                   <!-- <tr th:each="post, postStat:${banPosts.items}">
                                                         <td th:text="${postStat.index} + 1"></td>
                                                         <td th:text="${post.title}"></td>
                                                         <td th:text="${post.posterName}"></td>
@@ -295,7 +282,7 @@
                                                         <td th:text="${post.banReason}"></td>
                                                         <td th:text="${post.banUserName}"></td>
                                                         <td><a>查看详情</a> &emsp;<a href="javascript:void(0)" name="un_ban_post">解禁</a></td>
-                                                    </tr>
+                                                    </tr>-->
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -307,7 +294,9 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion1"
-                                           href="#collapseFour">用户管理 &emsp;<span class="badge" th:text="${banUsers.totalRecords}"></span></a>
+                                           href="#collapseFour">用户管理 &emsp;
+                                            <!--<span class="badge" th:text="${banUsers.totalRecords}"></span>-->
+                                        </a>
                                     </h4>
                                 </div>
                                 <div id="collapseFour" class="panel-collapse collapse">
@@ -328,7 +317,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr th:each="user, userStat:${banUsers.items}">
+                                                    <!--<tr th:each="user, userStat:${banUsers.items}">
                                                         <td th:text="${userStat.index} + 1"></td>
                                                         <td th:text="${user.email}"></td>
                                                         <td th:text="${user.nickname}"></td>
@@ -338,7 +327,7 @@
                                                         <td th:text="${user.banUserName}"></td>
                                                         <input th:value="${user.id}" type="hidden"/>
                                                         <td><a>查看详情</a>&emsp;<a href="javascript:void(0)" name="un_ban_user">解禁</a></td>
-                                                    </tr>
+                                                    </tr>-->
                                                     </tbody>
                                                 </table>
                                             </div>

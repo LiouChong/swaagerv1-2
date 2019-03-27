@@ -1,7 +1,6 @@
 package com.bysj.controller;
 
 
-import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.response.PageResult;
 import com.bysj.common.utils.UserHandle;
@@ -25,7 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Map;
@@ -259,18 +257,21 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/user/myManage", method = RequestMethod.POST)
-    public String manageMyInfo(ModelAndView modelAndView) throws Exception {
+    @RequestMapping(value = "/user/myManage", method = RequestMethod.GET)
+    @RequiresAuthentication
+    public ModelAndView manageMyInfo(ModelAndView modelAndView) throws Exception {
         PrivateLetterForMyManageQuery query = new PrivateLetterForMyManageQuery();
-        query.setUserSendSend(1);
+        Integer userId = userHandle.getUserId();
+        query.setUserSendSend(userId);
         PageResult<PrivateLetterForMyResponse> pageForMySend = privateLetterService.findPageForMyManage(query);
         
-        query.setUserSendRev(null);
-        query.setUserSendSend(1);
+        query.setUserSendSend(null);
+        query.setUserSendRev(userId);
         PageResult<PrivateLetterForMyResponse> pageForMyRev = privateLetterService.findPageForMyManage(query);
         modelAndView.addObject("sendLetter", pageForMySend);
         modelAndView.addObject("revLetter", pageForMyRev);
-        return "my_manage";
+        modelAndView.setViewName("my_manage");
+        return modelAndView;
     }
 }
 

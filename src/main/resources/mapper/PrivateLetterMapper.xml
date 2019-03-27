@@ -320,6 +320,24 @@
             private_letter pl
                 INNER JOIN USER u ON pl.user_send_send = u.id
         WHERE
+            pl.user_send_rev = ${userId}
+    </select>
+    <select id="getMySendLetterCount" resultType="java.lang.Integer">
+        SELECT
+            count(1)
+        FROM
+            private_letter pl
+                INNER JOIN USER u ON pl.user_send_rev = u.id
+        WHERE
+            pl.user_send_send = #{userId}
+    </select>
+    <select id="getMyRevLetterCount" resultType="java.lang.Integer">
+        SELECT
+            count(1)
+        FROM
+            private_letter pl
+                INNER JOIN USER u ON pl.user_send_send = u.id
+        WHERE
             pl.user_send_rev = ${userid}
     </select>
 </mapper>
