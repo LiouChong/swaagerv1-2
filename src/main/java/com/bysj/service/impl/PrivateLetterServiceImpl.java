@@ -4,6 +4,7 @@ import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
 import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.PageResult;
+import com.bysj.common.utils.DateUtils;
 import com.bysj.common.utils.UserHandle;
 import com.bysj.dao.PrivateLetterDao;
 import com.bysj.entity.PrivateLetter;
@@ -16,6 +17,7 @@ import com.bysj.service.IPrivateLetterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.activation.DataHandler;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
@@ -99,10 +101,16 @@ public class PrivateLetterServiceImpl extends BaseServiceImpl<PrivateLetter> imp
         // 此时意思为查询我发送的私信
         if (Objects.isNull(query.getUserSendRev())) {
             mySendLetter = privateLetterDao.getMySendLetter(query.getUserSendSend());
+            mySendLetter.forEach(item -> {
+                item.setGmtCreateStr(DateUtils.getDataString(item.getGmtCreate(), DateUtils.WHOLE_FORMAT));
+            });
             // 查询我接收的私信
             return new PageResult<>(query.getPageSize(), this.findLetterCount(query), query.getCurrentPage(), mySendLetter);
         } else {
             myRevLetter=privateLetterDao.getMyRevLetter(query.getUserSendRev());
+            myRevLetter.forEach(item -> {
+                item.setGmtCreateStr(DateUtils.getDataString(item.getGmtCreate(), DateUtils.WHOLE_FORMAT));
+            });
             return new PageResult<>(query.getPageSize(), this.findLetterCount(query), query.getCurrentPage(), myRevLetter);
         }
 

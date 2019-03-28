@@ -163,7 +163,7 @@
                 <!-- Basic Home Page Template -->
                 <div class="row separator">
                     <section class="span4 articles-list" style="height: 140px;">
-                        <h3>私信</h3>
+                        <h3 style="width: 50% ; float: left">私信</h3> <h3 style="width: 50% ; float: right"><a href="/user/myManage" >查看</a></h3>
                         <ul class="articles" th:if="${privateLetter ne null}">
                             <li  th:each="letter, letterStat:${privateLetter}">
                                 <h4><a href="#" class="pl" th:text="'[' + ${letter.letterType} + ']&nbsp;' + ${letter.content}"></a></h4><br>

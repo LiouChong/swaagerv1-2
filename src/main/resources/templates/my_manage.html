@@ -203,8 +203,8 @@
                             <div class="panel">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo">版主管理
-                                            <!--&emsp;<span class="badge" th:text="${platers.totalRecords}"></span></a>-->
+                                        <a data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo">发送的私信
+                                            &emsp;<span class="badge" th:text="${sendLetter.totalRecords}"></span></a>
                                     </h4>
                                 </div>
                                 <div id="collapseTwo" class="panel-collapse collapse">
@@ -215,28 +215,20 @@
                                                     <thead>
                                                     <tr align="center">
                                                         <th>序号</th>
-                                                        <th>邮箱</th>
-                                                        <th>昵称</th>
-                                                        <th>级别</th>
-                                                        <th>创建时间</th>
-                                                        <th>管理板块</th>
-                                                        <th>开始时间</th>
-                                                        <th>任期(年)</th>
-                                                        <th>操作</th>
+                                                        <th>接收人姓名</th>
+                                                        <th>内容</th>
+                                                        <th>发送时间</th>
+                                                        <th align="right">操作</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <!--<tr th:each="plate, plateStat:${platers.items}">
-                                                        <td th:text="${plateStat.index} + 1"></td>
-                                                        <td th:text="${plate.email}"></td>
-                                                        <td th:text="${plate.nickname}"></td>
-                                                        <td th:text="${plate.levelStr}"></td>
-                                                        <td th:text="${plate.userGmtCreateStr}"></td>
-                                                        <td th:text="${plate.plateName}"></td>
-                                                        <td th:text="${plate.platerGmtCreateStr}"></td>
-                                                        <td th:text="${plate.manageTime}"></td>
-                                                        <td><a>卸任</a></td>
-                                                    </tr>-->
+                                                    <tr th:each="senLetters, senLetterStat:${sendLetter.items}">
+                                                        <td th:text="${senLetterStat.index} + 1"></td>
+                                                        <td th:text="${senLetters.userSendRevName}"></td>
+                                                        <td th:text="${senLetters.content}"></td>
+                                                        <td th:text="${senLetters.gmtCreateStr}"></td>
+                                                        <td><a>已读</a> &emsp;<a>删除</a></td>
+                                                    </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
