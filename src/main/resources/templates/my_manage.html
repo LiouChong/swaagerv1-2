@@ -99,7 +99,39 @@
     <script src="js/jquery-3.3.1.js"></script>
     <script>
         $(document).ready(function () {
-            $("a[name='un_ban_user']").click(function () {
+            $("a[name='hasReaded']").click(function () {
+                $.ajax({
+                    type:"POST",
+                    url:"/privateletter/update/single",
+                    contentType:"application/json; charset=utf-8",
+                    data:JSON.stringify({
+                        id:$(this).parent().prev().val(),
+                        ifRead:1,
+                        operation:"已读私信"
+                    }),
+                    dataType: "json",
+                    success: function (message) {
+                        alert(message.body);
+                    }
+                });
+                $(this).hide();
+            });
+
+            $("a[name='delLetter']").click(function () {
+                $.ajax({
+                    type:"POST",
+                    url:"/privateletter/update/single",
+                    contentType:"application/json; charset=utf-8",
+                    data:JSON.stringify({
+                        id:$(this).parent().prev().val(),
+                        operation:"删除收到私信"
+                    }),
+                    dataType: "json",
+                    success: function (message) {
+                        alert(message.body);
+                    }
+                });
+                $(this).parent().parent().slideUp(500);
             });
         });
     </script>
@@ -179,6 +211,7 @@
                                                     <thead>
                                                     <tr align="center">
                                                         <th>序号</th>
+                                                        <th>状态</th>
                                                         <th>发送人姓名</th>
                                                         <th>内容</th>
                                                         <th>发送时间</th>
@@ -188,10 +221,17 @@
                                                     <tbody>
                                                         <tr th:each="revLetters, revLetterStat:${revLetter.items}">
                                                             <td th:text="${revLetterStat.index} + 1"></td>
+                                                            <span th:if="${revLetters.ifRead eq 1}">
+                                                                <td >[已读]</td>
+                                                            </span>
+                                                            <span th:if="${revLetters.ifRead eq 0}">
+                                                                <td style="color: red" >[未读]</td>
+                                                            </span>
                                                             <td th:text="${revLetters.userRevSendName}"></td>
                                                             <td style="width: 50%;" th:text="${revLetters.content}"></td>
                                                             <td th:text="${revLetters.gmtCreateStr}"></td>
-                                                            <td><a>已读</a> &emsp;<a>删除</a></td>
+                                                            <input th:value="${revLetters.id}" type="hidden"/>
+                                                            <td> <a href="javascript:void(0)" th:if="${revLetters.ifRead eq 0}" name="hasReaded">已读</a> &emsp;<a href="javascript:void(0)" name="delLetter" >删除</a></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -216,7 +256,7 @@
                                                     <tr align="center">
                                                         <th>序号</th>
                                                         <th>接收人姓名</th>
-                                                        <th>内容</th>
+                                                        <th style="width: 50%">内容</th>
                                                         <th>发送时间</th>
                                                         <th align="right">操作</th>
                                                     </tr>
@@ -227,7 +267,7 @@
                                                         <td th:text="${senLetters.userSendRevName}"></td>
                                                         <td th:text="${senLetters.content}"></td>
                                                         <td th:text="${senLetters.gmtCreateStr}"></td>
-                                                        <td><a>已读</a> &emsp;<a>删除</a></td>
+                                                        <td>&emsp;<a>删除</a></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -351,9 +391,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Lists
-                              ================================================== -->
-
         </div>
     </div>
 </div>

@@ -49,6 +49,39 @@ public class PrivateLetterForMyResponse extends BaseEntity {
      */
     private String userRevSendName;
 
+    private Integer ifRead;
+
+    public Integer getIfRead() {
+        return ifRead;
+    }
+
+    public void setIfRead(Integer ifRead) {
+        this.ifRead = ifRead;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"content\":\"")
+                .append(content).append('\"');
+        sb.append(",\"gmtCreate\":\"")
+                .append(gmtCreate).append('\"');
+        sb.append(",\"gmtCreateStr\":\"")
+                .append(gmtCreateStr).append('\"');
+        sb.append(",\"userSendRev\":")
+                .append(userSendRev);
+        sb.append(",\"userSendRevName\":\"")
+                .append(userSendRevName).append('\"');
+        sb.append(",\"userRevSend\":")
+                .append(userRevSend);
+        sb.append(",\"userRevSendName\":\"")
+                .append(userRevSendName).append('\"');
+        sb.append(",\"ifRead\":")
+                .append(ifRead);
+        sb.append('}');
+        return sb.toString();
+    }
+
     public String getContent() {
         return content;
     }
@@ -111,24 +144,4 @@ public class PrivateLetterForMyResponse extends BaseEntity {
         this.userRevSendName = userRevSendName;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("{");
-        sb.append("\"content\":\"")
-                .append(content).append('\"');
-        sb.append(",\"gmtCreate\":\"")
-                .append(gmtCreate).append('\"');
-        sb.append(",\"gmtCreateStr\":\"")
-                .append(gmtCreateStr).append('\"');
-        sb.append(",\"userSendRev\":")
-                .append(userSendRev);
-        sb.append(",\"userSendRevName\":\"")
-                .append(userSendRevName).append('\"');
-        sb.append(",\"userRevSend\":")
-                .append(userRevSend);
-        sb.append(",\"userRevSendName\":\"")
-                .append(userRevSendName).append('\"');
-        sb.append('}');
-        return sb.toString();
-    }
 }

@@ -35,7 +35,7 @@ public interface IPrivateLetterService extends IBaseService<PrivateLetter> {
          * @param request
          * @return
          */
-        Integer updatePrivateLetter(PrivateLetterRequest request) throws Exception;
+        String updatePrivateLetter(PrivateLetterRequest request) throws Exception;
 
         /**
          * 查询对象集合

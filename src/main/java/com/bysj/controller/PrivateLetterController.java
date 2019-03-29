@@ -49,9 +49,9 @@ public class PrivateLetterController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "privateLetter")PrivateLetterRequest privateLetterRequest)throws Exception{
-        iPrivateLetterService.updatePrivateLetter(privateLetterRequest);
-        return ActionResponse.success();
+    public ActionResponse updateSingle(@RequestBody @ApiParam(value = "privateLetter")PrivateLetterRequest privateLetterRequest)throws Exception{
+        String info = iPrivateLetterService.updatePrivateLetter(privateLetterRequest);
+        return ActionResponse.success(info);
     }
 
     /**
@@ -97,5 +97,6 @@ public class PrivateLetterController {
 
         return ActionResponse.success(iPrivateLetterService.deleteById(id));
     }
+
 }
 

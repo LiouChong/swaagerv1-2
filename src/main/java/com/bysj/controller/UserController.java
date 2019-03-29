@@ -253,7 +253,7 @@ public class UserController {
      * @param
      * @return actionResponse
      */
-    @ApiOperation(value = "通过用户id封禁用户", notes = "主键封装对象")
+    @ApiOperation(value = "个人用户管理页面", notes = "主键封装对象")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
@@ -264,7 +264,7 @@ public class UserController {
         Integer userId = userHandle.getUserId();
         query.setUserSendSend(userId);
         PageResult<PrivateLetterForMyResponse> pageForMySend = privateLetterService.findPageForMyManage(query);
-        
+
         query.setUserSendSend(null);
         query.setUserSendRev(userId);
         PageResult<PrivateLetterForMyResponse> pageForMyRev = privateLetterService.findPageForMyManage(query);

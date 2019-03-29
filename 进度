@@ -34,6 +34,9 @@
 3.26 后台展示 私信数量。未写sql，考虑分页要刷新页面。。但是还是用刷新吧。
 3.27 展示有问题。。。
 完成展示。
+3.29 可以已读私信，删除私信（接收）
+
+
 gt：great than（大于）>
 ge：great equal（大于等于）>=
 eq：equal（等于）==
@@ -41,7 +44,12 @@ lt：less than（小于）<
 le：less equal（小于等于）<=
 ne：not equal（不等于）!=
 
-@todo: 验证@param加与不加的区别。是否报错
+@Important:
+    删除接收私信，则revSend=0，那么接收方查询自己接收的私信时候，sendrev = me 并且应当用revSend = u.id来链接查询发送方信息，这样则revSend=0，会查不出来改信息
+    删除发送私信，则SendSend = 0,  查询自己发送的私信的时候 sendsend = me 即可。
+
+
+
 资源贴的展示
 资源贴的下载
 用户间发送私信 1

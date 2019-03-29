@@ -75,9 +75,23 @@ public class PrivateLetterServiceImpl extends BaseServiceImpl<PrivateLetter> imp
     }
 
     @Override
-    public Integer updatePrivateLetter(PrivateLetterRequest request) throws Exception {
+    public String updatePrivateLetter(PrivateLetterRequest request) throws Exception {
         PrivateLetter privateLetter = requestConverter.convert(request, PrivateLetter.class);
-        return privateLetterDao.update(privateLetter);
+        switch (request.getOperation()) {
+            case "已读私信":
+                setModifyValue(privateLetter);
+                break;
+            case "删除收到私信":
+                privateLetter.setUserRevSend(0);
+                setModifyValue(privateLetter);
+                default:
+        }
+
+        return privateLetterDao.update(privateLetter) == 1? "成功":"失败！请稍后再试";
+    }
+    private void setModifyValue(PrivateLetter privateLetter) {
+        privateLetter.setGmtModify(new Date());
+        privateLetter.setUserModify(userHandle.getUserId());
     }
 
     @Override
@@ -95,7 +109,6 @@ public class PrivateLetterServiceImpl extends BaseServiceImpl<PrivateLetter> imp
 
     @Override
     public PageResult<PrivateLetterForMyResponse> findPageForMyManage(PrivateLetterForMyManageQuery query) {
-        Integer userId = userHandle.getUserId();
         List<PrivateLetterForMyResponse> mySendLetter;
         List<PrivateLetterForMyResponse> myRevLetter;
         // 此时意思为查询我发送的私信
@@ -104,8 +117,9 @@ public class PrivateLetterServiceImpl extends BaseServiceImpl<PrivateLetter> imp
             mySendLetter.forEach(item -> {
                 item.setGmtCreateStr(DateUtils.getDataString(item.getGmtCreate(), DateUtils.WHOLE_FORMAT));
             });
-            // 查询我接收的私信
+
             return new PageResult<>(query.getPageSize(), this.findLetterCount(query), query.getCurrentPage(), mySendLetter);
+            // 查询我接收的私信
         } else {
             myRevLetter=privateLetterDao.getMyRevLetter(query.getUserSendRev());
             myRevLetter.forEach(item -> {

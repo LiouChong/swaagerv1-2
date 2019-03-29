@@ -456,7 +456,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getinfo`(
 	OUT avglevel DECIMAL(8,2),
 	OUT maxlevel DECIMAL(8,2)
 )
-BEGIN	
+BEGIN
 	SELECT MIN(`level`) INTO minlevel FROM `user`;
 	SELECT MAX(`level`) INTO maxlevel FROM `user`;
 	SELECT AVG(`level`) INTO avglevel FROM `user`;
@@ -470,7 +470,7 @@ delimiter ;
 DROP PROCEDURE IF EXISTS `getinfo2`;
 delimiter ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getinfo2`()
-BEGIN	
+BEGIN
 	SELECT MIN(`level`),MAX(`level`),AVG(`level`) FROM `user`;
 END
 ;;
@@ -482,10 +482,10 @@ delimiter ;
 DROP PROCEDURE IF EXISTS `getuserbyid`;
 delimiter ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getuserbyid`(
-	IN userid INT, 
+	IN userid INT,
 	OUT retuser DECIMAL(8,2)
 )
-BEGIN 
+BEGIN
 	SELECT `level` FROM `user` WHERE `user`.id = userid INTO retuser;
 END
 ;;

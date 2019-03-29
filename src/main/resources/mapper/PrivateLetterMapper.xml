@@ -198,9 +198,35 @@
 
     <update id="update" parameterType="com.bysj.entity.PrivateLetter">
         update
-        <include refid="Table_Name"></include>
+        private_letter
         <trim prefix="SET" suffixOverrides=",">
-            <include refid="Set_Column_List"></include>
+            <if test=" userSendSend != null">
+                user_send_send = #{userSendSend },
+            </if>
+            <if test=" userSendRev != null">
+                user_send_rev = #{userSendRev },
+            </if>
+            <if test=" content != null">
+                content = #{content },
+            </if>
+            <if test=" ifRead != null">
+                if_read = #{ifRead },
+            </if>
+            <if test=" state != null">
+                state = #{state },
+            </if>
+            <if test=" userModify != null">
+                user_modify = #{userModify },
+            </if>
+            <if test=" gmtModify != null">
+                gmt_modify = #{gmtModify },
+            </if>
+            <if test=" letterType != null">
+                letter_type = #{letterType },
+            </if>
+            <if test=" userRevSend != null">
+                user_rev_send = #{userRevSend },
+            </if>
         </trim>
         where id = #{id}
     </update>
@@ -299,6 +325,7 @@
     </select>
     <select id="getMySendLetter" resultType="com.bysj.entity.vo.response.PrivateLetterForMyResponse">
         SELECT
+            pl.id,
             pl.user_send_rev AS userSendRev,
             u.nickname       AS userSendRevName,
             pl.gmt_create    AS gmtCreate,
@@ -308,19 +335,25 @@
                 INNER JOIN USER u ON pl.user_send_rev = u.id
         WHERE
             pl.user_send_send = #{userId}
+          and pl.state = 1;
 
     </select>
     <select id="getMyRevLetter" resultType="com.bysj.entity.vo.response.PrivateLetterForMyResponse">
         SELECT
+            pl.id,
             pl.content,
+            pl.if_read        AS ifRead,
             pl.gmt_create     AS gmtcreate,
             pl.user_send_send AS userrevsend,
             u.nickname        AS userrevsendname
         FROM
             private_letter pl
-                INNER JOIN USER u ON pl.user_send_send = u.id
+                INNER JOIN USER u ON pl.user_rev_send = u.id
         WHERE
             pl.user_send_rev = ${userId}
+          and pl.user_rev_send != 0
+          and pl.state = 1
+        ORDER BY pl.gmt_modify asc
     </select>
     <select id="getMySendLetterCount" resultType="java.lang.Integer">
         SELECT
@@ -330,14 +363,18 @@
                 INNER JOIN USER u ON pl.user_send_rev = u.id
         WHERE
             pl.user_send_send = #{userId}
+          and pl.state = 1
     </select>
     <select id="getMyRevLetterCount" resultType="java.lang.Integer">
         SELECT
             count(1)
         FROM
             private_letter pl
-                INNER JOIN USER u ON pl.user_send_send = u.id
+                INNER JOIN USER u ON pl.user_rev_send = u.id
         WHERE
             pl.user_send_rev = ${userId}
+          and pl.state = 1
+          and pl.user_rev_send != 0
+          and pl.state = 1
     </select>
 </mapper>

@@ -77,7 +77,7 @@
                 } else {
                     $.post("/user/checkName", {
                         email: $("#email").val()
-                    }, function (data, status) {
+                    }, function (data, state) {
                         $("#message").text(data);
                     });
                 }
