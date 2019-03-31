@@ -299,8 +299,11 @@
                         th:text="'悬赏' + ${postDetail.giveMoney} + '分'"></h3>
                     <ol class="commentlist" th:fragment="ajaxinfo">
                         <!--<c:forEach items="${ReplyAndUsers}" var="replyAndUser" varStatus="floor">-->
-
-
+                        <br>
+                        <strong style="font-size: 25px; color: green;">
+                                <a th:href="'/user/' + ${postDetail.posterId}"
+                                    th:text="'作者'+ ${postDetail.posterName}"></a></strong>
+                        <br><br>
                         <li class="comment even thread-even depth-1" id="li-comment-2"
                             th:each="reply,replyList:${postDetail.replys}">
                             <article id="comment-2">
@@ -434,7 +437,7 @@
 
                     <span class="tags">
                         <strong style="font-size: 25px; color: green;"
-                                th:text="'作者' + ${postDetail.posterName}"></strong>
+                                th:text="'作者'+ ${postDetail.posterName}"></strong>
                     </span>
 
                 </div>

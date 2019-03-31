@@ -39,21 +39,6 @@ public class ApplyPlateController {
     }
 
     /**
-     * 修改
-     * @param applyPlateRequest
-     * @return actionResponse
-     */
-    @ApiOperation(value = "修改接口", notes = "传入实体对象信息")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
-    })
-    @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "applyPlate")ApplyPlateRequest applyPlateRequest)throws Exception{
-        iApplyPlateService.updateApplyPlate(applyPlateRequest);
-        return ActionResponse.success();
-    }
-
-    /**
      * 批量查询
      * @param applyPlateQuery
      * @return actionResponse

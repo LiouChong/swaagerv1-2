@@ -4,7 +4,7 @@ import com.bysj.dao.UserDao;
 import com.bysj.entity.User;
 import com.bysj.entity.vo.response.UserResponse;
 import org.apache.shiro.SecurityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -21,7 +21,11 @@ public class UserHandle {
     private UserDao userDao;
 
     public Integer getUserId() {
-        return getUser()==null? null: getUser().getId();
+        if ( getUser()==null) {
+            throw new UnknownAccountException();
+        } else {
+            return this.getUser().getId();
+        }
     }
 
     public String getUserEmail() {

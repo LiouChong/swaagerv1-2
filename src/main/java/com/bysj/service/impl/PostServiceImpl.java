@@ -1,8 +1,6 @@
 package com.bysj.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.bysj.common.exception.BussinessException;
 import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
@@ -13,18 +11,19 @@ import com.bysj.common.utils.NumberChineseEx;
 import com.bysj.common.utils.UserHandle;
 import com.bysj.dao.PlaterDao;
 import com.bysj.dao.PostDao;
-import com.bysj.entity.Askhelp;
-import com.bysj.entity.Plater;
 import com.bysj.entity.Post;
+import com.bysj.entity.vo.query.ManagePostQuery;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
 import com.bysj.entity.vo.request.AskhelpRequest;
 import com.bysj.entity.vo.request.PostDel;
 import com.bysj.entity.vo.request.PostRequest;
-import com.bysj.entity.vo.response.*;
+import com.bysj.entity.vo.response.PlateNameForIndex;
+import com.bysj.entity.vo.response.PostBanResponse;
+import com.bysj.entity.vo.response.PostDetailResponse;
+import com.bysj.entity.vo.response.PostResponse;
 import com.bysj.service.IAskhelpService;
 import com.bysj.service.IPostService;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -202,17 +201,17 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     }
 
     @Override
-    public PageResult<PostBanResponse> findPageBanPost(ObjectQuery objectQuery) {
-        return new PageResult<>(objectQuery.getPageSize(), this.findBanPostCount(),
-                objectQuery.getCurrentPage(), this.findListBanPost(objectQuery));
+    public PageResult<PostBanResponse> findManagePagePost(ManagePostQuery managePostQuery) {
+        return new PageResult<>(managePostQuery.getPageSize(), this.findPostCount(managePostQuery),
+                managePostQuery.getCurrentPage(), this.findListBanPost(managePostQuery));
     }
 
-    private List<PostBanResponse> findListBanPost(ObjectQuery objectQuery) {
-        return postDao.findPageBanPost(objectQuery);
+    private List<PostBanResponse> findListBanPost(ManagePostQuery managePostQuery) {
+        return postDao.findPageManagePost(managePostQuery);
     }
 
-    private Integer findBanPostCount() {
-        return postDao.findPageBanPostCount();
+    private Integer findPostCount(ManagePostQuery managePostQuery) {
+        return postDao.findPagePostCount(managePostQuery);
     }
 
     @Override
@@ -246,4 +245,6 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     public Post getAllById(Integer id) {
         return postDao.getAllById(id);
     }
+
+
 }

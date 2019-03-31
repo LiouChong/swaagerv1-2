@@ -402,7 +402,9 @@
         set state       = 0,
             gmt_modify  = #{gmtModify},
             modify_user = #{modifyUser},
-            ban_reason  =#{banReason}
+            <if test="banReason != null">
+              ban_reason  =#{banReason}
+            </if>
         where id = #{id}
     </delete>
 
@@ -677,31 +679,51 @@
           and r.state = 1
     </select>
 
-    <select id="findPageBanPost" resultType="com.bysj.entity.vo.response.PostBanResponse">
+    <select id="findPageManagePost" resultType="com.bysj.entity.vo.response.PostBanResponse" parameterType="com.bysj.entity.vo.query.ManagePostQuery">
         select
-        p.title,
-        uu.nickname as posterName,
-        pl.plate_name as plateName,
-        p.gmt_create as postGmtCreate,
-        p.gmt_modify as gmtModify,
-        p.ban_reason as banReason,
-        u.nickname as banUserName
+            p.id,
+            p.title,
+            uu.nickname as posterName,
+            pl.plate_name as plateName,
+            p.gmt_create as postGmtCreate,
+            p.gmt_modify as gmtModify,
+            p.ban_reason as banReason,
+            u.nickname as banUserName,
+            p.read_count as readCount
         from post p
-        inner join user u on p.modify_user = u.id
-        inner join plater pl on p.plate_id = pl.id
-        inner join user uu on p.poster_id = uu.id
-        where p.state = 0
+        left join user u on p.modify_user = u.id
+        left join plater pl on p.plate_id = pl.id
+        left join user uu on p.poster_id = uu.id
+        <where>
+            <trim prefixOverrides="and">
+                <if test="ifBan != null">
+                    and p.state = 0
+                </if>
+                <if test="ownerId != null">
+                    and p.poster_Id = #{ownerId}
+                </if>
+            </trim>
+        </where>
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
     </select>
-    <select id="findPageBanPostCount" resultType="java.lang.Integer">
+    <select id="findPagePostCount" resultType="java.lang.Integer" parameterType="com.bysj.entity.vo.query.ManagePostQuery">
         select
             count(1)
         from post p
-                 inner join user u on p.modify_user = u.id
-                 inner join plater pl on p.plate_id = pl.id
-                 inner join user uu on p.poster_id = uu.id
-        where p.state = 0
+            left join user u on p.modify_user = u.id
+            left join plater pl on p.plate_id = pl.id
+            left join user uu on p.poster_id = uu.id
+        <where>
+            <trim prefixOverrides="and">
+                <if test="ifBan != null">
+                    and p.state = 0
+                </if>
+                <if test="ownerId != null">
+                    and p.poster_Id = #{ownerId}
+                </if>
+            </trim>
+        </where>
     </select>
 </mapper>

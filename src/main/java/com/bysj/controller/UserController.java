@@ -4,17 +4,17 @@ package com.bysj.controller;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.response.PageResult;
 import com.bysj.common.utils.UserHandle;
-import com.bysj.entity.vo.query.PrivateLetterForMyManageQuery;
-import com.bysj.entity.vo.query.UserQuery;
-import com.bysj.entity.vo.query.UserRequestForLogin;
-import com.bysj.entity.vo.query.UserRequestForRegist;
+import com.bysj.entity.vo.query.*;
 import com.bysj.entity.vo.request.UserRequestForBan;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
+import com.bysj.entity.vo.response.PostBanResponse;
 import com.bysj.entity.vo.response.PrivateLetterForMyResponse;
 import com.bysj.entity.vo.response.UserResponse;
+import com.bysj.service.IPostService;
 import com.bysj.service.IPrivateLetterService;
 import com.bysj.service.IUserService;
 import io.swagger.annotations.*;
+import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
@@ -27,6 +27,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author lc
@@ -40,6 +41,9 @@ public class UserController {
     UserHandle userHandle;
     @Autowired
     private IPrivateLetterService privateLetterService;
+
+    @Autowired
+    private IPostService postService;
 
     /**
      * 发送邮件
@@ -220,7 +224,7 @@ public class UserController {
      * @param
      * @return actionResponse
      */
-    @ApiOperation(value = "通过ID删除接口", notes = "主键封装对象")
+    @ApiOperation(value = "上传头像", notes = "主键封装对象")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
@@ -260,14 +264,31 @@ public class UserController {
     @RequestMapping(value = "/user/myManage", method = RequestMethod.GET)
     @RequiresAuthentication
     public ModelAndView manageMyInfo(ModelAndView modelAndView) throws Exception {
+        // 为 查询我发送的私信变量赋值
         PrivateLetterForMyManageQuery query = new PrivateLetterForMyManageQuery();
         Integer userId = userHandle.getUserId();
+        if (Objects.isNull(userId)) {
+            throw new UnauthenticatedException();
+        }
         query.setUserSendSend(userId);
+
+        // 查询我发送的私信信息
         PageResult<PrivateLetterForMyResponse> pageForMySend = privateLetterService.findPageForMyManage(query);
 
+        // 我收到的私信的查询变量设置
         query.setUserSendSend(null);
         query.setUserSendRev(userId);
+
+        // 查询我接受的私信的信息
         PageResult<PrivateLetterForMyResponse> pageForMyRev = privateLetterService.findPageForMyManage(query);
+
+        ManagePostQuery managePostQuery = new ManagePostQuery();
+        managePostQuery.setOwnerId(userId);
+
+        // 查询我发送的帖子
+        PageResult<PostBanResponse> managePagePost = postService.findManagePagePost(managePostQuery);
+
+        modelAndView.addObject("myPost", managePagePost);
         modelAndView.addObject("sendLetter", pageForMySend);
         modelAndView.addObject("revLetter", pageForMyRev);
         modelAndView.setViewName("my_manage");

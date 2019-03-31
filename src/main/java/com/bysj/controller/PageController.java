@@ -5,9 +5,12 @@ import com.bysj.common.response.PageResult;
 import com.bysj.common.utils.DateUtils;
 import com.bysj.common.utils.NumberChineseEx;
 import com.bysj.common.utils.UserHandle;
-import com.bysj.entity.vo.query.UserQuery;
+import com.bysj.entity.vo.query.ManagePostQuery;
 import com.bysj.entity.vo.query.UserQueryByLevel;
-import com.bysj.entity.vo.response.*;
+import com.bysj.entity.vo.response.ApplyPlateResponse;
+import com.bysj.entity.vo.response.PostBanResponse;
+import com.bysj.entity.vo.response.UserBanResponse;
+import com.bysj.entity.vo.response.UserLevellResponse;
 import com.bysj.service.IApplyPlateService;
 import com.bysj.service.IPostService;
 import com.bysj.service.IUserService;
@@ -18,7 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * @Author: 刘冲
@@ -70,8 +72,10 @@ public class PageController {
             item.setLevelStr(numberChineseEx.numExchangeChinese(item, "level"));
         });
 
+        ManagePostQuery managePostQuery = new ManagePostQuery();
+        managePostQuery.setIfBan(1);
         // 查询被封禁帖子列表
-        PageResult<PostBanResponse> pageBanPost = postService.findPageBanPost(new ObjectQuery());
+        PageResult<PostBanResponse> pageBanPost = postService.findManagePagePost(managePostQuery);
         // 查询被封禁用户列表
         PageResult<UserBanResponse> pageBanUser = userService.findPageUserBan(new ObjectQuery());
 

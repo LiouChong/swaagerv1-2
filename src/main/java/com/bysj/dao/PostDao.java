@@ -3,6 +3,7 @@ package com.bysj.dao;
 import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.IBaseDao;
 import com.bysj.entity.Post;
+import com.bysj.entity.vo.query.ManagePostQuery;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
 import com.bysj.entity.vo.request.PostDel;
@@ -80,13 +81,13 @@ public interface PostDao extends IBaseDao<Post> {
      * @param objectQuery
      * @return
      */
-    List<PostBanResponse> findPageBanPost(ObjectQuery objectQuery);
+    List<PostBanResponse> findPageManagePost(ManagePostQuery managePostQuery);
 
     /**
      * 查询被封禁帖子数量
      * @return
      */
-    Integer findPageBanPostCount();
+    Integer findPagePostCount(ManagePostQuery managePostQuery);
 
     /**
      * 推荐帖子

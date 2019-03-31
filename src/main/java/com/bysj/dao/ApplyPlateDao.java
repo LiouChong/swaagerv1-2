@@ -5,6 +5,7 @@ import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.IBaseDao;
 import com.bysj.entity.ApplyPlate;
 import com.bysj.entity.vo.response.ApplyPlateResponse;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -29,5 +30,5 @@ public interface ApplyPlateDao extends IBaseDao<ApplyPlate> {
      */
     Integer findAllCount();
 
-    ApplyPlate getInfoByUserIdAndPlateId(/*@Param("userId")*/ Integer userId, /*@Param("plateId") */Integer plateId);
+    ApplyPlate getInfoByUserIdAndPlateId(@Param("userId") Integer userId, @Param("plateId") Integer plateId);
 }

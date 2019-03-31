@@ -4,9 +4,6 @@ package com.bysj.entity.vo.response;
 import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.util.Date;
-import java.util.List;
-
 /**
  * <p>
  * PostResponse 响应对象
@@ -51,6 +48,11 @@ public class PostBanResponse extends BaseEntity {
      * 删除人名称
      */
     private String banUserName;
+
+    /**
+     * 帖子阅读量
+     */
+    private Integer readCount;
 
     public String getPostGmtCreate() {
         return postGmtCreate.substring(0, postGmtCreate.lastIndexOf("."));
@@ -126,8 +128,18 @@ public class PostBanResponse extends BaseEntity {
                 .append(banReason).append('\"');
         sb.append(",\"banUserName\":\"")
                 .append(banUserName).append('\"');
+        sb.append(",\"readCount\":")
+                .append(readCount);
         sb.append('}');
         return sb.toString();
+    }
+
+    public Integer getReadCount() {
+        return readCount;
+    }
+
+    public void setReadCount(Integer readCount) {
+        this.readCount = readCount;
     }
 
 }

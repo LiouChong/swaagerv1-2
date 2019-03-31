@@ -136,7 +136,7 @@ public class PostController {
      * @param postQuery
      * @return actionResponse
      */
-    @ApiOperation(value = "分页获取帖子", notes = "传入查询条件")
+    @ApiOperation(value = "分页获取推荐帖子", notes = "传入查询条件")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
@@ -176,7 +176,7 @@ public class PostController {
      * @param postQuery
      * @return actionResponse
      */
-    @ApiOperation(value = "分页获取帖子", notes = "传入查询条件")
+    @ApiOperation(value = "简单查询帖子", notes = "传入查询条件")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
@@ -253,7 +253,7 @@ public class PostController {
      *
      * @return actionResponse
      */
-    @ApiOperation(value = "分页获取帖子", notes = "传入查询条件")
+    @ApiOperation(value = "按时间排序查询所有帖子", notes = "传入查询条件")
     @RequestMapping(value = "/query/list", method = RequestMethod.GET)
     public ModelAndView queryPostList(ObjectQuery objectQuery, ModelAndView mav)throws Exception{
         // 获取帖子列表与总记录数

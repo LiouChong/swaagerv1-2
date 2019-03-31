@@ -9,8 +9,14 @@ import java.util.Date;
  **/
 public class PostDel {
 
+    /**
+     * 帖子id
+     */
     private Integer id;
 
+    /**
+     * 封禁理由
+     */
     private String banReason;
 
     /**

@@ -41,8 +41,8 @@
 
 
     <!--BOTTOM END-->
-    <link rel="shortcut icon" href="favicon_16.ico"/>
-    <link rel="bookmark" href="favicon_16.ico"/>
+    <!--<link rel="shortcut icon" href="favicon_16.ico"/>-->
+    <!--<link rel="bookmark" href="favicon_16.ico"/>-->
     <!-- site css -->
     <link rel="stylesheet" href="/css/site.min.css">
 
@@ -96,7 +96,7 @@
 
     </style>
 
-    <script src="js/jquery-3.3.1.js"></script>
+    <script src="/js/jquery-3.3.1.js"></script>
     <script>
         $(document).ready(function () {
             $("a[name='hasReaded']").click(function () {
@@ -125,6 +125,22 @@
                     data:JSON.stringify({
                         id:$(this).parent().prev().val(),
                         operation:"删除收到私信"
+                    }),
+                    dataType: "json",
+                    success: function (message) {
+                        alert(message.body);
+                    }
+                });
+                $(this).parent().parent().slideUp(500);
+            });
+
+            $("a[name='post_delete']").click(function () {
+                $.ajax({
+                    type:"POST",
+                    url:"/post/delete",
+                    contentType:"application/json; charset=utf-8",
+                    data:JSON.stringify({
+                        id:$(this).parent().prev().val()
                     }),
                     dataType: "json",
                     success: function (message) {
@@ -190,7 +206,7 @@
     <div class="container" style="width: 1500px;">
         <div class="panel-body" style="width: 100%;">
             <div class="content-row">
-                <h1 class="content-row-title">论坛后台管理：</h1>
+                <h1 class="content-row-title">我的信息管理：</h1>
                 <br>
                 <div class="row">
                     <div style="width: 100%;" class="col-md-6">
@@ -281,7 +297,7 @@
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion1"
                                            href="#collapseThree">帖子管理 &emsp;
-                                            <!--<span class="badge" th:text="${banPosts.totalRecords}"></span>-->
+                                            <span class="badge" th:text="${myPost.totalRecords}"></span>
                                         </a>
                                     </h4>
                                 </div>
@@ -294,72 +310,22 @@
                                                     <tr align="center">
                                                         <th>序号</th>
                                                         <th>标题</th>
-                                                        <th>作者</th>
                                                         <th>板块</th>
+                                                        <th>阅读量</th>
                                                         <th>创建时间</th>
-                                                        <th>封禁时间</th>
-                                                        <th>理由</th>
-                                                        <th>处理人</th>
                                                         <th>操作</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                   <!-- <tr th:each="post, postStat:${banPosts.items}">
+                                                    <tr th:each="post, postStat:${myPost.items}">
                                                         <td th:text="${postStat.index} + 1"></td>
                                                         <td th:text="${post.title}"></td>
-                                                        <td th:text="${post.posterName}"></td>
                                                         <td th:text="${post.plateName}"></td>
+                                                        <td th:text="${post.readCount}"></td>
                                                         <td th:text="${post.postGmtCreate}"></td>
-                                                        <td th:text="${post.gmtModify}"></td>
-                                                        <td th:text="${post.banReason}"></td>
-                                                        <td th:text="${post.banUserName}"></td>
-                                                        <td><a>查看详情</a> &emsp;<a href="javascript:void(0)" name="un_ban_post">解禁</a></td>
-                                                    </tr>-->
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion1"
-                                           href="#collapseFour">用户管理 &emsp;
-                                            <!--<span class="badge" th:text="${banUsers.totalRecords}"></span>-->
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapseFour" class="panel-collapse collapse">
-                                    <div class="content-row">
-                                        <div class="col-md-12">
-                                            <div class="bs-example">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                    <tr align="center">
-                                                        <th>序号</th>
-                                                        <th>邮箱</th>
-                                                        <th>昵称</th>
-                                                        <th>创建时间</th>
-                                                        <th>封禁时间</th>
-                                                        <th>理由</th>
-                                                        <th>处理人</th>
-                                                        <th>操作</th>
+                                                        <input th:value="${post.id}" type="hidden">
+                                                        <td><a th:href="'/post/detail?postId=' + ${post.id}">查看详情</a> &emsp;<a href="javascript:void(0)" name="post_delete">删除</a></td>
                                                     </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <!--<tr th:each="user, userStat:${banUsers.items}">
-                                                        <td th:text="${userStat.index} + 1"></td>
-                                                        <td th:text="${user.email}"></td>
-                                                        <td th:text="${user.nickname}"></td>
-                                                        <td th:text="${user.gmtCreate}"></td>
-                                                        <td th:text="${user.gmtModify}"></td>
-                                                        <td th:text="${user.banReason}"></td>
-                                                        <td th:text="${user.banUserName}"></td>
-                                                        <input th:value="${user.id}" type="hidden"/>
-                                                        <td><a>查看详情</a>&emsp;<a href="javascript:void(0)" name="un_ban_user">解禁</a></td>
-                                                    </tr>-->
                                                     </tbody>
                                                 </table>
                                             </div>

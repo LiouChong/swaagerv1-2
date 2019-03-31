@@ -52,7 +52,7 @@ public class ApplyPlateServiceImpl extends BaseServiceImpl<ApplyPlate> implement
 
         applyPlate.setGmtCreate(nowDate);
         applyPlate.setGmtModify(nowDate);
-        applyPlate.setUserId(userHandle.getUserId());
+        applyPlate.setUserId(userId);
         try {
             if (applyPlateDao.insert(applyPlate) == 1) {
                 return "申请成功";

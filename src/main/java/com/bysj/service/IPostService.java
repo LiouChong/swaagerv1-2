@@ -5,6 +5,7 @@ import com.bysj.common.request.IBaseService;
 import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.PageResult;
 import com.bysj.entity.Post;
+import com.bysj.entity.vo.query.ManagePostQuery;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
 import com.bysj.entity.vo.request.PostDel;
@@ -92,7 +93,7 @@ public interface IPostService extends IBaseService<Post> {
          *分页查询所有被封禁的帖子
          * @return
          */
-        PageResult<PostBanResponse> findPageBanPost(ObjectQuery objectQuery);
+        PageResult<PostBanResponse> findManagePagePost(ManagePostQuery managePostQuery);
 
         /**
          * 取消推荐帖子
@@ -115,5 +116,11 @@ public interface IPostService extends IBaseService<Post> {
          */
         Integer delById(PostDel postDel);
 
+
+        /**
+         * 根据逐查询post所有字段。
+         * @param id
+         * @return
+         */
         Post getAllById(Integer id);
 }

@@ -294,7 +294,7 @@
                                                         <td th:text="${post.gmtModify}"></td>
                                                         <td th:text="${post.banReason}"></td>
                                                         <td th:text="${post.banUserName}"></td>
-                                                        <td><a>查看详情</a> &emsp;<a href="javascript:void(0)" name="un_ban_post">解禁</a></td>
+                                                        <td><a th:href="'/post/detail?postId=' + ${post.id}">查看详情</a> &emsp;<a href="javascript:void(0)" name="un_ban_post">解禁</a></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
