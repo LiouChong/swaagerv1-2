@@ -110,15 +110,13 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
         return postDao.update(post);
     }
     @Override
-    public List<PostResponse> findPagePost(PostQueryForList query, String pageIndex) throws Exception {
+    public List<PostResponse> findPagePost(PostQueryForList query, String pageName) throws Exception {
         List<PostResponse> postList;
         // 根据条件查询到符合的帖子集合
-        if ("index".equals(pageIndex)) {
+        if ("index".equals(pageName)) {
             postList = postDao.findPostForIndex();
-        } else if ("articleGood".equals(pageIndex) || "platePost".equals(pageIndex)) {
-            postList = postDao.findPostQuery(query);
         } else {
-            postList = new ArrayList<>();
+            postList = postDao.findPostQuery(query);
         }
 
         //对帖子集合进行数字中文转换

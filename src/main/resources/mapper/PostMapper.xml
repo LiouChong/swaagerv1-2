@@ -475,7 +475,9 @@
         p.gmt_modify as gmtModify,
         p.read_count as readCount,
         p.article_from as articleFrom,
-        p.article_type as articleType
+        p.article_type as articleType,
+        p.need_money as needMoney,
+        p.give_money as giveMoney
         from
         post p
         inner join
@@ -505,6 +507,9 @@
                 <if test=" articleType != null">
                     and article_type = #{articleType }
                 </if>
+                <if test="userId != null">
+                    and u.id = #{userId}
+                </if>
                 and p.state = 1
                 and p.plate_id = pl.id
                 and p.create_user = u.id
@@ -530,7 +535,9 @@
             p.gmt_modify    as gmtModify,
             p.read_count    as readCount,
             p.article_from  as articleFrom,
-            p.article_type  as articleType
+            p.article_type  as articleType,
+               p.need_money as needMoney,
+               p.give_money as giveMoney
         from
             post p
                 inner join

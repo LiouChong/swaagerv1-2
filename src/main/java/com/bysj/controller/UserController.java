@@ -4,12 +4,14 @@ package com.bysj.controller;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.response.PageResult;
 import com.bysj.common.utils.UserHandle;
+import com.bysj.entity.Follow;
 import com.bysj.entity.vo.query.*;
 import com.bysj.entity.vo.request.UserRequestForBan;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
 import com.bysj.entity.vo.response.PostBanResponse;
 import com.bysj.entity.vo.response.PrivateLetterForMyResponse;
 import com.bysj.entity.vo.response.UserResponse;
+import com.bysj.service.IFollowService;
 import com.bysj.service.IPostService;
 import com.bysj.service.IPrivateLetterService;
 import com.bysj.service.IUserService;
@@ -44,6 +46,9 @@ public class UserController {
 
     @Autowired
     private IPostService postService;
+
+    @Autowired
+    private IFollowService followService;
 
     /**
      * 发送邮件
@@ -110,7 +115,7 @@ public class UserController {
             SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(request);
             // 如果shiro保存的有上次请求并且不为"/"，则返回上次请求页面，否则跳转到首页。
             if (savedRequest != null && savedRequest.getMethod().equalsIgnoreCase("GET")) {
-                if (!("/".equals(savedRequest.getRequestUrl()))) {
+                if (!("/".equals(savedRequest.getRequestUrl() ) || savedRequest.getRequestUrl().contains("/css/")) ) {
                     successUrl = savedRequest.getRequestUrl();
                     System.out.println("url======>> " + successUrl);
                 } else {
@@ -176,6 +181,17 @@ public class UserController {
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public ModelAndView queryById(@PathVariable(value = "id") Integer id, ModelAndView modelAndView) throws Exception {
         UserResponse infoById = iUserService.getInfoById(id);
+        Follow byIds = followService.getByIds(id);
+        // 判断当前用户是否关注该用户
+        if (Objects.isNull(byIds)) {
+            modelAndView.addObject("followIf", null);
+        } else {
+            modelAndView.addObject("followIf", byIds);
+        }
+        PostQueryForList queryForList = new PostQueryForList();
+        queryForList.setUserId(id);
+        postService.findPagePost(queryForList,"follow");
+        // 当前用户信息传给前端
         modelAndView.addObject("user",infoById);
         modelAndView.setViewName("UserInfo");
         return modelAndView;
@@ -237,7 +253,7 @@ public class UserController {
     }
 
     /**
-     * 封禁或者解封用户
+     * 封禁用户
      *
      * @param
      * @return actionResponse
@@ -293,6 +309,11 @@ public class UserController {
         modelAndView.addObject("revLetter", pageForMyRev);
         modelAndView.setViewName("my_manage");
         return modelAndView;
+    }
+
+    public static void main(String[] args) {
+        String s1 = "/user/css/font-awesome.css";
+        System.out.println(!("/".equals(s1) || s1.contains("/css/")));
     }
 }
 

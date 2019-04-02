@@ -68,22 +68,7 @@ public class PrivateLetterController {
         return ActionResponse.success(iPrivateLetterService.findPagePrivateLetter(privateLetterQuery));
     }
 
-    /**
-     * 通过ID查询
-     * @param id
-     * @return actionResponse
-     */
-    @ApiOperation(value = "通过ID查询", notes = "主键封装对象")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
-    })
-    @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
-    public ActionResponse queryById(@ApiParam(value = "privateLetter") @PathVariable("id") Integer id)throws Exception{
-
-        return ActionResponse.success(iPrivateLetterService.getById(id));
-    }
-
-    /**
+   /**
      * 通过ID删除
      * @param id
      * @return actionResponse

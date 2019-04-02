@@ -40,21 +40,6 @@ public class PlaterController {
     }
 
     /**
-     * 修改
-     * @param platerRequest
-     * @return actionResponse
-     */
-    @ApiOperation(value = "修改接口", notes = "传入实体对象信息")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
-    })
-    @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "plater")PlaterRequest platerRequest)throws Exception{
-        iPlaterService.updatePlater(platerRequest);
-        return ActionResponse.success();
-    }
-
-    /**
      * 批量查询
      * @param platerQuery
      * @return actionResponse
@@ -79,7 +64,6 @@ public class PlaterController {
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
     public ActionResponse queryById(@ApiParam(value = "plater") @PathVariable("id") Integer id)throws Exception{
-
         return ActionResponse.success(iPlaterService.getById(id));
     }
 

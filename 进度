@@ -36,7 +36,7 @@
 完成展示。
 3.29 可以已读私信，删除私信（接收）
 3.30 展示完毕我的帖子， 继续做 关注用户和取消关注用户
-
+4.02 实现关注功能，准备实现 用户详情页面展示发表的帖子，导航栏关注展示关注的用户。
 gt：great than（大于）>
 ge：great equal（大于等于）>=
 eq：equal（等于）==
@@ -63,6 +63,25 @@ ne：not equal（不等于）!=
 关注用户
 取消关注用户
 全站消息
+后台管理:
+同意申请版主
+拒绝申请版主
+版主卸任
+版主申请卸任
+帖子解禁
+查看用户详情
+
+
+ChatRecordController
+FavoritesArticleController 只有添加和更新
+FollowController
+PlaterController
+ResourceController
+TeamController
+TotalStationInforMationController
+UserTeamRelController
+
 
 -------------后台分页留到后面做；注意：分页刷新页面后，下拉框会重置：
  第一个下拉框会展开，这个由属性：class="panel-collapse collapse in"控制，把in删了，就会合并。后端返回type前端判断。
+

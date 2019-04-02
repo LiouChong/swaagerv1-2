@@ -8,9 +8,18 @@
         <result column="star_id" property="starId"/>
         <result column="gmt_create" property="gmtCreate"/>
     </resultMap>
-<!-- 通用查询结果列 -->
+    <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        fan_id AS fanId, star_id AS starId, gmt_create AS gmtCreate
+        fan_id
+        AS
+        fanId
+        ,
+        star_id
+        AS
+        starId,
+        gmt_create
+        AS
+        gmtCreate
     </sql>
 
     <sql id="Table_Name">
@@ -102,6 +111,14 @@
         where id = #{id}
     </delete>
 
+    <delete id="cancelFollow" parameterType="com.bysj.entity.Follow">
+        delete from
+        <include refid="Table_Name"></include>
+        where
+        fan_id = #{fanId}
+        and star_id = #{starId}
+    </delete>
+
     <select id="getByWhere" resultType="com.bysj.entity.Follow" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
@@ -134,7 +151,11 @@
     </select>
 
     <select id="findQuery" resultType="com.bysj.entity.Follow" parameterType="com.bysj.common.request.ObjectQuery">
-        select * from
+        select
+        fan_id as fanId,
+        star_id as starId,
+        gmt_create as gmtCreate
+        from
         <include refid="Table_Name"></include>
         <where>
             <trim prefixOverrides="and">
@@ -144,5 +165,15 @@
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
+    </select>
+    <select id="queryByIds" resultType="com.bysj.entity.Follow">
+        select
+            fan_id     as fanId,
+            star_id    as starId,
+            gmt_create as gmtCreate
+        from
+            follow
+        where
+            fan_id = #{fanId} and star_id = #{starId}
     </select>
 </mapper>

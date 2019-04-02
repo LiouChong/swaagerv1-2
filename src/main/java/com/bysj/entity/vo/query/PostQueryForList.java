@@ -47,6 +47,11 @@ public class PostQueryForList extends ObjectQuery{
     @ApiModelProperty("文章的类型:1 讨论帖,2 资源贴,3 求问贴")
     private Integer articleType;
 
+    /**
+     * 用户id
+     */
+    private Integer userId;
+
     public String getTitle() {
         return title;
     }
@@ -103,6 +108,14 @@ public class PostQueryForList extends ObjectQuery{
         this.articleType = articleType;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
@@ -120,6 +133,8 @@ public class PostQueryForList extends ObjectQuery{
                 .append(articleFrom);
         sb.append(",\"articleType\":")
                 .append(articleType);
+        sb.append(",\"userId\":")
+                .append(userId);
         sb.append('}');
         return sb.toString();
     }

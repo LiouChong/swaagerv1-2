@@ -14,6 +14,7 @@ import com.bysj.entity.vo.request.PrivateLetterRequest;
 import com.bysj.entity.vo.response.PrivateLetterForMyResponse;
 import com.bysj.entity.vo.response.PrivateLetterResponse;
 import com.bysj.service.IPrivateLetterService;
+import org.apache.shiro.authz.UnauthenticatedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +49,9 @@ public class PrivateLetterServiceImpl extends BaseServiceImpl<PrivateLetter> imp
         PrivateLetter privateLetter = requestConverter.convert(request, PrivateLetter.class);
         Date nowDate = new Date();
         Integer userId = userHandle.getUserId();
+        if (userHandle.getUserId() == null) {
+            throw new UnauthenticatedException();
+        }
 
         privateLetter.setGmtCreate(nowDate);
         privateLetter.setGmtModify(nowDate);

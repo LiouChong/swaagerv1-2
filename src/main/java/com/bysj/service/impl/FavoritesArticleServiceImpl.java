@@ -27,66 +27,66 @@ import java.util.List;
  */
 @Service
 public class FavoritesArticleServiceImpl extends BaseServiceImpl<FavoritesArticle> implements IFavoritesArticleService {
-        @Resource
-        private FavoritesArticleDao favoritesArticleDao;
-        @Resource
-        private BaseConverter<FavoritesArticleRequest, FavoritesArticle> requestConverter;
-        @Resource
-        private BaseConverter<FavoritesArticle, FavoritesArticleResponse> responseConverter;
+    @Resource
+    private FavoritesArticleDao favoritesArticleDao;
+    @Resource
+    private BaseConverter<FavoritesArticleRequest, FavoritesArticle> requestConverter;
+    @Resource
+    private BaseConverter<FavoritesArticle, FavoritesArticleResponse> responseConverter;
 
-        @Autowired
-        private UserHandle userHandle;
+    @Autowired
+    private UserHandle userHandle;
 
-        @Override
-        public Integer saveFavoritesArticle(FavoritesArticleRequest request) throws Exception {
-            FavoritesArticle favoritesArticle = requestConverter.convert(request, FavoritesArticle.class);
+    @Override
+    public Integer saveFavoritesArticle(FavoritesArticleRequest request) throws Exception {
+        FavoritesArticle favoritesArticle = requestConverter.convert(request, FavoritesArticle.class);
 
-            Date nowDate = new Date();
-            Integer userId = userHandle.getUserId();
+        Date nowDate = new Date();
+        Integer userId = userHandle.getUserId();
 
-            if (favoritesArticleDao.getByTwoId(userId, favoritesArticle.getPostId()) != null) {
-                FavoritesArticle favoritesArticle1 = favoritesArticleDao.getByTwoId(userId, favoritesArticle.getPostId());
-                favoritesArticle1.setState(1);
-                favoritesArticle1.setGmtModify(nowDate);
-                favoritesArticle1.setUserModify(userId);
-                return favoritesArticleDao.update(favoritesArticle1);
-            } else {
-                // 设置4个属性和收藏者id
-                favoritesArticle.setGmtCreate(nowDate);
-                favoritesArticle.setGmtModify(nowDate);
-                favoritesArticle.setUserModify(userId);
-                favoritesArticle.setUserCreate(userId);
-                favoritesArticle.setUserId(userId);
-
-                return favoritesArticleDao.insert(favoritesArticle);
-            }
-        }
-
-        @Override
-        public Integer updateFavoritesArticle(FavoritesArticleRequest request, Integer state) throws Exception {
-            FavoritesArticle favoritesArticle = requestConverter.convert(request, FavoritesArticle.class);
-            Integer userId = userHandle.getUserId();
-
-            favoritesArticle.setUserId(userId);
+        if (favoritesArticleDao.getByTwoId(userId, favoritesArticle.getPostId()) != null) {
+            FavoritesArticle favoritesArticle1 = favoritesArticleDao.getByTwoId(userId, favoritesArticle.getPostId());
+            favoritesArticle1.setState(1);
+            favoritesArticle1.setGmtModify(nowDate);
+            favoritesArticle1.setUserModify(userId);
+            return favoritesArticleDao.update(favoritesArticle1);
+        } else {
+            // 设置4个属性和收藏者id
+            favoritesArticle.setGmtCreate(nowDate);
+            favoritesArticle.setGmtModify(nowDate);
             favoritesArticle.setUserModify(userId);
-            favoritesArticle.setGmtModify(new Date());
-            favoritesArticle.setState(state);
+            favoritesArticle.setUserCreate(userId);
+            favoritesArticle.setUserId(userId);
 
-            return favoritesArticleDao.update(favoritesArticle);
+            return favoritesArticleDao.insert(favoritesArticle);
         }
+    }
 
-        @Override
-        public List<FavoritesArticleResponse> findListFavoritesArticle(FavoritesArticleQuery query) throws Exception {
-            List<FavoritesArticle> favoritesArticleList = favoritesArticleDao.findQuery(query);
-            //TODO
-            List<FavoritesArticleResponse> favoritesArticleResponse = responseConverter.convert(favoritesArticleList,FavoritesArticleResponse.class );
-            return favoritesArticleResponse;
-        }
+    @Override
+    public Integer updateFavoritesArticle(FavoritesArticleRequest request, Integer state) throws Exception {
+        FavoritesArticle favoritesArticle = requestConverter.convert(request, FavoritesArticle.class);
+        Integer userId = userHandle.getUserId();
 
-        @Override
-        public PageResult<FavoritesArticleResponse> findPageFavoritesArticle(FavoritesArticleQuery query) throws Exception {
-            return new PageResult<>(query.getPageSize(), this.findCount(query),query.getCurrentPage(), this.findListFavoritesArticle(query));
-        }
+        favoritesArticle.setUserId(userId);
+        favoritesArticle.setUserModify(userId);
+        favoritesArticle.setGmtModify(new Date());
+        favoritesArticle.setState(state);
+
+        return favoritesArticleDao.update(favoritesArticle);
+    }
+
+    @Override
+    public List<FavoritesArticleResponse> findListFavoritesArticle(FavoritesArticleQuery query) throws Exception {
+        List<FavoritesArticle> favoritesArticleList = favoritesArticleDao.findQuery(query);
+        //TODO
+        List<FavoritesArticleResponse> favoritesArticleResponse = responseConverter.convert(favoritesArticleList, FavoritesArticleResponse.class);
+        return favoritesArticleResponse;
+    }
+
+    @Override
+    public PageResult<FavoritesArticleResponse> findPageFavoritesArticle(FavoritesArticleQuery query) throws Exception {
+        return new PageResult<>(query.getPageSize(), this.findCount(query), query.getCurrentPage(), this.findListFavoritesArticle(query));
+    }
 
     @Override
     public FavoritesArticle getIfCollectByUserId(Integer userId, Integer postId) {

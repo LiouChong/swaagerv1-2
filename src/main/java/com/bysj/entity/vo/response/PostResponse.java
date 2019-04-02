@@ -98,6 +98,16 @@ public class PostResponse extends BaseEntity {
     @ApiModelProperty("文章的类型的中文形式")
     private String articleTypeStr;
 
+    /**
+     * 悬赏的资源
+     */
+    private Integer giveMoney;
+
+    /**
+     * 需要的资源
+     */
+    private Integer needMoney;
+
     public String getPlateId() {
         return plateId;
     }
@@ -106,9 +116,7 @@ public class PostResponse extends BaseEntity {
         this.plateId = plateId;
     }
 
-    private Integer giveMoney;
 
-    private Integer needMoney;
 
     public Integer getGiveMoney() {
         return giveMoney;

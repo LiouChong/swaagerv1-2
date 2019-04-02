@@ -48,4 +48,12 @@ public interface IFollowService extends IBaseService<Follow> {
          */
         PageResult<FollowResponse> findPageFollow(FollowQuery query) throws Exception;
 
+        /**
+         * 取消关注用户
+         * @param id
+         * @return
+         */
+        Integer cancelFollow(FollowRequest follow);
+
+        Follow getByIds(Integer starId);
 }

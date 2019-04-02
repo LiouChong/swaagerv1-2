@@ -2,6 +2,7 @@ package com.bysj.controller;
 
 
 import com.bysj.common.response.ActionResponse;
+import com.bysj.entity.Follow;
 import com.bysj.entity.vo.query.FollowQuery;
 import com.bysj.entity.vo.request.FollowRequest;
 import com.bysj.service.IFollowService;
@@ -34,9 +35,12 @@ public class FollowController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/save/single", method = RequestMethod.POST)
-    public ActionResponse saveSingle(@ApiParam(value = "follow") @RequestBody FollowRequest followRequest)throws Exception{
-        iFollowService.saveFollow(followRequest);
-        return ActionResponse.success();
+    public String saveSingle(@ApiParam(value = "follow") @RequestBody FollowRequest followRequest)throws Exception{
+        if (iFollowService.saveFollow(followRequest) == 1) {
+            return "关注成功";
+        } else  {
+            return "服务器异常，请稍后再试！";
+        }
     }
 
     /**
@@ -85,17 +89,20 @@ public class FollowController {
 
     /**
      * 通过ID删除
-     * @param id
+     * @param followRequest
      * @return actionResponse
      */
     @ApiOperation(value = "通过ID删除接口", notes = "主键封装对象")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
-
-        return ActionResponse.success(iFollowService.deleteById(id));
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String deleteById(@ApiParam(value = "id") @RequestBody FollowRequest followRequest)throws Exception{
+        if (iFollowService.cancelFollow(followRequest) == 1) {
+            return "删除成功";
+        } else {
+            return "服务器异常！请稍后再试";
+        }
     }
 }
 

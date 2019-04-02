@@ -5,6 +5,7 @@ import com.bysj.entity.User;
 import com.bysj.entity.vo.response.UserResponse;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authz.UnauthenticatedException;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -21,11 +22,7 @@ public class UserHandle {
     private UserDao userDao;
 
     public Integer getUserId() {
-        if ( getUser()==null) {
-            throw new UnknownAccountException();
-        } else {
-            return this.getUser().getId();
-        }
+        return this.getUser() == null ? null : this.getUser().getId();
     }
 
     public String getUserEmail() {
@@ -38,5 +35,13 @@ public class UserHandle {
 
     public UserResponse getCurrentUserInfo() {
         return userDao.userDetailInfo(getUserId());
+    }
+
+    public Integer getLoginUserId() {
+        Integer userId = getUserId();
+        if (userId == null) {
+            throw new UnauthenticatedException();
+        }
+        return userId;
     }
 }

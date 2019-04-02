@@ -193,8 +193,16 @@
 
                         <header class="clearfix">
                             <h3 class="post-title">
-                                <a th:href="'/post/detail?postId=' + ${post.id}" th:text="${post.title}">
-                                </a><span class="badge badge-default" th:text="${post.articleTypeStr}"></span>
+                                <a th:href="'/post/detail?postId=' + ${post.id}" th:text="${post.title}"></a>
+                                <span th:if="${post.articleType == 1}">
+                                <span class="badge badge-default" th:text="${post.articleTypeStr}"></span>
+                            </span>
+                                <span th:if="${post.articleType == 2}">
+                                <span class="badge badge-default" th:text="${post.articleTypeStr} + '(' + ${post.needMoney} + '分)'"></span>
+                            </span>
+                                <span th:if="${post.articleType == 3}">
+                                <span class="badge badge-default" th:text="${post.articleTypeStr} + '(' + ${post.needMoney} + '分)'"></span>
+                            </span>
                                 <shiro:hasPermission name="post:un_good">
                                     <input th:value="${post.id}" type="hidden">
                                     <a style="float: right;font-size: 13px;color:red;" href="javascript:void(0)"
