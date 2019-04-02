@@ -11,7 +11,7 @@
  Target Server Version : 50712
  File Encoding         : 65001
 
- Date: 19/03/2019 17:50:55
+ Date: 02/04/2019 17:53:23
 */
 
 SET NAMES utf8mb4;
@@ -98,6 +98,15 @@ CREATE TABLE `favorites_article`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '喜欢的文章表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of favorites_article
+-- ----------------------------
+INSERT INTO `favorites_article` VALUES (1, 1, 1, '2019-03-21 16:49:33', '2019-03-21 16:49:33', 1, 1);
+INSERT INTO `favorites_article` VALUES (1, 4, 1, '2019-04-02 15:42:02', '2019-04-02 15:42:02', 1, 1);
+INSERT INTO `favorites_article` VALUES (1, 35, 0, '2019-03-21 16:42:21', '2019-03-22 09:12:52', 1, 1);
+INSERT INTO `favorites_article` VALUES (4, 35, 1, '2019-03-21 13:20:09', '2019-03-21 13:20:09', 4, 4);
+INSERT INTO `favorites_article` VALUES (12, 4, 1, '2019-04-02 17:19:31', '2019-04-02 17:19:31', 12, 12);
+
+-- ----------------------------
 -- Table structure for follow
 -- ----------------------------
 DROP TABLE IF EXISTS `follow`;
@@ -110,10 +119,10 @@ CREATE TABLE `follow`  (
 -- ----------------------------
 -- Records of follow
 -- ----------------------------
-INSERT INTO `follow` VALUES (1, 10, NULL);
-INSERT INTO `follow` VALUES (2, 1, NULL);
-INSERT INTO `follow` VALUES (3, 1, NULL);
-INSERT INTO `follow` VALUES (4, 1, NULL);
+INSERT INTO `follow` VALUES (1, 10, '2019-04-02 16:02:12');
+INSERT INTO `follow` VALUES (2, 1, '2019-04-02 16:02:14');
+INSERT INTO `follow` VALUES (3, 1, '2019-04-02 16:02:15');
+INSERT INTO `follow` VALUES (4, 1, '2019-04-02 16:02:17');
 
 -- ----------------------------
 -- Table structure for permission
@@ -221,18 +230,18 @@ CREATE TABLE `post`  (
 -- ----------------------------
 -- Records of post
 -- ----------------------------
-INSERT INTO `post` VALUES (1, '帖子1', '帖子内容', 1, 0, 1, 8, 0, '2019-03-04 15:45:29', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
-INSERT INTO `post` VALUES (2, '帖子2', '啊啊啊啊啊啊', 1, 0, 2, 7, 0, '2019-03-11 15:26:37', '2019-03-19 16:40:23', 1, 1, 1, 2, 1, 1, NULL, 0, 0);
+INSERT INTO `post` VALUES (1, '帖子1', '帖子内容', 1, 0, 1, 8, 0, '2019-03-04 15:45:29', '2019-03-19 16:40:23', 1, 1, 1, 17, 1, 1, NULL, 0, 0);
+INSERT INTO `post` VALUES (2, '帖子2', '啊啊啊啊啊啊', 1, 0, 2, 12, 0, '2019-03-11 15:26:37', '2019-03-20 13:35:13', 1, 1, 1, 3, 1, 1, NULL, 0, 0);
 INSERT INTO `post` VALUES (3, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:32', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
-INSERT INTO `post` VALUES (4, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
-INSERT INTO `post` VALUES (5, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
+INSERT INTO `post` VALUES (4, 'test141556', 'test141556', 1, 1, 1, 2, 0, '2019-03-14 15:59:35', '2019-04-02 16:42:31', 1, 12, 1, 43, 1, 1, NULL, 0, 0);
+INSERT INTO `post` VALUES (5, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 1, 1, 1, NULL, 0, 0);
 INSERT INTO `post` VALUES (6, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
 INSERT INTO `post` VALUES (7, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
 INSERT INTO `post` VALUES (8, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
 INSERT INTO `post` VALUES (9, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
 INSERT INTO `post` VALUES (10, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
 INSERT INTO `post` VALUES (11, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
-INSERT INTO `post` VALUES (12, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
+INSERT INTO `post` VALUES (12, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 2, 1, 1, NULL, 0, 0);
 INSERT INTO `post` VALUES (13, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
 INSERT INTO `post` VALUES (14, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
 INSERT INTO `post` VALUES (15, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
@@ -241,9 +250,9 @@ INSERT INTO `post` VALUES (17, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-
 INSERT INTO `post` VALUES (18, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
 INSERT INTO `post` VALUES (19, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 0, 0, 1, 1, '小测试', 0, 0);
 INSERT INTO `post` VALUES (20, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 1, 0, 1, 1, NULL, 0, 0);
-INSERT INTO `post` VALUES (21, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 0, 0, 1, 1, '测试', 0, 0);
-INSERT INTO `post` VALUES (34, '测试1530', '11', 1, 0, 2, 0, 0, '2019-03-18 15:31:58', '2019-03-19 16:44:51', 1, 1, 1, 0, 1, 2, NULL, 0, 33);
-INSERT INTO `post` VALUES (35, '测试181548', '测试181548', 1, 1, 2, 0, 0, '2019-03-18 15:48:24', '2019-03-19 16:43:56', 1, 1, 1, 0, 1, 2, NULL, 0, 22);
+INSERT INTO `post` VALUES (21, 'test141556', 'test141556', 1, 0, 1, 0, 0, '2019-03-14 15:59:35', '2019-03-19 16:40:23', 1, 1, 0, 1, 1, 1, '测试', 0, 0);
+INSERT INTO `post` VALUES (34, '测试1530', '11', 1, 0, 2, 0, 0, '2019-03-18 15:31:58', '2019-03-20 09:17:49', 1, 1, 0, 0, 1, 2, '涉黄', 0, 33);
+INSERT INTO `post` VALUES (35, '测试181548', '测试181548', 1, 1, 2, 4, 0, '2019-03-18 15:48:24', '2019-03-20 15:55:03', 1, 12, 1, 313, 1, 2, NULL, 0, 22);
 
 -- ----------------------------
 -- Table structure for private_letter
@@ -254,7 +263,7 @@ CREATE TABLE `private_letter`  (
   `user_send_send` int(11) NOT NULL COMMENT '发送者id（用于创建者）',
   `user_send_rev` int(11) NOT NULL COMMENT '接收者id',
   `content` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '内容',
-  `if_read` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否已读: 1已读 0 未读',
+  `if_read` tinyint(3) NOT NULL DEFAULT 0 COMMENT '是否已读: 1已读 0 未读',
   `state` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态： 1有效 0无效',
   `user_modify` int(11) DEFAULT NULL COMMENT '修改着id',
   `gmt_create` datetime(0) DEFAULT NULL COMMENT '创建时间',
@@ -262,7 +271,15 @@ CREATE TABLE `private_letter`  (
   `letter_type` tinyint(1) DEFAULT NULL COMMENT '私信类型： 1 用户私信 2 系统私信',
   `user_rev_send` int(11) NOT NULL COMMENT '发送者id（用于接收者）',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '私信表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '私信表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of private_letter
+-- ----------------------------
+INSERT INTO `private_letter` VALUES (1, 1, 3, '你好', 0, 1, 1, '2019-03-25 09:48:30', '2019-03-25 09:48:32', 1, 1);
+INSERT INTO `private_letter` VALUES (2, 1, 12, '你好你你好你想熬煮你好你想熬煮你好你想熬煮你好你想熬煮你好你想熬煮你好你想熬煮你好你想熬煮你好你想熬煮你好你想熬煮你好你想熬煮你好你想熬煮你好你想熬煮你好你想熬煮你好你想熬煮你好你想熬煮想熬煮', 1, 1, 12, '2019-03-25 10:13:49', '2019-03-29 17:17:47', 1, 0);
+INSERT INTO `private_letter` VALUES (3, 1, 12, 'aa', 0, 1, 12, '2019-03-25 10:15:16', '2019-03-29 17:04:13', 1, 1);
+INSERT INTO `private_letter` VALUES (4, 12, 1, '你也好', 1, 1, 1, '2019-03-28 16:47:32', '2019-03-29 17:20:44', 1, 12);
 
 -- ----------------------------
 -- Table structure for reply
@@ -279,13 +296,13 @@ CREATE TABLE `reply`  (
   `user_modify` int(11) DEFAULT NULL COMMENT '修改者id',
   `state` tinyint(3) NOT NULL DEFAULT 1 COMMENT '1 有效, 0 无效',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '回复表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '回复表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of reply
 -- ----------------------------
-INSERT INTO `reply` VALUES (1, '哈哈太逗了', 4, 0, '2019-03-11 11:11:08', '2019-03-11 11:11:08', 1, 1, 1);
-INSERT INTO `reply` VALUES (2, '没毛病嗷', 2, 0, '2019-03-11 11:11:08', '2019-03-11 11:11:08', 1, 1, 1);
+INSERT INTO `reply` VALUES (1, '哈哈太逗了', 4, 0, '2019-03-11 11:11:08', '2019-03-20 10:31:40', 1, 1, 1);
+INSERT INTO `reply` VALUES (2, '没毛病嗷', 2, 0, '2019-03-11 11:11:08', '2019-03-20 10:35:52', 1, 1, 0);
 INSERT INTO `reply` VALUES (3, '嚯嚯嚯', 1, 0, '2019-03-11 11:11:08', '2019-03-11 11:11:08', 1, 1, 1);
 INSERT INTO `reply` VALUES (4, '那是真的牛批', 1, 0, '2019-03-11 11:11:05', '2019-03-11 11:11:32', 1, 1, 1);
 INSERT INTO `reply` VALUES (5, '指定给你吃好果子嗷', 1, 0, '2019-03-11 11:11:08', '2019-03-11 11:11:49', 1, 1, 1);
@@ -294,16 +311,16 @@ INSERT INTO `reply` VALUES (7, '大家好我是陈冠希，一giao窝里giao gia
 INSERT INTO `reply` VALUES (8, '阿giao给你留个言', 1, 0, '2019-03-11 11:11:08', '2019-03-11 11:11:08', 1, 1, 1);
 INSERT INTO `reply` VALUES (9, '不睡最好', 16, 0, '2019-03-11 11:11:08', '2019-03-11 11:11:08', 1, 1, 1);
 INSERT INTO `reply` VALUES (11, 'giao哥up up', 1, 0, '2019-03-11 11:11:08', '2019-03-11 11:11:08', 1, 1, 1);
-INSERT INTO `reply` VALUES (12, '你好', 2, 0, '2019-03-11 17:08:19', '2019-03-11 17:08:19', 1, 1, 1);
-INSERT INTO `reply` VALUES (13, '你好', 2, 0, '2019-03-11 17:08:19', '2019-03-11 17:08:19', 1, 1, 1);
-INSERT INTO `reply` VALUES (14, '我透', 2, 0, '2019-03-11 17:10:08', '2019-03-11 17:10:08', 1, 1, 0);
-INSERT INTO `reply` VALUES (15, '我透', 2, 0, '2019-03-11 17:10:08', '2019-03-11 17:10:08', 1, 1, 0);
-INSERT INTO `reply` VALUES (16, '我透', 2, 0, '2019-03-11 17:10:16', '2019-03-11 17:10:16', 1, 1, 0);
-INSERT INTO `reply` VALUES (17, '我透', 2, 0, '2019-03-11 17:10:16', '2019-03-11 17:10:16', 1, 1, 0);
-INSERT INTO `reply` VALUES (18, '我透', 2, 0, '2019-03-11 17:10:17', '2019-03-11 17:10:17', 1, 1, 0);
-INSERT INTO `reply` VALUES (19, '我透', 2, 0, '2019-03-11 17:10:17', '2019-03-11 17:10:17', 1, 1, 0);
-INSERT INTO `reply` VALUES (20, '我透', 2, 0, '2019-03-11 17:10:17', '2019-03-11 17:10:17', 1, 1, 0);
-INSERT INTO `reply` VALUES (21, '我透', 2, 0, '2019-03-11 17:10:17', '2019-03-11 17:10:17', 1, 1, 0);
+INSERT INTO `reply` VALUES (12, '你好', 2, 0, '2019-03-11 17:08:19', '2019-03-20 10:41:02', 1, 1, 0);
+INSERT INTO `reply` VALUES (13, '你好', 2, 0, '2019-03-11 17:08:19', '2019-03-20 10:42:14', 1, 1, 0);
+INSERT INTO `reply` VALUES (14, '我透', 2, 0, '2019-03-11 17:10:08', '2019-03-20 10:42:16', 1, 1, 0);
+INSERT INTO `reply` VALUES (15, '我透', 2, 0, '2019-03-11 17:10:08', '2019-03-20 10:43:31', 1, 1, 0);
+INSERT INTO `reply` VALUES (16, '我透', 2, 0, '2019-03-11 17:10:16', '2019-03-20 10:43:33', 1, 1, 0);
+INSERT INTO `reply` VALUES (17, '我透', 2, 0, '2019-03-11 17:10:16', '2019-03-20 10:43:34', 1, 1, 0);
+INSERT INTO `reply` VALUES (18, '我透', 2, 0, '2019-03-11 17:10:17', '2019-03-20 10:43:36', 1, 1, 0);
+INSERT INTO `reply` VALUES (19, '我透', 2, 0, '2019-03-11 17:10:17', '2019-03-20 10:43:38', 1, 1, 0);
+INSERT INTO `reply` VALUES (20, '我透', 2, 0, '2019-03-11 17:10:17', '2019-03-11 17:10:17', 1, 1, 1);
+INSERT INTO `reply` VALUES (21, '我透', 2, 0, '2019-03-11 17:10:17', '2019-03-11 17:10:17', 1, 1, 1);
 INSERT INTO `reply` VALUES (22, '啊啊啊', 2, 0, '2019-03-12 10:08:53', '2019-03-12 10:08:53', 1, 1, 1);
 INSERT INTO `reply` VALUES (23, '11111', 2, 0, '2019-03-12 10:10:07', '2019-03-12 10:10:07', 1, 1, 1);
 INSERT INTO `reply` VALUES (24, '222', 2, 0, '2019-03-12 10:10:34', '2019-03-12 10:10:34', 1, 1, 1);
@@ -311,6 +328,25 @@ INSERT INTO `reply` VALUES (25, '333', 2, 0, '2019-03-12 10:11:18', '2019-03-12 
 INSERT INTO `reply` VALUES (26, '444', 2, 0, '2019-03-12 10:11:48', '2019-03-12 10:11:48', 1, 1, 1);
 INSERT INTO `reply` VALUES (27, '555', 2, 0, '2019-03-12 10:12:17', '2019-03-12 10:12:17', 1, 1, 1);
 INSERT INTO `reply` VALUES (28, 'LOOK AT U UGLY FAT', 1, 0, '2019-03-12 11:11:14', '2019-03-12 11:11:14', 3, 3, 1);
+INSERT INTO `reply` VALUES (29, '11', 35, 0, '2019-03-20 11:19:32', '2019-03-20 15:01:07', 1, 1, 0);
+INSERT INTO `reply` VALUES (30, '22', 35, 0, '2019-03-20 11:23:25', '2019-03-20 11:28:18', 1, 1, 0);
+INSERT INTO `reply` VALUES (31, '33', 35, 0, '2019-03-20 11:26:12', '2019-03-20 11:28:16', 1, 1, 0);
+INSERT INTO `reply` VALUES (32, '444', 35, 0, '2019-03-20 11:28:06', '2019-03-20 11:28:14', 1, 1, 0);
+INSERT INTO `reply` VALUES (33, '22', 35, 0, '2019-03-20 11:29:47', '2019-03-20 15:27:27', 1, 4, 0);
+INSERT INTO `reply` VALUES (34, '2', 2, 0, '2019-03-20 13:27:50', '2019-03-20 13:27:50', 1, 1, 1);
+INSERT INTO `reply` VALUES (35, '123', 2, 0, '2019-03-20 13:35:04', '2019-03-20 13:35:04', 1, 1, 1);
+INSERT INTO `reply` VALUES (36, '444', 2, 0, '2019-03-20 13:35:07', '2019-03-20 13:35:07', 1, 1, 1);
+INSERT INTO `reply` VALUES (37, '666', 2, 0, '2019-03-20 13:35:13', '2019-03-20 13:35:13', 1, 1, 1);
+INSERT INTO `reply` VALUES (38, '封禁test', 35, 0, '2019-03-20 14:06:11', '2019-03-20 15:48:24', 4, 1, 0);
+INSERT INTO `reply` VALUES (39, '雷猴啊', 35, 0, '2019-03-20 15:24:55', '2019-03-20 15:47:18', 4, 1, 0);
+INSERT INTO `reply` VALUES (40, 'xixixiix', 35, 0, '2019-03-20 15:24:59', '2019-03-20 15:33:14', 4, 4, 0);
+INSERT INTO `reply` VALUES (41, '11', 35, 0, '2019-03-20 15:49:20', '2019-03-20 15:49:46', 1, 1, 0);
+INSERT INTO `reply` VALUES (42, '22', 35, 0, '2019-03-20 15:49:21', '2019-03-20 15:49:21', 1, 1, 1);
+INSERT INTO `reply` VALUES (43, '33', 35, 0, '2019-03-20 15:49:23', '2019-03-20 15:49:23', 1, 1, 1);
+INSERT INTO `reply` VALUES (44, '封禁我呀', 35, 0, '2019-03-20 15:54:59', '2019-03-20 15:54:59', 12, 12, 1);
+INSERT INTO `reply` VALUES (45, '啊哈哈哈哈哈', 35, 0, '2019-03-20 15:55:03', '2019-03-20 15:55:03', 12, 12, 1);
+INSERT INTO `reply` VALUES (46, '111', 4, 0, '2019-04-02 16:41:50', '2019-04-02 16:42:26', 12, 12, 0);
+INSERT INTO `reply` VALUES (47, '22', 4, 0, '2019-04-02 16:42:31', '2019-04-02 16:42:31', 12, 12, 1);
 
 -- ----------------------------
 -- Table structure for resource
@@ -408,34 +444,19 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, '970009721@qq.com', '123', 0, '970009721@qq.com', '970009721@qq.com1552013039596.jpg', 3, '11', b'1', 22, 1, '2019-03-04 13:05:45', '2019-03-11 14:11:56', 1, NULL);
+INSERT INTO `user` VALUES (1, '970009721@qq.com', '123', 0, '970009721@qq.com', '970009721@qq.com1553132766089.png', 3, '11', b'1', 22, 1, '2019-03-04 13:05:45', '2019-03-21 09:46:06', 1, NULL);
 INSERT INTO `user` VALUES (3, '308045454@qq.com', 'bde525986a233c8210fcf9223df865a5', 0, '308045454@qq.com', 'default.jpg', 2, '冲冲冲冲冲', b'1', 22, 1, '2019-03-12 11:10:27', '2019-03-12 11:10:27', NULL, NULL);
-INSERT INTO `user` VALUES (4, '123', '123', 0, '123', 'default.jpg', 2, '冲冲冲冲冲', b'1', 2, 0, '2019-03-14 11:27:33', '2019-03-14 11:27:35', 1, '长得好丑');
+INSERT INTO `user` VALUES (4, '123', '123', 0, '123', 'default.jpg', 2, '冲冲冲冲冲', b'1', 2, 1, '2019-03-14 11:27:33', '2019-04-02 16:01:19', 1, '长得好丑');
 INSERT INTO `user` VALUES (5, '970009721@qq.co', '9e3480e2ec2c0cfaba01bda6aac6a386', 0, '970009721@qq.co', 'default.jpg', 1, '冲冲冲冲冲', b'1', 2, 1, '2019-03-14 16:22:34', '2019-03-14 16:22:36', NULL, NULL);
 INSERT INTO `user` VALUES (6, '小刘', '123', 0, 'test1@qq.com', 'default.jpg', 1, '冲冲冲冲冲', b'1', 2, 1, '2019-03-15 13:18:08', '2019-03-15 13:18:11', NULL, NULL);
 INSERT INTO `user` VALUES (7, '小张', '123', 0, 'test2qq.com', 'default.jpg', 1, '冲冲冲冲冲', b'1', 2, 1, '2019-03-15 13:18:31', '2019-03-15 13:18:34', NULL, NULL);
 INSERT INTO `user` VALUES (8, '老王', '123', 0, 'test3qq.com', 'default.jpg', 1, '冲冲冲冲冲', b'1', 2, 1, '2019-03-15 13:18:50', '2019-03-15 13:18:53', NULL, NULL);
-INSERT INTO `user` VALUES (9, '小李', '123', 0, 'test3qq.com', 'default.jpg', 1, '冲冲冲冲冲', b'1', 2, 1, '2019-03-15 13:19:08', '2019-03-15 13:19:10', NULL, NULL);
+INSERT INTO `user` VALUES (9, '小李', '123', 0, 'test33qq.com', 'default.jpg', 1, '冲冲冲冲冲', b'1', 2, 1, '2019-03-15 13:19:08', '2019-03-15 13:19:10', NULL, NULL);
 INSERT INTO `user` VALUES (10, '小陈', '123', 0, 'test5qq.com', 'default.jpg', 1, '冲冲冲冲冲', b'1', 2, 1, '2019-03-15 13:58:49', '2019-03-15 13:58:49', NULL, NULL);
 INSERT INTO `user` VALUES (11, '小杨', '123', 0, 'qqqq.com', 'default.jpg', 1, '冲冲冲冲冲', b'1', 2, 1, '2019-03-15 13:59:15', '2019-03-15 13:59:18', NULL, NULL);
-INSERT INTO `user` VALUES (12, '小猪尼若', '123', 0, 'qqqqwe', 'default.jpg', 1, '冲冲冲冲冲', b'1', 2, 1, '2019-03-15 13:59:33', '2019-03-15 13:59:33', NULL, NULL);
+INSERT INTO `user` VALUES (12, '小猪尼若', '123', 0, 'niruo@qq.com', 'default.jpg', 1, '冲冲冲冲冲', b'1', 2, 1, '2019-03-15 13:59:33', '2019-03-20 16:07:09', 1, NULL);
 INSERT INTO `user` VALUES (13, '小猪佩奇', '123', 0, '123kqwe', 'default.jpg', 1, '冲冲冲冲冲', b'1', 2, 1, '2019-03-15 13:59:48', '2019-03-15 13:59:50', NULL, NULL);
 INSERT INTO `user` VALUES (14, '小黄', '123', 0, 'oiqwhe1', 'default.jpg', 1, NULL, b'1', 2, 1, '2019-03-15 14:00:02', '2019-03-15 14:00:03', NULL, NULL);
-
--- ----------------------------
--- Table structure for user_ban
--- ----------------------------
-DROP TABLE IF EXISTS `user_ban`;
-CREATE TABLE `user_ban`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `ban_user_id` int(11) NOT NULL COMMENT '被封禁用户id',
-  `hand_user_id` int(11) NOT NULL COMMENT '操作人id',
-  `end_time` datetime(0) NOT NULL COMMENT '结束时间',
-  `gmt_create` datetime(0) DEFAULT NULL COMMENT '创建时间',
-  `gmt_modify` datetime(0) DEFAULT NULL COMMENT '修改时间',
-  `user_modify` int(11) DEFAULT NULL COMMENT '修改者id',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户封禁表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for user_team_rel
@@ -456,7 +477,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getinfo`(
 	OUT avglevel DECIMAL(8,2),
 	OUT maxlevel DECIMAL(8,2)
 )
-BEGIN
+BEGIN	
 	SELECT MIN(`level`) INTO minlevel FROM `user`;
 	SELECT MAX(`level`) INTO maxlevel FROM `user`;
 	SELECT AVG(`level`) INTO avglevel FROM `user`;
@@ -470,7 +491,7 @@ delimiter ;
 DROP PROCEDURE IF EXISTS `getinfo2`;
 delimiter ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getinfo2`()
-BEGIN
+BEGIN	
 	SELECT MIN(`level`),MAX(`level`),AVG(`level`) FROM `user`;
 END
 ;;
@@ -482,10 +503,10 @@ delimiter ;
 DROP PROCEDURE IF EXISTS `getuserbyid`;
 delimiter ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getuserbyid`(
-	IN userid INT,
+	IN userid INT, 
 	OUT retuser DECIMAL(8,2)
 )
-BEGIN
+BEGIN 
 	SELECT `level` FROM `user` WHERE `user`.id = userid INTO retuser;
 END
 ;;
