@@ -399,12 +399,12 @@
     </delete>
     <delete id="delPost" parameterType="com.bysj.entity.vo.request.PostDel">
         update post
-        set state       = 0,
-            gmt_modify  = #{gmtModify},
-            modify_user = #{modifyUser},
-            <if test="banReason != null">
-              ban_reason  =#{banReason}
-            </if>
+        set state = 0,
+        gmt_modify = #{gmtModify},
+        modify_user = #{modifyUser},
+        <if test="banReason != null">
+            ban_reason =#{banReason}
+        </if>
         where id = #{id}
     </delete>
 
@@ -462,28 +462,28 @@
     <select id="findPostQuery" resultType="com.bysj.entity.vo.response.PostResponse"
             parameterType="com.bysj.common.request.ObjectQuery">
         select
-        p.id,
-        p.title,
-        p.info,
-        p.plate_id as plateId,
-        u.nickname as posterName,
-        p.if_good as ifGood,
-        pl.plate_name as plateName,
-        p.reply_count as replyCount,
-        p.thumbup_count as thumbupCount,
-        p.gmt_create as gmtCreate,
-        p.gmt_modify as gmtModify,
-        p.read_count as readCount,
-        p.article_from as articleFrom,
-        p.article_type as articleType,
-        p.need_money as needMoney,
-        p.give_money as giveMoney
+            p.id,
+            p.title,
+            p.info,
+            p.plate_id as plateId,
+            u.nickname as posterName,
+            p.if_good as ifGood,
+            pl.plate_name as plateName,
+            p.reply_count as replyCount,
+            p.thumbup_count as thumbupCount,
+            p.gmt_create as gmtCreate,
+            p.gmt_modify as gmtModify,
+            p.read_count as readCount,
+            p.article_from as articleFrom,
+            p.article_type as articleType,
+            p.need_money as needMoney,
+            p.give_money as giveMoney
         from
-        post p
+          post p
         inner join
         user u on p.poster_id = u.id
         inner join
-        plater pl on p.plate_id = pl.id
+          plater pl on p.plate_id = pl.id
         <where>
             <trim prefixOverrides="and">
                 <if test=" title != null">
@@ -536,8 +536,8 @@
             p.read_count    as readCount,
             p.article_from  as articleFrom,
             p.article_type  as articleType,
-               p.need_money as needMoney,
-               p.give_money as giveMoney
+            p.need_money    as needMoney,
+            p.give_money    as giveMoney
         from
             post p
                 inner join
@@ -686,17 +686,18 @@
           and r.state = 1
     </select>
 
-    <select id="findPageManagePost" resultType="com.bysj.entity.vo.response.PostBanResponse" parameterType="com.bysj.entity.vo.query.ManagePostQuery">
+    <select id="findPageManagePost" resultType="com.bysj.entity.vo.response.PostBanResponse"
+            parameterType="com.bysj.entity.vo.query.ManagePostQuery">
         select
-            p.id,
-            p.title,
-            uu.nickname as posterName,
-            pl.plate_name as plateName,
-            p.gmt_create as postGmtCreate,
-            p.gmt_modify as gmtModify,
-            p.ban_reason as banReason,
-            u.nickname as banUserName,
-            p.read_count as readCount
+        p.id,
+        p.title,
+        uu.nickname as posterName,
+        pl.plate_name as plateName,
+        p.gmt_create as postGmtCreate,
+        p.gmt_modify as gmtModify,
+        p.ban_reason as banReason,
+        u.nickname as banUserName,
+        p.read_count as readCount
         from post p
         left join user u on p.modify_user = u.id
         left join plater pl on p.plate_id = pl.id
@@ -715,13 +716,14 @@
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
     </select>
-    <select id="findPagePostCount" resultType="java.lang.Integer" parameterType="com.bysj.entity.vo.query.ManagePostQuery">
+    <select id="findPagePostCount" resultType="java.lang.Integer"
+            parameterType="com.bysj.entity.vo.query.ManagePostQuery">
         select
-            count(1)
+        count(1)
         from post p
-            left join user u on p.modify_user = u.id
-            left join plater pl on p.plate_id = pl.id
-            left join user uu on p.poster_id = uu.id
+        left join user u on p.modify_user = u.id
+        left join plater pl on p.plate_id = pl.id
+        left join user uu on p.poster_id = uu.id
         <where>
             <trim prefixOverrides="and">
                 <if test="ifBan != null">
@@ -730,6 +732,47 @@
                 <if test="ownerId != null">
                     and p.poster_Id = #{ownerId}
                 </if>
+            </trim>
+        </where>
+    </select>
+    <select id="findPostQueryCount" resultType="java.lang.Integer">
+        select
+          count(1)
+        from
+        post p
+        inner join
+        user u on p.poster_id = u.id
+        inner join
+        plater pl on p.plate_id = pl.id
+        <where>
+            <trim prefixOverrides="and">
+                <if test=" title != null">
+                    and title = #{title }
+                </if>
+                <if test=" info != null">
+                    and info = #{info }
+                </if>
+                <if test=" ifGood != null">
+                    and if_good = #{ifGood }
+                </if>
+                <if test=" plateId != null">
+                    and plate_id = #{plateId }
+                </if>
+                <if test=" gmtCreate != null">
+                    and gmt_create = #{gmtCreate }
+                </if>
+                <if test=" articleFrom != null">
+                    and article_from = #{articleFrom }
+                </if>
+                <if test=" articleType != null">
+                    and article_type = #{articleType }
+                </if>
+                <if test="userId != null">
+                    and u.id = #{userId}
+                </if>
+                and p.state = 1
+                and p.plate_id = pl.id
+                and p.create_user = u.id
             </trim>
         </where>
     </select>

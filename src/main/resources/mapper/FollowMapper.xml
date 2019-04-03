@@ -77,7 +77,7 @@
 
     <insert id="insert" parameterType="com.bysj.entity.Follow">
         insert into
-        <include refid="Table_Name"></include>
+        follow
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <include refid="IF_Base_Column_List"></include>
         </trim>
@@ -88,7 +88,7 @@
 
     <update id="update" parameterType="com.bysj.entity.Follow">
         update
-        <include refid="Table_Name"></include>
+        follow
         <trim prefix="SET" suffixOverrides=",">
             <include refid="Set_Column_List"></include>
         </trim>
@@ -100,30 +100,32 @@
         select
         <include refid="Base_Column_List"/>
         from
-        <include refid="Table_Name"></include>
+        follow
         where id = #{id}
     </select>
 
 
     <delete id="deleteById" parameterType="java.lang.Integer">
-        delete from
-        <include refid="Table_Name"></include>
+        delete
+        from
+            follow
         where id = #{id}
     </delete>
 
     <delete id="cancelFollow" parameterType="com.bysj.entity.Follow">
-        delete from
-        <include refid="Table_Name"></include>
+        delete
+        from
+            follow
         where
-        fan_id = #{fanId}
-        and star_id = #{starId}
+            fan_id = #{fanId}
+          and star_id = #{starId}
     </delete>
 
     <select id="getByWhere" resultType="com.bysj.entity.Follow" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
-        <include refid="Table_Name"></include>
+        follow
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -135,31 +137,58 @@
     <select id="getAll" resultType="com.bysj.entity.Follow">
         select *
         from
-        <include refid="Table_Name"></include>
+            follow
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
-        select count(1)
+    <select id="findFollowUserCount" resultType="Integer" parameterType="com.bysj.entity.vo.query.FollowQuery">
+        select
+        count(1)
         from
-        <include refid="Table_Name"></include>
+        follow f left join user u on
+        <if test="fanId != null">
+            f.star_id = u.id
+        </if>
+        <if test="starId != null">
+            f.fan_id = u.id
+        </if>
         <where>
             <trim prefixOverrides="and">
-                <include refid="Where_Column_List"></include>
+                <if test=" fanId != null">
+                    and fan_id = #{fanId }
+                </if>
+                <if test=" starId != null">
+                    and star_id = #{starId }
+                </if>
             </trim>
         </where>
     </select>
 
-    <select id="findQuery" resultType="com.bysj.entity.Follow" parameterType="com.bysj.common.request.ObjectQuery">
+    <select id="findFollowUser" resultType="com.bysj.entity.vo.response.FollowResponse"
+            parameterType="com.bysj.entity.vo.query.FollowQuery">
         select
-        fan_id as fanId,
-        star_id as starId,
-        gmt_create as gmtCreate
+            u.id,
+            u.nickname,
+            u.picture,
+            u.signa_ture as signaTure,
+            f.gmt_create as gmtCreate,
+            f.fan_id as fanId
         from
-        <include refid="Table_Name"></include>
+        follow f left join user u on
+        <if test="fanId != null">
+            f.star_id = u.id
+        </if>
+        <if test="starId != null">
+            f.fan_id = u.id
+        </if>
         <where>
             <trim prefixOverrides="and">
-                <include refid="Where_Column_List"></include>
+                <if test=" fanId != null">
+                    and fan_id = #{fanId }
+                </if>
+                <if test=" starId != null">
+                    and star_id = #{starId }
+                </if>
             </trim>
         </where>
         <if test="pageSize !=-1">
@@ -174,6 +203,7 @@
         from
             follow
         where
-            fan_id = #{fanId} and star_id = #{starId}
+            fan_id = #{fanId}
+          and star_id = #{starId}
     </select>
 </mapper>

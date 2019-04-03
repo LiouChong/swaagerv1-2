@@ -44,11 +44,19 @@ public interface IPostService extends IBaseService<Post> {
 
 
         /**
-         * 批量查询，用于推荐帖子
+         * 根据传入条件批量查询，用于推荐帖子
          * @param query
          * @return
          */
         List<PostResponse> findPagePost(PostQueryForList query, String pageName) throws Exception;
+
+        /**
+         * 查询帖子的数量，用于推荐页面，个人信息页面
+         * @param query
+         * @return
+         * @throws Exception
+         */
+        Integer findPagePostCount(PostQueryForList query) throws Exception;
 
         /**
          * 通过标题和内容简单查询

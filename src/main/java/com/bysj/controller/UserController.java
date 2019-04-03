@@ -3,12 +3,14 @@ package com.bysj.controller;
 
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.response.PageResult;
+import com.bysj.common.utils.PageUtil;
 import com.bysj.common.utils.UserHandle;
 import com.bysj.entity.Follow;
 import com.bysj.entity.vo.query.*;
 import com.bysj.entity.vo.request.UserRequestForBan;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
 import com.bysj.entity.vo.response.PostBanResponse;
+import com.bysj.entity.vo.response.PostResponse;
 import com.bysj.entity.vo.response.PrivateLetterForMyResponse;
 import com.bysj.entity.vo.response.UserResponse;
 import com.bysj.service.IFollowService;
@@ -28,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -171,27 +174,35 @@ public class UserController {
     /**
      * 查询用户详细信息
      *
-     * @param id
+     * @param queryForList
      * @return actionResponse
      */
     @ApiOperation(value = "通过ID查询", notes = "主键封装对象")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    public ModelAndView queryById(@PathVariable(value = "id") Integer id, ModelAndView modelAndView) throws Exception {
-        UserResponse infoById = iUserService.getInfoById(id);
-        Follow byIds = followService.getByIds(id);
+    @RequestMapping(value = "/user/other", method = RequestMethod.GET)
+    public ModelAndView queryById(PostQueryForList queryForList) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        Integer userId = queryForList.getUserId();
+        UserResponse infoById = iUserService.getInfoById(userId);
+        Follow byIds = followService.getByIds(userId);
         // 判断当前用户是否关注该用户
         if (Objects.isNull(byIds)) {
             modelAndView.addObject("followIf", null);
         } else {
             modelAndView.addObject("followIf", byIds);
         }
-        PostQueryForList queryForList = new PostQueryForList();
-        queryForList.setUserId(id);
-        postService.findPagePost(queryForList,"follow");
-        // 当前用户信息传给前端
+        List<PostResponse> userPosts = postService.findPagePost(queryForList, "follow");
+        Integer postCount = postService.findPagePostCount(queryForList);
+
+        // 获得总页数
+        Integer totalPage = PageUtil.getTotalPage(postCount, queryForList.getPageSize());
+
+        modelAndView.addObject("totalPage", totalPage);
+        modelAndView.addObject("currentPage", queryForList.getCurrentPage());
+        modelAndView.addObject("posts", userPosts);
+        modelAndView.addObject("postCount", postCount);
         modelAndView.addObject("user",infoById);
         modelAndView.setViewName("UserInfo");
         return modelAndView;
@@ -311,9 +322,6 @@ public class UserController {
         return modelAndView;
     }
 
-    public static void main(String[] args) {
-        String s1 = "/user/css/font-awesome.css";
-        System.out.println(!("/".equals(s1) || s1.contains("/css/")));
-    }
+
 }
 

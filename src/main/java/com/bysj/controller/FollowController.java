@@ -2,13 +2,22 @@ package com.bysj.controller;
 
 
 import com.bysj.common.response.ActionResponse;
+import com.bysj.common.response.PageResult;
+import com.bysj.common.utils.DateUtils;
+import com.bysj.common.utils.PageUtil;
+import com.bysj.common.utils.UserHandle;
 import com.bysj.entity.Follow;
 import com.bysj.entity.vo.query.FollowQuery;
 import com.bysj.entity.vo.request.FollowRequest;
+import com.bysj.entity.vo.response.FollowResponse;
+import com.bysj.enums.FollowEnum;
 import com.bysj.service.IFollowService;
 import io.swagger.annotations.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.activation.DataHandler;
 import javax.annotation.Resource;
 
 /**
@@ -24,6 +33,10 @@ public class FollowController {
 
     @Resource
     public IFollowService iFollowService;
+
+    @Autowired
+    private UserHandle userHandle;
+
 
     /**
      * 保存
@@ -60,7 +73,7 @@ public class FollowController {
 
     /**
      * 批量查询
-     * @param followQuery
+     * @param type
      * @return actionResponse
      */
     @ApiOperation(value = "批量查询接口", notes = "传入查询条件")
@@ -68,8 +81,25 @@ public class FollowController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/query/list", method = RequestMethod.GET)
-    public ActionResponse queryList(@ApiParam(value = "follow") FollowQuery followQuery)throws Exception{
-        return ActionResponse.success(iFollowService.findPageFollow(followQuery));
+    public ModelAndView queryList( FollowQuery followQuery, ModelAndView modelAndView)throws Exception{
+        PageResult<FollowResponse> pageFollow = iFollowService.findPageFollow(followQuery);
+        pageFollow.getItems().forEach(item -> {
+            item.setGmtCreateStr(DateUtils.getDataString(item.getGmtCreate(), DateUtils.WHOLE_FORMAT));
+        });
+        modelAndView.addObject("follows", pageFollow.getItems());
+        modelAndView.addObject("totalRecords", pageFollow.getTotalRecords());
+        modelAndView.addObject("currentPage", pageFollow.getCurrentPage());
+        // 如果fanId不等于null，则代表通过fanId查询自己关注的人，为了前端页面的分页，所以将fanId返回给前端
+        if (followQuery.getFanId() != null) {
+            modelAndView.addObject("fanId", followQuery.getFanId());
+        } else {
+            modelAndView.addObject("fanId", -1);
+        }
+        modelAndView.addObject("totalPage", PageUtil.getTotalPage(pageFollow.getTotalRecords(),pageFollow.getPageSize()));
+
+        modelAndView.setViewName("follow_user");
+
+        return modelAndView;
     }
 
     /**

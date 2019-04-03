@@ -68,6 +68,8 @@
     <script src="/js/jquery-3.3.1.js"></script>
     <script>
         $(document).ready(function () {
+
+            // 推荐帖子ajax
             $("a[name$='setGood']").click(function () {
                 var r = confirm("是否确定？")
                 if (r == true) {
@@ -90,6 +92,7 @@
                 }
             })
 
+            // 删除帖子ajax
             $("a[name$='delPost']").click(function () {
                 var judge = prompt("请输入删除理由");
                 if (judge ) {

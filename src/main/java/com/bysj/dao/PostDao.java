@@ -58,6 +58,13 @@ public interface PostDao extends IBaseDao<Post> {
     List<PostResponse> findPostQuery(PostQueryForList query);
 
     /**
+     * 查询帖子数量，用于推荐和板块
+     * @param list
+     * @return
+     */
+    Integer findPostQueryCount(PostQueryForList list);
+
+    /**
      * 查询首页推荐的帖子
      * @return
      */

@@ -131,6 +131,11 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     }
 
     @Override
+    public Integer findPagePostCount(PostQueryForList query) throws Exception {
+        return postDao.findPostQueryCount(query);
+    }
+
+    @Override
     public List<PostResponse> findPageSimplePost(PostSimpleQueryList queryList) {
         // 简单查询获取到结果
         List<PostResponse> postResponses = postDao.findPageSimplePost(queryList);

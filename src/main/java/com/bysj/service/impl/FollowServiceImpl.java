@@ -9,6 +9,7 @@ import com.bysj.entity.Follow;
 import com.bysj.entity.vo.query.FollowQuery;
 import com.bysj.entity.vo.request.FollowRequest;
 import com.bysj.entity.vo.response.FollowResponse;
+import com.bysj.enums.FollowEnum;
 import com.bysj.service.IFollowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,15 +56,22 @@ public class FollowServiceImpl extends BaseServiceImpl<Follow> implements IFollo
 
     @Override
     public List<FollowResponse> findListFollow(FollowQuery query) throws Exception {
-        List<Follow> followList = followDao.findQuery(query);
-        //TODO
-        List<FollowResponse> followResponse = responseConverter.convert(followList, FollowResponse.class);
+        List<FollowResponse> followResponse = followDao.findFollowUser(query);
         return followResponse;
     }
 
     @Override
     public PageResult<FollowResponse> findPageFollow(FollowQuery query) throws Exception {
-        return new PageResult<>(query.getPageSize(), this.findCount(query), query.getCurrentPage(), this.findListFollow(query));
+        if (FollowEnum.QUERY_FOLLOW.getCode().equals(query.getType()) || query.getFanId() != null) {
+            query.setFanId(userHandle.getLoginUserId());
+        } else {
+            query.setStarId(userHandle.getLoginUserId());
+        }
+        return new PageResult<>(query.getPageSize(), this.findPageCount(query), query.getCurrentPage(), this.findListFollow(query));
+    }
+
+    private Integer findPageCount(FollowQuery followQuery) {
+        return followDao.findFollowUserCount(followQuery);
     }
 
     @Override

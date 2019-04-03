@@ -9,8 +9,6 @@ public class PageResult<T> implements Serializable, Cloneable {
     private int currentPage;
     private List<T> items;
     private int totalPages;
-    private boolean hasNext;
-    private boolean hasPrevious;
 
     public PageResult() {
     }
@@ -74,15 +72,6 @@ public class PageResult<T> implements Serializable, Cloneable {
         }
     }
 
-    public boolean hasNext() {
-        this.hasNext = this.currentPage != this.totalPages;
-        return this.hasNext;
-    }
-
-    public boolean hasPrevious() {
-        this.hasPrevious = this.currentPage != 1;
-        return this.hasPrevious;
-    }
 
     @Override
     public String toString() {
@@ -97,10 +86,6 @@ public class PageResult<T> implements Serializable, Cloneable {
                 .append(items);
         sb.append(",\"totalPages\":")
                 .append(totalPages);
-        sb.append(",\"hasNext\":")
-                .append(hasNext);
-        sb.append(",\"hasPrevious\":")
-                .append(hasPrevious);
         sb.append('}');
         return sb.toString();
     }
