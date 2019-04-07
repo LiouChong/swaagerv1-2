@@ -97,7 +97,7 @@
 
             <div class="logo-container">
                 <!-- Website Logo -->
-                <a href="/index-2" title="BBS技术分享网站">
+                <a href="/post/index" title="BBS技术分享网站">
                     <img src="/images/logo.png" alt="BBS technology sharing site">
                 </a>
                 <span class="tag-line">思想的宽度从分享开始</span>
@@ -113,6 +113,7 @@
                         <li><a href="/post/query/good">推荐</a></li>
                         <li><a href="/post/query/list">最新</a></li>
                         <li><a href="/user/myManage">消息</a></li>
+                        <!--<li><a href="/post/plate/list">板块</a></li>-->
                         <li><a href="/faq">常见问题</a></li>
                         <li><a href="/contact">联系我们</a></li>
                         <shiro:guest>
@@ -187,7 +188,7 @@
                 <br>
                 <div class="span8 main-listing" id="info">
                     <span style="font-size: 25px; float: left"><b>推荐：</b></span><span
-                        style="float: right; font-size: 20px"> <a href="/post/query/good">查看更多</a> </span> <br>
+                        style="float: right; font-size: 20px; margin-right: 30px"> <a href="/post/query/good">查看更多</a> </span> <br>
                     <hr>
                     <article class="format-standard type-post hentry clearfix" th:each="post,postStat : ${postList}">
 
@@ -205,18 +206,18 @@
                             </span>
                                 <shiro:hasPermission name="post:un_good">
                                     <input th:value="${post.id}" type="hidden">
-                                    <a style="float: right;font-size: 13px;color:red;" href="javascript:void(0)"
+                                    <a style="float: right;font-size: 13px;color:red;margin-right: 30px" href="javascript:void(0)"
                                             name="cancel">取消推荐</a>
                                 </shiro:hasPermission>
                             </h3>
 
                             <div class="post-meta clearfix">
-                                <span class="date" th:text="'创建:' + ${post.gmtCreateStr}"><!--${post.time}--></span>
+                                <span class="date" th:text="'创建:' + ${post.gmtCreateStr}"></span>
                                 <span class="category"><a href="#"
-                                                          th:text="${post.plateName}"><!--${post.plateName}--></a></span>
+                                                          th:text="${post.plateName}"></a></span>
                                 <span class="comments"><a href="#"
                                                           title="Comment on Integrating WordPress with Your Website"
-                                                          th:text="${post.replyCount}"><!--${post.replyCount}--></a></span>
+                                                          th:text="${post.replyCount}"></a></span>
                                 <span class="comments" th:text="'回复:' + ${post.gmtModifyStr}">> </span>
                             </div><!-- end of post meta -->
 
@@ -228,37 +229,6 @@
                                 style="color: darkblue;float: right">Read more</span></a>
 
                     </article>
-                    <!--</c:forEach>-->
-                    <!--<div id="pagination">
-                        <span style="font-size: 16px ; font-family: 'Javanese Text'"
-                              th:text=" '共有 ' + ${totalPage} + ' 页' + '，当前第 ' + ${currentPage} + ' 页'"></span><br>
-                        <a href="/post/index?currentPage=1" class="btn">« 第一页</a>
-                        <span th:if="${currentPage == 1}">
-                            <a href="/post/index?currentPage=1" class="btn">« 上一页</a>
-                        </span>
-                        <span th:if="${currentPage > 1}">
-                            <a th:href="'/post/index?currentPage=' + ${currentPage - 1}" class="btn">« 上一页</a>
-                        </span>
-                        <a th:if="${totalPage} <= 9">
-                            <span th:each="i:${#numbers.sequence(1, totalPage)}">
-                                <a th:href="'/post/index?currentPage=' + ${i}" class="btn" th:text="${i}"/>
-                            </span>
-                        </a>
-                        <a th:if="${totalPage} > 9">
-                        <span th:each="i:${#numbers.sequence(1, 9)}">
-                            <a th:href="'/post/index?currentPage=' + ${i}" class="btn" th:text="${i}"/>
-                        </span>
-                            <a class="btn" th:text=".."></a>
-                        </a>
-                        <span th:if="${currentPage} == ${totalPage}">
-                        <a th:href="'/post/index?currentPage=' + ${currentPage}" class="btn">下一页 »</a>
-                    </span>
-                        <span th:if="${currentPage} != ${totalPage}">
-                        <a th:href="'/post/index?currentPage=' + ${currentPage + 1}" class="btn">下一页 »</a>
-                    </span>
-                        <a th:href="'/post/index?currentPage=' + ${totalPage}" class="btn">最后一页 »</a>
-                    </div>-->
-
                 </div>
             </div>
             <!-- end of page content -->
@@ -278,13 +248,17 @@
 
                 <section class="widget">
                     <div class="quick-links-widget">
-                        <h3 class="title">Quick Links</h3>
-                        <ul id="menu-quick-links" class="menu clearfix">
-                            <li><a href="/post/index">首页</a></li>
-                            <li><a href="/articles-list">Articles List</a></li>
-                            <li><a href="/faq">FAQs</a></li>
-                            <li><a href="/contact">Contact</a></li>
-                        </ul>
+                        <shiro:user>
+                            <span class="title" style="float:left;width: 50%; font-size: 27px;"><b>讨论组列表</b></span>
+                            <button style="width: 25%; float: right;"><a href="/team/create" style="color:black" id="createTeam">成立讨论组</a></button>
+                            <br><br>
+                            <ul id="menu-quick-links" >
+                                <li th:each="team,teamStat: ${teams}">
+                                    <a style="float: left;" th:href="'/team/query/' + ${team.id}" th:text="${team.teamName} + '(' + ${team.count} + '个成员)'"></a>
+                                    <span style="float: right;" th:text="${team.plateName}"></span><br>
+                                </li>
+                            </ul>
+                        </shiro:user>
                     </div>
                 </section>
 

@@ -117,4 +117,6 @@ public interface PostDao extends IBaseDao<Post> {
      * @return
      */
     Post getAllById(Integer id);
+
+    Post getByResourceId(Integer id);
 }

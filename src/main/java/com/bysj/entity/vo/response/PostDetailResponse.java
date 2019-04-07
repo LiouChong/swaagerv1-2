@@ -118,6 +118,10 @@ public class PostDetailResponse extends BaseEntity {
      */
     private Boolean collectBoolean;
 
+    /**
+     * 资源贴id
+     */
+    private Integer resourceId;
 
     public Boolean getCollectBoolean() {
         return collectBoolean;
@@ -303,6 +307,14 @@ public class PostDetailResponse extends BaseEntity {
         this.articleTypeStr = articleTypeStr;
     }
 
+    public Integer getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(Integer resourceId) {
+        this.resourceId = resourceId;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
@@ -350,8 +362,10 @@ public class PostDetailResponse extends BaseEntity {
                 .append(needMoney);
         sb.append(",\"giveMoney\":")
                 .append(giveMoney);
-        sb.append(",\"isCollect\":")
+        sb.append(",\"collectBoolean\":")
                 .append(collectBoolean);
+        sb.append(",\"resourceId\":")
+                .append(resourceId);
         sb.append('}');
         return sb.toString();
     }

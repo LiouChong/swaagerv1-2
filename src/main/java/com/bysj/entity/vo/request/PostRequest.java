@@ -1,10 +1,7 @@
 package com.bysj.entity.vo.request;
 
-import com.bysj.entity.vo.response.RandUserForHelpResponse;
 import io.swagger.annotations.ApiModelProperty;
-
-import java.util.Date;
-import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * <p>
@@ -64,6 +61,11 @@ public class PostRequest  {
      * 邀请的人
      */
     private String askHelp;
+
+    /**
+     * 上传的附件
+     */
+    private MultipartFile multipartFile;
 
     public String getTitle() {
     return title;
@@ -133,6 +135,14 @@ public class PostRequest  {
 
     public String getAskHelp() {
         return askHelp;
+    }
+
+    public MultipartFile getMultipartFile() {
+        return multipartFile;
+    }
+
+    public void setMultipartFile(MultipartFile multipartFile) {
+        this.multipartFile = multipartFile;
     }
 
     public void setAskHelp(String askHelp) {

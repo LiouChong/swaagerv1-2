@@ -55,18 +55,40 @@
 
     <insert id="insert" parameterType="com.bysj.entity.UserTeamRel">
         insert into
-        <include refid="Table_Name"></include>
+        user_team_rel
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <include refid="IF_Base_Column_List"></include>
+            <if test=" userId != null">
+                user_id,
+            </if>
+            <if test=" teamId != null">
+                team_id,
+            </if>
+            <if test=" gmtCreate != null">
+                gmt_create,
+            </if>
+            <if test=" gmtModify != null">
+                gmt_modify,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <include refid="IF_Value_Column_List"></include>
+            <if test=" userId != null">
+                #{userId },
+            </if>
+            <if test=" teamId != null">
+                #{teamId },
+            </if>
+            <if test=" gmtCreate != null">
+                #{gmtCreate},
+            </if>
+            <if test=" gmtModify != null">
+                #{gmtModify},
+            </if>
         </trim>
     </insert>
 
     <update id="update" parameterType="com.bysj.entity.UserTeamRel">
         update
-        <include refid="Table_Name"></include>
+        user_team_rel
         <trim prefix="SET" suffixOverrides=",">
             <include refid="Set_Column_List"></include>
         </trim>
@@ -78,14 +100,14 @@
         select
         <include refid="Base_Column_List"/>
         from
-        <include refid="Table_Name"></include>
+        user_team_rel
         where id = #{id}
     </select>
 
 
     <delete id="deleteById" parameterType="java.lang.Integer">
         delete from
-        <include refid="Table_Name"></include>
+        user_team_rel
         where id = #{id}
     </delete>
 
@@ -93,7 +115,7 @@
         select
         <include refid="Base_Column_List"/>
         from
-        <include refid="Table_Name"></include>
+        user_team_rel
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -105,14 +127,14 @@
     <select id="getAll" resultType="com.bysj.entity.UserTeamRel">
         select *
         from
-        <include refid="Table_Name"></include>
+        user_team_rel
     </select>
 
 
     <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
         select count(1)
         from
-        <include refid="Table_Name"></include>
+        user_team_rel
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -122,7 +144,7 @@
 
     <select id="findQuery" resultType="com.bysj.entity.UserTeamRel" parameterType="com.bysj.common.request.ObjectQuery">
         select * from
-        <include refid="Table_Name"></include>
+        user_team_rel
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -131,5 +153,20 @@
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
+    </select>
+    <select id="selectUserTeamCount" resultType="Integer">
+        select count(1) from user_team_rel where user_id = #{userId}
+    </select>
+    <select id="selectUsersFromTeamId" resultType="com.bysj.entity.vo.response.UserTeamDetailResponse">
+        select
+        u.id as id,
+        u.nickname as nickname
+        from
+          user_team_rel utr
+        left join
+          user u on utr.user_id = u.id
+        where
+          utr.team_id = #{teamId}
+
     </select>
 </mapper>

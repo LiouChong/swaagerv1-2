@@ -115,9 +115,10 @@
                 <div class="menu-top-menu-container">
                     <ul id="menu-top-menu" class="clearfix">
                         <li><a href="/post/index">首页</a></li>
-                        <li><a href="/home-categories-description">关注</a></li>
+                        <li><a href="/follow/query/list?type=2">关注</a></li>
                         <li><a href="/post/query/good">推荐</a></li>
                         <li><a href="/post/query/list">最新</a></li>
+                        <li><a href="/user/myManage">消息</a></li>
                         <li class="current-menu-item"><a href="/post/plate/list">板块</a></li>
                         <li><a href="/faq">常见问题</a></li>
                         <li><a href="/contact">联系我们</a></li>
@@ -150,12 +151,14 @@
             <div class="span8 main-listing">
                 <!--<h2 style="color: red">${errorInfo}</h2>-->
                 <!--<c:forEach items="${postAndPlates}" var="postAndPlate">-->
-                <input th:value="${plateId}" type="hidden">
-                <span  th:if="${plateOwnerName.nickname ne null}">
-                    <h2 th:text="'板块名称:' + ${plateOwnerName.plateName}"></h2>
-                    <h2 th:text="'版主:' + ${plateOwnerName.nickname}"/>
+                <span th:if="${plateOwnerName ne null}">
+                    <input th:value="${plateId}" type="hidden">
+                    <span  th:if="${plateOwnerName.nickname ne null}">
+                        <h2 th:text="'板块名称:' + ${plateOwnerName.plateName}"></h2>
+                        <h2 th:text="'版主:' + ${plateOwnerName.nickname}"/>
+                    </span>
+                    <shiro:authenticated><a style="font-size: 26px;" th:if="${plateOwnerName.nickname eq null}" href="javascript:void(0)" id="applyPlate" >申请版主</a></shiro:authenticated>
                 </span>
-                <shiro:authenticated><a style="font-size: 26px;" th:if="${plateOwnerName.nickname eq null}" href="javascript:void(0)" id="applyPlate" >申请版主</a></shiro:authenticated>
                 <article class="format-standard type-post hentry clearfix" th:each="post,postStat:${postList}">
                     <header class="clearfix">
 
@@ -242,7 +245,7 @@
                     <div class="support-widget">
                         <h3 class="title">发帖分享</h3>
                         <p class="intro">最近有什么令你自己激动的发现或令你烦恼的bug吗？分享出来你的想法吧！</p>
-                        <a href="/getPostPage"><input type="button" class="butclass" value="发帖"></a>
+                        <a href="/post/add"><input type="button" class="butclass" value="发帖"></a>
 
                     </div>
                 </section>

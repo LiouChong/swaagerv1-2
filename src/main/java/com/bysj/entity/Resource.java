@@ -29,22 +29,12 @@ public class Resource extends BaseEntity {
      * 资源大小
      */
     @ApiModelProperty("资源大小")
-    private Integer fileSize;
+    private Long fileSize;
     /**
      * 资源名称
      */
     @ApiModelProperty("资源名称")
     private String fileName;
-    /**
-     * 需要的资源数
-     */
-    @ApiModelProperty("需要的资源数")
-    private Integer needMoney;
-    /**
-     * 资源的描述
-     */
-    @ApiModelProperty("资源的描述")
-    private String desc;
     /**
      * 创建时间
      */
@@ -81,14 +71,13 @@ public class Resource extends BaseEntity {
     }
 
 
-    public Integer getFileSize() {
+    public Long getFileSize() {
         return fileSize;
     }
 
-    public void setFileSize(Integer fileSize) {
+    public void setFileSize(Long fileSize) {
         this.fileSize = fileSize;
     }
-
 
     public String getFileName() {
         return fileName;
@@ -96,24 +85,6 @@ public class Resource extends BaseEntity {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
-    }
-
-
-    public Integer getNeedMoney() {
-        return needMoney;
-    }
-
-    public void setNeedMoney(Integer needMoney) {
-        this.needMoney = needMoney;
-    }
-
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
     }
 
 
@@ -164,17 +135,24 @@ public class Resource extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Resource{" +
-                ", fileUrl=" + fileUrl +
-                ", fileSize=" + fileSize +
-                ", fileName=" + fileName +
-                ", needMoney=" + needMoney +
-                ", desc=" + desc +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModify=" + gmtModify +
-                ", userCreate=" + userCreate +
-                ", userModify=" + userModify +
-                ", state=" + state +
-                "}";
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"fileUrl\":\"")
+                .append(fileUrl).append('\"');
+        sb.append(",\"fileSize\":")
+                .append(fileSize);
+        sb.append(",\"fileName\":\"")
+                .append(fileName).append('\"');
+        sb.append(",\"gmtCreate\":\"")
+                .append(gmtCreate).append('\"');
+        sb.append(",\"gmtModify\":\"")
+                .append(gmtModify).append('\"');
+        sb.append(",\"userCreate\":")
+                .append(userCreate);
+        sb.append(",\"userModify\":")
+                .append(userModify);
+        sb.append(",\"state\":")
+                .append(state);
+        sb.append('}');
+        return sb.toString();
     }
 }

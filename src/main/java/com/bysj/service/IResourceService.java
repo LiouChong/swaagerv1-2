@@ -8,6 +8,7 @@ import com.bysj.entity.vo.query.ResourceQuery;
 import com.bysj.entity.vo.request.ResourceRequest;
 import com.bysj.entity.vo.response.ResourceResponse;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -52,4 +53,10 @@ public interface IResourceService extends IBaseService<Resource> {
      */
     PageResult<ResourceResponse> findPageResource(ResourceQuery query) throws Exception;
 
+    /**
+     * 下载帖子附件
+     * @param response
+     * @return
+     */
+    void downloadResource(Integer id,HttpServletResponse response) throws Exception;
 }

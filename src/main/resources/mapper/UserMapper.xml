@@ -276,6 +276,9 @@
             user_modify = #{modifyUser}
         where id = #{id}
     </update>
+    <update id="updateUserMoney">
+        update user set money = #{money} where id = #{userId}
+    </update>
 
     <!-- 根据主键查询 -->
     <select id="getById" resultType="com.bysj.entity.User" parameterType="java.lang.Integer">
@@ -440,6 +443,9 @@
         where
             id > (rand() * (select max(id) from user) - 12)
             limit 12
+    </select>
+    <select id="getBynickname" resultType="com.bysj.entity.User">
+        select * from user where nickname=#{nickname}
     </select>
 
 </mapper>

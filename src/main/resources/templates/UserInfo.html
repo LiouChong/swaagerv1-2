@@ -190,7 +190,7 @@
                             alert(message);
                             var fanCount = $("#fanNum").text();
                             $("#fanNum").text(++fanCount);
-                            $("#followUser").text("取消关注");
+                            $("#followUser").children().text("取消关注");
                         }
                     })
                 } else {
@@ -206,7 +206,7 @@
                             alert(message);
                             var fanCount = $("#fanNum").text();
                             $("#fanNum").text(--fanCount);
-                            $("#followUser").text("关注");
+                            $("#followUser").children().text("关注");
                         }
                     })
                 }
@@ -226,7 +226,7 @@
                             alert(message);
                             var fanCount = $("#fanNum").text();
                             $("#fanNum").text(--fanCount);
-                            $("#cancelFollow").text("关注");
+                            $("#cancelFollow").children().text("关注");
                         }
                     })
                 } else {
@@ -242,7 +242,7 @@
                             alert(message);
                             var fanCount = $("#fanNum").text();
                             $("#fanNum").text(++fanCount);
-                            $("#cancelFollow").text("取消关注");
+                            $("#cancelFollow").children().text("取消关注");
                         }
                     })
                 }
@@ -261,7 +261,7 @@
 
             <div class="logo-container">
                 <!-- Website Logo -->
-                <a href="/index-2" title="BBS技术分享网站">
+                <a href="/post/index" title="BBS技术分享网站">
                     <img src="/images/logo.png" alt="BBS technology sharing site">
                 </a>
                 <span class="tag-line">思想的宽度从分享开始</span>
@@ -273,9 +273,11 @@
                 <div class="menu-top-menu-container">
                     <ul id="menu-top-menu" class="clearfix">
                         <li><a href="/post/index">首页</a></li>
-                        <li><a href="/home-categories-description">关注</a></li>
+                        <li><a href="/follow/query/list?type=2">关注</a></li>
                         <li><a href="/post/query/good">推荐</a></li>
                         <li><a href="/query/list">最新</a></li>
+                        <li><a href="/user/myManage">消息</a></li>
+                        <!--<li><a href="/post/plate/list">板块</a></li>-->
                         <li><a href="/faq">常见问题</a></li>
                         <li><a href="/contact">联系我们</a></li>
                         <shiro:guest>
@@ -382,27 +384,27 @@
                 <textarea disabled id="signaTureValue" th:text="${user.signaTure}" style="height: 100%; width: 100% "/>
             </div>
 
-                <div id="" class="prevateLetter">
-                    <shiro:user>
-                        <input th:value="${user.id}" type="hidden">
-                        <h2 style="width: 40%; float: left">
-                            <button style="width: 120px; height: 40px;"><a href="javascript:void(0)"
-                                                                           style="color:black; font-size: 22px;"
-                                                                           id="sendMessage"><b>发送私信</b></a></button>
-                        </h2>
-                        <h2 style="width: 40%; float: right">
-                            <button style="width: 120px; height: 40px;" th:if="${followIf eq null}"><a
-                                    href="javascript:void(0)" style="color:black; font-size: 22px;" id="followUser"><b>关注</b></a>
-                            </button>
-                            <button style="width: 120px; height: 40px;" th:if="${followIf ne null}"><a
-                                    href="javascript:void(0)" style="color:black; font-size: 22px;"
-                                    id="cancelFollow"><b>取消关注</b></a></button>
-                        </h2>
-                    </shiro:user>
-                </div>
+            <div id="" class="prevateLetter">
+                <shiro:user>
+                    <input th:value="${user.id}" type="hidden">
+                    <h2 style="width: 40%; float: left">
+                        <button style="width: 120px; height: 40px;"><a href="javascript:void(0)"
+                            style="color:black; font-size: 22px;" id="sendMessage"><b>发送私信</b></a></button>
+                    </h2>
+                    <h2 style="width: 40%; float: right">
+                        <button style="width: 120px; height: 40px;" th:if="${followIf eq null}"><a
+                                href="javascript:void(0)" style="color:black; font-size: 22px;"
+                                id="followUser"><b>关注</b></a>
+                        </button>
+                        <button style="width: 120px; height: 40px;" th:if="${followIf ne null}"><a
+                                href="javascript:void(0)" style="color:black; font-size: 22px;"
+                                id="cancelFollow"><b>取消关注</b></a></button>
+                    </h2>
+                </shiro:user>
+            </div>
         </div>
         </in>
-<h2>发布的帖子：  </h2>
+        <h2>发布的帖子： </h2>
         <!--发表的帖子：-->
         <article class="format-standard type-post hentry clearfix" th:each="post,postStat:${posts}">
             <header class="clearfix">
@@ -443,24 +445,27 @@
         <div id="pagination">
                     <span style="font-size: 16px ; font-family: 'Javanese Text'; float: left"
                           th:text="'共有' + ${totalPage} + '页，当前第' + ${currentPage} + '页'"></span>
-                <span style="font-size: 16px ; font-family: 'Javanese Text'; float: right"
-                      th:text="'共有' + ${postCount} + '条数据'"></span>
+            <span style="font-size: 16px ; font-family: 'Javanese Text'; float: right"
+                  th:text="'共有' + ${postCount} + '条数据'"></span>
             <br>
             <a th:href="'/user/other?currentPage=1&userId=' + ${user.id}" class="btn">« 第一页</a>
             <span th:if="${currentPage == 1}">
                         <a th:href="'/user/other?currentPage=1&userId=' + ${user.id}" class="btn">« 上一页</a>
                     </span>
             <span th:if="${currentPage > 1}">
-                        <a th:href="'/user/other?currentPage=' + ${currentPage - 1} + '&userId=' + ${user.id}" class="btn">« 上一页</a>
+                        <a th:href="'/user/other?currentPage=' + ${currentPage - 1} + '&userId=' + ${user.id}"
+                           class="btn">« 上一页</a>
                     </span>
             <a th:if="${totalPage} <= 9">
                         <span th:each="i:${#numbers.sequence(1, totalPage)}">
-                            <a th:href="'/user/other?currentPage=' + ${i} + '&userId=' + ${user.id}" class="btn" th:text="${i}"/>
+                            <a th:href="'/user/other?currentPage=' + ${i} + '&userId=' + ${user.id}" class="btn"
+                               th:text="${i}"/>
                         </span>
             </a>
             <a th:if="${totalPage} > 9">
                         <span th:each="i:${#numbers.sequence(1, 9)}">
-                            <a th:href="'/user/other?currentPage=' + ${i} + '&userId=' + ${user.id}" class="btn" th:text="${i}"/>
+                            <a th:href="'/user/other?currentPage=' + ${i} + '&userId=' + ${user.id}" class="btn"
+                               th:text="${i}"/>
                         </span>
                 <a class="btn" th:text=".."></a>
             </a>
@@ -468,7 +473,8 @@
                         <a th:href="'/user/other?currentPage=' + ${currentPage}+ '&userId=' + ${user.id}" class="btn">下一页 »</a>
                     </span>
             <span th:if="${currentPage} != ${totalPage}">
-                        <a th:href="'/user/other?currentPage=' + ${currentPage + 1}+ '&userId=' + ${user.id}" class="btn">下一页 »</a>
+                        <a th:href="'/user/other?currentPage=' + ${currentPage + 1}+ '&userId=' + ${user.id}"
+                           class="btn">下一页 »</a>
                     </span>
             <a th:href="'/user/other?currentPage=' + ${totalPage}+ '&userId=' + ${user.id}" class="btn">最后一页 »</a>
         </div>

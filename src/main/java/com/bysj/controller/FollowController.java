@@ -6,7 +6,6 @@ import com.bysj.common.response.PageResult;
 import com.bysj.common.utils.DateUtils;
 import com.bysj.common.utils.PageUtil;
 import com.bysj.common.utils.UserHandle;
-import com.bysj.entity.Follow;
 import com.bysj.entity.vo.query.FollowQuery;
 import com.bysj.entity.vo.request.FollowRequest;
 import com.bysj.entity.vo.response.FollowResponse;
@@ -17,8 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.activation.DataHandler;
 import javax.annotation.Resource;
+import java.util.LinkedList;
 
 /**
  *
@@ -73,7 +72,7 @@ public class FollowController {
 
     /**
      * 批量查询
-     * @param type
+     * @param followQuery
      * @return actionResponse
      */
     @ApiOperation(value = "批量查询接口", notes = "传入查询条件")
@@ -83,10 +82,22 @@ public class FollowController {
     @RequestMapping(value = "/query/list", method = RequestMethod.GET)
     public ModelAndView queryList( FollowQuery followQuery, ModelAndView modelAndView)throws Exception{
         PageResult<FollowResponse> pageFollow = iFollowService.findPageFollow(followQuery);
-        pageFollow.getItems().forEach(item -> {
-            item.setGmtCreateStr(DateUtils.getDataString(item.getGmtCreate(), DateUtils.WHOLE_FORMAT));
-        });
-        modelAndView.addObject("follows", pageFollow.getItems());
+        // 如果返回值不为空才进行字符串操作，否则会报空指针异常
+        if (pageFollow.getItems() != null || pageFollow.getItems().size() != 0) {
+            pageFollow.getItems().forEach(item -> {
+                item.setGmtCreateStr(DateUtils.getDataString(item.getGmtCreate(), DateUtils.WHOLE_FORMAT));
+            });
+            modelAndView.addObject("follows", pageFollow.getItems());
+        } else {
+            modelAndView.addObject("follows", new LinkedList<>());
+        }
+
+        if (followQuery.getType().equals(FollowEnum.QUERY_FAN.getCode())) {
+            modelAndView.addObject("type","getFan");
+        } else {
+            modelAndView.addObject("type","getStar");
+        }
+
         modelAndView.addObject("totalRecords", pageFollow.getTotalRecords());
         modelAndView.addObject("currentPage", pageFollow.getCurrentPage());
         // 如果fanId不等于null，则代表通过fanId查询自己关注的人，为了前端页面的分页，所以将fanId返回给前端
@@ -129,7 +140,7 @@ public class FollowController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteById(@ApiParam(value = "id") @RequestBody FollowRequest followRequest)throws Exception{
         if (iFollowService.cancelFollow(followRequest) == 1) {
-            return "删除成功";
+            return "取消成功！";
         } else {
             return "服务器异常！请稍后再试";
         }

@@ -6,6 +6,8 @@ import com.bysj.common.response.PageResult;
 import com.bysj.entity.Team;
 import com.bysj.entity.vo.query.TeamQuery;
 import com.bysj.entity.vo.request.TeamRequest;
+import com.bysj.entity.vo.response.TeamDetailResponse;
+import com.bysj.entity.vo.response.TeamIndexResponse;
 import com.bysj.entity.vo.response.TeamResponse;
 
 import java.util.List;
@@ -47,5 +49,14 @@ public interface ITeamService extends IBaseService<Team> {
          * @return
          */
         PageResult<TeamResponse> findPageTeam(TeamQuery query) throws Exception;
+
+        /**
+         * 根据登录用户查询讨论组信息
+         * @param userId
+         * @return
+         */
+        List<TeamIndexResponse> selectForIndex(Integer userId);
+
+        TeamDetailResponse getDetail(Integer teamId);
 
 }

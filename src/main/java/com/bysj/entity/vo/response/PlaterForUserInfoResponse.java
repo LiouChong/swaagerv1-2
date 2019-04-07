@@ -13,8 +13,14 @@ import com.bysj.common.request.BaseEntity;
  */
 
 public class PlaterForUserInfoResponse extends BaseEntity {
+    /**
+     * 版主名称
+     */
     private String nickname;
 
+    /**
+     * 板块名称
+     */
     private String plateName;
 
     public String getPlateName() {

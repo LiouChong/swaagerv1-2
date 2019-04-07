@@ -85,5 +85,25 @@ public interface UserDao extends IBaseDao<User> {
      */
     List<RandUserForHelpResponse> findRandomUser();
 
+    /**
+     * 封禁用户
+     * @param userRequestForBan
+     * @return
+     */
     Integer banUser(UserRequestForBan userRequestForBan);
+
+    /**
+     * 更新用户积分
+     * @param userId
+     * @param money
+     * @return
+     */
+    Integer updateUserMoney(@Param("userId") Integer userId, @Param("money") Integer money);
+
+    /**
+     * 根据nickname获取用户信息
+     * @param nickname
+     * @return
+     */
+    User getBynickname(String nickname);
 }

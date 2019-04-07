@@ -39,7 +39,7 @@ public class Team extends BaseEntity {
      * 组长id
      */
     @ApiModelProperty("组长id")
-    private String leaderId;
+    private Integer leaderId;
     /**
      * 状态:1 有效 2无效
      */
@@ -61,6 +61,19 @@ public class Team extends BaseEntity {
     @ApiModelProperty("修改者id")
     private Integer userModify;
 
+    /**
+     * 小组说明
+     */
+    private String memo;
+
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
 
     public String getTeamName() {
         return teamName;
@@ -89,14 +102,13 @@ public class Team extends BaseEntity {
     }
 
 
-    public String getLeaderId() {
+    public Integer getLeaderId() {
         return leaderId;
     }
 
-    public void setLeaderId(String leaderId) {
+    public void setLeaderId(Integer leaderId) {
         this.leaderId = leaderId;
     }
-
 
     public Integer getState() {
         return state;
@@ -133,18 +145,28 @@ public class Team extends BaseEntity {
         this.userModify = userModify;
     }
 
-
     @Override
     public String toString() {
-        return "Team{" +
-                ", teamName=" + teamName +
-                ", memberCount=" + memberCount +
-                ", plateId=" + plateId +
-                ", leaderId=" + leaderId +
-                ", state=" + state +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModify=" + gmtModify +
-                ", userModify=" + userModify +
-                "}";
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"teamName\":\"")
+                .append(teamName).append('\"');
+        sb.append(",\"memberCount\":")
+                .append(memberCount);
+        sb.append(",\"plateId\":")
+                .append(plateId);
+        sb.append(",\"leaderId\":\"")
+                .append(leaderId).append('\"');
+        sb.append(",\"state\":")
+                .append(state);
+        sb.append(",\"gmtCreate\":\"")
+                .append(gmtCreate).append('\"');
+        sb.append(",\"gmtModify\":\"")
+                .append(gmtModify).append('\"');
+        sb.append(",\"userModify\":")
+                .append(userModify);
+        sb.append(",\"memo\":\"")
+                .append(memo).append('\"');
+        sb.append('}');
+        return sb.toString();
     }
 }

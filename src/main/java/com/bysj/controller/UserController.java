@@ -9,14 +9,8 @@ import com.bysj.entity.Follow;
 import com.bysj.entity.vo.query.*;
 import com.bysj.entity.vo.request.UserRequestForBan;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
-import com.bysj.entity.vo.response.PostBanResponse;
-import com.bysj.entity.vo.response.PostResponse;
-import com.bysj.entity.vo.response.PrivateLetterForMyResponse;
-import com.bysj.entity.vo.response.UserResponse;
-import com.bysj.service.IFollowService;
-import com.bysj.service.IPostService;
-import com.bysj.service.IPrivateLetterService;
-import com.bysj.service.IUserService;
+import com.bysj.entity.vo.response.*;
+import com.bysj.service.*;
 import io.swagger.annotations.*;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -52,6 +46,9 @@ public class UserController {
 
     @Autowired
     private IFollowService followService;
+
+    @Autowired
+    private ITeamInviteService teamInviteService;
 
     /**
      * 发送邮件
@@ -293,35 +290,61 @@ public class UserController {
     public ModelAndView manageMyInfo(ModelAndView modelAndView) throws Exception {
         // 为 查询我发送的私信变量赋值
         PrivateLetterForMyManageQuery query = new PrivateLetterForMyManageQuery();
-        Integer userId = userHandle.getUserId();
-        if (Objects.isNull(userId)) {
-            throw new UnauthenticatedException();
-        }
-        query.setUserSendSend(userId);
-
-        // 查询我发送的私信信息
-        PageResult<PrivateLetterForMyResponse> pageForMySend = privateLetterService.findPageForMyManage(query);
-
-        // 我收到的私信的查询变量设置
-        query.setUserSendSend(null);
-        query.setUserSendRev(userId);
-
-        // 查询我接受的私信的信息
-        PageResult<PrivateLetterForMyResponse> pageForMyRev = privateLetterService.findPageForMyManage(query);
-
-        ManagePostQuery managePostQuery = new ManagePostQuery();
-        managePostQuery.setOwnerId(userId);
-
-        // 查询我发送的帖子
-        PageResult<PostBanResponse> managePagePost = postService.findManagePagePost(managePostQuery);
-
-        modelAndView.addObject("myPost", managePagePost);
-        modelAndView.addObject("sendLetter", pageForMySend);
-        modelAndView.addObject("revLetter", pageForMyRev);
+        modelAndView.addObject("myPost", getMySendPost());
+        modelAndView.addObject("sendLetter", getMySendLetter(query));
+        modelAndView.addObject("revLetter", getMyRevLetter(query));
+        modelAndView.addObject("invites",getMyTeamInvite());
         modelAndView.setViewName("my_manage");
         return modelAndView;
     }
 
+
+    /**
+     * 查询我发送的私信信息
+     * @param query
+     * @return
+     */
+    private PageResult<PrivateLetterForMyResponse> getMySendLetter(PrivateLetterForMyManageQuery query) {
+        Integer userId = userHandle.getUserId();
+            if (Objects.isNull(userId)) {
+            throw new UnauthenticatedException();
+        }
+            query.setUserSendSend(userId);
+
+        PageResult<PrivateLetterForMyResponse> pageForMySend = privateLetterService.findPageForMyManage(query);
+        return pageForMySend;
+    }
+
+    /**
+     * 查询我接受的私信的信息
+     * @param query
+     * @return
+     */
+    private PageResult<PrivateLetterForMyResponse> getMyRevLetter(PrivateLetterForMyManageQuery query) {
+        // 我收到的私信的查询变量设置
+        query.setUserSendSend(null);
+        query.setUserSendRev(userHandle.getUserId());
+
+
+        PageResult<PrivateLetterForMyResponse> pageForMyRev = privateLetterService.findPageForMyManage(query);
+        return pageForMyRev;
+    }
+
+    /**
+     * 查询我发送的帖子
+     * @return
+     */
+    private PageResult<PostBanResponse> getMySendPost() {
+        ManagePostQuery managePostQuery = new ManagePostQuery();
+        managePostQuery.setOwnerId(userHandle.getUserId());
+
+        PageResult<PostBanResponse> managePagePost = postService.findManagePagePost(managePostQuery);
+        return managePagePost;
+    }
+
+    private  List<TeamInviteMResponse> getMyTeamInvite() {
+        return teamInviteService.getMyTeamInvite();
+    }
 
 }
 

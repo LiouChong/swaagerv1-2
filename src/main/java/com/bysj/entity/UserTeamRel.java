@@ -31,9 +31,28 @@ public class UserTeamRel extends BaseEntity {
     @ApiModelProperty("讨论组id")
     private Integer teamId;
 
+    /**
+     * 状态
+     */
     private Integer state;
 
+    /**
+     * 创建时间
+     */
     private Date gmtCreate;
+
+    /**
+     * 修改时间
+     */
+    private Date gmtModify;
+
+    public Date getGmtModify() {
+        return gmtModify;
+    }
+
+    public void setGmtModify(Date gmtModify) {
+        this.gmtModify = gmtModify;
+    }
 
     public Integer getState() {
         return state;
@@ -79,6 +98,8 @@ public class UserTeamRel extends BaseEntity {
                 .append(state);
         sb.append(",\"gmtCreate\":\"")
                 .append(gmtCreate).append('\"');
+        sb.append(",\"gmtModify\":\"")
+                .append(gmtModify).append('\"');
         sb.append('}');
         return sb.toString();
     }

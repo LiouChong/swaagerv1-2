@@ -191,6 +191,7 @@
                     }
                 }
             });
+
         });
     </script>
 </head>
@@ -205,7 +206,7 @@
 
             <div class="logo-container">
                 <!-- Website Logo -->
-                <a href="/index-2" title="Knowledge Base Theme">
+                <a href="/post/index" title="Knowledge Base Theme">
                     <img src="/images/logo.png" alt="Knowledge Base Theme">
                 </a>
                 <span class="tag-line">Premium WordPress Theme</span>
@@ -216,9 +217,11 @@
                 <div class="menu-top-menu-container">
                     <ul id="menu-top-menu" class="clearfix">
                         <li><a href="/post/index">首页</a></li>
-                        <li><a href="/home-categories-description">关注</a></li>
+                        <li><a href="/follow/query/list?type=2">关注</a></li>
                         <li><a href="/post/query/good">推荐</a></li>
                         <li class="current-menu-item"><a href="/post/query/list">最新</a></li>
+                        <li><a href="/user/myManage">消息</a></li>
+                        <!--<li><a href="/post/plate/list">板块</a></li>-->
                         <li><a href="/faq">常见问题</a></li>
                         <li><a href="/contact">联系我们</a></li>
                         <shiro:guest>
@@ -288,15 +291,24 @@
                         <span class="like-count" th:text="${postDetail.readCount}"></span>
                     </div><!-- end of post meta -->
                     <p th:text="${postDetail.info}"></p>
-                </article>
-                <section id="comments">
 
-                    <input th:value="${postDetail.replyCount}" type="hidden">
-                    <h3 id="comments-title" th:text="${postDetail.replyCount} + 'Comments' "></h3>
+                    <br>
+                    <a style="font-size: 26px;float: left" th:if="${postDetail.articleType eq 2 }" th:text="'附件：' + ${resource.fileName}"></a>
+                    <shiro:user>
+                        <button style="float: left;margin-left: 50px;">
+                            <a th:href="'/resource/download?id=' + ${resource.id}" id="downloadResource" style="color: black;">下载</a>
+                        </button>
+                    </shiro:user>
+                        <br>
+
                     <h3 style="color:red;" th:if="${postDetail.articleType == 2}"
                         th:text="'需要' + ${postDetail.needMoney} + '分'"></h3>
                     <h3 style="color:red;" th:if="${postDetail.articleType == 3}"
                         th:text="'悬赏' + ${postDetail.giveMoney} + '分'"></h3>
+                </article>
+                <section id="comments">
+                    <h3 id="comments-title" th:text="${postDetail.replyCount} + '回复' "></h3>
+                    <input th:value="${postDetail.replyCount}" type="hidden">
                     <ol class="commentlist" th:fragment="ajaxinfo">
                         <!--<c:forEach items="${ReplyAndUsers}" var="replyAndUser" varStatus="floor">-->
                         <br>
@@ -395,7 +407,6 @@
                                 »</a>
                         </div>
                     </ol>
-
                     <!--</c:forEach>-->
 
                     <div id="respond">
@@ -453,7 +464,7 @@
                     <div class="support-widget">
                         <h3 class="title">发帖分享</h3>
                         <p class="intro">最近有什么令你自己激动的发现或令你烦恼的bug吗？分享出来你的想法吧！</p>
-                        <a href="/getPostPage"><input type="button" class="butclass" value="发帖"></a>
+                        <a href="/post/add"><input type="button" class="butclass" value="发帖"></a>
 
                     </div>
                 </section>

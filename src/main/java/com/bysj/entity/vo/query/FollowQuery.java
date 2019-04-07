@@ -1,8 +1,6 @@
 package com.bysj.entity.vo.query;
 
 
-import com.bysj.common.request.ObjectQuery;
-
 /**
  * <p>
  * Follow 查询条件
@@ -27,6 +25,7 @@ public class FollowQuery {
      * 查询的类型，1 查询粉丝,2 查询关注的人
      */
     private Integer type;
+
     private int pageSize = 5;
     private int currentPage = 1;
 

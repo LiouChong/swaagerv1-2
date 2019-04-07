@@ -8,6 +8,7 @@ import com.bysj.common.utils.NumberChineseEx;
 import com.bysj.common.utils.PageUtil;
 import com.bysj.common.utils.UserHandle;
 import com.bysj.entity.Post;
+import com.bysj.entity.Resource;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
 import com.bysj.entity.vo.query.PrivateLetterQuery;
@@ -17,6 +18,7 @@ import com.bysj.entity.vo.request.PostRequest;
 import com.bysj.entity.vo.response.*;
 import com.bysj.service.*;
 import io.swagger.annotations.*;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,6 +64,12 @@ public class PostController {
     @Autowired
     private NumberChineseEx numberChineseEx;
 
+    @Autowired
+    private IResourceService resourceService;
+
+    @Autowired
+    private ITeamService teamService;
+
     /**
      * 保存
      * @param postRequest
@@ -72,7 +80,8 @@ public class PostController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/save/single", method = RequestMethod.POST)
-    public ActionResponse saveSingle(@ApiParam(value = "post") @RequestBody PostRequest postRequest)throws Exception{
+    @RequiresAuthentication
+    public ActionResponse saveSingle(@ApiParam(value = "post") PostRequest postRequest)throws Exception{
         iPostService.savePost(postRequest);
         return ActionResponse.success();
     }
@@ -111,7 +120,9 @@ public class PostController {
         //获取板块名称
         List<PlateNameForIndex> plateNameForIndices = iPostService.findAllPlateNames();
 
+
         if (userHandle.getUserId() != null) {
+            // 如果已经登陆则查询私信信息。
             PrivateLetterQuery privateLetterQuery = new PrivateLetterQuery();
             privateLetterQuery.setUserSendRev(userHandle.getUserId());
             privateLetterQuery.setIfRead(0);
@@ -123,7 +134,13 @@ public class PostController {
                 item.setGmtCreateStr(DateUtils.getDataString(item.getGmtCreate(), DateUtils.WHOLE_FORMAT));
             });
             mav.addObject("privateLetter", privateLetters);
+
+            // 如果已经登录则查询讨论组信息
+            List<TeamIndexResponse> teamIndexResponse = teamService.selectForIndex(userHandle.getUserId());
+            mav.addObject("teams",teamIndexResponse);
         }
+
+
         mav.addObject("postList", postList);
         mav.addObject("plates", plateNameForIndices);
         // 设置跳转的页面
@@ -214,6 +231,17 @@ public class PostController {
     @Transactional
     public ModelAndView queryById(@ApiParam(value = "post") ReplyQuery replyQuery, ModelAndView modelAndView)throws Exception{
         PostDetailResponse postDetailResponse = iPostService.getPostDetailById(replyQuery.getPostId());
+        if (postDetailResponse.getArticleType().equals(2)) {
+            Resource resource = resourceService.getById(postDetailResponse.getResourceId());
+            if (resource == null) {
+                modelAndView.addObject("resource",new Resource());
+            } else {
+                modelAndView.addObject("resource",resource);
+            }
+
+        } else {
+            modelAndView.addObject("resource",new Resource());
+        }
         // 分页查询回复
         PageResult<ReplyForPostDetail> pageReply = replyService.findPageReply(replyQuery);
         postDetailResponse.setReplys(pageReply.getItems());
@@ -279,6 +307,7 @@ public class PostController {
      */
     @ApiOperation(value = "获取发帖", notes = "传入查询条件")
     @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @RequiresAuthentication
     public ModelAndView getPostAddPage(ModelAndView mav)throws Exception{
         // 发帖时的所有板块
         List<PlateNameForIndex> plateNameForIndex = iPostService.findAllPlateNames();
@@ -335,6 +364,7 @@ public class PostController {
     @RequestMapping(value = "/plate/list", method = RequestMethod.GET)
     public ModelAndView getPostByPlate(PostQueryForList postQueryForList, ModelAndView modelAndView) throws Exception{
         List<PostResponse> platePost = iPostService.findPagePost(postQueryForList, "platePost");
+
         Integer totalRecords = iPostService.findCount(postQueryForList);
 
         // 获取总页数

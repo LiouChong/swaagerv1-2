@@ -114,6 +114,11 @@ public class Post extends BaseEntity {
     @ApiModelProperty("需要积分")
     private Integer needMoney;
 
+    /**
+     * 资源表id
+     */
+    private Integer resourceId;
+
     public String getTitle() {
         return title;
     }
@@ -271,25 +276,56 @@ public class Post extends BaseEntity {
         this.articleType = articleType;
     }
 
+    public Integer getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(Integer resourceId) {
+        this.resourceId = resourceId;
+    }
 
     @Override
     public String toString() {
-        return "Post{" +
-                ", title=" + title +
-                ", info=" + info +
-                ", posterId=" + posterId +
-                ", ifGood=" + ifGood +
-                ", plateId=" + plateId +
-                ", replyCount=" + replyCount +
-                ", thumbupCount=" + thumbupCount +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModify=" + gmtModify +
-                ", createUser=" + createUser +
-                ", modifyUser=" + modifyUser +
-                ", state=" + state +
-                ", readCount=" + readCount +
-                ", articleFrom=" + articleFrom +
-                ", articleType=" + articleType +
-                "}";
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"title\":\"")
+                .append(title).append('\"');
+        sb.append(",\"info\":\"")
+                .append(info).append('\"');
+        sb.append(",\"posterId\":")
+                .append(posterId);
+        sb.append(",\"ifGood\":")
+                .append(ifGood);
+        sb.append(",\"plateId\":")
+                .append(plateId);
+        sb.append(",\"replyCount\":")
+                .append(replyCount);
+        sb.append(",\"thumbupCount\":")
+                .append(thumbupCount);
+        sb.append(",\"gmtCreate\":\"")
+                .append(gmtCreate).append('\"');
+        sb.append(",\"gmtModify\":\"")
+                .append(gmtModify).append('\"');
+        sb.append(",\"createUser\":")
+                .append(createUser);
+        sb.append(",\"modifyUser\":")
+                .append(modifyUser);
+        sb.append(",\"state\":")
+                .append(state);
+        sb.append(",\"readCount\":")
+                .append(readCount);
+        sb.append(",\"articleFrom\":")
+                .append(articleFrom);
+        sb.append(",\"articleType\":")
+                .append(articleType);
+        sb.append(",\"banReason\":")
+                .append(banReason);
+        sb.append(",\"giveMoney\":")
+                .append(giveMoney);
+        sb.append(",\"needMoney\":")
+                .append(needMoney);
+        sb.append(",\"resourceId\":")
+                .append(resourceId);
+        sb.append('}');
+        return sb.toString();
     }
 }

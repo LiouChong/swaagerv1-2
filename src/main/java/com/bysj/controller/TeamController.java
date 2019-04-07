@@ -4,11 +4,18 @@ package com.bysj.controller;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.vo.query.TeamQuery;
 import com.bysj.entity.vo.request.TeamRequest;
+import com.bysj.entity.vo.response.PlateNameForIndex;
+import com.bysj.entity.vo.response.TeamDetailResponse;
+import com.bysj.service.IPlaterService;
+import com.bysj.service.IPostService;
 import com.bysj.service.ITeamService;
 import io.swagger.annotations.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  *
@@ -24,6 +31,11 @@ public class TeamController {
     @Resource
     public ITeamService iTeamService;
 
+    @Autowired
+    private IPostService postService;
+
+    @Autowired
+    private IPlaterService platerService;
     /**
      * 保存
      * @param teamRequest
@@ -78,9 +90,11 @@ public class TeamController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
-    public ActionResponse queryById(@ApiParam(value = "team") @PathVariable("id") Integer id)throws Exception{
-
-        return ActionResponse.success(iTeamService.getById(id));
+    public ModelAndView queryById(@ApiParam(value = "team") @PathVariable("id") Integer id,ModelAndView modelAndView )throws Exception{
+        TeamDetailResponse detail = iTeamService.getDetail(id);
+        modelAndView.addObject("detail",detail);
+        modelAndView.setViewName("team_detail");
+        return modelAndView;
     }
 
     /**
@@ -96,6 +110,24 @@ public class TeamController {
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
 
         return ActionResponse.success(iTeamService.deleteById(id));
+    }
+
+    /**
+     * 获得创建讨论组页面
+     * @param modelAndView
+     * @return actionResponse
+     */
+    @ApiOperation(value = "获得创建讨论组页面", notes = "主键封装对象")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
+    })
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public ModelAndView getCreateTeamPage(ModelAndView modelAndView)throws Exception{
+// 发帖时的所有板块
+        List<PlateNameForIndex> plateNameForIndex = postService.findAllPlateNames();
+        modelAndView.addObject("plates", plateNameForIndex);
+        modelAndView.setViewName("create_team");
+        return modelAndView;
     }
 }
 

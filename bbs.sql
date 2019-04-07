@@ -358,7 +358,7 @@ CREATE TABLE `resource`  (
   `file_size` int(11) NOT NULL COMMENT '资源大小',
   `file_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '资源名称',
   `need_money` int(11) NOT NULL COMMENT '需要的资源数',
-  `desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '资源的描述',
+  `memo` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '资源的描述',
   `gmt_create` datetime(0) DEFAULT NULL COMMENT '创建时间',
   `gmt_modify` datetime(0) DEFAULT NULL COMMENT '修改时间',
   `user_create` int(11) DEFAULT NULL COMMENT '创建者id',

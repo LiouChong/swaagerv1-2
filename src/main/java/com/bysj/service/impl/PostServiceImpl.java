@@ -24,12 +24,14 @@ import com.bysj.entity.vo.response.PostDetailResponse;
 import com.bysj.entity.vo.response.PostResponse;
 import com.bysj.service.IAskhelpService;
 import com.bysj.service.IPostService;
+import com.bysj.service.IResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +45,7 @@ import java.util.List;
  */
 @Service
 public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostService {
+    private static final String fileURL = "D:\\user_file\\";
     @Resource
     private PlaterDao platerDao;
     @Resource
@@ -60,10 +63,11 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     private UserHandle userHandle;
     @Autowired
     private IAskhelpService askhelpService;
-
+    @Autowired
+    private IResourceService resourceService;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Integer savePost(PostRequest request) throws Exception {
         Post post = requestConverter.convert(request, Post.class);
 
@@ -77,9 +81,50 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
         post.setGmtCreate(nowDate);
         post.setGmtModify(nowDate);
 
-        // 插入帖子后，会自动将递增后的id返还给post对象。
-        postDao.insert(post);
+        // 如果帖子类型为资源贴。
+        if (new Integer(2).equals(request.getArticleType())) {
+            saveResource(request, post, userId, nowDate);
+            postDao.insert(post);
+        } else {
+            // 插入帖子后，会自动将递增后的id返还给post对象。
+            postDao.insert(post);
+            saveAskHelp(request,post,userId,nowDate);
+        }
 
+        return 1;
+    }
+
+    private void saveResource(PostRequest request, Post post, Integer userId, Date nowDate) throws Exception {
+        MultipartFile multipartFile = request.getMultipartFile();
+        if (multipartFile.getSize() > 3 * 1024) {
+            throw new BussinessException("文件上传过大");
+        }
+        File fileDir = new File(fileURL);
+        if (!fileDir.exists()) {
+            fileDir.mkdirs();
+        }
+
+        // 加上用户id和时间戳防止文件重名
+        String savePath = fileURL + userHandle.getUserId() + multipartFile.getOriginalFilename() + System.currentTimeMillis();
+
+        com.bysj.entity.Resource resource = new com.bysj.entity.Resource();
+        resource.setFileName(multipartFile.getOriginalFilename());
+        resource.setFileSize(multipartFile.getSize());
+        resource.setFileUrl(savePath);
+
+        // 设置通用信息
+        resource.setGmtCreate(nowDate);
+        resource.setGmtModify(nowDate);
+        resource.setUserCreate(userId);
+        resource.setUserModify(userId);
+
+        resourceService.save(resource);
+        post.setResourceId(resource.getId());
+
+        multipartFile.transferTo(new File(savePath));
+    }
+
+    private void saveAskHelp(PostRequest request, Post post,Integer userId, Date nowDate) {
         // 请求帮助的人，此时拿出来为字符串形式，下面转换为Json后转化为集合。
         String askHelpStr= request.getAskHelp();
         if (askHelpStr != null) {
@@ -100,8 +145,6 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
                 }
             });
         }
-
-        return 1;
     }
 
     @Override
@@ -249,5 +292,8 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
         return postDao.getAllById(id);
     }
 
-
+    @Override
+    public Post getByResourceId(Integer id) {
+        return postDao.getByResourceId(id);
+    }
 }

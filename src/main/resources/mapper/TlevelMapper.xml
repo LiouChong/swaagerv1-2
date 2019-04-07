@@ -43,7 +43,7 @@
 
     <insert id="insert" parameterType="com.bysj.entity.Tlevel">
         insert into
-        <include refid="Table_Name"></include>
+        resource
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <include refid="IF_Base_Column_List"></include>
         </trim>

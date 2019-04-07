@@ -132,20 +132,72 @@
         </if>
     </sql>
 
-    <insert id="insert" parameterType="com.bysj.entity.Team">
+    <insert id="insert" parameterType="com.bysj.entity.Team" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         insert into
-        <include refid="Table_Name"></include>
+        team
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <include refid="IF_Base_Column_List"></include>
+            <if test=" teamName != null">
+                team_name,
+            </if>
+            <if test=" memberCount != null">
+                member_count,
+            </if>
+            <if test=" plateId != null">
+                plate_id,
+            </if>
+            <if test=" leaderId != null">
+                leader_id,
+            </if>
+            <if test=" state != null">
+                state,
+            </if>
+            <if test=" gmtCreate != null">
+                gmt_create,
+            </if>
+            <if test=" gmtModify != null">
+                gmt_modify,
+            </if>
+            <if test=" userModify != null">
+                user_modify,
+            </if>
+            <if test="memo != null">
+                `memo`,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <include refid="IF_Value_Column_List"></include>
+            <if test=" teamName != null">
+                #{teamName },
+            </if>
+            <if test=" memberCount != null">
+                #{memberCount },
+            </if>
+            <if test=" plateId != null">
+                #{plateId },
+            </if>
+            <if test=" leaderId != null">
+                #{leaderId },
+            </if>
+            <if test=" state != null">
+                #{state },
+            </if>
+            <if test=" gmtCreate != null">
+                #{gmtCreate },
+            </if>
+            <if test=" gmtModify != null">
+                #{gmtModify },
+            </if>
+            <if test=" userModify != null">
+                #{userModify },
+            </if>
+            <if test="memo != null">
+                #{memo},
+            </if>
         </trim>
     </insert>
 
     <update id="update" parameterType="com.bysj.entity.Team">
         update
-        <include refid="Table_Name"></include>
+        team
         <trim prefix="SET" suffixOverrides=",">
             <include refid="Set_Column_List"></include>
         </trim>
@@ -157,14 +209,14 @@
         select
         <include refid="Base_Column_List"/>
         from
-        <include refid="Table_Name"></include>
+        team
         where id = #{id}
     </select>
 
 
     <delete id="deleteById" parameterType="java.lang.Integer">
         delete from
-        <include refid="Table_Name"></include>
+        team
         where id = #{id}
     </delete>
 
@@ -172,7 +224,7 @@
         select
         <include refid="Base_Column_List"/>
         from
-        <include refid="Table_Name"></include>
+        team
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -184,14 +236,14 @@
     <select id="getAll" resultType="com.bysj.entity.Team">
         select *
         from
-        <include refid="Table_Name"></include>
+        team
     </select>
 
 
     <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
         select count(1)
         from
-        <include refid="Table_Name"></include>
+        team
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -201,7 +253,7 @@
 
     <select id="findQuery" resultType="com.bysj.entity.Team" parameterType="com.bysj.common.request.ObjectQuery">
         select * from
-        <include refid="Table_Name"></include>
+        team
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -210,5 +262,38 @@
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
+    </select>
+    <select id="selectForPageIndex" resultType="com.bysj.entity.vo.response.TeamIndexResponse">
+        select
+            t.id as id,
+            t.team_name as teamName,
+            p.plate_name as plateName,
+            t.member_count as count
+        from
+          user_team_rel utr
+        left join
+          team t on utr.team_id = t.id
+        left join
+          plater p on t.plate_id = p.id
+        where utr.user_id = #{userId}
+    </select>
+    <select id="selectDetailBtId" resultType="com.bysj.entity.vo.response.TeamDetailResponse">
+        select
+            t.id,
+            t.team_name as teamName,
+            p.plate_name as plateName,
+            t.member_count as count ,
+            t.memo as memo,
+            t.gmt_create as gmtCreate,
+            t.leader_id as leaderId,
+            u.nickname as teamLeadName
+        from
+          team t
+        left join
+          user u on t.leader_id = u.id
+		left join
+		  plater p on t.plate_id = p.id
+        where
+          t.id = #{teamId}
     </select>
 </mapper>

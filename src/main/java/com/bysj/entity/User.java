@@ -3,6 +3,7 @@ package com.bysj.entity;
 import com.bysj.common.request.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Date;
  * @since 2019-02-28
  */
 
-public class User extends BaseEntity {
+public class User extends BaseEntity implements Serializable{
 
 
     private static final long serialVersionUID = 1L;

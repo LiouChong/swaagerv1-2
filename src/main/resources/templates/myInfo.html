@@ -190,7 +190,7 @@
 
             <div class="logo-container">
                 <!-- Website Logo -->
-                <a href="/index-2" title="BBS技术分享网站">
+                <a href="/post/index" title="BBS技术分享网站">
                     <img src="/images/logo.png" alt="BBS technology sharing site">
                 </a>
                 <span class="tag-line">思想的宽度从分享开始</span>
@@ -204,6 +204,7 @@
                         <li ><a href="/post/index">首页</a></li>
                         <li><a href="/home-categories-description">关注</a></li>
                         <li><a href="/post/query/good">推荐</a></li>
+                        <!--<li><a href="/post/plate/list">板块</a></li>-->
                         <li><a href="/query/list">最新</a></li>
                         <li><a href="/faq">常见问题</a></li>
                         <li><a href="/contact">联系我们</a></li>
@@ -289,8 +290,8 @@
                 </tr>
                 <tr>
                     <td><i>
-                        <span class="vintage"> 粉丝数：</span> <br></i></td>
-                    <td><span class="input_css" th:text="${user.fanCount}"><!--${user_picture.psw} --></span></td>
+                        <span class="vintage"> 粉丝数：</span></i></td>
+                    <td><span class="input_css" th:text="${user.fanCount}"></span>&emsp;&emsp;&emsp;<button><a href="/follow/query/list?type=1">查看</a></button></td>
                 </tr>
                 <tr>
                     <td><i>
