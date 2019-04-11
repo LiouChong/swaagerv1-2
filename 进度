@@ -67,10 +67,8 @@ ne：not equal（不等于）!=
 用户新建讨论组 1
 
 收藏帖子页面
-
-        收到得求问邀请
-        收到的讨论组邀请
-
+收到得求问邀请
+收到的讨论组邀请
 用户退出建讨论组
 用户在讨论组内发言
 全站消息
@@ -86,6 +84,7 @@ ne：not equal（不等于）!=
 版主申请卸任
 帖子解禁
 查看用户详情
+如何增加money？支付宝接口or 回帖增加?
 
 ChatRecordController
 FavoritesArticleController 只有添加和更新
