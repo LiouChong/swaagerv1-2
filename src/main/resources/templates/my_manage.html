@@ -149,6 +149,44 @@
                 });
                 $(this).parent().parent().slideUp(500);
             });
+            $("a[name='sureInvite']").click(function () {
+                $.ajax({
+                    type:"POST",
+                    url:"/teaminvite/update/single",
+                    contentType:"application/json; charset=utf-8",
+                    data:JSON.stringify({
+                    id:$(this).parent().prev().prev().val(),
+                    teamId:$(this).parent().prev().val()
+                }),
+                    dataType: "json",
+                    success: function (message) {
+                    if (message.body != null) {
+                        alert(message.body);
+                    } else {
+                        alert(message.head.result)
+                    }
+                }
+                })
+            })
+
+            $("a[name='refuseInvite']").click(function () {
+                $.ajax({
+                    type:"POST",
+                    url:"/teaminvite/defuse",
+                    contentType:"application/x-www-form-urlencoded; charset=utf-8",
+                    data: {
+                        teamInviteId: $(this).parent().prev().prev().val()
+                    },
+                    dataType: "json",
+                    success: function (message) {
+                        if (message.body != null) {
+                            alert(message.body);
+                        } else {
+                            alert(message.head.result)
+                        }
+                    }
+                })
+            })
         });
     </script>
 
@@ -384,7 +422,7 @@
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion1"
                                            href="#collapseSix">收到的讨论组邀请
-                                            <!--<span class="badge" th:text="${myPost.totalRecords}"></span>-->
+                                            <span class="badge" th:text="${invitesCount}"></span>
                                         </a>
                                     </h4>
                                 </div>
@@ -405,14 +443,15 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <tr th:each="post, postStat:${myPost.items}">
-                                                    <td th:text="${postStat.index} + 1"></td>
-                                                    <td th:text="${post.title}"></td>
-                                                    <td th:text="${post.plateName}"></td>
-                                                    <td th:text="${post.readCount}"></td>
-                                                    <td th:text="${post.postGmtCreate}"></td>
-                                                    <input th:value="${post.id}" type="hidden">
-                                                    <td><a th:href="'/post/detail?postId=' + ${post.id}">查看详情</a> &emsp;<a href="javascript:void(0)" name="post_delete">删除</a></td>
+                                                    <tr th:each="invite, inviteStat:${invites}">
+                                                        <td th:text="${inviteStat.index} + 1"></td>
+                                                        <td th:text="${invite.teamName}"></td>
+                                                        <td th:text="${invite.plateName}"></td>
+                                                        <td th:text="${invite.teamCount}"></td>
+                                                        <td th:text="${invite.gmtCreateStr}"></td>
+                                                        <input th:value="${invite.id}" type="hidden">
+                                                        <input th:value="${invite.teamId}" type="hidden">
+                                                        <td><a name="sureInvite" href="javascript:void(0)">同意</a> &emsp;<a href="javascript:void(0)" name="refuseInvite">拒绝</a></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -424,6 +463,8 @@
 
                             <div class="panel">
                                 <div class="panel-heading">
+
+
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion1"
                                            href="#collapseFive">讨论组管理 &emsp;<span class="badge">14</span></a>
@@ -483,44 +524,19 @@
             </div>
 
 
-            <div class="span3">
+          <!--  <div class="span3">
                 <section class="widget">
                     <h3 class="title">Flickr Photos</h3>
                     <div class="flickr-photos" id="basicuse">
                     </div>
                 </section>
-            </div>
+            </div>-->
 
         </div>
     </div>
     <!-- end of #footer -->
 
     <!-- Footer Bottom -->
-    <div id="footer-bottom-wrapper">
-        <div id="footer-bottom" class="container">
-            <div class="row">
-                <div class="span6">
-                    <p class="copyright">
-                        Copyright © 2013. All Rights Reserved by KnowledgeBase.Collect from
-                    </p>
-                </div>
-                <div class="span6">
-                    <!-- Social Navigation -->
-                    <ul class="social-nav clearfix">
-                        <li class="linkedin"><a target="_blank" href="#"></a></li>
-                        <li class="stumble"><a target="_blank" href="#"></a></li>
-                        <li class="google"><a target="_blank" href="#"></a></li>
-                        <li class="deviantart"><a target="_blank" href="#"></a></li>
-                        <li class="flickr"><a target="_blank" href="#"></a></li>
-                        <li class="skype"><a target="_blank" href="skype:#?call"></a></li>
-                        <li class="rss"><a target="_blank" href="#"></a></li>
-                        <li class="twitter"><a target="_blank" href="#"></a></li>
-                        <li class="facebook"><a target="_blank" href="#"></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- End of Footer Bottom -->
 
 </footer>

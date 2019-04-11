@@ -3,6 +3,7 @@ package com.bysj.controller;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.vo.query.TeamInviteQuery;
 import com.bysj.entity.vo.request.TeamInviteRequest;
+import com.bysj.entity.vo.request.TeamInviteUpdateRequest;
 import com.bysj.service.ITeamInviteService;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
@@ -49,7 +50,7 @@ public class TeamInviteController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "teamInvite") TeamInviteRequest teamInviteRequest) throws Exception {
+    public ActionResponse updateSingle(@ApiParam(value = "teamInvite") @RequestBody TeamInviteUpdateRequest teamInviteRequest) throws Exception {
         iTeamInviteService.updateTeamInvite(teamInviteRequest);
         return ActionResponse.success();
     }
@@ -97,6 +98,22 @@ public class TeamInviteController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id) throws Exception {
         return ActionResponse.success(iTeamInviteService.deleteById(id));
+    }
+
+    /**
+     * 拒绝小组邀请
+     *
+     * @param teamInviteId
+     * @return actionResponse
+     */
+    @ApiOperation(value = "拒绝小组邀请", notes = "传入讨论组id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
+    })
+    @RequestMapping(value = "/defuse", method = RequestMethod.POST)
+    public ActionResponse defuse(Integer  teamInviteId) {
+        iTeamInviteService.defuseInvite(teamInviteId);
+        return ActionResponse.success();
     }
 }
 

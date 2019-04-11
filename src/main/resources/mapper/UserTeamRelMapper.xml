@@ -113,12 +113,17 @@
 
     <select id="getByWhere" resultType="com.bysj.entity.UserTeamRel" parameterType="java.util.Map">
         select
-        <include refid="Base_Column_List"/>
+          user_id AS userId, team_id AS teamId
         from
         user_team_rel
         <where>
             <trim prefixOverrides="and">
-                <include refid="Where_Column_List"></include>
+                <if test=" userId != null">
+                    and user_id = #{userId }
+                </if>
+                <if test=" teamId != null">
+                    and team_id = #{teamId }
+                </if>
             </trim>
         </where>
     </select>

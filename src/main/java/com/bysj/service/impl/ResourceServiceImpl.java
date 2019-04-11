@@ -104,8 +104,9 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource> implements IR
             os.flush();
             return ;
         }
+        Integer resultMoney = user.getMoney() - post.getNeedMoney();
         download(resource, response,is ,os);
-        userDao.updateUserMoney(user.getMoney() - post.getNeedMoney(), user.getId());
+        userDao.updateUserMoney( user.getId(),resultMoney);
 
     }
 

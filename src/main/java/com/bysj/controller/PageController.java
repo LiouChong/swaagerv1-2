@@ -52,12 +52,32 @@ public class PageController {
     @GetMapping("/backstage/manage")
     @RequiresPermissions("user:ban")
     public String getManagePage(Model model) throws Exception {
+        model.addAttribute("ApplyPlate", getApplyPlate());
+        model.addAttribute("platers", getPlater());
+        model.addAttribute("banPosts", getBanPost());
+        model.addAttribute("banUsers", getBanUser());
+        return "manage";
+    }
+
+    /**
+     * 获取申请版主列表
+     * @return
+     * @throws Exception
+     */
+    private PageResult<ApplyPlateResponse> getApplyPlate() throws Exception {
         // 查询申请博主列表
         PageResult<ApplyPlateResponse> pageApplyPlate = applyPlateService.findPageApplyPlate(new ObjectQuery());
         pageApplyPlate.getItems().forEach(item -> {
             item.setApplyTimeStr(DateUtils.getDataString(item.getApplyTime(), DateUtils.NO_TIME_FORMAT));
         });
+        return pageApplyPlate;
+    }
 
+    /**
+     * 获取版主列表
+     * @return
+     */
+    private PageResult<UserLevellResponse> getPlater() {
         // 查询博主列表，将登记设置为2（博主等级）
         UserQueryByLevel userQuery = new UserQueryByLevel();
         userQuery.setUserLevel(2);
@@ -71,18 +91,29 @@ public class PageController {
             item.setPlaterGmtCreateStr(DateUtils.getDataString(item.getPlaterGmtCreate(),DateUtils.WHOLE_FORMAT));
             item.setLevelStr(numberChineseEx.numExchangeChinese(item, "level"));
         });
+        return userByLevel;
+    }
 
+    /**
+     * 获取被ban用户列表
+     * @return
+     */
+    private PageResult<PostBanResponse> getBanPost() {
         ManagePostQuery managePostQuery = new ManagePostQuery();
         managePostQuery.setIfBan(1);
         // 查询被封禁帖子列表
         PageResult<PostBanResponse> pageBanPost = postService.findManagePagePost(managePostQuery);
+        return pageBanPost;
+    }
+
+    /**
+     * 获取被封禁用户
+     * @return
+     */
+    private PageResult<UserBanResponse> getBanUser() {
         // 查询被封禁用户列表
         PageResult<UserBanResponse> pageBanUser = userService.findPageUserBan(new ObjectQuery());
-
-        model.addAttribute("ApplyPlate", pageApplyPlate);
-        model.addAttribute("platers", userByLevel);
-        model.addAttribute("banPosts", pageBanPost);
-        model.addAttribute("banUsers", pageBanUser);
-        return "manage";
+        return pageBanUser;
     }
+
 }

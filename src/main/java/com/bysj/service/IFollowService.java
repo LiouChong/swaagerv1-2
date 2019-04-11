@@ -55,5 +55,10 @@ public interface IFollowService extends IBaseService<Follow> {
          */
         Integer cancelFollow(FollowRequest follow);
 
+        /**
+         * 查看是否关注该用户
+         * @param starId
+         * @return
+         */
         Follow getByIds(Integer starId);
 }

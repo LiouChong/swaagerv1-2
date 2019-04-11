@@ -163,7 +163,7 @@
                         url: "/privateletter/save/single",
                         data: JSON.stringify({
                             content: judge,
-                            userSendRev: $(this).parent().prev().val()
+                            userSendRev: $(this).parent().parent().prev().val()
                         }),
                         contentType: "application/json; charset=utf-8",
                         dataType: "text",
@@ -388,8 +388,9 @@
                 <shiro:user>
                     <input th:value="${user.id}" type="hidden">
                     <h2 style="width: 40%; float: left">
-                        <button style="width: 120px; height: 40px;"><a href="javascript:void(0)"
-                            style="color:black; font-size: 22px;" id="sendMessage"><b>发送私信</b></a></button>
+                        <button style="width: 120px; height: 40px;">
+                            <a href="javascript:void(0)" style="color:black; font-size: 22px;" id="sendMessage"><b>发送私信</b></a>
+                        </button>
                     </h2>
                     <h2 style="width: 40%; float: right">
                         <button style="width: 120px; height: 40px;" th:if="${followIf eq null}"><a
@@ -517,44 +518,19 @@
             </div>
 
 
-            <div class="span3">
+         <!--   <div class="span3">
                 <section class="widget">
                     <h3 class="title">Flickr Photos</h3>
                     <div class="flickr-photos" id="basicuse">
                     </div>
                 </section>
-            </div>
+            </div>-->
 
         </div>
     </div>
     <!-- end of #footer -->
 
     <!-- Footer Bottom -->
-    <div id="footer-bottom-wrapper">
-        <div id="footer-bottom" class="container">
-            <div class="row">
-                <div class="span6">
-                    <p class="copyright">
-                        Copyright © 2013. All Rights Reserved by KnowledgeBase.Collect from
-                    </p>
-                </div>
-                <div class="span6">
-                    <!-- Social Navigation -->
-                    <ul class="social-nav clearfix">
-                        <li class="linkedin"><a target="_blank" href="#"></a></li>
-                        <li class="stumble"><a target="_blank" href="#"></a></li>
-                        <li class="google"><a target="_blank" href="#"></a></li>
-                        <li class="deviantart"><a target="_blank" href="#"></a></li>
-                        <li class="flickr"><a target="_blank" href="#"></a></li>
-                        <li class="skype"><a target="_blank" href="skype:#?call"></a></li>
-                        <li class="rss"><a target="_blank" href="#"></a></li>
-                        <li class="twitter"><a target="_blank" href="#"></a></li>
-                        <li class="facebook"><a target="_blank" href="#"></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- End of Footer Bottom -->
 
 </footer>

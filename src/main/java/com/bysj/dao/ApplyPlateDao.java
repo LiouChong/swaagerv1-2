@@ -7,6 +7,7 @@ import com.bysj.entity.ApplyPlate;
 import com.bysj.entity.vo.response.ApplyPlateResponse;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,5 +31,19 @@ public interface ApplyPlateDao extends IBaseDao<ApplyPlate> {
      */
     Integer findAllCount();
 
+    /**
+     * 通过用户id和板块id获取信息
+     * @param userId
+     * @param plateId
+     * @return
+     */
     ApplyPlate getInfoByUserIdAndPlateId(@Param("userId") Integer userId, @Param("plateId") Integer plateId);
+
+    /**
+     * 将该申请的状态逻辑删除
+     * @param id
+     * @param gmtModift
+     * @return
+     */
+    Integer delApply(@Param("id") Integer id, @Param("gmtModify")Date gmtModift);
 }

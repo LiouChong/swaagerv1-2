@@ -7,6 +7,7 @@ import com.bysj.entity.vo.response.PlateNameForIndex;
 import com.bysj.entity.vo.response.PlaterForUserInfoResponse;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -37,4 +38,11 @@ public interface PlaterDao extends IBaseDao<Plater> {
      * @return
      */
     PlaterForUserInfoResponse getOwnerById(Integer plateId);
+
+    /**
+     * 根据板块名设置版主
+     * @param params
+     * @return
+     */
+    Integer setPlaterByplateName(HashMap<String, Object> params);
 }

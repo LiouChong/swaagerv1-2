@@ -65,20 +65,24 @@ ne：not equal（不等于）!=
 资源贴的展示1
 资源贴的下载1
 用户新建讨论组 1
+收到的讨论组邀请 1
 
 收藏帖子页面
+收到得求问邀请
 收到得求问邀请
 收到的讨论组邀请
 用户退出建讨论组
 用户在讨论组内发言
 全站消息
 结帖
+被封禁用户无法发帖和回复
+板块下进行搜索
 
 按浏览量查看帖子
 
 
 后台管理:
-同意申请版主
+同意申请版主 1
 拒绝申请版主
 版主卸任
 版主申请卸任
@@ -86,16 +90,9 @@ ne：not equal（不等于）!=
 查看用户详情
 如何增加money？支付宝接口or 回帖增加?
 
-ChatRecordController
-FavoritesArticleController 只有添加和更新
-PlaterController
-ResourceController
-TeamController
-TotalStationInforMationController
-UserTeamRelController
-
-
 -------------后台分页留到后面做；注意：分页刷新页面后，下拉框会重置：
  第一个下拉框会展开，这个由属性：class="panel-collapse collapse in"控制，把in删了，就会合并。后端返回type前端判断。
 
 发帖页面 碰到邀请人已经是json但是又被转化为json，于是用list接受后端进行处理。
+
+对私信内容进行删除，发送方或者接收方

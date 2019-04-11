@@ -138,6 +138,14 @@
         </trim>
         where id = #{id}
     </update>
+    <update id="defuseInvite">
+        update
+          team_invite
+        set
+          state = 0,
+          gmt_modify = #{gmtModify}
+        where id = #{inviteId}
+    </update>
 
     <!-- 根据主键查询 -->
     <select id="getById" resultType="com.bysj.entity.TeamInvite" parameterType="java.lang.Integer">
@@ -200,6 +208,8 @@
     </select>
     <select id="getMy" resultType="com.bysj.entity.vo.response.TeamInviteMResponse">
         select
+        ti.id,
+        ti.team_id as teamId,
         t.team_name as teamName,
         p.plate_name as plateName,
         t.member_count as teamCount,
@@ -210,5 +220,16 @@
           left join plater p on t.plate_id = p.id
         where
           ti.user_id = #{userId}
+          and ti.state = 1
+    </select>
+    <select id="getMyCount" resultType="java.lang.Integer">
+        select count(1)
+        from
+          team_invite ti
+          left JOIN  team t on ti.team_id = t.id
+          left join plater p on t.plate_id = p.id
+        where
+          ti.user_id = #{userId}
+          and ti.state = 1
     </select>
 </mapper>

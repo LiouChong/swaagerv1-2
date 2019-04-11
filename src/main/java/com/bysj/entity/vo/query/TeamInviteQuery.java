@@ -7,7 +7,7 @@ import com.bysj.common.request.ObjectQuery;
  * TeamInvite 查询条件
  * </p>
  *
- * @author wh
+ * @author liuchong
  * @since 2018-12-27
  */
 

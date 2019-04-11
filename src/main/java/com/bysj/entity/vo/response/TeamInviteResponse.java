@@ -8,7 +8,7 @@ import com.bysj.common.request.BaseEntity;
  * TeamInviteResponse 响应对象
  * </p>
  *
- * @author wh
+ * @author liuchong
  * @since 2018-12-27
  */
 

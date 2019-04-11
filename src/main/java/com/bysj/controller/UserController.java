@@ -181,16 +181,26 @@ public class UserController {
     @RequestMapping(value = "/user/other", method = RequestMethod.GET)
     public ModelAndView queryById(PostQueryForList queryForList) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
+
         Integer userId = queryForList.getUserId();
+
+        // 获取详细信息
         UserResponse infoById = iUserService.getInfoById(userId);
+
+        // 查询是否关注该用户
         Follow byIds = followService.getByIds(userId);
+
         // 判断当前用户是否关注该用户
         if (Objects.isNull(byIds)) {
             modelAndView.addObject("followIf", null);
         } else {
             modelAndView.addObject("followIf", byIds);
         }
+
+        // 查询该用户发帖
         List<PostResponse> userPosts = postService.findPagePost(queryForList, "follow");
+
+        // 查询用户发帖数量
         Integer postCount = postService.findPagePostCount(queryForList);
 
         // 获得总页数
@@ -294,6 +304,7 @@ public class UserController {
         modelAndView.addObject("sendLetter", getMySendLetter(query));
         modelAndView.addObject("revLetter", getMyRevLetter(query));
         modelAndView.addObject("invites",getMyTeamInvite());
+        modelAndView.addObject("invitesCount",getTeamInviteCount());
         modelAndView.setViewName("my_manage");
         return modelAndView;
     }
@@ -342,8 +353,16 @@ public class UserController {
         return managePagePost;
     }
 
+    /**
+     * 查询我接受的讨论组邀请
+     * @return
+     */
     private  List<TeamInviteMResponse> getMyTeamInvite() {
         return teamInviteService.getMyTeamInvite();
+    }
+
+    private Integer getTeamInviteCount() {
+        return teamInviteService.getTeamInviteCount();
     }
 
 }

@@ -2,7 +2,6 @@ package com.bysj.service.impl;
 
 import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
-import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.PageResult;
 import com.bysj.common.utils.DateUtils;
 import com.bysj.common.utils.UserHandle;
@@ -18,7 +17,6 @@ import org.apache.shiro.authz.UnauthenticatedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.activation.DataHandler;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
@@ -59,16 +57,17 @@ public class PrivateLetterServiceImpl extends BaseServiceImpl<PrivateLetter> imp
         privateLetter.setLetterType(1);
         privateLetter.setUserModify(userId);
 
-            /*
-                下面有三个变量用于形容私信，1个为发送方的发送者，还有发送方的接收者，最后是1个接收方的发送者
-                1: 若发送方删除私信，则置 发送方发送者为null，查询有哪些私信的时候直接插发送方发送者为自己。
-                2：若接收方删除私信，则置 接受放的发送者为null，查询有哪些接受的私信的时候，根据自己id查询丙炔接收方的发送者不为null
-             */
+        /*
+            下面有三个变量用于形容私信，1个为发送方的发送者，还有发送方的接收者，最后是1个接收方的发送者
+            1: 若发送方删除私信，则置 发送方发送者为null，查询有哪些私信的时候直接插发送方发送者为自己。
+            2：若接收方删除私信，则置 接受放的发送者为null，查询有哪些接受的私信的时候，根据自己id查询丙炔接收方的发送者不为null
+         */
         // 发送者的接收者 已经设值，此时接收者为入参。
         // 用户发送发的发送者 此时发送者为当前登录用户
         privateLetter.setUserSendSend(userId);
         //  用于接受方的发送者
         privateLetter.setUserRevSend(userId);
+//        privateLetter.setUserSendRev();
 
         // TODO:考虑黑名单功能
         if (privateLetterDao.insert(privateLetter) == 1) {

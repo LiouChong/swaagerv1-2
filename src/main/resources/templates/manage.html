@@ -114,6 +114,27 @@
                     }
                 })
             });
+
+            $("a[name='platerPass']").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/applyplate/pass",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        id: $(this).parent().prev().prev().val(),
+                        userId:$(this).parent().prev().val(),
+                        plateName: $(this).parent().prev().prev().prev().prev().text()
+                    }),
+                    dataType: "json",
+                    success: function (message) {
+                        if (message.body != null) {
+                            alert(message.body)
+                        } else {
+                            alert(message.head.result)
+                        }
+                    }
+                })
+            });
         });
     </script>
 
@@ -208,7 +229,9 @@
                                                             <td style="width: 50%;" th:text="${applyPlate.applyInfo}"></td>
                                                             <td th:text="${applyPlate.applyPlateName}"></td>
                                                             <td th:text="${applyPlate.applyTimeStr}"></td>
-                                                            <td><a>同意</a> &emsp;<a>拒绝</a></td>
+                                                            <input th:value="${applyPlate.id}" type="hidden"/>
+                                                            <input th:value="${applyPlate.applyUserId}" type="hidden"/>
+                                                            <td><a name="platerPass" href="javascript:void(0)">同意</a> &emsp;<a href="javascript:void(0)">拒绝</a></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -412,44 +435,19 @@
             </div>
 
 
-            <div class="span3">
+            <!--<div class="span3">
                 <section class="widget">
                     <h3 class="title">Flickr Photos</h3>
                     <div class="flickr-photos" id="basicuse">
                     </div>
                 </section>
-            </div>
+            </div>-->
 
         </div>
     </div>
     <!-- end of #footer -->
 
     <!-- Footer Bottom -->
-    <div id="footer-bottom-wrapper">
-        <div id="footer-bottom" class="container">
-            <div class="row">
-                <div class="span6">
-                    <p class="copyright">
-                        Copyright © 2013. All Rights Reserved by KnowledgeBase.Collect from
-                    </p>
-                </div>
-                <div class="span6">
-                    <!-- Social Navigation -->
-                    <ul class="social-nav clearfix">
-                        <li class="linkedin"><a target="_blank" href="#"></a></li>
-                        <li class="stumble"><a target="_blank" href="#"></a></li>
-                        <li class="google"><a target="_blank" href="#"></a></li>
-                        <li class="deviantart"><a target="_blank" href="#"></a></li>
-                        <li class="flickr"><a target="_blank" href="#"></a></li>
-                        <li class="skype"><a target="_blank" href="skype:#?call"></a></li>
-                        <li class="rss"><a target="_blank" href="#"></a></li>
-                        <li class="twitter"><a target="_blank" href="#"></a></li>
-                        <li class="facebook"><a target="_blank" href="#"></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- End of Footer Bottom -->
 
 </footer>

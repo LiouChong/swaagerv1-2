@@ -5,6 +5,7 @@ import com.bysj.common.request.IBaseService;
 import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.PageResult;
 import com.bysj.entity.ApplyPlate;
+import com.bysj.entity.vo.request.ApplyPlatePassRequest;
 import com.bysj.entity.vo.request.ApplyPlateRequest;
 import com.bysj.entity.vo.response.ApplyPlateResponse;
 
@@ -47,6 +48,17 @@ public interface IApplyPlateService extends IBaseService<ApplyPlate> {
          */
         PageResult<ApplyPlateResponse> findPageApplyPlate(ObjectQuery query) throws Exception;
 
+        /**
+         * 获得所有版主申请的数量
+         * @return
+         */
         Integer findAllCount();
+
+        /**
+         * 通过申请
+         * @param request
+         * @return
+         */
+        Integer passApply(ApplyPlatePassRequest request) throws Exception;
 
 }

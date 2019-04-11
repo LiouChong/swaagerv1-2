@@ -3,6 +3,7 @@ package com.bysj.common.exception;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.response.RespBasicCode;
 import org.apache.shiro.authz.UnauthenticatedException;
+import org.apache.tomcat.util.http.fileupload.FileUploadBase;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,5 +50,10 @@ public class ExceptionHandle {
     @ExceptionHandler(UnauthenticatedException.class)
     public String redirectToLoginPage() {
         return "redirect:/login";
+    }
+
+    @ExceptionHandler(FileUploadBase.SizeLimitExceededException.class)
+    public ActionResponse SizeLimitExceededExceptionHandle() {
+        return ActionResponse.fail(RespBasicCode.PARAMETER_ERROR, "上传文件过大！");
     }
 }

@@ -121,7 +121,7 @@
 
     <insert id="insert" parameterType="com.bysj.entity.Plater">
         insert into
-        <include refid="Table_Name"></include>
+        plater
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <include refid="IF_Base_Column_List"></include>
         </trim>
@@ -132,11 +132,21 @@
 
     <update id="update" parameterType="com.bysj.entity.Plater">
         update
-        <include refid="Table_Name"></include>
+        plater
         <trim prefix="SET" suffixOverrides=",">
             <include refid="Set_Column_List"></include>
         </trim>
         where id = #{id}
+    </update>
+    <update id="setPlaterByplateName" parameterType="java.util.Map" >
+        update
+          plater
+        set
+          owner_id = #{userId},
+          gmt_modify = #{gmtModify},
+          user_modify = #{userModify}
+          where plate_name  = #{plateName}
+
     </update>
 
     <!-- 根据主键查询 -->
@@ -144,7 +154,7 @@
         select
         <include refid="Base_Column_List"/>
         from
-        <include refid="Table_Name"></include>
+        plater
         where id = #{id}
     </select>
     <!-- 根据主键查询 -->
@@ -162,7 +172,7 @@
 
     <delete id="deleteById" parameterType="java.lang.Integer">
         delete from
-        <include refid="Table_Name"></include>
+        plater
         where id = #{id}
     </delete>
 
@@ -170,10 +180,30 @@
         select
         <include refid="Base_Column_List"/>
         from
-        <include refid="Table_Name"></include>
+        plater
         <where>
             <trim prefixOverrides="and">
-                <include refid="Where_Column_List"></include>
+                <if test=" plateName != null">
+                    and plate_name = #{plateName }
+                </if>
+                <if test=" ownerId != null">
+                    and owner_id = #{ownerId }
+                </if>
+                <if test=" state != null">
+                    and state = #{state }
+                </if>
+                <if test=" gmtCreate != null">
+                    and gmt_create = #{gmtCreate }
+                </if>
+                <if test=" gmtModify != null">
+                    and gmt_modify = #{gmtModify }
+                </if>
+                <if test=" userCreate != null">
+                    and user_create = #{userCreate }
+                </if>
+                <if test=" userModify != null">
+                    and user_modify = #{userModify }
+                </if>
             </trim>
         </where>
     </select>
@@ -182,14 +212,14 @@
     <select id="getAll" resultType="com.bysj.entity.Plater">
         select *
         from
-        <include refid="Table_Name"></include>
+        plater
     </select>
 
 
     <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
         select count(1)
         from
-        <include refid="Table_Name"></include>
+        plater
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -202,7 +232,7 @@
     </select>
     <select id="findQuery" resultType="com.bysj.entity.Plater" parameterType="com.bysj.common.request.ObjectQuery">
         select * from
-        <include refid="Table_Name"></include>
+        plater
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -213,7 +243,7 @@
         </if>
     </select>
 
-    <select id="findPlateNameByUserId" parameterType="Integer" resultType="string">
+    <select id="findPlateNameByUserId" parameterType="Integer" resultType="java.lang.String">
         select plate_name as plateName from plater where owner_id = ${userId}
     </select>
 </mapper>

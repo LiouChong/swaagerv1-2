@@ -3,6 +3,7 @@ package com.bysj.controller;
 
 import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.vo.query.ApplyPlateQuery;
+import com.bysj.entity.vo.request.ApplyPlatePassRequest;
 import com.bysj.entity.vo.request.ApplyPlateRequest;
 import com.bysj.service.IApplyPlateService;
 import io.swagger.annotations.*;
@@ -36,6 +37,21 @@ public class ApplyPlateController {
     public String saveSingle(@ApiParam(value = "applyPlate") @RequestBody ApplyPlateRequest applyPlateRequest)throws Exception{
         String info = iApplyPlateService.saveApplyPlate(applyPlateRequest);
         return info;
+    }
+
+    /**
+     * 通过申请
+     * @param applyPlateRequest
+     * @return actionResponse
+     */
+    @ApiOperation(value = "通过申请", notes = "传入实体对象信息")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
+    })
+    @RequestMapping(value = "/pass", method = RequestMethod.POST)
+    public ActionResponse passApply(@RequestBody ApplyPlatePassRequest applyPlateRequest)throws Exception{
+        iApplyPlateService.passApply(applyPlateRequest);
+        return ActionResponse.success();
     }
 
     /**

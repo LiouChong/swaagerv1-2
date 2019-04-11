@@ -30,7 +30,7 @@
     <![endif]-->
     <style type="text/css">
         div {
-            border: 1px black solid ;
+            /*border: 1px black solid ;*/
         }
         .butclass {
             background-color: #0d90d1;
@@ -161,11 +161,13 @@
             <div style="margin: 0 auto;width: 78%">
                 <!--<form action="/newPost" method="post">-->
                 <br>
+                <!--小组信息框-->
                 <div style="width: 100%;height: 40px;">
                     <span th:text="${detail.teamName}" style="font-size: 24px;"></span>&emsp;&emsp;
-                    <span th:text="'所属板块：' + ${detail.plateName}" style="font-size: 24px;"></span>&emsp;&emsp;
-                    <span th:text="'创建于：' + ${detail.gmtCreateStr}" style="font-size: 24px;"></span>
+                    <span th:text="'板块：' + ${detail.plateName}" style="font-size: 24px;"></span>&emsp;&emsp;
+                    <span th:text="'创建：' + ${detail.gmtCreateStr}" style="font-size: 24px;"></span>
                 </div>
+                <!--小组操作框-->
                 <div style="height:30px;">
                     <span style="font-size:20px;line-height: 30px" th:text="'人数：' + ${detail.count}"></span>&emsp;
                     <a href ="javascript:void(0)" id="invite" style="margin-left: 20px; font-size:18px">邀请</a>&emsp;&emsp;
@@ -176,14 +178,27 @@
                     </span>
                 </div>
                 <hr>
-                <div style="float: left;width:20%;height: 100%">
+                <!--用户列表框-->
+                <div style="float: left;width:20%;height: 100%;border-right: 1px black solid">
+                    <b>成员：</b><hr>
                     <ul id="menu-quick-links" >
                         <li th:each="nickname,nicknameStat: ${detail.nicknames}">
-                            <a style="float: left;" th:href="'/user/' + ${nickname.id}" th:text="${nickname.nickname} "></a>
+                            <a style="float: left;" th:href="'/user/other?userId=' + ${nickname.id}" th:text="${nickname.nickname} "></a>
                         </li>
                     </ul>
                 </div>
+                <!--历史消息框-->
+                <div style="float: right; width: 78%; height: 80%;border: 1px black solid">
 
+                </div>
+
+                <!--信息输入框-->
+                <div style="height: 19%;width: 78%;float: right;margin-top:2px">
+                    <textarea style="width:89%;height:100%;font-size:25px"></textarea>
+                    <div style="float: right;margin-bottom: 1px;width:10%;height:100%">
+                        <button style="height: 100%; width:100%; font-size:30px">发<br><br>送</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -222,45 +237,18 @@
             </div>
 
 
-            <div class="span3">
+           <!-- <div class="span3">
                 <section class="widget">
                     <h3 class="title">Flickr Photos</h3>
                     <div class="flickr-photos" id="basicuse">
                     </div>
                 </section>
-            </div>
+            </div>-->
 
         </div>
     </div>
     <!-- end of #footer -->
 
-    <!-- Footer Bottom -->
-    <div id="footer-bottom-wrapper">
-        <div id="footer-bottom" class="container">
-            <div class="row">
-                <div class="span6">
-                    <p class="copyright">
-                        Copyright © 2013. All Rights Reserved by KnowledgeBase.Collect from
-                    </p>
-                </div>
-                <div class="span6">
-                    <!-- Social Navigation -->
-                    <ul class="social-nav clearfix">
-                        <li class="linkedin"><a target="_blank" href="#"></a></li>
-                        <li class="stumble"><a target="_blank" href="#"></a></li>
-                        <li class="google"><a target="_blank" href="#"></a></li>
-                        <li class="deviantart"><a target="_blank" href="#"></a></li>
-                        <li class="flickr"><a target="_blank" href="#"></a></li>
-                        <li class="skype"><a target="_blank" href="skype:#?call"></a></li>
-                        <li class="rss"><a target="_blank" href="#"></a></li>
-                        <li class="twitter"><a target="_blank" href="#"></a></li>
-                        <li class="facebook"><a target="_blank" href="#"></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End of Footer Bottom -->
 
 </footer>
 <!-- End of Footer -->

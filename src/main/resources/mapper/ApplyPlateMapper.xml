@@ -168,7 +168,7 @@
 
     <update id="update" parameterType="com.bysj.entity.ApplyPlate">
         update
-        <include refid="Table_Name"></include>
+        apply_plate
         <trim prefix="SET" suffixOverrides=",">
             <include refid="Set_Column_List"></include>
         </trim>
@@ -180,22 +180,31 @@
         select
         <include refid="Base_Column_List"/>
         from
-        <include refid="Table_Name"></include>
+        apply_plate
         where id = #{id}
     </select>
 
 
     <delete id="deleteById" parameterType="java.lang.Integer">
         delete from
-        <include refid="Table_Name"></include>
+        apply_plate
         where id = #{id}
     </delete>
+    <update id="delApply">
+        update
+          apply_plate
+        set
+          state = 0,
+          gmt_modify = #{gmtModify}
+        where
+          id = #{id}
+    </update>
 
     <select id="getByWhere" resultType="com.bysj.entity.ApplyPlate" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
-        <include refid="Table_Name"></include>
+        apply_plate
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -207,14 +216,14 @@
     <select id="getAll" resultType="com.bysj.entity.ApplyPlate">
         select *
         from
-        <include refid="Table_Name"></include>
+        apply_plate
     </select>
 
 
     <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
         select count(1)
         from
-        <include refid="Table_Name"></include>
+        apply_plate
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -224,7 +233,7 @@
 
     <select id="findQuery" resultType="com.bysj.entity.ApplyPlate" parameterType="com.bysj.common.request.ObjectQuery">
         select * from
-        <include refid="Table_Name"></include>
+        apply_plate
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>

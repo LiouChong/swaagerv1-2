@@ -6,6 +6,7 @@ import com.bysj.common.response.PageResult;
 import com.bysj.entity.TeamInvite;
 import com.bysj.entity.vo.query.TeamInviteQuery;
 import com.bysj.entity.vo.request.TeamInviteRequest;
+import com.bysj.entity.vo.request.TeamInviteUpdateRequest;
 import com.bysj.entity.vo.response.TeamInviteMResponse;
 import com.bysj.entity.vo.response.TeamInviteResponse;
 
@@ -33,7 +34,7 @@ public interface ITeamInviteService extends IBaseService<TeamInvite> {
          * @param request
          * @return
          */
-        Integer updateTeamInvite(TeamInviteRequest request) throws Exception;
+        Integer updateTeamInvite(TeamInviteUpdateRequest request) throws Exception;
 
         /**
          * 查询对象集合
@@ -54,4 +55,17 @@ public interface ITeamInviteService extends IBaseService<TeamInvite> {
          * @return
          */
         List<TeamInviteMResponse> getMyTeamInvite();
+
+        /**
+         * 获取他轮组邀请数量
+         * @return
+         */
+        Integer getTeamInviteCount();
+
+        /**
+         * 拒绝讨论组邀请
+         * @param teamInviteId
+         * @return
+         */
+        Integer defuseInvite(Integer teamInviteId);
 }

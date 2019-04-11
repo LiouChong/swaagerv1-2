@@ -10,15 +10,31 @@ import java.util.Date;
  * TeamInviteResponse 响应对象
  * </p>
  *
- * @author wh
+ * @author liuchong
  * @since 2018-12-27
  */
 
 public class TeamInviteMResponse extends BaseEntity {
 
+    /**
+     * 小组id
+     */
+    private Integer teamId;
+    /**
+     * 组名
+     */
     private String teamName;
+    /**
+     * 板块名
+     */
     private String plateName;
+    /**
+     * 成员数量
+     */
     private Integer teamCount;
+    /**
+     * 创建日期
+     */
     private Date gmtCreate;
     private String gmtCreateStr;
 
@@ -60,5 +76,13 @@ public class TeamInviteMResponse extends BaseEntity {
 
     public void setGmtCreateStr(String gmtCreateStr) {
         this.gmtCreateStr = gmtCreateStr;
+    }
+
+    public Integer getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Integer teamId) {
+        this.teamId = teamId;
     }
 }

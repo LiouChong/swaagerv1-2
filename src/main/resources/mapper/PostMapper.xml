@@ -461,6 +461,7 @@
                 <if test=" articleType != null">
                     and article_type = #{articleType }
                 </if>
+                and state = 1
             </trim>
         </where>
     </select>
@@ -558,29 +559,29 @@
     <select id="findAllPostTimeDesc" resultType="com.bysj.entity.vo.response.PostResponse"
             parameterType="com.bysj.common.request.ObjectQuery">
         select
-        p.id,
-        p.title,
-        p.info,
-        u.nickname as posterName,
-        p.if_good as ifGood,
-        pl.plate_name as plateName,
-        p.reply_count as replyCount,
-        p.thumbup_count as thumbupCount,
-        p.gmt_create as gmtCreate,
-        p.gmt_modify as gmtModify,
-        p.read_count as readCount,
-        p.article_from as articleFrom,
-        p.article_type as articleType,
-        p.need_money as needMoney,
-        p.give_money as giveMoney
+            p.id,
+            p.title,
+            p.info,
+            u.nickname as posterName,
+            p.if_good as ifGood,
+            pl.plate_name as plateName,
+            p.reply_count as replyCount,
+            p.thumbup_count as thumbupCount,
+            p.gmt_create as gmtCreate,
+            p.gmt_modify as gmtModify,
+            p.read_count as readCount,
+            p.article_from as articleFrom,
+            p.article_type as articleType,
+            p.need_money as needMoney,
+            p.give_money as giveMoney
         from
         post p
         inner join
-        user u on p.poster_id = u.id
+            user u on p.poster_id = u.id
         inner join
-        plater pl on p.plate_id = pl.id
+            plater pl on p.plate_id = pl.id
         where p.state = 1
-        order by p.gmt_create memo
+        order by p.gmt_create desc
         <if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
@@ -719,9 +720,9 @@
                 </if>
             </trim>
         </where>
-        <if test="pageSize !=-1">
+        <!--<if test="pageSize !=-1">
             LIMIT #{pageSize} offset #{pageOffset}
-        </if>
+        </if>-->
     </select>
     <select id="findPagePostCount" resultType="java.lang.Integer"
             parameterType="com.bysj.entity.vo.query.ManagePostQuery">
