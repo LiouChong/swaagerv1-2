@@ -72,7 +72,7 @@ public class ShiroConfiguration {
         filterChainDefinetionMap.put("/user_picture/**", "anon");
         filterChainDefinetionMap.put("/favicon.ico", "anon");
         filterChainDefinetionMap.put("/img/**", "anon");
-
+        filterChainDefinetionMap.put("/socket/**", "anon");
         // 具体controller的链接
         // 首页跳转允许
         filterChainDefinetionMap.put("/post/index", "anon");

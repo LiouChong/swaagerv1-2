@@ -8,14 +8,11 @@
         <result column="content" property="content"/>
         <result column="team_id" property="teamId"/>
         <result column="gmt_create" property="gmtCreate"/>
-        <result column="gmt_modify" property="gmtModify"/>
         <result column="user_create" property="userCreate"/>
-        <result column="user_modify" property="userModify"/>
-        <result column="state" property="state"/>
     </resultMap>
 <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, content, team_id AS teamId, gmt_create AS gmtCreate, gmt_modify AS gmtModify, user_create AS userCreate, user_modify AS userModify, state
+        id, content, team_id AS teamId, gmt_create AS gmtCreate, user_create AS userCreate
     </sql>
 
     <sql id="Table_Name">
@@ -33,17 +30,8 @@
         <if test=" gmtCreate != null">
             gmt_create,
         </if>
-        <if test=" gmtModify != null">
-            gmt_modify,
-        </if>
         <if test=" userCreate != null">
             user_create,
-        </if>
-        <if test=" userModify != null">
-            user_modify,
-        </if>
-        <if test=" state != null">
-            state,
         </if>
     </sql>
 
@@ -57,17 +45,8 @@
         <if test=" gmtCreate != null">
             #{gmtCreate },
         </if>
-        <if test=" gmtModify != null">
-            #{gmtModify },
-        </if>
         <if test=" userCreate != null">
             #{userCreate },
-        </if>
-        <if test=" userModify != null">
-            #{userModify },
-        </if>
-        <if test=" state != null">
-            #{state },
         </if>
     </sql>
 
@@ -81,17 +60,8 @@
         <if test=" gmtCreate != null">
             gmt_create = #{gmtCreate },
         </if>
-        <if test=" gmtModify != null">
-            gmt_modify = #{gmtModify },
-        </if>
         <if test=" userCreate != null">
             user_create = #{userCreate },
-        </if>
-        <if test=" userModify != null">
-            user_modify = #{userModify },
-        </if>
-        <if test=" state != null">
-            state = #{state },
         </if>
     </sql>
 
@@ -105,17 +75,8 @@
         <if test=" gmtCreate != null">
             and gmt_create = #{gmtCreate }
         </if>
-        <if test=" gmtModify != null">
-            and gmt_modify = #{gmtModify }
-        </if>
         <if test=" userCreate != null">
             and user_create = #{userCreate }
-        </if>
-        <if test=" userModify != null">
-            and user_modify = #{userModify }
-        </if>
-        <if test=" state != null">
-            and state = #{state }
         </if>
     </sql>
 

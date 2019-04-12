@@ -27,6 +27,7 @@
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="/js/html5.js"></script></script>
+
     <![endif]-->
     <style type="text/css">
         div {
@@ -74,6 +75,7 @@
 
 
     </style>
+    <script type="text/javascript" src="/js/socket.io.js"></script>
     <script src="/js/jquery-3.3.1.js" th:inline="javascript">
     </script>
     <script>
@@ -188,15 +190,17 @@
                     </ul>
                 </div>
                 <!--历史消息框-->
-                <div style="float: right; width: 78%; height: 80%;border: 1px black solid">
+                <div id="console" style="float: right; width: 78%; height: 80%;border: 1px black solid">
 
                 </div>
 
                 <!--信息输入框-->
                 <div style="height: 19%;width: 78%;float: right;margin-top:2px">
-                    <textarea style="width:89%;height:100%;font-size:25px"></textarea>
+                    <textarea id="msg" style="width:89%;height:100%;font-size:25px"></textarea>
                     <div style="float: right;margin-bottom: 1px;width:10%;height:100%">
-                        <button style="height: 100%; width:100%; font-size:30px">发<br><br>送</button>
+                        <input th:value="${userId}" type="hidden" id="userId">
+                        <input th:value="${detail.id}" type="hidden" id="teamId">
+                        <button style="height: 100%; width:100%; font-size:30px" onclick="sendMessage()">发<br><br>送</button>
                     </div>
                 </div>
             </div>
@@ -266,4 +270,57 @@
 <script type='text/javascript' src='/js/custom.js'></script>
 
 </body>
+
+<script type="text/javascript">
+    var socket = io.connect('http://10.240.17.37:8998')
+    socket.on('connect',function () {
+        output('<span>连接成功</span>')
+    });
+
+    socket.on('connecting', function () {
+        output('<span>正在连接……</span>')
+    })
+
+    socket.on('disconnect', function () {
+        output('<span>断开连接！</span>')
+    })
+
+    socket.on('reconnecting', function () {
+        output('<span>正在重连……</span>')
+    })
+
+    socket.on('connecting', function () {
+        output('<span>成功重连！</span>')
+    })
+
+    socket.on('chateEvent', function (data) {
+        output('<span class="username-msg">' + data.sendTime + ' ' + data.userName + ' : </span>'
+            + data.message);
+    })
+
+    socket.on('connect_failed', function () {
+        output('<span>连接失败！</span>')
+    })
+
+    function sendDiscconnect() {
+        socket.disconnect();
+    }
+    function output(message) {
+        var element = $("<div>" + message + "</div>");
+        $('#console').prepend(element)
+    }
+
+    function sendMessage() {
+        var message = $("#msg").val()
+        var userId = $("#userId").val()
+        var teamId = $("#teamId").val()
+        $("#msg").val("");
+        socket.emit('chateEvent', {
+            message: message,
+            userId: userId,
+            teamId: teamId
+        })
+    }
+
+</script>
 </html>

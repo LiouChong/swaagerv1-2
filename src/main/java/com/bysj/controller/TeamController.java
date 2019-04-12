@@ -2,6 +2,7 @@ package com.bysj.controller;
 
 
 import com.bysj.common.response.ActionResponse;
+import com.bysj.common.utils.UserHandle;
 import com.bysj.entity.vo.query.TeamQuery;
 import com.bysj.entity.vo.request.TeamRequest;
 import com.bysj.entity.vo.response.PlateNameForIndex;
@@ -36,6 +37,9 @@ public class TeamController {
 
     @Autowired
     private IPlaterService platerService;
+
+    @Autowired
+    private UserHandle userHandle;
     /**
      * 保存
      * @param teamRequest
@@ -93,6 +97,7 @@ public class TeamController {
     public ModelAndView queryById(@ApiParam(value = "team") @PathVariable("id") Integer id,ModelAndView modelAndView )throws Exception{
         TeamDetailResponse detail = iTeamService.getDetail(id);
         modelAndView.addObject("detail",detail);
+        modelAndView.addObject("userId", userHandle.getUserId());
         modelAndView.setViewName("team_detail");
         return modelAndView;
     }
