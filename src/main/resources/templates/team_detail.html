@@ -191,7 +191,10 @@
                 </div>
                 <!--历史消息框-->
                 <div id="console" style="float: right; width: 78%; height: 80%;border: 1px black solid">
-
+                    <div th:each="chatRecord, chatRecordStat:${chatRecords}">
+                        <span class="username-msg" th:text="'(' + ${chatRecord.gmtCreate} + ')  ' + ${chatRecord.nickname} + ':' + ${chatRecord.content}">
+                        </span>
+                    </div>
                 </div>
 
                 <!--信息输入框-->
@@ -272,7 +275,7 @@
 </body>
 
 <script type="text/javascript">
-    var socket = io.connect('http://10.240.17.37:8998')
+    var socket = io.connect('http://localhost:8998')
     socket.on('connect',function () {
         output('<span>连接成功</span>')
     });
@@ -294,8 +297,8 @@
     })
 
     socket.on('chateEvent', function (data) {
-        output('<span class="username-msg">' + data.sendTime + ' ' + data.userName + ' : </span>'
-            + data.message);
+        output('<span class="username-msg">' + data.userName + ': '
+            + data.message + '</span>' + '<span style="float: right">----' + data.sendTime + '</span>' + '<hr>');
     })
 
     socket.on('connect_failed', function () {
@@ -307,7 +310,7 @@
     }
     function output(message) {
         var element = $("<div>" + message + "</div>");
-        $('#console').prepend(element)
+        $('#console').append(element)
     }
 
     function sendMessage() {

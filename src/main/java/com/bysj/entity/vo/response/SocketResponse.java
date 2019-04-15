@@ -1,4 +1,4 @@
-package com.bysj.socket;
+package com.bysj.entity.vo.response;
 
 /**
  * 描述:

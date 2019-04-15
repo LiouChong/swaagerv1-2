@@ -107,7 +107,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @PostMapping(value = "/login")
-    public ModelAndView doLogin(UserRequestForLogin userRequest,ModelAndView modelAndView, HttpServletRequest request) throws Exception {
+    public ModelAndView doLogin(UserRequestForLogin userRequest, ModelAndView modelAndView, HttpServletRequest request) throws Exception {
         ActionResponse actionResponse = iUserService.doLogin(userRequest, request);
 
         String successUrl = null;
@@ -115,7 +115,7 @@ public class UserController {
             SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(request);
             // 如果shiro保存的有上次请求并且不为"/"，则返回上次请求页面，否则跳转到首页。
             if (savedRequest != null && savedRequest.getMethod().equalsIgnoreCase("GET")) {
-                if (!("/".equals(savedRequest.getRequestUrl() ) || savedRequest.getRequestUrl().contains("/css/")) ) {
+                if (!("/".equals(savedRequest.getRequestUrl()) || savedRequest.getRequestUrl().contains("/css/"))) {
                     successUrl = savedRequest.getRequestUrl();
                     System.out.println("url======>> " + successUrl);
                 } else {
@@ -149,7 +149,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/user/update", method = RequestMethod.POST)
-    public Integer updateSingle(@ApiParam(value = "user_picture")@RequestBody UserRequestForUpdate userRequest) throws Exception {
+    public Integer updateSingle(@ApiParam(value = "user_picture") @RequestBody UserRequestForUpdate userRequest) throws Exception {
         return iUserService.updateUser(userRequest);
     }
 
@@ -210,7 +210,7 @@ public class UserController {
         modelAndView.addObject("currentPage", queryForList.getCurrentPage());
         modelAndView.addObject("posts", userPosts);
         modelAndView.addObject("postCount", postCount);
-        modelAndView.addObject("user",infoById);
+        modelAndView.addObject("user", infoById);
         modelAndView.setViewName("UserInfo");
         return modelAndView;
     }
@@ -231,7 +231,7 @@ public class UserController {
             modelAndView.setViewName("/login");
             return modelAndView;
         }
-        modelAndView.addObject("user",iUserService.getCurrentUserInfo(userHandle.getUserId()));
+        modelAndView.addObject("user", iUserService.getCurrentUserInfo(userHandle.getUserId()));
         modelAndView.setViewName("myInfo");
         return modelAndView;
     }
@@ -303,8 +303,8 @@ public class UserController {
         modelAndView.addObject("myPost", getMySendPost());
         modelAndView.addObject("sendLetter", getMySendLetter(query));
         modelAndView.addObject("revLetter", getMyRevLetter(query));
-        modelAndView.addObject("invites",getMyTeamInvite());
-        modelAndView.addObject("invitesCount",getTeamInviteCount());
+        modelAndView.addObject("invites", getMyTeamInvite());
+        modelAndView.addObject("invitesCount", getTeamInviteCount());
         modelAndView.setViewName("my_manage");
         return modelAndView;
     }
@@ -312,15 +312,16 @@ public class UserController {
 
     /**
      * 查询我发送的私信信息
+     *
      * @param query
      * @return
      */
     private PageResult<PrivateLetterForMyResponse> getMySendLetter(PrivateLetterForMyManageQuery query) {
         Integer userId = userHandle.getUserId();
-            if (Objects.isNull(userId)) {
+        if (Objects.isNull(userId)) {
             throw new UnauthenticatedException();
         }
-            query.setUserSendSend(userId);
+        query.setUserSendSend(userId);
 
         PageResult<PrivateLetterForMyResponse> pageForMySend = privateLetterService.findPageForMyManage(query);
         return pageForMySend;
@@ -328,6 +329,7 @@ public class UserController {
 
     /**
      * 查询我接受的私信的信息
+     *
      * @param query
      * @return
      */
@@ -343,6 +345,7 @@ public class UserController {
 
     /**
      * 查询我发送的帖子
+     *
      * @return
      */
     private PageResult<PostBanResponse> getMySendPost() {
@@ -355,12 +358,18 @@ public class UserController {
 
     /**
      * 查询我接受的讨论组邀请
+     *
      * @return
      */
-    private  List<TeamInviteMResponse> getMyTeamInvite() {
+    private List<TeamInviteMResponse> getMyTeamInvite() {
         return teamInviteService.getMyTeamInvite();
     }
 
+    /**
+     * 查询讨论组邀请数量
+     *
+     * @return
+     */
     private Integer getTeamInviteCount() {
         return teamInviteService.getTeamInviteCount();
     }

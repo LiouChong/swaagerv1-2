@@ -131,5 +131,11 @@ public interface IUserService extends IBaseService<User> {
          */
         List<RandUserForHelpResponse> findRandUser();
 
+        /**
+         * 封禁用户
+         * @param userRequestForBan
+         * @return
+         */
         String banUser(UserRequestForBan userRequestForBan);
+
 }

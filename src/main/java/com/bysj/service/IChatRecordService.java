@@ -48,4 +48,10 @@ public interface IChatRecordService extends IBaseService<ChatRecord> {
          */
         PageResult<ChatRecordResponse> findPageChatRecord(ChatRecordQuery query) throws Exception;
 
+        /**
+         * 查询小组的聊天历史记录
+         * @return
+         */
+        List<ChatRecordResponse> findHistoryRecord(Integer teamId);
+
 }

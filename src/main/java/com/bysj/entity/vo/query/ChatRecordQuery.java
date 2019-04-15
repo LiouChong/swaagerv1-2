@@ -11,5 +11,13 @@ import com.bysj.common.request.ObjectQuery;
  */
 
 public class ChatRecordQuery extends ObjectQuery {
+    private Integer teamId;
 
+    public Integer getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Integer teamId) {
+        this.teamId = teamId;
+    }
 }

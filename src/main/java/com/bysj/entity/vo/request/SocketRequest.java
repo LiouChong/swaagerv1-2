@@ -1,13 +1,11 @@
-package com.bysj.socket;
-
-import io.swagger.models.auth.In;
+package com.bysj.entity.vo.request;
 
 /**
  * 描述:
  *
  * @author liuchong
  */
-public class SocketObject {
+public class SocketRequest {
     private Integer userId;
     private String message;
     private Integer teamId;

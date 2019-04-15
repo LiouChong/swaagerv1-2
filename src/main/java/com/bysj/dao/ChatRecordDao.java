@@ -3,6 +3,9 @@ package com.bysj.dao;
 
 import com.bysj.common.response.IBaseDao;
 import com.bysj.entity.ChatRecord;
+import com.bysj.entity.vo.response.ChatRecordResponse;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,5 +16,5 @@ import com.bysj.entity.ChatRecord;
  * @since 2019-02-28
  */
 public interface ChatRecordDao extends IBaseDao<ChatRecord> {
-
+    List<ChatRecordResponse> findHistoryRecord(Integer teamId);
 }

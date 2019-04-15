@@ -42,6 +42,9 @@
 4.07 展示讨论组成员. 发送邀请已做，查询接口已写，待管理页面展示。
 
 4。12 socket通讯，目前dao无法注入.
+4.15 socket通讯完成
+
+
 gt：great than（大于）>
 ge：great equal（大于等于）>=
 eq：equal（等于）==

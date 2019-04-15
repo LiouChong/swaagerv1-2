@@ -3,10 +3,13 @@ package com.bysj.controller;
 
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.utils.UserHandle;
+import com.bysj.entity.vo.query.ChatRecordQuery;
 import com.bysj.entity.vo.query.TeamQuery;
 import com.bysj.entity.vo.request.TeamRequest;
+import com.bysj.entity.vo.response.ChatRecordResponse;
 import com.bysj.entity.vo.response.PlateNameForIndex;
 import com.bysj.entity.vo.response.TeamDetailResponse;
+import com.bysj.service.IChatRecordService;
 import com.bysj.service.IPlaterService;
 import com.bysj.service.IPostService;
 import com.bysj.service.ITeamService;
@@ -37,6 +40,9 @@ public class TeamController {
 
     @Autowired
     private IPlaterService platerService;
+
+    @Autowired
+    private IChatRecordService chatRecordService;
 
     @Autowired
     private UserHandle userHandle;
@@ -95,9 +101,10 @@ public class TeamController {
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
     public ModelAndView queryById(@ApiParam(value = "team") @PathVariable("id") Integer id,ModelAndView modelAndView )throws Exception{
-        TeamDetailResponse detail = iTeamService.getDetail(id);
-        modelAndView.addObject("detail",detail);
+        modelAndView.addObject("detail",iTeamService.getDetail(id));
         modelAndView.addObject("userId", userHandle.getUserId());
+        List<ChatRecordResponse> historyRecord = chatRecordService.findHistoryRecord(id);
+        modelAndView.addObject("chatRecords", chatRecordService.findHistoryRecord(id));
         modelAndView.setViewName("team_detail");
         return modelAndView;
     }

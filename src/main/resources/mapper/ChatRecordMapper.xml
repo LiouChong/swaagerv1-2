@@ -82,7 +82,7 @@
 
     <insert id="insert" parameterType="com.bysj.entity.ChatRecord">
         insert into
-        <include refid="Table_Name"></include>
+        chat_record
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <include refid="IF_Base_Column_List"></include>
         </trim>
@@ -93,7 +93,7 @@
 
     <update id="update" parameterType="com.bysj.entity.ChatRecord">
         update
-        <include refid="Table_Name"></include>
+        chat_record
         <trim prefix="SET" suffixOverrides=",">
             <include refid="Set_Column_List"></include>
         </trim>
@@ -105,14 +105,14 @@
         select
         <include refid="Base_Column_List"/>
         from
-        <include refid="Table_Name"></include>
+        chat_record
         where id = #{id}
     </select>
 
 
     <delete id="deleteById" parameterType="java.lang.Integer">
         delete from
-        <include refid="Table_Name"></include>
+        chat_record
         where id = #{id}
     </delete>
 
@@ -120,7 +120,7 @@
         select
         <include refid="Base_Column_List"/>
         from
-        <include refid="Table_Name"></include>
+        chat_record
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -132,14 +132,14 @@
     <select id="getAll" resultType="com.bysj.entity.ChatRecord">
         select *
         from
-        <include refid="Table_Name"></include>
+        chat_record
     </select>
 
 
     <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
         select count(1)
         from
-        <include refid="Table_Name"></include>
+        chat_record
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -149,14 +149,38 @@
 
     <select id="findQuery" resultType="com.bysj.entity.ChatRecord" parameterType="com.bysj.common.request.ObjectQuery">
         select * from
-        <include refid="Table_Name"></include>
+        chat_record
         <where>
             <trim prefixOverrides="and">
-                <include refid="Where_Column_List"></include>
+                <if test=" content != null">
+                    and content = #{content }
+                </if>
+                <if test=" teamId != null">
+                    and team_id = #{teamId }
+                </if>
+                <if test=" gmtCreate != null">
+                    and gmt_create = #{gmtCreate }
+                </if>
+                <if test=" userCreate != null">
+                    and user_create = #{userCreate }
+                </if>
             </trim>
         </where>
-        <if test="pageSize !=-1">
-            LIMIT #{pageSize} offset #{pageOffset}
-        </if>
+        order by gmt_create asc
+        limit 20
+    </select>
+    <select id="findHistoryRecord" resultType="com.bysj.entity.vo.response.ChatRecordResponse" parameterType="java.lang.Integer">
+          SELECT
+              cr.content,
+              cr.gmt_create as gmtCreate,
+              u.nickname
+          FROM
+              chat_record cr
+                  left join user u on cr.user_create = u.id
+          WHERE
+              team_id = #{teamId }
+          ORDER BY
+              cr.gmt_create ASC
+              LIMIT 20
     </select>
 </mapper>
