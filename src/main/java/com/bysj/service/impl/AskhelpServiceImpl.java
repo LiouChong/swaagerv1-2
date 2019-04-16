@@ -3,15 +3,23 @@ package com.bysj.service.impl;
 import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
 import com.bysj.common.response.PageResult;
+import com.bysj.common.utils.DateUtils;
+import com.bysj.common.utils.UserHandle;
 import com.bysj.dao.AskhelpDao;
 import com.bysj.entity.Askhelp;
 import com.bysj.entity.vo.query.AskhelpQuery;
 import com.bysj.entity.vo.request.AskhelpRequest;
+import com.bysj.entity.vo.response.AskHelpManageResponse;
 import com.bysj.entity.vo.response.AskhelpResponse;
 import com.bysj.service.IAskhelpService;
+import io.swagger.annotations.Authorization;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,6 +39,8 @@ public class AskhelpServiceImpl extends BaseServiceImpl<Askhelp> implements IAsk
     private BaseConverter<AskhelpRequest, Askhelp> requestConverter;
     @Resource
     private BaseConverter<Askhelp, AskhelpResponse> responseConverter;
+    @Autowired
+    private UserHandle userHandle;
 
     @Override
     public Integer saveAskhelp(AskhelpRequest request) throws Exception {
@@ -55,5 +65,17 @@ public class AskhelpServiceImpl extends BaseServiceImpl<Askhelp> implements IAsk
     @Override
     public PageResult<AskhelpResponse> findPageAskhelp(AskhelpQuery query) throws Exception {
         return new PageResult<>(query.getPageSize(), this.findCount(query), query.getCurrentPage(), this.findListAskhelp(query));
+    }
+
+    @Override
+    public List<AskHelpManageResponse> findUserManageList() {
+        return askhelpDao.findMyRev(userHandle.getUserId());
+    }
+
+    public static void main(String[] args) {
+        String wholeFormat = DateUtils.WHOLE_FORMAT;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(wholeFormat);
+        System.out.println(simpleDateFormat.format(new Date(1555400963118L)));
+
     }
 }

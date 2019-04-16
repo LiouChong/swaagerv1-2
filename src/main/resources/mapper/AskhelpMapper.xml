@@ -206,4 +206,16 @@
             LIMIT #{pageSize} offset #{pageOffset}
         </if>
     </select>
+    <select id="findMyRev" resultType="com.bysj.entity.vo.response.AskHelpManageResponse">
+        select
+          u.nickname as  sendUsername,
+          p.title as message,
+          a.gmt_create as sendDate,
+          p.id as postId
+        from askhelp a
+        left join
+          user u on a.send_question_user_id = u.id
+        left join post p on p.id = a.post_id
+        where a.rev_question_user_id = #{userId}
+    </select>
 </mapper>

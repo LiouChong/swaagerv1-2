@@ -50,6 +50,9 @@ public class UserController {
     @Autowired
     private ITeamInviteService teamInviteService;
 
+    @Autowired
+    private IAskhelpService askhelpService;
+
     /**
      * 发送邮件
      *
@@ -372,6 +375,10 @@ public class UserController {
      */
     private Integer getTeamInviteCount() {
         return teamInviteService.getTeamInviteCount();
+    }
+
+    private List<AskHelpManageResponse> getAksHelpList() {
+        return askhelpService.findUserManageList();
     }
 
 }

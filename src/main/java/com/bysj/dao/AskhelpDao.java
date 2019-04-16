@@ -4,6 +4,9 @@ package com.bysj.dao;
 import com.bysj.common.response.IBaseDao;
 import com.bysj.entity.Askhelp;
 import com.bysj.entity.vo.request.AskhelpRequest;
+import com.bysj.entity.vo.response.AskHelpManageResponse;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +18,6 @@ import com.bysj.entity.vo.request.AskhelpRequest;
  */
 public interface AskhelpDao extends IBaseDao<Askhelp> {
     Integer insertBySelf(AskhelpRequest request);
+
+    List<AskHelpManageResponse> findMyRev(Integer userId);
 }

@@ -6,6 +6,7 @@ import com.bysj.common.response.PageResult;
 import com.bysj.entity.Askhelp;
 import com.bysj.entity.vo.query.AskhelpQuery;
 import com.bysj.entity.vo.request.AskhelpRequest;
+import com.bysj.entity.vo.response.AskHelpManageResponse;
 import com.bysj.entity.vo.response.AskhelpResponse;
 
 import java.util.List;
@@ -48,5 +49,7 @@ public interface IAskhelpService extends IBaseService<Askhelp> {
          * @return
          */
         PageResult<AskhelpResponse> findPageAskhelp(AskhelpQuery query) throws Exception;
+
+        List<AskHelpManageResponse> findUserManageList();
 
 }

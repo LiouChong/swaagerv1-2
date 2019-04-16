@@ -379,7 +379,7 @@
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion1"
                                            href="#collapseFour">收到得求问邀请 &emsp;
-                                            <!--<span class="badge" th:text="${myPost.totalRecords}"></span>-->
+                                            <span class="badge" th:text="${invitesCount}"></span>
                                         </a>
                                     </h4>
                                 </div>
@@ -400,15 +400,15 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    <!--<tr th:each="post, postStat:${myPost.items}">-->
-                                                        <!--<td th:text="${postStat.index} + 1"></td>-->
-                                                        <!--<td th:text="${post.title}"></td>-->
-                                                        <!--<td th:text="${post.plateName}"></td>-->
-                                                        <!--<td th:text="${post.readCount}"></td>-->
-                                                        <!--<td th:text="${post.postGmtCreate}"></td>-->
-                                                        <!--<input th:value="${post.id}" type="hidden">-->
-                                                        <!--<td><a th:href="'/post/detail?postId=' + ${post.id}">查看详情</a> &emsp;<a href="javascript:void(0)" name="post_delete">删除</a></td>-->
-                                                    <!--</tr>-->
+                                                    <tr th:each="invite, inviteStat:${invites}">
+                                                        <td th:text="${inviteStat.index} + 1"></td>
+                                                        <td th:text="${invite.plateName}"></td>
+                                                        <td th:text="${post.plateName}"></td>
+                                                        <td th:text="${post.readCount}"></td>
+                                                        <td th:text="${post.postGmtCreate}"></td>
+                                                        <input th:value="${post.id}" type="hidden">
+                                                        <td><a th:href="'/post/detail?postId=' + ${post.id}">查看详情</a> &emsp;<a href="javascript:void(0)" name="post_delete">删除</a></td>
+                                                    </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
