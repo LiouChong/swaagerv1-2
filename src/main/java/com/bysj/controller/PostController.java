@@ -273,7 +273,12 @@ public class PostController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @RequiresPermissions("post:delete")
     public String deleteById(@RequestBody PostDel postDel)throws Exception{
-        return iPostService.delById(postDel).toString();
+        if (iPostService.delById(postDel).toString().equals(0)) {
+            return "删除失败！请稍后再试";
+        } else {
+            return "删除成功";
+        }
+
     }
 
     /**

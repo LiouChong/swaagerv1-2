@@ -72,10 +72,4 @@ public class AskhelpServiceImpl extends BaseServiceImpl<Askhelp> implements IAsk
         return askhelpDao.findMyRev(userHandle.getUserId());
     }
 
-    public static void main(String[] args) {
-        String wholeFormat = DateUtils.WHOLE_FORMAT;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(wholeFormat);
-        System.out.println(simpleDateFormat.format(new Date(1555400963118L)));
-
-    }
 }

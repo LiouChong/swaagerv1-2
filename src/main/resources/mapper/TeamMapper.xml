@@ -195,6 +195,12 @@
         </trim>
     </insert>
 
+    <update id="exitTeam" parameterType="com.bysj.entity.vo.request.UserTeamRelExitRequest">
+        update team
+        set state = 1
+        where user_id = #{userId} and team_id = #{teamId}
+    </update>
+
     <update id="update" parameterType="com.bysj.entity.Team">
         update
         team
@@ -268,7 +274,10 @@
             t.id as id,
             t.team_name as teamName,
             p.plate_name as plateName,
-            t.member_count as count
+            t.member_count as count,
+            utr.gmt_create as gmtCreate,
+            t.memo as memo,
+            t.leader_id as leaderId
         from
           user_team_rel utr
         left join

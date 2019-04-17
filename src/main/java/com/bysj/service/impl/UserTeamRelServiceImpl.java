@@ -1,15 +1,20 @@
 package com.bysj.service.impl;
 
+import com.bysj.common.exception.BussinessException;
+import com.bysj.common.exception.ExceptionHandle;
 import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
 import com.bysj.common.response.PageResult;
+import com.bysj.dao.TeamDao;
 import com.bysj.dao.UserTeamRelDao;
 import com.bysj.entity.UserTeamRel;
 import com.bysj.entity.vo.query.UserTeamRelQuery;
+import com.bysj.entity.vo.request.UserTeamRelExitRequest;
 import com.bysj.entity.vo.request.UserTeamRelRequest;
 import com.bysj.entity.vo.response.UserTeamRelResponse;
 import com.bysj.service.IUserTeamRelService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -24,37 +29,50 @@ import java.util.List;
  */
 @Service
 public class UserTeamRelServiceImpl extends BaseServiceImpl<UserTeamRel> implements IUserTeamRelService {
+    @Resource
+    private UserTeamRelDao userTeamRelDao;
+    @Resource
+    private TeamDao teamDao;
+    @Resource
+    private BaseConverter<UserTeamRelRequest, UserTeamRel> requestConverter;
+    @Resource
+    private BaseConverter<UserTeamRel, UserTeamRelResponse> responseConverter;
 
+    @Override
+    public Integer saveUserTeamRel(UserTeamRelRequest request) throws Exception {
+        UserTeamRel userTeamRel = requestConverter.convert(request, UserTeamRel.class);
+        return userTeamRelDao.insert(userTeamRel);
+    }
 
-        @Resource
-        private UserTeamRelDao userTeamRelDao;
-        @Resource
-        private BaseConverter<UserTeamRelRequest, UserTeamRel> requestConverter;
-        @Resource
-        private BaseConverter<UserTeamRel, UserTeamRelResponse> responseConverter;
+    @Override
+    public Integer updateUserTeamRel(UserTeamRelRequest request) throws Exception {
+        UserTeamRel userTeamRel = requestConverter.convert(request, UserTeamRel.class);
+        return userTeamRelDao.update(userTeamRel);
+    }
 
-        @Override
-        public Integer saveUserTeamRel(UserTeamRelRequest request) throws Exception {
-            UserTeamRel userTeamRel = requestConverter.convert(request, UserTeamRel.class);
-            return userTeamRelDao.insert(userTeamRel);
+    @Override
+    public List<UserTeamRelResponse> findListUserTeamRel(UserTeamRelQuery query) throws Exception {
+        List<UserTeamRel> userTeamRelList = userTeamRelDao.findQuery(query);
+        //TODO
+        List<UserTeamRelResponse> userTeamRelResponse = responseConverter.convert(userTeamRelList, UserTeamRelResponse.class);
+        return userTeamRelResponse;
+    }
+
+    @Override
+    public PageResult<UserTeamRelResponse> findPageUserTeamRel(UserTeamRelQuery query) throws Exception {
+        return new PageResult<>(query.getPageSize(), this.findCount(query), query.getCurrentPage(), this.findListUserTeamRel(query));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Integer exitTeam(UserTeamRelExitRequest request) {
+        if (request.getTeamId().equals(1)) {
+            // 更新小组表
+            teamDao.exitTeam(request);
+            //更新关联表，删除其他成员信息
+            return userTeamRelDao.clearUser(request.getTeamId());
+        } else {
+            return userTeamRelDao.exitTeam(request);
         }
-
-        @Override
-        public Integer updateUserTeamRel(UserTeamRelRequest request) throws Exception {
-            UserTeamRel userTeamRel = requestConverter.convert(request, UserTeamRel.class);
-            return userTeamRelDao.update(userTeamRel);
-        }
-
-        @Override
-        public List<UserTeamRelResponse> findListUserTeamRel(UserTeamRelQuery query) throws Exception {
-            List<UserTeamRel> userTeamRelList = userTeamRelDao.findQuery(query);
-            //TODO
-            List<UserTeamRelResponse> userTeamRelResponse = responseConverter.convert(userTeamRelList,UserTeamRelResponse.class );
-            return userTeamRelResponse;
-        }
-
-        @Override
-        public PageResult<UserTeamRelResponse> findPageUserTeamRel(UserTeamRelQuery query) throws Exception {
-            return new PageResult<>(query.getPageSize(), this.findCount(query),query.getCurrentPage(), this.findListUserTeamRel(query));
-        }
+    }
 }

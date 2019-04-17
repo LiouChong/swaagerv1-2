@@ -1,8 +1,10 @@
 package com.bysj.controller;
 
 
+import com.bysj.common.exception.BussinessException;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.entity.vo.query.UserTeamRelQuery;
+import com.bysj.entity.vo.request.UserTeamRelExitRequest;
 import com.bysj.entity.vo.request.UserTeamRelRequest;
 import com.bysj.service.IUserTeamRelService;
 import io.swagger.annotations.*;
@@ -92,10 +94,13 @@ public class UserTeamRelController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
-
-        return ActionResponse.success(iUserTeamRelService.deleteById(id));
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public ActionResponse deleteById(@RequestBody UserTeamRelExitRequest userTeamRelExitRequest)throws Exception{
+        if (iUserTeamRelService.exitTeam(userTeamRelExitRequest) > 0) {
+            return ActionResponse.success("成功");
+        } else {
+            throw new BussinessException("服务器出差，请稍后再试！");
+        }
     }
 }
 

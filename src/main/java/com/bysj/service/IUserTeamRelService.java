@@ -4,6 +4,7 @@ import com.bysj.common.request.IBaseService;
 import com.bysj.common.response.PageResult;
 import com.bysj.entity.UserTeamRel;
 import com.bysj.entity.vo.query.UserTeamRelQuery;
+import com.bysj.entity.vo.request.UserTeamRelExitRequest;
 import com.bysj.entity.vo.request.UserTeamRelRequest;
 import com.bysj.entity.vo.response.UserTeamRelResponse;
 
@@ -50,5 +51,7 @@ public interface IUserTeamRelService extends IBaseService<UserTeamRel> {
      * @return
      */
     PageResult<UserTeamRelResponse> findPageUserTeamRel(UserTeamRelQuery query) throws Exception;
+
+    Integer exitTeam(UserTeamRelExitRequest request);
 
 }

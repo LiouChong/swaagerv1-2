@@ -3,6 +3,7 @@ package com.bysj.dao;
 
 import com.bysj.common.response.IBaseDao;
 import com.bysj.entity.Team;
+import com.bysj.entity.vo.request.UserTeamRelExitRequest;
 import com.bysj.entity.vo.response.TeamDetailResponse;
 import com.bysj.entity.vo.response.TeamIndexResponse;
 
@@ -24,5 +25,16 @@ public interface TeamDao extends IBaseDao<Team> {
      */
     List<TeamIndexResponse> selectForPageIndex(Integer userId);
 
+    /**
+     * 查询小组详情
+     * @param teamId
+     * @return
+     */
     TeamDetailResponse selectDetailBtId(Integer teamId);
+
+
+    /**
+     * 解散小组
+     */
+    Integer exitTeam(UserTeamRelExitRequest request);
 }

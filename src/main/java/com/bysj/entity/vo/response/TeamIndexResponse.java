@@ -26,6 +26,23 @@ public class TeamIndexResponse extends BaseEntity {
      */
     private String plateName;
 
+    /**
+     * 加入时间
+     * @return
+     */
+    private String gmtCreate;
+
+    /**
+     * 说明
+     * @return
+     */
+    private String memo;
+
+    /**
+     * 组长id
+     */
+    private Integer leaderId;
+
     public String getPlateName() {
         return plateName;
     }
@@ -48,5 +65,29 @@ public class TeamIndexResponse extends BaseEntity {
 
     public void setCount(String count) {
         this.count = count;
+    }
+
+    public String getGmtCreate() {
+        return gmtCreate.substring(0, gmtCreate.lastIndexOf("."));
+    }
+
+    public void setGmtCreate(String gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public Integer getLeaderId() {
+        return leaderId;
+    }
+
+    public void setLeaderId(Integer leaderId) {
+        this.leaderId = leaderId;
     }
 }

@@ -216,6 +216,10 @@
         left join
           user u on a.send_question_user_id = u.id
         left join post p on p.id = a.post_id
-        where a.rev_question_user_id = #{userId}
+        where
+              a.rev_question_user_id = #{userId}
+        and
+              p.state = 1
+
     </select>
 </mapper>

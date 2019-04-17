@@ -1,7 +1,6 @@
 package com.bysj.socket;
 
 import com.bysj.common.utils.DateUtils;
-import com.bysj.dao.ChatRecordDao;
 import com.bysj.entity.ChatRecord;
 import com.bysj.entity.User;
 import com.bysj.entity.vo.request.SocketRequest;
@@ -14,7 +13,6 @@ import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.OnConnect;
 import com.corundumstudio.socketio.annotation.OnDisconnect;
 import com.corundumstudio.socketio.annotation.OnEvent;
-import org.apache.shiro.authz.UnauthenticatedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -56,11 +54,17 @@ public class MessageEventHandler {
 
     @OnEvent(value = "chateEvent")
     public void onEvent(SocketIOClient client, AckRequest request, SocketRequest data) throws Exception {
+        // 获取当前登录用户信息
         User user = userService.getById(data.getUserId());
+
         SocketResponse socketResponse = new SocketResponse();
+
+        // 设置返回值信息
         socketResponse.setUserName(user.getNickname());
         socketResponse.setSendTime(DateUtils.getDataString(new Date(), DateUtils.WHOLE_FORMAT));
         socketResponse.setMessage(data.getMessage());
+
+        // 保存对话
         saveChatRecord(data);
 
         socketIOServer.getBroadcastOperations().sendEvent("chateEvent", socketResponse);

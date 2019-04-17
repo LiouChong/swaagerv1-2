@@ -407,7 +407,7 @@
         update post
         set state = 0,
         gmt_modify = #{gmtModify},
-        modify_user = #{modifyUser},
+        modify_user = #{modifyUser}
         <if test="banReason != null">
             ban_reason =#{banReason}
         </if>
@@ -674,8 +674,8 @@
             give_money      as giveMoney,
             resource_id as resourceId
         from post
-                 inner join user on post.poster_id = user.id
-                 inner join plater on post.plate_id = plater.id
+                 left join user on post.poster_id = user.id
+                 left join plater on post.plate_id = plater.id
         where post.id = #{id}
     </select>
     <select id="findReplyForPost" resultType="com.bysj.entity.vo.response.ReplyForPostDetail">
@@ -705,7 +705,8 @@
         p.gmt_modify as gmtModify,
         p.ban_reason as banReason,
         u.nickname as banUserName,
-        p.read_count as readCount
+        p.read_count as readCount,
+        p.state as state
         from post p
         left join user u on p.modify_user = u.id
         left join plater pl on p.plate_id = pl.id

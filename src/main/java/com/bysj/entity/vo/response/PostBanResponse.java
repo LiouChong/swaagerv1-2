@@ -54,6 +54,8 @@ public class PostBanResponse extends BaseEntity {
      */
     private Integer readCount;
 
+    private Integer state;
+
     public String getPostGmtCreate() {
         return postGmtCreate.substring(0, postGmtCreate.lastIndexOf("."));
     }
@@ -109,6 +111,14 @@ public class PostBanResponse extends BaseEntity {
 
     public void setPlateName(String plateName) {
         this.plateName = plateName;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     @Override

@@ -199,19 +199,22 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     @Override
     public PostDetailResponse getPostDetailById(Integer id) throws Exception {
         PostDetailResponse postDetailResponse = postDao.findPostDetail(id);
+        if (postDetailResponse != null) {
+            // 对数字进行转换
+            postDetailResponse.setIfGoodStr(numberChineseEx.numExchangeChinese(postDetailResponse, "ifGood"));
+            postDetailResponse.setArticleFromStr(numberChineseEx.numExchangeChinese(postDetailResponse, "articleFrom"));
+            postDetailResponse.setArticleTypeStr(numberChineseEx.numExchangeChinese(postDetailResponse, "articleType"));
 
-        // 对数字进行转换
-        postDetailResponse.setIfGoodStr(numberChineseEx.numExchangeChinese(postDetailResponse, "ifGood"));
-        postDetailResponse.setArticleFromStr(numberChineseEx.numExchangeChinese(postDetailResponse, "articleFrom"));
-        postDetailResponse.setArticleTypeStr(numberChineseEx.numExchangeChinese(postDetailResponse, "articleType"));
 
-        // 转换创建日期
-        String gmtCreateStr = DateUtils.getDataString(postDetailResponse.getGmtCreate(), DateUtils.WHOLE_FORMAT);
-        postDetailResponse.setGmrCreateStr(gmtCreateStr);
 
-        //转换修改日期
-        String gmtModifyStr = DateUtils.getDataString(postDetailResponse.getGmtModify(), DateUtils.WHOLE_FORMAT);
-        postDetailResponse.setGmrCreateStr(gmtModifyStr);
+            // 转换创建日期
+            String gmtCreateStr = DateUtils.getDataString(postDetailResponse.getGmtCreate(), DateUtils.WHOLE_FORMAT);
+            postDetailResponse.setGmrCreateStr(gmtCreateStr);
+
+            //转换修改日期
+            String gmtModifyStr = DateUtils.getDataString(postDetailResponse.getGmtModify(), DateUtils.WHOLE_FORMAT);
+            postDetailResponse.setGmrCreateStr(gmtModifyStr);
+        }
 
         // 阅读量 + 1
         Post allById = postDao.getAllById(id);

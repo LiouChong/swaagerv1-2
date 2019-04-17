@@ -17,6 +17,7 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -52,6 +53,9 @@ public class UserController {
 
     @Autowired
     private IAskhelpService askhelpService;
+
+    @Autowired
+    private ITeamService teamService;
 
     /**
      * 发送邮件
@@ -308,6 +312,9 @@ public class UserController {
         modelAndView.addObject("revLetter", getMyRevLetter(query));
         modelAndView.addObject("invites", getMyTeamInvite());
         modelAndView.addObject("invitesCount", getTeamInviteCount());
+        modelAndView.addObject("askHelps", getAksHelpList());
+        modelAndView.addObject("myTeams", getMyTeam());
+        modelAndView.addObject("userId", userHandle.getUserId());
         modelAndView.setViewName("my_manage");
         return modelAndView;
     }
@@ -378,7 +385,13 @@ public class UserController {
     }
 
     private List<AskHelpManageResponse> getAksHelpList() {
-        return askhelpService.findUserManageList();
+        List<AskHelpManageResponse> userManageList = askhelpService.findUserManageList();
+        return userManageList;
+    }
+
+    private List<TeamIndexResponse> getMyTeam() {
+        List<TeamIndexResponse> teamIndexResponse = teamService.selectForIndex(userHandle.getUserId());
+        return teamIndexResponse;
     }
 
 }

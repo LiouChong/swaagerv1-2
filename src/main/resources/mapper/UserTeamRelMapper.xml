@@ -94,7 +94,6 @@
         </trim>
         where id = #{id}
     </update>
-
     <!-- 根据主键查询 -->
     <select id="getById" resultType="com.bysj.entity.UserTeamRel" parameterType="java.lang.Integer">
         select
@@ -109,6 +108,17 @@
         delete from
         user_team_rel
         where id = #{id}
+    </delete>
+    <delete id="clearUser">
+        delete user_team_rel where team_id = #{teamId}
+    </delete>
+    <delete id="exitTeam" parameterType="com.bysj.entity.vo.request.UserTeamRelExitRequest">
+        delete
+          user_team_rel
+        where
+          userId = #{userId}
+        and
+          teamId = #{teamId}
     </delete>
 
     <select id="getByWhere" resultType="com.bysj.entity.UserTeamRel" parameterType="java.util.Map">
