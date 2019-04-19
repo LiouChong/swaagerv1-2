@@ -110,16 +110,17 @@
         where id = #{id}
     </delete>
     <delete id="clearUser">
-        delete user_team_rel where team_id = #{teamId}
+        delete from user_team_rel where team_id = #{teamId}
     </delete>
-    <delete id="exitTeam" parameterType="com.bysj.entity.vo.request.UserTeamRelExitRequest">
-        delete
+    <update id="exitTeam" parameterType="com.bysj.entity.vo.request.UserTeamRelExitRequest">
+        update
           user_team_rel
+            set state = 0
         where
-          userId = #{userId}
+          user_id = #{userId}
         and
-          teamId = #{teamId}
-    </delete>
+          team_id = #{teamId}
+    </update>
 
     <select id="getByWhere" resultType="com.bysj.entity.UserTeamRel" parameterType="java.util.Map">
         select

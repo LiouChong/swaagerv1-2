@@ -16,6 +16,7 @@ import com.corundumstudio.socketio.annotation.OnEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -78,5 +79,12 @@ public class MessageEventHandler {
         chatRecord.setUserCreate(request.getUserId());
 
         chatRecordService.save(chatRecord);
+    }
+
+    public static void main(String[] args) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtils.WHOLE_FORMAT);
+        System.out.println(simpleDateFormat.format(1555579401180L));
+        System.out.println(simpleDateFormat.format(1555653200794L));
+
     }
 }

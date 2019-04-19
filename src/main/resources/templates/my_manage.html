@@ -205,7 +205,7 @@
                     contentType: "application/json; charset=utf-8",
                     data: JSON.stringify({
                         userId: $(this).prev().prev().val(),
-                        teamid: $(this).prev().val(),
+                        teamId: $(this).prev().val(),
                         type: 1
                     }),
                     dataType: "json",
@@ -217,6 +217,29 @@
                         }
                     }
                 })
+                $(this).parent().parent().slideUp(500);
+            })
+
+            $("a[name='exit']").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/userteamrel/delete",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        userId: $(this).prev().prev().val() ,
+                        teamId: $(this).prev().val(),
+                        type: 2
+                    }),
+                    dataType: "json",
+                    success: function (message) {
+                        if (message.body != null) {
+                            alert(message.body);
+                        } else {
+                            alert(message.head.result)
+                        }
+                    }
+                })
+                $(this).parent().parent().slideUp(500);
             })
         });
     </script>
@@ -256,7 +279,7 @@
                             <li><a href="/login">登录 注册</a></li>
                         </shiro:guest>
                         <shiro:user>
-                            <li>欢迎您：<a href="#">
+                            <li>欢迎您：<a href="/user">
                                 <shiro:principal property="email"></shiro:principal>
                             </a>&emsp;
                             </li>
@@ -541,9 +564,11 @@
                                                             <input th:value="${userId}" type="hidden">
                                                             <input th:value="${myTeam.id}" type="hidden">
                                                             <a th:if="${userId eq myTeam.leaderId}"
-                                                               href="javascript:void(0)" name="dissolve">解散</a></td>
-                                                        <td><a th:if="${userId ne myTeam.leaderId}"
-                                                               href="javascript:void(0)" name="exit">退出</a></td>
+                                                               href="javascript:void(0)" name="dissolve">解散</a>
+                                                            <a th:if="${userId ne myTeam.leaderId}"
+                                                               href="javascript:void(0)" name="exit">退出</a>
+                                                        </td>
+
                                                     </tr>
                                                     </tbody>
                                                 </table>

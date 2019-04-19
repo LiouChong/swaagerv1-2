@@ -6,6 +6,7 @@ import com.bysj.common.response.PageResult;
 import com.bysj.common.utils.DateUtils;
 import com.bysj.common.utils.UserHandle;
 import com.bysj.dao.ReplyDao;
+import com.bysj.dao.UserDao;
 import com.bysj.entity.Post;
 import com.bysj.entity.Reply;
 import com.bysj.entity.User;
@@ -20,6 +21,7 @@ import com.bysj.service.IReplyService;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
@@ -46,11 +48,14 @@ public class ReplyServiceImpl extends BaseServiceImpl<Reply> implements IReplySe
     private BaseConverter<Reply, ReplyResponse> responseConverter;
     @Autowired
     private UserHandle userHandle;
+    @Resource
+    private UserDao userDao;
 
     @Autowired
     private IPostService postService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public PostDetailResponse saveReply(ReplyRequest request) throws Exception {
         Reply reply = requestConverter.convert(request, Reply.class);
 
@@ -63,6 +68,17 @@ public class ReplyServiceImpl extends BaseServiceImpl<Reply> implements IReplySe
         reply.setUserCreate(userId);
         reply.setUserModify(userId);
 
+        // 插入回复
+        replyDao.insert(reply);
+        // 添加回复数
+        addReadCount(reply, nowDate, userId);
+        // 添加积分
+        addMoney(nowDate, userId);
+
+        return postService.getPostDetailById(reply.getPostId());
+    }
+
+    private void addReadCount(Reply reply, Date nowDate, Integer userId) throws Exception {
         // 修改帖子的修改时间、修改人id
         Post post = postService.getById(reply.getPostId());
         post.setId(reply.getPostId());
@@ -72,9 +88,15 @@ public class ReplyServiceImpl extends BaseServiceImpl<Reply> implements IReplySe
         post.setReplyCount(post.getReplyCount() + 1);
         // 执行
         postService.update(post);
-        replyDao.insert(reply);
+    }
 
-        return postService.getPostDetailById(reply.getPostId());
+    private void addMoney(Date nowDate, Integer userId) throws Exception {
+        User user = userHandle.getUser();
+        Integer money = user.getMoney() + 1;
+        user.setMoney(money);
+        user.setUserModify(userId);
+        user.setGmtModify(nowDate);
+        userDao.update(user);
     }
     /**
      * 三种情况下可以删回复：

@@ -197,8 +197,8 @@
 
     <update id="exitTeam" parameterType="com.bysj.entity.vo.request.UserTeamRelExitRequest">
         update team
-        set state = 1
-        where user_id = #{userId} and team_id = #{teamId}
+        set state = 0
+        where id=#{teamId}
     </update>
 
     <update id="update" parameterType="com.bysj.entity.Team">
@@ -285,6 +285,8 @@
         left join
           plater p on t.plate_id = p.id
         where utr.user_id = #{userId}
+          and utr.state =1
+          and t.state = 1
     </select>
     <select id="selectDetailBtId" resultType="com.bysj.entity.vo.response.TeamDetailResponse">
         select

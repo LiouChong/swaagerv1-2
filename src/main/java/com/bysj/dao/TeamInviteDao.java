@@ -32,5 +32,13 @@ public interface TeamInviteDao extends IBaseDao<TeamInvite> {
      */
     Integer getMyCount(Integer userId);
 
+    /**
+     * 拒绝邀请
+     * @param inviteId
+     * @param gmtModify
+     * @return
+     */
     Integer defuseInvite(@Param("inviteId") Integer inviteId,@Param("gmtModify") Date gmtModify);
+
+    Integer deleteInvite(@Param("teamId") Integer teamId);
 }

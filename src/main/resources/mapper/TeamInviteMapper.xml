@@ -121,7 +121,7 @@
 
     <insert id="insert" parameterType="com.bysj.entity.TeamInvite">
         insert into
-        <include refid="Table_Name"></include>
+        team_invite
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <include refid="IF_Base_Column_List"></include>
         </trim>
@@ -132,7 +132,7 @@
 
     <update id="update" parameterType="com.bysj.entity.TeamInvite">
         update
-        <include refid="Table_Name"></include>
+        team_invite
         <trim prefix="SET" suffixOverrides=",">
             <include refid="Set_Column_List"></include>
         </trim>
@@ -152,22 +152,25 @@
         select
         <include refid="Base_Column_List"/>
         from
-        <include refid="Table_Name"></include>
+        team_invite
         where id = #{id}
     </select>
 
 
     <delete id="deleteById" parameterType="java.lang.Integer">
         delete from
-        <include refid="Table_Name"></include>
+        team_invite
         where id = #{id}
     </delete>
+    <update id="deleteInvite" >
+        update team_invite set state = 0 where team_id = #{teamId}
+    </update>
 
     <select id="getByWhere" resultType="com.bysj.entity.TeamInvite" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from
-        <include refid="Table_Name"></include>
+        team_invite
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -179,14 +182,14 @@
     <select id="getAll" resultType="com.bysj.entity.TeamInvite">
         select *
         from
-        <include refid="Table_Name"></include>
+        team_invite
     </select>
 
 
     <select id="findCount" resultType="int" parameterType="com.bysj.common.request.ObjectQuery">
         select count(1)
         from
-        <include refid="Table_Name"></include>
+        team_invite
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>
@@ -196,7 +199,7 @@
 
     <select id="findQuery" resultType="com.bysj.entity.TeamInvite" parameterType="com.bysj.common.request.ObjectQuery">
         select * from
-        <include refid="Table_Name"></include>
+        team_invite
         <where>
             <trim prefixOverrides="and">
                 <include refid="Where_Column_List"></include>

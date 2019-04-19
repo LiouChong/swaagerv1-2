@@ -6,7 +6,9 @@ import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
 import com.bysj.common.response.PageResult;
 import com.bysj.dao.TeamDao;
+import com.bysj.dao.TeamInviteDao;
 import com.bysj.dao.UserTeamRelDao;
+import com.bysj.entity.TeamInvite;
 import com.bysj.entity.UserTeamRel;
 import com.bysj.entity.vo.query.UserTeamRelQuery;
 import com.bysj.entity.vo.request.UserTeamRelExitRequest;
@@ -38,6 +40,9 @@ public class UserTeamRelServiceImpl extends BaseServiceImpl<UserTeamRel> impleme
     @Resource
     private BaseConverter<UserTeamRel, UserTeamRelResponse> responseConverter;
 
+    @Resource
+    private TeamInviteDao teamInviteDao;
+
     @Override
     public Integer saveUserTeamRel(UserTeamRelRequest request) throws Exception {
         UserTeamRel userTeamRel = requestConverter.convert(request, UserTeamRel.class);
@@ -66,11 +71,16 @@ public class UserTeamRelServiceImpl extends BaseServiceImpl<UserTeamRel> impleme
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Integer exitTeam(UserTeamRelExitRequest request) {
-        if (request.getTeamId().equals(1)) {
+        if (request.getType().equals(1)) {
+
+            //更新关联表，删除本组内所有用户
+            userTeamRelDao.clearUser(request.getTeamId());
+
+            // 删除该小组的邀请
+            teamInviteDao.deleteInvite(request.getTeamId());
             // 更新小组表
-            teamDao.exitTeam(request);
-            //更新关联表，删除其他成员信息
-            return userTeamRelDao.clearUser(request.getTeamId());
+            return teamDao.exitTeam(request);
+
         } else {
             return userTeamRelDao.exitTeam(request);
         }
