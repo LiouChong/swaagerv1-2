@@ -146,7 +146,7 @@
                     <header class="clearfix">
 
                         <h3 class="post-title">
-                            <a th:href="'/post/detail/' + ${post.id}" th:text="${post.title}"></a>
+                            <a th:href="'/post/detail?postId=' + ${post.id}" th:text="${post.title}"></a>
                         </h3>
 
                         <div class="post-meta clearfix">
@@ -169,7 +169,7 @@
 
                     <a class="readmore-link" th:href="'/post/detail/' + ${post.id}" ><p
                             style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;"
-                            th:text="${post.info}"><!--${postAndPlate.info} --></p><span
+                            th:text="${post.info}"></p><span
                             style="color: darkblue;float: right">Read more</span></a>
 
                 </article>
@@ -177,21 +177,7 @@
                 <!--</c:forEach>-->
                 <div id="pagination">
                     <span style="font-size: 16px ; font-family: 'Javanese Text'"
-                          th:text="'共有' + ${totalPage} + ', 当前第' + ${currentPage} + ' 页'"></span><br>
-                    <!--<a href="/searchInfo?search=${searchInfo}" class="btn">« 第一页</a>
-                    <c:if test="${page.pageNum == 1}">
-                        <a href="/searchInfo?search=${searchInfo}" class="btn">« 上一页</a>
-                    </c:if>
-                    <c:if test="${page.pageNum > 1}">
-                        <a href="/searchInfo?pageNum=${page.pageNum-1}&search=${searchInfo}" class="btn">« 上一页</a>
-                    </c:if>
-                    <c:if test="${page.pageNum < page.maxPageNum}">
-                        <a href="/searchInfo?pageNum=${page.pageNum+1}&search=${searchInfo}" class="btn">下一页 »</a>
-                    </c:if>
-                    <c:if test="${page.pageNum == page.maxPageNum}">
-                        <a href="/searchInfo?pageNum=${page.maxPageNum}&search=${searchInfo}" class="btn">下一页 »</a>
-                    </c:if>
-                    <a href="/searchInfo?pageNum=${page.maxPageNum}&search=${searchInfo}" class="btn">最后一页 »</a>-->
+                          th:text="'共有' + ${totalPage} + '页, 当前第' + ${currentPage} + ' 页'"></span><br>
                 </div>
 
             </div>

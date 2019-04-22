@@ -80,11 +80,4 @@ public class MessageEventHandler {
 
         chatRecordService.save(chatRecord);
     }
-
-    public static void main(String[] args) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtils.WHOLE_FORMAT);
-        System.out.println(simpleDateFormat.format(1555579401180L));
-        System.out.println(simpleDateFormat.format(1555653200794L));
-
-    }
 }
