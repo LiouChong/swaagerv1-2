@@ -202,11 +202,13 @@
                             <span th:if="${post.articleType == 1}">
                                 <span class="badge badge-default" th:text="${post.articleTypeStr}"></span>
                             </span>
+                            <!--资源贴-->
                             <span th:if="${post.articleType == 2}">
                                 <span class="badge badge-default" th:text="${post.articleTypeStr} + '(' + ${post.needMoney} + '分)'"></span>
                             </span>
+                            <!--求问贴-->
                             <span th:if="${post.articleType == 3}">
-                                <span class="badge badge-default" th:text="${post.articleTypeStr} + '(' + ${post.needMoney} + '分)'"></span>
+                                <span class="badge badge-default" th:text="${post.articleTypeStr} + '(' + ${post.giveMoney} + '分)'"></span>
                             </span>
                             <span style="color: red;font-size: 18px;" th:if="${post.ifGood} eq 1">[推荐]</span>
                         </h3>

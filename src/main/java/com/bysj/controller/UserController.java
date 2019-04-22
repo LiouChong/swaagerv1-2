@@ -1,12 +1,15 @@
 package com.bysj.controller;
 
 
+import com.bysj.common.exception.BussinessException;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.response.PageResult;
 import com.bysj.common.utils.PageUtil;
 import com.bysj.common.utils.UserHandle;
 import com.bysj.entity.Follow;
+import com.bysj.entity.User;
 import com.bysj.entity.vo.query.*;
+import com.bysj.entity.vo.request.GiveUserRequest;
 import com.bysj.entity.vo.request.UserRequestForBan;
 import com.bysj.entity.vo.request.UserRequestForUpdate;
 import com.bysj.entity.vo.response.*;
@@ -17,7 +20,6 @@ import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -394,5 +397,25 @@ public class UserController {
         return teamIndexResponse;
     }
 
+
+    /**
+     * 对帖子进行结帖时给用户的积分数
+     *
+     * @param
+     * @return actionResponse
+     */
+    @RequestMapping(value = "/user/giveMoney", method = RequestMethod.POST)
+    public ActionResponse giveUserMonry(GiveUserRequest request) throws Exception {
+        User user = new User();
+        user.setId(request.getUserId());
+        user.setMoney(user.getMoney() + request.getMoney());
+        user.setGmtModify(new Date());
+        user.setUserModify(userHandle.getUserId());
+        if (iUserService.update(user) == 1) {
+            return ActionResponse.success();
+        } else {
+            throw new BussinessException("服务器错误，请稍后再试！");
+        }
+    }
 }
 

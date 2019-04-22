@@ -11,7 +11,9 @@ import com.bysj.common.utils.NumberChineseEx;
 import com.bysj.common.utils.UserHandle;
 import com.bysj.dao.PlaterDao;
 import com.bysj.dao.PostDao;
+import com.bysj.dao.UserDao;
 import com.bysj.entity.Post;
+import com.bysj.entity.User;
 import com.bysj.entity.vo.query.ManagePostQuery;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
@@ -53,9 +55,7 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     @Resource
     private BaseConverter<PostRequest, Post> requestConverter;
     @Resource
-    private BaseConverter<Post, PostRequest> postRequestConverter;
-    @Resource
-    private BaseConverter<Post, PostResponse> responseConverter;
+    private UserDao userDao;
     @Resource
     private NumberChineseEx numberChineseEx;
 
@@ -70,25 +70,32 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     @Transactional(rollbackFor = Exception.class)
     public Integer savePost(PostRequest request) throws Exception {
         Post post = requestConverter.convert(request, Post.class);
-
-        Integer userId = userHandle.getUserId();
+        User user = userHandle.getUser();
         Date nowDate = new Date();
 
         // 给帖子创建人、修改人、创建时间、修改时间赋值。
-        post.setPosterId(userId);
-        post.setCreateUser(userId);
-        post.setModifyUser(userId);
+        post.setPosterId(user.getId());
+        post.setCreateUser(user.getId());
+        post.setModifyUser(user.getId());
         post.setGmtCreate(nowDate);
         post.setGmtModify(nowDate);
 
         // 如果帖子类型为资源贴。
         if (new Integer(2).equals(request.getArticleType())) {
-            saveResource(request, post, userId, nowDate);
+            saveResource(request, post, user.getId(), nowDate);
             postDao.insert(post);
         } else {
+
+            if (request.getGiveMoney() < user.getMoney()) {
+                throw new BussinessException("您的积分不够！");
+            }
+            user.setMoney(user.getMoney() - request.getGiveMoney());
+
+            // 减少用户相应的积分数
+            userDao.update(user);
             // 插入帖子后，会自动将递增后的id返还给post对象。
             postDao.insert(post);
-            saveAskHelp(request,post,userId,nowDate);
+            saveAskHelp(request,post,user.getId(),nowDate);
         }
 
         return 1;

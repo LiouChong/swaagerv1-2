@@ -224,7 +224,7 @@
 
                         </header>
 
-                        <a class="readmore-link" th:href="'/post/detail/' + ${post.id}"><p
+                        <a class="readmore-link" th:href="'/post/detail?postId=' + ${post.id}"><p
                                 style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;"
                                 th:text="${post.info}"><!--${post.info}--> </p><span
                                 style="color: darkblue;float: right">Read more</span></a>

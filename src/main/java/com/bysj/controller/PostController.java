@@ -231,6 +231,7 @@ public class PostController {
     @Transactional
     public ModelAndView queryById(@ApiParam(value = "post") ReplyQuery replyQuery, ModelAndView modelAndView)throws Exception{
         PostDetailResponse postDetailResponse = iPostService.getPostDetailById(replyQuery.getPostId());
+        // 如果为资源贴
         if (postDetailResponse.getArticleType().equals(2)) {
             Resource resource = resourceService.getById(postDetailResponse.getResourceId());
             if (resource == null) {
@@ -257,6 +258,7 @@ public class PostController {
         modelAndView.addObject("currentPage", pageReply.getCurrentPage());
         modelAndView.addObject("totalRecord", pageReply.getTotalRecords());
         modelAndView.addObject("totalPage", pageReply.getTotalPages());
+        modelAndView.addObject("userId", userHandle.getUserId());
         modelAndView.setViewName("single");
         return modelAndView;
     }

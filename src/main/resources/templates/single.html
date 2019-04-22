@@ -192,6 +192,40 @@
                 }
             });
 
+            //TODO: 帖子表增加是否结帖字段
+            var allMoney = $("#postMoney").val();
+            // 结帖
+            $("#endPost").click(function () {
+                $("a[name='giveMoney']").text("给分");
+            });
+            $("a[name='giveMoney']").click(function () {
+                var judge = prompt("请输入给予分数");
+                if (judge) {
+                    if(judge > allMoney) {
+                        alert("给予的分数大于帖子剩余分数！")
+                    } else {
+                        alert($(this).prev().val() + " " + judge)
+                        /*$.ajax({
+                            type: "POST",
+                            url: "/user/giveMoney",
+                            data: JSON.stringify({
+                                id: $(this).prev().val(),
+                                banReason: judge,
+                                state: 0
+                            }),
+                            contentType: "application/json; charset=utf-8",
+                            datatype: "json",
+                            success: function (message) {
+                                alert(message);
+                            }
+                        })*/
+                    }
+                } else if (judge === "") {
+                    alert("请输入给予积分！");
+                }
+                allMoney = allMoney - 20;
+            })
+
         });
     </script>
 </head>
@@ -280,6 +314,7 @@
                     <span style="font-size: 30px; color: black;float:left" class="post-title" ><b th:text="${postDetail.title}"></b></span>
                     <input th:value="${postDetail.id}" type="hidden">
                     <shiro:user>
+                        <button style="float: right;margin-left: 20px" th:if="${postDetail.posterId eq userId}"><a style="color:black;" id="endPost"> 结帖 </a></button>&emsp;
                         <a th:if="${postDetail.collectBoolean} eq false" style="float: right;color: green; font-size: 18px" href="javascript:void(0)" id="collect">收藏</a>
                         <a th:if="${postDetail.collectBoolean} eq true" style="float: right;color: green; font-size: 18px" href="javascript:void(0)" id="un_collect">已收藏</a>
                     </shiro:user>
@@ -293,18 +328,21 @@
                     <p th:text="${postDetail.info}"></p>
 
                     <br>
-                    <a style="font-size: 26px;float: left" th:if="${postDetail.articleType eq 2 }" th:text="'附件：' + ${resource.fileName}"></a>
+                    <span th:if="${postDetail.articleType eq 2 }">
+                    <a style="font-size: 26px;float: left"  th:text="'附件：' + ${resource.fileName}"></a>
                     <shiro:user>
                         <button style="float: left;margin-left: 50px;">
                             <a th:href="'/resource/download?id=' + ${resource.id}" id="downloadResource" style="color: black;">下载</a>
                         </button>
                     </shiro:user>
+                        </span>
                         <br>
 
                     <h3 style="color:red;" th:if="${postDetail.articleType == 2}"
                         th:text="'需要' + ${postDetail.needMoney} + '分'"></h3>
                     <h3 style="color:red;" th:if="${postDetail.articleType == 3}"
-                        th:text="'悬赏' + ${postDetail.giveMoney} + '分'"></h3>
+                        th:text="'悬赏' + ${postDetail.giveMoney} + '分'" ></h3>
+                    <input type="hidden" th:value="${postDetail.giveMoney}" id="postMoney">
                 </article>
                 <section id="comments">
                     <h3 id="comments-title" th:text="${postDetail.replyCount} + '回复' "></h3>
@@ -345,6 +383,8 @@
                                         <shiro:hasPermission name="user:ban"></a>
                                             <a href="javascript:void(0)" style="color: gray;" name="banUser">封禁</a>
                                         </shiro:hasPermission>
+                                        <input type="hidden" th:value="${reply.userCreate}"/>
+                                        <a href="javascript:void(0)" style="color:red" name="giveMoney"></a>
                                     </h5>
 
                                     <p class="date">
