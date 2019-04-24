@@ -118,6 +118,7 @@
                 }
             });
 
+            // 收藏
             $("#collect").click(function () {
                 if ($("#collect").text() === "收藏") {
                     $.ajax({
@@ -155,6 +156,7 @@
                 }
             });
 
+            // 取消收藏
             $("#un_collect").click(function () {
                 if ($("#un_collect").text() === "收藏") {
                     $.ajax({
@@ -204,26 +206,47 @@
                     if(judge > allMoney) {
                         alert("给予的分数大于帖子剩余分数！")
                     } else {
-                        alert($(this).prev().val() + " " + judge)
-                        /*$.ajax({
+                        allMoney = allMoney - judge;
+                        $.ajax({
                             type: "POST",
                             url: "/user/giveMoney",
                             data: JSON.stringify({
-                                id: $(this).prev().val(),
-                                banReason: judge,
-                                state: 0
+                                userId: $(this).prev().val(),
+                                money: judge,
+                                postId:$("#postId").val()
                             }),
                             contentType: "application/json; charset=utf-8",
                             datatype: "json",
                             success: function (message) {
-                                alert(message);
+                                if (message.body != null) {
+                                    alert(message.body + "，还剩余 " + allMoney + "分")
+                                } else {
+                                    alert(message.head.result + "，还剩余 " + allMoney + "分")
+                                }
+
                             }
-                        })*/
+                        })
                     }
                 } else if (judge === "") {
                     alert("请输入给予积分！");
+                    alert("还剩余 " + allMoney + "分")
                 }
-                allMoney = allMoney - 20;
+
+                if (allMoney === 0) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/post/update/single",
+                        data: JSON.stringify({
+                            id: $("#postId").val(),
+                            ifSolved: 1
+                        }),
+                        contentType: "application/json; charset=utf-8",
+                        datatype: "json",
+                        success: function (message) {
+                            alert("已结帖");
+                        }
+                    })
+                }
             })
 
         });
@@ -311,15 +334,19 @@
 
                 <article class=" type-post format-standard hentry clearfix">
                     <!--<h1 th:text="${postDetail.title}" class="post-title" ></h1>-->
-                    <span style="font-size: 30px; color: black;float:left" class="post-title" ><b th:text="${postDetail.title}"></b></span>
-                    <input th:value="${postDetail.id}" type="hidden">
+                    <span style="font-size: 30px; color: black;float:left" class="post-title" >
+                        <b th:text="${postDetail.title}"></b>
+                            <b th:if="${postDetail.ifSolved eq 1}">[已结帖]</b>
+                            <b th:if="${postDetail.ifSolved eq 0}">[未结帖]</b>
+                    </span>
+                    <input th:value="${postDetail.id}" type="hidden" >
                     <shiro:user>
-                        <button style="float: right;margin-left: 20px" th:if="${postDetail.posterId eq userId}"><a style="color:black;" id="endPost"> 结帖 </a></button>&emsp;
+                        <button style="float: right;margin-left: 20px" th:if="${postDetail.posterId eq userId and postDetail.articleType eq 3 and postDetail.ifSolved eq 0}"><a style="color:black;" id="endPost"> 结帖 </a></button>&emsp;
                         <a th:if="${postDetail.collectBoolean} eq false" style="float: right;color: green; font-size: 18px" href="javascript:void(0)" id="collect">收藏</a>
                         <a th:if="${postDetail.collectBoolean} eq true" style="float: right;color: green; font-size: 18px" href="javascript:void(0)" id="un_collect">已收藏</a>
                     </shiro:user>
                     <br><br>
-                    <div class="post-meta clearfix">
+                   <div class="post-meta clearfix">
                         <span class="date" th:text="${postDetail.gmrCreateStr}"></span>
                         <span class="category" th:text="${postDetail.plateName}"></span>
                         <span class="comments" th:text="${postDetail.replyCount}"></span>

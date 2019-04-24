@@ -58,9 +58,8 @@ public class MessageEventHandler {
         // 获取当前登录用户信息
         User user = userService.getById(data.getUserId());
 
-        SocketResponse socketResponse = new SocketResponse();
-
         // 设置返回值信息
+        SocketResponse socketResponse = new SocketResponse();
         socketResponse.setUserName(user.getNickname());
         socketResponse.setSendTime(DateUtils.getDataString(new Date(), DateUtils.WHOLE_FORMAT));
         socketResponse.setMessage(data.getMessage());

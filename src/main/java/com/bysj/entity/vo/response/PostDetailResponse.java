@@ -123,6 +123,11 @@ public class PostDetailResponse extends BaseEntity {
      */
     private Integer resourceId;
 
+    /**
+     * 是否结帖
+     */
+    private Integer ifSolved;
+
     public Boolean getCollectBoolean() {
         return collectBoolean;
     }
@@ -315,6 +320,14 @@ public class PostDetailResponse extends BaseEntity {
         this.resourceId = resourceId;
     }
 
+    public Integer getIfSolved() {
+        return ifSolved;
+    }
+
+    public void setIfSolved(Integer ifSolved) {
+        this.ifSolved = ifSolved;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("{");
@@ -366,6 +379,8 @@ public class PostDetailResponse extends BaseEntity {
                 .append(collectBoolean);
         sb.append(",\"resourceId\":")
                 .append(resourceId);
+        sb.append(",\"ifSolved\":")
+                .append(ifSolved);
         sb.append('}');
         return sb.toString();
     }

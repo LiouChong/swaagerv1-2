@@ -119,6 +119,11 @@ public class Post extends BaseEntity {
      */
     private Integer resourceId;
 
+    /**
+     * 是否结帖
+     */
+    private Integer ifSolved;
+
     public String getTitle() {
         return title;
     }
@@ -282,6 +287,15 @@ public class Post extends BaseEntity {
 
     public void setResourceId(Integer resourceId) {
         this.resourceId = resourceId;
+    }
+
+
+    public Integer getIfSolved() {
+        return ifSolved;
+    }
+
+    public void setIfSolved(Integer ifSolved) {
+        this.ifSolved = ifSolved;
     }
 
     @Override

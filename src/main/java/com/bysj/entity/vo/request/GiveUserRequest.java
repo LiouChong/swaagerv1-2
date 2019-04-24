@@ -15,6 +15,12 @@ public class GiveUserRequest {
      */
     private Integer money;
 
+    /**
+     * 帖子id
+     */
+    private Integer postId;
+
+
     public Integer getUserId() {
         return userId;
     }
@@ -29,5 +35,13 @@ public class GiveUserRequest {
 
     public void setMoney(Integer money) {
         this.money = money;
+    }
+
+    public Integer getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Integer postId) {
+        this.postId = postId;
     }
 }

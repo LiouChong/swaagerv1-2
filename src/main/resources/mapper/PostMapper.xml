@@ -63,7 +63,10 @@
         articleFrom,
         article_type
         AS
-        articleType
+        articleType,
+        if_solved
+        AS
+        ifSolved
     </sql>
 
     <sql id="Table_Name">
@@ -212,6 +215,9 @@
         </if>
         <if test=" articleType != null">
             article_type = #{articleType },
+        </if>
+        <if test=" ifSolved != null">
+            if_solved = #{ifSolved},
         </if>
     </sql>
 
@@ -672,7 +678,8 @@
             article_type    as articleType,
             need_money      as needMoney,
             give_money      as giveMoney,
-            resource_id as resourceId
+            resource_id as resourceId,
+            if_solved as ifSolved
         from post
                  left join user on post.poster_id = user.id
                  left join plater on post.plate_id = plater.id

@@ -7,6 +7,7 @@ import com.bysj.common.response.PageResult;
 import com.bysj.common.utils.PageUtil;
 import com.bysj.common.utils.UserHandle;
 import com.bysj.entity.Follow;
+import com.bysj.entity.Post;
 import com.bysj.entity.User;
 import com.bysj.entity.vo.query.*;
 import com.bysj.entity.vo.request.GiveUserRequest;
@@ -405,9 +406,8 @@ public class UserController {
      * @return actionResponse
      */
     @RequestMapping(value = "/user/giveMoney", method = RequestMethod.POST)
-    public ActionResponse giveUserMonry(GiveUserRequest request) throws Exception {
-        User user = new User();
-        user.setId(request.getUserId());
+    public ActionResponse giveUserMoney(@RequestBody GiveUserRequest request) throws Exception {
+        User user = iUserService.getById(request.getUserId());
         user.setMoney(user.getMoney() + request.getMoney());
         user.setGmtModify(new Date());
         user.setUserModify(userHandle.getUserId());

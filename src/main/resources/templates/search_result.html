@@ -125,7 +125,7 @@
 
         <form id="search-form" class="search-form clearfix" method="get" action="/post/query/simple" autocomplete="off">
             <input class="search-term required" type="text" id="s" name="integratedQuery"
-                   placeholder="Type your search terms here" title="* Please enter a search term!"/>
+                   th:value="${queryInfo}"/>
             <input class="search-btn" type="submit" value="Search"/>
             <div id="search-error-container"></div>
         </form>
@@ -140,8 +140,6 @@
 
             <!-- start of page content -->
             <div class="span8 main-listing">
-                <!--<h2 style="color: red">${errorInfo}</h2>-->
-                <!--<c:forEach items="${postAndPlates}" var="postAndPlate">-->
                 <article class="format-standard type-post hentry clearfix" th:each="post,postStat:${postList}">
                     <header class="clearfix">
 
@@ -150,20 +148,16 @@
                         </h3>
 
                         <div class="post-meta clearfix">
-                            <span class="date" th:text="${post.gmtCreate}"><!--${postAndPlate.time}--></span>
-                            <span class="category" th:text="${post.plateName}"><!--${postAndPlate.plateName}--></span>
-                            <span class="comments" th:text="${post.replyCount}"><!--${postAndPlate.replyCount}--></span>
+                            <span class="date" th:text="${post.gmtCreate}"></span>
+                            <span class="category" th:text="${post.plateName}"></span>
+                            <span class="comments" th:text="${post.replyCount}"></span>
                             <span class="like-count" th:text="${post.thumbupCount}"></span>
-                            <!--<shiro:hasPermission name="post:delete">-->
                             <a href="/deletePost?postId=${postAndPlate.id}&pageNum=${page.pageNum}" style="color: red">删除</a>
-                            <!--</shiro:hasPermission>-->
-                            <!--<shiro:hasPermission name="post:good">-->
 
                             <span th:if="${post.ifGood == 1}" style="color: green;float: right;"><b>已推荐</b></span>
                             <a th:if="${post.ifGood == 0}" style="color:green; float:right"
                                href="/takeGoodPost?postId=${postAndPlate.id}&pageNum=${page.pageNum}"><b>推荐</b></a>
-                            <!--</shiro:hasPermission>-->
-                        </div><!-- end of post meta -->
+                        </div>
 
                     </header>
 
@@ -178,6 +172,41 @@
                 <div id="pagination">
                     <span style="font-size: 16px ; font-family: 'Javanese Text'"
                           th:text="'共有' + ${totalPage} + '页, 当前第' + ${currentPage} + ' 页'"></span><br>
+                    <a th:href="'/post/query/simple?currentPage=1&integratedQuery=' + ${queryInfo}" class="btn">« 第一页</a>
+                    <span th:if="${currentPage == 1}">
+                                            <a th:href="'/post/query/simple?currentPage=1&integratedQuery=' + ${queryInfo}"
+                                               class="btn">« 上一页</a>
+                                        </span>
+                    <span th:if="${currentPage > 1}">
+                                            <a th:href="'/post/query/simple?currentPage=' + ${currentPage - 1} + '&integratedQuery=' + ${queryInfo}"
+                                               class="btn">« 上一页</a>
+                                        </span>
+                    <a th:if="${totalPage} <= 9">
+                                            <span th:each="i:${#numbers.sequence(1, totalPage)}">
+                                                <a th:href="'/post/query/simple?currentPage=' + ${i} + '&integratedQuery=' + ${queryInfo}"
+                                                   class="btn"
+                                                   th:text="${i}"/>
+                                            </span>
+                    </a>
+                    <a th:if="${totalPage} > 9">
+                                            <span th:each="i:${#numbers.sequence(1, 9)}">
+                                                <a th:href="'/post/query/simple?currentPage=' + ${i} + '&integratedQuery='+${queryInfo}"
+                                                   class="btn"
+                                                   th:text="${i}"/>
+                                            </span>
+                        <a class="btn" th:text=".."></a>
+                    </a>
+                    <span th:if="${currentPage} == ${totalPage}">
+                                            <a th:href="'/post/query/simple?currentPage=' + ${currentPage} + '&integratedQuery='+${queryInfo}"
+                                               class="btn">下一页 »</a>
+                                        </span>
+                    <span th:if="${currentPage} != ${totalPage}">
+                                            <a th:href="'/post/query/simple?currentPage=' + ${currentPage + 1} + '&integratedQuery='+${queryInfo} "
+                                               class="btn">下一页 »</a>
+                                        </span>
+                    <a th:href="'/post/query/simple?currentPage=' + ${totalPage} + '&integratedQuery=' + ${queryInfo}"
+                       class="btn">最后一页
+                        »</a>
                 </div>
 
             </div>

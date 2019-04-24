@@ -15,6 +15,7 @@ import com.bysj.entity.vo.query.PrivateLetterQuery;
 import com.bysj.entity.vo.query.ReplyQuery;
 import com.bysj.entity.vo.request.PostDel;
 import com.bysj.entity.vo.request.PostRequest;
+import com.bysj.entity.vo.request.PostUpdateRequest;
 import com.bysj.entity.vo.response.*;
 import com.bysj.service.*;
 import io.swagger.annotations.*;
@@ -91,12 +92,12 @@ public class PostController {
      * @param postRequest
      * @return actionResponse
      */
-    @ApiOperation(value = "修改接口", notes = "传入实体对象信息")
+    @ApiOperation(value = "修改帖子信息（用于结帖）", notes = "传入实体对象信息")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "post")PostRequest postRequest)throws Exception{
+    public ActionResponse updateSingle(@RequestBody PostUpdateRequest postRequest)throws Exception{
         iPostService.updatePost(postRequest);
         return ActionResponse.success();
     }
@@ -212,7 +213,7 @@ public class PostController {
         mav.addObject("totalPage", totalPage);
         mav.addObject("currentPage", postQuery.getCurrentPage());
         mav.addObject("postList", postList);
-
+        mav.addObject("queryInfo", postQuery.getIntegratedQuery());
         // 设置跳转的页面
         mav.setViewName("search_result");
         return mav;

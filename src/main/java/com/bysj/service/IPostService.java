@@ -10,6 +10,7 @@ import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
 import com.bysj.entity.vo.request.PostDel;
 import com.bysj.entity.vo.request.PostRequest;
+import com.bysj.entity.vo.request.PostUpdateRequest;
 import com.bysj.entity.vo.response.PlateNameForIndex;
 import com.bysj.entity.vo.response.PostBanResponse;
 import com.bysj.entity.vo.response.PostDetailResponse;
@@ -42,7 +43,7 @@ public interface IPostService extends IBaseService<Post> {
      * @param request
      * @return
      */
-    Integer updatePost(PostRequest request) throws Exception;
+    Integer updatePost(PostUpdateRequest request) throws Exception;
 
 
     /**

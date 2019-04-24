@@ -20,6 +20,7 @@ import com.bysj.entity.vo.query.PostSimpleQueryList;
 import com.bysj.entity.vo.request.AskhelpRequest;
 import com.bysj.entity.vo.request.PostDel;
 import com.bysj.entity.vo.request.PostRequest;
+import com.bysj.entity.vo.request.PostUpdateRequest;
 import com.bysj.entity.vo.response.PlateNameForIndex;
 import com.bysj.entity.vo.response.PostBanResponse;
 import com.bysj.entity.vo.response.PostDetailResponse;
@@ -55,6 +56,8 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     @Resource
     private BaseConverter<PostRequest, Post> requestConverter;
     @Resource
+    private BaseConverter<PostUpdateRequest, Post> requestUpdateConverter;
+    @Resource
     private UserDao userDao;
     @Resource
     private NumberChineseEx numberChineseEx;
@@ -86,7 +89,7 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
             postDao.insert(post);
         } else {
 
-            if (request.getGiveMoney() < user.getMoney()) {
+            if (request.getGiveMoney() > user.getMoney()) {
                 throw new BussinessException("您的积分不够！");
             }
             user.setMoney(user.getMoney() - request.getGiveMoney());
@@ -155,8 +158,10 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     }
 
     @Override
-    public Integer updatePost(PostRequest request) throws Exception {
-        Post post = requestConverter.convert(request, Post.class);
+    public Integer updatePost(PostUpdateRequest request) throws Exception {
+        Post post = requestUpdateConverter.convert(request, Post.class);
+        post.setModifyUser(userHandle.getUserId());
+        post.setGmtModify(new Date());
         return postDao.update(post);
     }
     @Override
