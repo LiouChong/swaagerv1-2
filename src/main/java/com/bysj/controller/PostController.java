@@ -199,7 +199,6 @@ public class PostController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/query/simple", method = RequestMethod.GET)
-    // @RequiresPermissions("post:test")
     public ModelAndView queryList(@ApiParam(value = "post") PostSimpleQueryList postQuery, ModelAndView mav)throws Exception{
         // TODO 这里暂时只通过 标题和内容查询，后期可以拓展为详细查询。
         // 获取帖子列表与总记录数
@@ -385,6 +384,7 @@ public class PostController {
         modelAndView.addObject("postList", platePost);
         modelAndView.addObject("plateId", postQueryForList.getPlateId());
         modelAndView.addObject("plateOwnerName", platerService.getUserNameForPlate(postQueryForList.getPlateId()));
+        modelAndView.addObject("queryInfo", postQueryForList.getIntegratedQuery());
         // 设置跳转的页面
         modelAndView.setViewName("postsByPlate");
         return modelAndView;

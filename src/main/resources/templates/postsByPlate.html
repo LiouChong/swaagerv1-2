@@ -159,6 +159,12 @@
                     </span>
                     <shiro:authenticated><a style="font-size: 26px;" th:if="${plateOwnerName.nickname eq null}" href="javascript:void(0)" id="applyPlate" >申请版主</a></shiro:authenticated>
                 </span>
+                <hr /><hr />
+                <form id="search-form" class="search-form clearfix" method="get" action="/post/query/simple" autocomplete="off">
+                    <input style="float: left; height: 50px; width: 300px;" type="text" id="s" name="integratedQuery"/>
+                    <input class="search-btn" type="submit" value="Search"/>
+                </form>
+                <hr />
                 <article class="format-standard type-post hentry clearfix" th:each="post,postStat:${postList}">
                     <header class="clearfix">
 
@@ -207,31 +213,31 @@
                 <div id="pagination">
                     <span style="font-size: 16px ; font-family: 'Javanese Text'; float:left"
                           th:text="'共有' + ${totalPage} + '页，当前第' + ${currentPage} + '页'"></span> <span style="float: right;font-family: 'Javanese Text';font-size: 16px ; " th:text="'共有' + ${totalRecords} + '条数据'"></span> <br>
-                    <a th:href="'/post/plate/list?currentPage=1&plateId=' + ${plateId}" class="btn">« 第一页</a>
+                    <a th:href="'/post/plate/list?currentPage=1&plateId=' + ${plateId} + '&integratedQuery=' + ${queryInfo}" class="btn">« 第一页</a>
                     <span th:if="${currentPage == 1}">
-                        <a th:href="'/post/plate/list?currentPage=1&plateId=' + ${plateId}" class="btn">« 上一页</a>
+                        <a th:href="'/post/plate/list?currentPage=1&plateId=' + ${plateId}+ '&integratedQuery=' + ${queryInfo}" class="btn">« 上一页</a>
                     </span>
                     <span th:if="${currentPage > 1}">
-                        <a th:href="'/post/plate/list?currentPage=' + ${currentPage - 1} + '&plateId=' + ${plateId}" class="btn">« 上一页</a>
+                        <a th:href="'/post/plate/list?currentPage=' + ${currentPage - 1} + '&plateId=' + ${plateId}+ '&integratedQuery=' + ${queryInfo}" class="btn">« 上一页</a>
                     </span>
                     <a th:if="${totalPage} <= 9">
                         <span th:each="i:${#numbers.sequence(1, totalPage)}">
-                            <a th:href="'/post/plate/list?currentPage=' + ${i} + '&plateId=' + ${plateId}" class="btn" th:text="${i}"/>
+                            <a th:href="'/post/plate/list?currentPage=' + ${i} + '&plateId=' + ${plateId}+ '&integratedQuery=' + ${queryInfo}" class="btn" th:text="${i}"/>
                         </span>
                     </a>
                     <a th:if="${totalPage} > 9">
                         <span th:each="i:${#numbers.sequence(1, 9)}">
-                            <a th:href="'/post/plate/list?currentPage=' + ${i} + '&plateId=' + ${plateId}" class="btn" th:text="${i}"/>
+                            <a th:href="'/post/plate/list?currentPage=' + ${i} + '&plateId=' + ${plateId}+ '&integratedQuery=' + ${queryInfo}" class="btn" th:text="${i}"/>
                         </span>
                         <a class="btn" th:text=".."></a>
                     </a>
                     <span th:if="${currentPage} == ${totalPage}">
-                        <a th:href="'/post/plate/list?currentPage=' + ${currentPage} + '&plateId=' + ${plateId}" class="btn">下一页 »</a>
+                        <a th:href="'/post/plate/list?currentPage=' + ${currentPage} + '&plateId=' + ${plateId}+ '&integratedQuery=' + ${queryInfo}" class="btn">下一页 »</a>
                     </span>
                     <span th:if="${currentPage} != ${totalPage}">
-                        <a th:href="'/post/plate/list?currentPage=' + ${currentPage + 1} + '&plateId=' + ${plateId}" class="btn">下一页 »</a>
+                        <a th:href="'/post/plate/list?currentPage=' + ${currentPage + 1} + '&plateId=' + ${plateId}+ '&integratedQuery=' + ${queryInfo}" class="btn">下一页 »</a>
                     </span>
-                    <a th:href="'/post/plate/list?currentPage=' + ${totalPage} + '&plateId=' + ${plateId}" class="btn">最后一页 »</a>
+                    <a th:href="'/post/plate/list?currentPage=' + ${totalPage} + '&plateId=' + ${plateId}+ '&integratedQuery=' + ${queryInfo}" class="btn">最后一页 »</a>
                 </div>
 
             </div>

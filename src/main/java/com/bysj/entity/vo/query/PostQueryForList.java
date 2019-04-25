@@ -11,16 +11,7 @@ import java.util.Date;
  * @Date: 2019/3/2 17:03
  */
 public class PostQueryForList extends ObjectQuery{
-    /**
-     * 帖子标题
-     */
-    @ApiModelProperty("帖子标题")
-    private String title;
-    /**
-     * 帖子内容
-     */
-    @ApiModelProperty("帖子内容")
-    private String info;
+
     /**
      * 是否被推荐:1 被推荐,0 未被推荐
      */
@@ -52,20 +43,17 @@ public class PostQueryForList extends ObjectQuery{
      */
     private Integer userId;
 
-    public String getTitle() {
-        return title;
+    /**
+     * 综合查询
+     */
+    private String integratedQuery;
+
+    public String getIntegratedQuery() {
+        return integratedQuery;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
+    public void setIntegratedQuery(String integratedQuery) {
+        this.integratedQuery = integratedQuery;
     }
 
     public Integer getIfGood() {
@@ -116,26 +104,4 @@ public class PostQueryForList extends ObjectQuery{
         this.userId = userId;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("{");
-        sb.append("\"title\":\"")
-                .append(title).append('\"');
-        sb.append(",\"info\":\"")
-                .append(info).append('\"');
-        sb.append(",\"ifGood\":")
-                .append(ifGood);
-        sb.append(",\"plateId\":")
-                .append(plateId);
-        sb.append(",\"gmtCreate\":\"")
-                .append(gmtCreate).append('\"');
-        sb.append(",\"articleFrom\":")
-                .append(articleFrom);
-        sb.append(",\"articleType\":")
-                .append(articleType);
-        sb.append(",\"userId\":")
-                .append(userId);
-        sb.append('}');
-        return sb.toString();
-    }
 }

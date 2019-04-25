@@ -440,26 +440,17 @@
     </select>
 
 
-    <select id="findCount" resultType="int" parameterType="com.bysj.entity.vo.query.PostSimpleQueryList">
+    <select id="findCount" resultType="int" parameterType="com.bysj.entity.vo.query.PostQueryForList">
         select count(1)
         from
         post
-        <where>
+        where
             <trim prefixOverrides="and">
-                <if test=" title != null">
-                    and title = #{title }
-                </if>
-                <if test=" info != null">
-                    and info = #{info }
-                </if>
                 <if test=" ifGood != null">
                     and if_good = #{ifGood }
                 </if>
                 <if test=" plateId != null">
                     and plate_id = #{plateId }
-                </if>
-                <if test=" gmtCreate != null">
-                    and gmt_create = #{gmtCreate }
                 </if>
                 <if test=" articleFrom != null">
                     and article_from = #{articleFrom }
@@ -469,7 +460,6 @@
                 </if>
                 and state = 1
             </trim>
-        </where>
     </select>
 
     <select id="findPostQuery" resultType="com.bysj.entity.vo.response.PostResponse"
@@ -499,11 +489,11 @@
           plater pl on p.plate_id = pl.id
         <where>
             <trim prefixOverrides="and">
-                <if test=" title != null">
-                    and title = #{title }
-                </if>
-                <if test=" info != null">
-                    and info = #{info }
+                <if test="integratedQuery != null">
+                    and (
+                    p.title like CONCAT('%', #{integratedQuery}, '%')
+                    or p.info like CONCAT('%', #{integratedQuery}, '%')
+                    )
                 </if>
                 <if test=" ifGood != null">
                     and if_good = #{ifGood }
