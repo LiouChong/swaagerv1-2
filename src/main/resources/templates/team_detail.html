@@ -199,7 +199,8 @@
 
                 <!--信息输入框-->
                 <div style="height: 19%;width: 78%;float: right;margin-top:2px">
-                    <textarea id="msg" style="width:89%;height:100%;font-size:25px"></textarea>
+                    <textarea th:if="${userStatus eq 0}" style="width:89%;height:100%;font-size:25px" disabled="disabled"></textarea>
+                    <textarea th:if="${userStatus eq 1}" id="msg" style="width:89%;height:100%;font-size:25px"></textarea>
                     <div style="float: right;margin-bottom: 1px;width:10%;height:100%">
                         <input th:value="${userId}" type="hidden" id="userId">
                         <input th:value="${detail.id}" type="hidden" id="teamId">

@@ -268,12 +268,13 @@
         </trim>
         where id = ${id}
     </update>
-    <update id="banUser">
+    <update id="banUser" parameterType="com.bysj.entity.vo.request.UserRequestForBan">
         update user
         set
             state       = #{state},
             gmt_modify  = #{gmtModify},
-            user_modify = #{modifyUser}
+            user_modify = #{modifyUser},
+            ban_reason = #{banReason}
         where id = #{id}
     </update>
     <update id="updateUserMoney">

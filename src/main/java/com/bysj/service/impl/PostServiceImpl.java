@@ -83,22 +83,27 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
         post.setGmtCreate(nowDate);
         post.setGmtModify(nowDate);
 
-        // 如果帖子类型为资源贴。
-        if (new Integer(2).equals(request.getArticleType())) {
-            saveResource(request, post, user.getId(), nowDate);
-            postDao.insert(post);
-        } else {
+        switch (request.getArticleType()) {
+            case 2:
+                saveResource(request, post, user.getId(), nowDate);
+                postDao.insert(post);
+                break;
+            case 1:
+                // 插入帖子后，会自动将递增后的id返还给post对象。
+                postDao.insert(post);
+                break;
+            default:
+                if (request.getGiveMoney() > user.getMoney()) {
+                    throw new BussinessException("您的积分不够！");
+                }
+                user.setMoney(user.getMoney() - request.getGiveMoney());
 
-            if (request.getGiveMoney() > user.getMoney()) {
-                throw new BussinessException("您的积分不够！");
-            }
-            user.setMoney(user.getMoney() - request.getGiveMoney());
-
-            // 减少用户相应的积分数
-            userDao.update(user);
-            // 插入帖子后，会自动将递增后的id返还给post对象。
-            postDao.insert(post);
-            saveAskHelp(request,post,user.getId(),nowDate);
+                // 减少用户相应的积分数
+                userDao.update(user);
+                // 插入帖子后，会自动将递增后的id返还给post对象。
+                postDao.insert(post);
+                saveAskHelp(request, post, user.getId(), nowDate);
+                break;
         }
 
         return 1;
@@ -134,9 +139,9 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
         multipartFile.transferTo(new File(savePath));
     }
 
-    private void saveAskHelp(PostRequest request, Post post,Integer userId, Date nowDate) {
+    private void saveAskHelp(PostRequest request, Post post, Integer userId, Date nowDate) {
         // 请求帮助的人，此时拿出来为字符串形式，下面转换为Json后转化为集合。
-        String askHelpStr= request.getAskHelp();
+        String askHelpStr = request.getAskHelp();
         if (askHelpStr != null) {
             JSONArray objects = JSONArray.parseArray(askHelpStr);
             List<AskhelpRequest> askhelpRequestList = objects.toJavaList(AskhelpRequest.class);
@@ -164,6 +169,7 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
         post.setGmtModify(new Date());
         return postDao.update(post);
     }
+
     @Override
     public List<PostResponse> findPagePost(PostQueryForList query, String pageName) throws Exception {
         List<PostResponse> postList;
@@ -216,7 +222,6 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
             postDetailResponse.setIfGoodStr(numberChineseEx.numExchangeChinese(postDetailResponse, "ifGood"));
             postDetailResponse.setArticleFromStr(numberChineseEx.numExchangeChinese(postDetailResponse, "articleFrom"));
             postDetailResponse.setArticleTypeStr(numberChineseEx.numExchangeChinese(postDetailResponse, "articleType"));
-
 
 
             // 转换创建日期

@@ -119,7 +119,6 @@
                         <li><a href="/post/query/good">推荐</a></li>
                         <li><a href="/post/query/list">最新</a></li>
                         <li><a href="/user/myManage">消息</a></li>
-                        <li class="current-menu-item"><a href="/post/plate/list">板块</a></li>
                         <li><a href="/faq">常见问题</a></li>
                         <li><a href="/contact">联系我们</a></li>
                         <shiro:guest>
@@ -160,8 +159,9 @@
                     <shiro:authenticated><a style="font-size: 26px;" th:if="${plateOwnerName.nickname eq null}" href="javascript:void(0)" id="applyPlate" >申请版主</a></shiro:authenticated>
                 </span>
                 <hr /><hr />
-                <form id="search-form" class="search-form clearfix" method="get" action="/post/query/simple" autocomplete="off">
-                    <input style="float: left; height: 50px; width: 300px;" type="text" id="s" name="integratedQuery"/>
+                <form id="search-form" class="search-form clearfix" method="get" action="/post/plate/list" autocomplete="off">
+                    <input style="float: left; height: 50px; width: 300px;font-size: 25px" type="text" id="s" name="integratedQuery" th:value="${queryInfo}"/>
+                    <input name="plateId" th:value="${plateId}" type="hidden"/>
                     <input class="search-btn" type="submit" value="Search"/>
                 </form>
                 <hr />

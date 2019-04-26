@@ -316,6 +316,10 @@ public class PostController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     @RequiresAuthentication
     public ModelAndView getPostAddPage(ModelAndView mav)throws Exception{
+        if (userHandle.getUser().getState() == 0) {
+            mav.setViewName("403");
+            return mav;
+        }
         // 发帖时的所有板块
         List<PlateNameForIndex> plateNameForIndex = iPostService.findAllPlateNames();
         // 发帖时的邀请人
@@ -384,7 +388,8 @@ public class PostController {
         modelAndView.addObject("postList", platePost);
         modelAndView.addObject("plateId", postQueryForList.getPlateId());
         modelAndView.addObject("plateOwnerName", platerService.getUserNameForPlate(postQueryForList.getPlateId()));
-        modelAndView.addObject("queryInfo", postQueryForList.getIntegratedQuery());
+        String queryInfo = postQueryForList.getIntegratedQuery();
+        modelAndView.addObject("queryInfo", queryInfo == null? "":queryInfo);
         // 设置跳转的页面
         modelAndView.setViewName("postsByPlate");
         return modelAndView;

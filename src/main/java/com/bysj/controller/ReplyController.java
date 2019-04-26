@@ -2,6 +2,7 @@ package com.bysj.controller;
 
 
 import com.bysj.common.response.ActionResponse;
+import com.bysj.common.utils.UserHandle;
 import com.bysj.entity.vo.query.ReplyQuery;
 import com.bysj.entity.vo.request.ReplyDelRequest;
 import com.bysj.entity.vo.request.ReplyRequest;
@@ -18,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 
 /**
- *
  * @author lc
  * @since 2019-02-28
  */
@@ -27,12 +27,15 @@ import javax.annotation.Resource;
 @RequestMapping("/reply")
 public class ReplyController {
 
-
     @Resource
     public IReplyService iReplyService;
 
+    @Autowired
+    private UserHandle userHandle;
+
     /**
      * 发表回复
+     *
      * @param replyRequest
      * @return actionResponse
      */
@@ -43,26 +46,33 @@ public class ReplyController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @Transactional
     @RequiresAuthentication
-    public ModelAndView saveSingle(@ApiParam(value = "reply")ReplyRequest replyRequest,ModelAndView modelAndView)throws Exception{
-        iReplyService.saveReply(replyRequest);
+    public ModelAndView saveSingle(@ApiParam(value = "reply") ReplyRequest replyRequest, ModelAndView modelAndView) throws Exception {
+        if (userHandle.getUser().getState() == 0) {
+            modelAndView.setViewName("403");
+            return modelAndView;
+        }
+            iReplyService.saveReply(replyRequest);
+        // 返回到发帖页面
         modelAndView.setViewName("redirect:/post/detail?postId=" + replyRequest.getPostId());
         return modelAndView;
     }
 
     /**
      * 删除评论
+     *
      * @param replyRequest
      * @return actionResponse
      */
     @ApiOperation(value = "/update/single", notes = "传入实体对象信息")
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
     @Transactional
-    public String updateSingle(@ApiParam(value = "reply") @RequestBody ReplyDelRequest replyRequest)throws Exception{
+    public String updateSingle(@ApiParam(value = "reply") @RequestBody ReplyDelRequest replyRequest) throws Exception {
         return iReplyService.updateReply(replyRequest);
     }
 
     /**
      * 批量查询
+     *
      * @param replyQuery
      * @return actionResponse
      */
@@ -71,7 +81,7 @@ public class ReplyController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/query/list", method = RequestMethod.GET)
-    public ActionResponse queryList(@ApiParam(value = "reply") ReplyQuery replyQuery)throws Exception{
+    public ActionResponse queryList(@ApiParam(value = "reply") ReplyQuery replyQuery) throws Exception {
         return ActionResponse.success(iReplyService.findPageReply(replyQuery));
     }
 

@@ -22,7 +22,6 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- *
  * @author lc
  * @since 2019-02-28
  */
@@ -39,15 +38,14 @@ public class TeamController {
     private IPostService postService;
 
     @Autowired
-    private IPlaterService platerService;
-
-    @Autowired
     private IChatRecordService chatRecordService;
 
     @Autowired
     private UserHandle userHandle;
+
     /**
      * 保存
+     *
      * @param teamRequest
      * @return actionResponse
      */
@@ -56,13 +54,14 @@ public class TeamController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/save/single", method = RequestMethod.POST)
-    public ActionResponse saveSingle(@ApiParam(value = "team") @RequestBody TeamRequest teamRequest)throws Exception{
+    public ActionResponse saveSingle(@ApiParam(value = "team") @RequestBody TeamRequest teamRequest) throws Exception {
         iTeamService.saveTeam(teamRequest);
         return ActionResponse.success();
     }
 
     /**
      * 修改
+     *
      * @param teamRequest
      * @return actionResponse
      */
@@ -71,13 +70,14 @@ public class TeamController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/update/single", method = RequestMethod.POST)
-    public ActionResponse updateSingle(@ApiParam(value = "team")TeamRequest teamRequest)throws Exception{
+    public ActionResponse updateSingle(@ApiParam(value = "team") TeamRequest teamRequest) throws Exception {
         iTeamService.updateTeam(teamRequest);
         return ActionResponse.success();
     }
 
     /**
      * 批量查询
+     *
      * @param teamQuery
      * @return actionResponse
      */
@@ -86,12 +86,13 @@ public class TeamController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/query/list", method = RequestMethod.GET)
-    public ActionResponse queryList(@ApiParam(value = "team") TeamQuery teamQuery)throws Exception{
+    public ActionResponse queryList(@ApiParam(value = "team") TeamQuery teamQuery) throws Exception {
         return ActionResponse.success(iTeamService.findPageTeam(teamQuery));
     }
 
     /**
      * 通过ID查询
+     *
      * @param id
      * @return actionResponse
      */
@@ -100,10 +101,10 @@ public class TeamController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
-    public ModelAndView queryById(@ApiParam(value = "team") @PathVariable("id") Integer id,ModelAndView modelAndView )throws Exception{
-        modelAndView.addObject("detail",iTeamService.getDetail(id));
+    public ModelAndView queryById(@ApiParam(value = "team") @PathVariable("id") Integer id, ModelAndView modelAndView) throws Exception {
+        modelAndView.addObject("detail", iTeamService.getDetail(id));
         modelAndView.addObject("userId", userHandle.getUserId());
-        List<ChatRecordResponse> historyRecord = chatRecordService.findHistoryRecord(id);
+        modelAndView.addObject("userStatus", userHandle.getUser().getState());
         modelAndView.addObject("chatRecords", chatRecordService.findHistoryRecord(id));
         modelAndView.setViewName("team_detail");
         return modelAndView;
@@ -111,6 +112,7 @@ public class TeamController {
 
     /**
      * 通过ID删除
+     *
      * @param id
      * @return actionResponse
      */
@@ -119,13 +121,13 @@ public class TeamController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
-
+    public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id) throws Exception {
         return ActionResponse.success(iTeamService.deleteById(id));
     }
 
     /**
      * 获得创建讨论组页面
+     *
      * @param modelAndView
      * @return actionResponse
      */
@@ -134,8 +136,8 @@ public class TeamController {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
     @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public ModelAndView getCreateTeamPage(ModelAndView modelAndView)throws Exception{
-// 发帖时的所有板块
+    public ModelAndView getCreateTeamPage(ModelAndView modelAndView) throws Exception {
+        // 发帖时的所有板块
         List<PlateNameForIndex> plateNameForIndex = postService.findAllPlateNames();
         modelAndView.addObject("plates", plateNameForIndex);
         modelAndView.setViewName("create_team");
