@@ -176,7 +176,7 @@
                         }
                     }
                 })
-            })
+            });
 
             // 拒绝讨论组
             $("a[name='refuseInvite']").click(function () {
@@ -196,7 +196,7 @@
                         }
                     }
                 })
-            })
+            });
 
             $("a[name='dissolve']").click(function () {
                 $.ajax({
@@ -514,8 +514,9 @@
                                                         <td th:text="${invite.gmtCreateStr}"></td>
                                                         <input th:value="${invite.id}" type="hidden">
                                                         <input th:value="${invite.teamId}" type="hidden">
-                                                        <td><a name="sureInvite" href="javascript:void(0)">同意</a> &emsp;<a
-                                                                href="javascript:void(0)" name="refuseInvite">拒绝</a>
+                                                        <td>
+                                                            <a name="sureInvite" href="javascript:void(0)">同意</a> &emsp;
+                                                            <a href="javascript:void(0)" name="refuseInvite">拒绝</a>
                                                         </td>
                                                     </tr>
                                                     </tbody>

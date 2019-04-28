@@ -154,4 +154,6 @@ public interface IPostService extends IBaseService<Post> {
      * @return
      */
     Post getByResourceId(Integer id);
+
+    Integer unBanPost(Integer postId);
 }

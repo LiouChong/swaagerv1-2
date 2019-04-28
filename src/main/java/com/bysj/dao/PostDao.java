@@ -7,10 +7,13 @@ import com.bysj.entity.vo.query.ManagePostQuery;
 import com.bysj.entity.vo.query.PostQueryForList;
 import com.bysj.entity.vo.query.PostSimpleQueryList;
 import com.bysj.entity.vo.request.PostDel;
-import com.bysj.entity.vo.response.*;
-import io.swagger.annotations.ApiModelProperty;
+import com.bysj.entity.vo.response.PostBanResponse;
+import com.bysj.entity.vo.response.PostDetailResponse;
+import com.bysj.entity.vo.response.PostResponse;
+import com.bysj.entity.vo.response.ReplyForPostDetail;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -118,5 +121,12 @@ public interface PostDao extends IBaseDao<Post> {
      */
     Post getAllById(Integer id);
 
+    /**
+     * 获取资源贴需要的金币
+     * @param id
+     * @return
+     */
     Post getByResourceId(Integer id);
+
+    Integer unBanPost(@Param("postId") Integer postId, @Param("gmtModify") Date gmtModify);
 }

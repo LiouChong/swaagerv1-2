@@ -190,6 +190,8 @@
         apply_plate
         where id = #{id}
     </delete>
+
+
     <update id="delApply">
         update
           apply_plate

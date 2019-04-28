@@ -135,6 +135,43 @@
                     }
                 })
             });
+
+            $("a[name='platerRefuse']").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/applyplate/platerDefuse",
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    data: {
+                        applyPlaterId: $(this).parent().prev().prev().val(),
+                    },
+                    dataType: "json",
+                    success: function (message) {
+                        if (message.body != null) {
+                            alert(message.body)
+                        } else {
+                            alert(message.head.result)
+                        }
+                    }
+                })
+            });
+            $("a[name='un_ban_post']").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/post/unBanPost",
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    data: {
+                        postId: $(this).parent().prev().val()
+                    },
+                    dataType: "json",
+                    success: function (message) {
+                        if (message.body != null) {
+                            alert(message.body)
+                        } else {
+                            alert(message.head.result)
+                        }
+                    }
+                })
+            });
         });
     </script>
 
@@ -231,7 +268,10 @@
                                                             <td th:text="${applyPlate.applyTimeStr}"></td>
                                                             <input th:value="${applyPlate.id}" type="hidden"/>
                                                             <input th:value="${applyPlate.applyUserId}" type="hidden"/>
-                                                            <td><a name="platerPass" href="javascript:void(0)">同意</a> &emsp;<a href="javascript:void(0)">拒绝</a></td>
+                                                            <td>
+                                                                <a name="platerPass" href="javascript:void(0)">同意</a>
+                                                                &emsp;
+                                                                <a name="platerRefuse" href="javascript:void(0)">拒绝</a></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -319,7 +359,11 @@
                                                         <td th:text="${post.gmtModify}"></td>
                                                         <td th:text="${post.banReason}"></td>
                                                         <td th:text="${post.banUserName}"></td>
-                                                        <td><a th:href="'/post/detail?postId=' + ${post.id}">查看详情</a> &emsp;<a href="javascript:void(0)" name="un_ban_post">解禁</a></td>
+                                                        <input type="hidden" th:value="${post.id}"/>
+                                                        <td>
+                                                            <a th:href="'/post/detail?postId=' + ${post.id}">查看详情</a>
+                                                            &emsp;<a href="javascript:void(0)" name="un_ban_post">解禁</a>
+                                                        </td>
                                                     </tr>
                                                     </tbody>
                                                 </table>

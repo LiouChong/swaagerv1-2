@@ -28,12 +28,6 @@ public interface IApplyPlateService extends IBaseService<ApplyPlate> {
          */
         String saveApplyPlate(ApplyPlateRequest request) throws Exception;
 
-        /**
-         * 修改
-         * @param request
-         * @return
-         */
-        Integer updateApplyPlate(ApplyPlateRequest request) throws Exception;
 
         /**
          * 查询对象集合
@@ -60,5 +54,7 @@ public interface IApplyPlateService extends IBaseService<ApplyPlate> {
          * @return
          */
         Integer passApply(ApplyPlatePassRequest request) throws Exception;
+
+        Integer refuseApply(Integer applyPlateId);
 
 }

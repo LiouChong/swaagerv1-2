@@ -1,8 +1,8 @@
 package com.bysj.controller;
 
 
+import com.bysj.common.exception.BussinessException;
 import com.bysj.common.response.ActionResponse;
-import com.bysj.entity.vo.query.ApplyPlateQuery;
 import com.bysj.entity.vo.request.ApplyPlatePassRequest;
 import com.bysj.entity.vo.request.ApplyPlateRequest;
 import com.bysj.service.IApplyPlateService;
@@ -54,46 +54,24 @@ public class ApplyPlateController {
         return ActionResponse.success();
     }
 
-    /**
-     * 批量查询
-     * @param applyPlateQuery
-     * @return actionResponse
-     */
-    @ApiOperation(value = "批量查询接口", notes = "传入查询条件")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
-    })
-    @RequestMapping(value = "/query/list", method = RequestMethod.GET)
-    public ActionResponse queryList(@ApiParam(value = "applyPlate") ApplyPlateQuery applyPlateQuery)throws Exception{
-        return ActionResponse.success(iApplyPlateService.findPageApplyPlate(applyPlateQuery));
-    }
-
-    /**
-     * 通过ID查询
-     * @param id
-     * @return actionResponse
-     */
-    @ApiOperation(value = "通过ID查询", notes = "主键封装对象")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
-    })
-    @RequestMapping(value = "/query/{id}", method = RequestMethod.GET)
-    public ActionResponse queryById(@ApiParam(value = "applyPlate") @PathVariable("id") Integer id)throws Exception{
-        return ActionResponse.success(iApplyPlateService.getById(id));
-    }
 
     /**
      * 通过ID删除
-     * @param id
+     * @param applyPlaterId
      * @return actionResponse
      */
     @ApiOperation(value = "通过ID删除接口", notes = "主键封装对象")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK", response = ActionResponse.class, responseContainer = "actionResponse"),
     })
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public ActionResponse deleteById(@ApiParam(value = "id") @PathVariable("id") Integer id)throws Exception{
-        return ActionResponse.success(iApplyPlateService.deleteById(id));
+    @RequestMapping(value = "/platerDefuse", method = RequestMethod.POST)
+    public ActionResponse deleteById(Integer applyPlaterId)throws Exception{
+        if (iApplyPlateService.refuseApply(applyPlaterId) != 0) {
+            return ActionResponse.success();
+        } else {
+            throw new BussinessException("服务器异常！请稍后再试！");
+        }
+
     }
 }
 

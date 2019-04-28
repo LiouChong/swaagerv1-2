@@ -316,4 +316,9 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements IPostServi
     public Post getByResourceId(Integer id) {
         return postDao.getByResourceId(id);
     }
+
+    @Override
+    public Integer unBanPost(Integer postId) {
+        return postDao.unBanPost(postId, new Date());
+    }
 }

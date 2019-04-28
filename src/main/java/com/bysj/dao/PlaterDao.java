@@ -45,4 +45,6 @@ public interface PlaterDao extends IBaseDao<Plater> {
      * @return
      */
     Integer setPlaterByplateName(HashMap<String, Object> params);
+
+
 }

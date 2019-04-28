@@ -380,6 +380,10 @@
             create_user = #{modifyUser}
         where id = ${id}
     </update>
+    <update id="unBanPost">
+        update post set state = 1 , gmt_modify = #{gmtModify}
+        where id = #{postId}
+    </update>
 
     <!-- 根据主键查询 -->
     <select id="getById" resultType="com.bysj.entity.Post" parameterType="java.lang.Integer">

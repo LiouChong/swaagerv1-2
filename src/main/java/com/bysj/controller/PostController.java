@@ -1,5 +1,6 @@
 package com.bysj.controller;
 
+import com.bysj.common.exception.BussinessException;
 import com.bysj.common.request.ObjectQuery;
 import com.bysj.common.response.ActionResponse;
 import com.bysj.common.response.PageResult;
@@ -393,6 +394,22 @@ public class PostController {
         // 设置跳转的页面
         modelAndView.setViewName("postsByPlate");
         return modelAndView;
+    }
+
+    /**
+     * 解禁帖子
+     *
+     * @return actionResponse
+     */
+    @ApiOperation(value = "取消推荐的帖子", notes = "传入修改条件")
+    @RequestMapping(value = "/unBanPost", method = RequestMethod.POST)
+    @RequiresPermissions("post:good")
+    public ActionResponse unBanPost(Integer postId)throws Exception{
+        if (iPostService.unBanPost(postId).equals(1)) {
+            return ActionResponse.success();
+        } else {
+            throw new BussinessException("服务器异常！请稍后再试！");
+        }
     }
 
 }

@@ -37,7 +37,6 @@ public class ApplyPlateServiceImpl extends BaseServiceImpl<ApplyPlate> implement
 
     @Resource
     private ApplyPlateDao applyPlateDao;
-
     @Resource
     private PlaterDao platerDao;
     @Resource
@@ -71,12 +70,6 @@ public class ApplyPlateServiceImpl extends BaseServiceImpl<ApplyPlate> implement
         } catch (Exception e) {
             return "申请失败！";
         }
-    }
-
-    @Override
-    public Integer updateApplyPlate(ApplyPlateRequest request) throws Exception {
-        ApplyPlate applyPlate = requestConverter.convert(request, ApplyPlate.class);
-        return applyPlateDao.update(applyPlate);
     }
 
     @Override
@@ -125,5 +118,10 @@ public class ApplyPlateServiceImpl extends BaseServiceImpl<ApplyPlate> implement
         if ( byWhere.get(0).getOwnerId() != null ) {
             throw new BussinessException(plateName + "模块已有版主！");
         }
+    }
+
+    @Override
+    public Integer refuseApply(Integer applyPlateId) {
+        return applyPlateDao.delApply(applyPlateId, new Date());
     }
 }
