@@ -3,7 +3,11 @@ package com.bysj.dao;
 
 import com.bysj.common.response.IBaseDao;
 import com.bysj.entity.FavoritesArticle;
+import com.bysj.entity.vo.query.FavoritesArticleQuery;
+import com.bysj.entity.vo.response.FavoritesArticleResponse;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -29,4 +33,18 @@ public interface FavoritesArticleDao extends IBaseDao<FavoritesArticle> {
      * @return
      */
     FavoritesArticle getByTwoId(@Param("userId") Integer userId,@Param("postId") Integer postId);
+
+    /**
+     * 分页查询收藏的帖子列表
+     * @param favoritesArticleQuery
+     * @return
+     */
+    List<FavoritesArticleResponse> findLikePostQuery(FavoritesArticleQuery favoritesArticleQuery);
+
+    /**
+     * 查询搜藏的帖子数量
+     * @param query
+     * @return
+     */
+    Integer getLikeCount(FavoritesArticleQuery query);
 }

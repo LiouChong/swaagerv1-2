@@ -148,6 +148,10 @@
           where plate_name  = #{plateName}
 
     </update>
+    <update id="takeOffPlater">
+        update plater set owner_id = 0 , gmt_modify = #{gmtModify}, user_modify = #{userModify}
+        where id = #{plateId}
+    </update>
 
     <!-- 根据主键查询 -->
     <select id="getById" resultType="com.bysj.entity.Plater" parameterType="java.lang.Integer">

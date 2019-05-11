@@ -186,9 +186,6 @@ public class PostController {
         return mav;
     }
 
-
-
-
     /**
      * 查询帖子
      *
@@ -355,7 +352,7 @@ public class PostController {
      *
      * @return actionResponse
      */
-    @ApiOperation(value = "取消推荐的帖子", notes = "传入修改条件")
+    @ApiOperation(value = "推荐的帖子", notes = "传入修改条件")
     @RequestMapping(value = "/setGood", method = RequestMethod.POST)
     @RequiresPermissions("post:good")
     public String setPostGood(@RequestBody Post post)throws Exception{

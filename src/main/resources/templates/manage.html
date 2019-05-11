@@ -172,6 +172,24 @@
                     }
                 })
             });
+            $("a[name='takeOff']").click(function () {
+                $.ajax({
+                    type: "get",
+                    url: "/plater/takeOff",
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    data: {
+                        plateId: $(this).parent().prev().val()
+                    },
+                    dataType: "json",
+                    success: function (message) {
+                        if (message.body != null) {
+                            alert(message.body)
+                        } else {
+                            alert(message.head.result)
+                        }
+                    }
+                })
+            });
         });
     </script>
 
@@ -315,7 +333,8 @@
                                                         <td th:text="${plate.plateName}"></td>
                                                         <td th:text="${plate.platerGmtCreateStr}"></td>
                                                         <td th:text="${plate.manageTime}"></td>
-                                                        <td><a>卸任</a></td>
+                                                        <input th:value="${plate.id}" type="hidden"/>
+                                                        <td><a href="javascript:void(0)" name="takeOff">卸任</a></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -406,7 +425,7 @@
                                                         <td th:text="${user.banReason}"></td>
                                                         <td th:text="${user.banUserName}"></td>
                                                         <input th:value="${user.id}" type="hidden"/>
-                                                        <td><a>查看详情</a>&emsp;<a href="javascript:void(0)" name="un_ban_user">解禁</a></td>
+                                                        <td><a th:href="'/user/other' + '?userId=' + ${user.id}">查看详情</a>&emsp;<a href="javascript:void(0)" name="un_ban_user">解禁</a></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>

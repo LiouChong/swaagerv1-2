@@ -48,7 +48,6 @@ public class UserRealm extends AuthorizingRealm {
             throw new UnknownAccountException();
         }
         // TODO 上面的注释加解密
-//        return new SimpleAuthenticationInfo(user, user.getPsw(), ByteSource.Util.bytes(user.getEmail()), getName());
-        return new SimpleAuthenticationInfo(user, user.getPsw(), getName());
+        return new SimpleAuthenticationInfo(user, user.getPsw(), ByteSource.Util.bytes(user.getEmail()), getName());
     }
 }

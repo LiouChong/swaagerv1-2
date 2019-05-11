@@ -29,7 +29,7 @@ public class ShiroConfiguration {
     public UserRealm userRealm() {
         UserRealm userRealm = new UserRealm();
         // TODO 这里展示不加密解密
-//        userRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+        userRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         return userRealm;
     }
 

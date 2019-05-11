@@ -3,6 +3,8 @@ package com.bysj.service.impl;
 import com.bysj.common.request.BaseConverter;
 import com.bysj.common.request.BaseServiceImpl;
 import com.bysj.common.response.PageResult;
+import com.bysj.common.utils.DateUtils;
+import com.bysj.common.utils.NumberChineseEx;
 import com.bysj.common.utils.UserHandle;
 import com.bysj.dao.FavoritesArticleDao;
 import com.bysj.entity.FavoritesArticle;
@@ -33,6 +35,8 @@ public class FavoritesArticleServiceImpl extends BaseServiceImpl<FavoritesArticl
     private BaseConverter<FavoritesArticleRequest, FavoritesArticle> requestConverter;
     @Resource
     private BaseConverter<FavoritesArticle, FavoritesArticleResponse> responseConverter;
+    @Autowired
+    private NumberChineseEx numberChineseEx;
 
     @Autowired
     private UserHandle userHandle;
@@ -85,7 +89,24 @@ public class FavoritesArticleServiceImpl extends BaseServiceImpl<FavoritesArticl
 
     @Override
     public PageResult<FavoritesArticleResponse> findPageFavoritesArticle(FavoritesArticleQuery query) throws Exception {
-        return new PageResult<>(query.getPageSize(), this.findCount(query), query.getCurrentPage(), this.findListFavoritesArticle(query));
+        return new PageResult<>(query.getPageSize(), this.getLikeCount(query), query.getCurrentPage(), this.getLikePost(query));
+    }
+
+    private List<FavoritesArticleResponse> getLikePost(FavoritesArticleQuery query) {
+        List<FavoritesArticleResponse> likePostQuery = favoritesArticleDao.findLikePostQuery(query);
+        //对帖子集合进行数字中文转换
+        likePostQuery.forEach(item -> {
+            item.setIfGoodStr(numberChineseEx.numExchangeChinese(item, "ifGood"));
+            item.setArticleFromStr(numberChineseEx.numExchangeChinese(item, "articleFrom"));
+            item.setArticleTypeStr(numberChineseEx.numExchangeChinese(item, "articleType"));
+            item.setGmtCreateStr(DateUtils.getDataString(item.getGmtCreate(), DateUtils.WHOLE_FORMAT));
+            item.setGmtModifyStr(DateUtils.getDataString(item.getGmtModify(), DateUtils.WHOLE_FORMAT));
+        });
+
+        return likePostQuery;
+    }
+    private Integer getLikeCount(FavoritesArticleQuery query) {
+        return favoritesArticleDao.getLikeCount(query);
     }
 
     @Override
@@ -93,7 +114,4 @@ public class FavoritesArticleServiceImpl extends BaseServiceImpl<FavoritesArticl
         return favoritesArticleDao.getIfCollectByUserId(userId, postId);
     }
 
-    public static void main(String[] args) {
-
-    }
 }

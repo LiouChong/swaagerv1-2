@@ -13,5 +13,30 @@ import com.bysj.common.request.ObjectQuery;
  */
 
 public class FavoritesArticleQuery extends ObjectQuery {
+    /**
+     * 综合查询
+     */
+    private String integratedQuery;
 
+
+    /**
+     * 用户id
+     */
+    private Integer userId;
+
+    public String getIntegratedQuery() {
+        return integratedQuery;
+    }
+
+    public void setIntegratedQuery(String integratedQuery) {
+        this.integratedQuery = integratedQuery;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 }

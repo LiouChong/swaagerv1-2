@@ -7,6 +7,7 @@ import com.bysj.entity.vo.response.PlateNameForIndex;
 import com.bysj.entity.vo.response.PlaterForUserInfoResponse;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -46,5 +47,9 @@ public interface PlaterDao extends IBaseDao<Plater> {
      */
     Integer setPlaterByplateName(HashMap<String, Object> params);
 
+
+    Integer takeOffPlater(@Param("plateId") Integer plateId,
+                          @Param("gmtModify") Date gmtCreate,
+                          @Param("userModify") Integer userId);
 
 }

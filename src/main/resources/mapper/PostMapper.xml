@@ -756,11 +756,11 @@
         plater pl on p.plate_id = pl.id
         <where>
             <trim prefixOverrides="and">
-                <if test=" title != null">
-                    and title = #{title }
-                </if>
-                <if test=" info != null">
-                    and info = #{info }
+                <if test="integratedQuery != null and integratedQuery != ''">
+                    and (
+                    p.title like CONCAT('%', #{integratedQuery}, '%')
+                    or p.info like CONCAT('%', #{integratedQuery}, '%')
+                    )
                 </if>
                 <if test=" ifGood != null">
                     and if_good = #{ifGood }

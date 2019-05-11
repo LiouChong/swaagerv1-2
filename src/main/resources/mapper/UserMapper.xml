@@ -401,6 +401,7 @@
     <select id="findUserByLevel" resultType="com.bysj.entity.vo.response.UserLevellResponse"
             parameterType="com.bysj.entity.vo.query.UserQueryByLevel">
         select
+            p.id as id,
             nickname,
             email,
             `level`,

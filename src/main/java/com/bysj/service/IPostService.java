@@ -155,5 +155,11 @@ public interface IPostService extends IBaseService<Post> {
      */
     Post getByResourceId(Integer id);
 
+    /**
+     * 解禁帖子
+     * @param postId
+     * @return
+     */
     Integer unBanPost(Integer postId);
+
 }
